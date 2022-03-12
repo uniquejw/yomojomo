@@ -52,9 +52,6 @@ DROP TABLE IF EXISTS gms_accounting RESTRICT;
 -- 맴버장소입력
 DROP TABLE IF EXISTS gms_select_midpoint RESTRICT;
 
--- 중간지점결과
-DROP TABLE IF EXISTS gms_midpoint_result RESTRICT;
-
 -- 고객센터 자주하는 질문
 DROP TABLE IF EXISTS gms_faq RESTRICT;
 
@@ -474,21 +471,6 @@ ALTER TABLE gms_select_midpoint
   ADD CONSTRAINT PK_gms_select_midpoint -- 맴버장소입력 기본키
     PRIMARY KEY (
       smno -- 맴버장소입력번호
-    );
-
--- 중간지점결과
-CREATE TABLE gms_midpoint_result (
-  sltno INTEGER     NOT NULL COMMENT '중간지점찾기결과번호', -- 중간지점찾기결과번호
-  mlat  VARCHAR(50) NOT NULL COMMENT '중간지점 위도', -- 중간지점 위도
-  mlng  VARCHAR(50) NOT NULL COMMENT '중간지점 경도' -- 중간지점 경도
-)
-COMMENT '중간지점결과';
-
--- 중간지점결과
-ALTER TABLE gms_midpoint_result
-  ADD CONSTRAINT PK_gms_midpoint_result -- 중간지점결과 기본키
-    PRIMARY KEY (
-      sltno -- 중간지점찾기결과번호
     );
 
 -- 고객센터 자주하는 질문
