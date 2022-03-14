@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bts.yomojomo.dao.PurposeDao">
+  
+  <!-- 테이블의 컬럼과 객체필드를 연결한다. -->
+  <resultMap type="Purpose" id="purposeMap">
+    <id column="fileno" property="no"/>
+    <result column="name" property="name"/>
+  </resultMap>
+
+  <select id="findAll" resultMap="purposeMap"> 
+    select
+      fileno,
+      name
+    from
+      gms_purpose
+    order by
+      fileno asc
+  </select>
+  
+  <select id="findByNo" resultMap="purposeMap" parameterType="int">
+    select 
+      fileno,
+      name
+    from 
+      gms_purpose
+    where 
+      fileno=#{no}
+  </select>
+
+  <insert id="insert" parameterType="Purpose">
+    insert into gms_purpose(name) 
+    values(#{name})
+  </insert>
+  
+  <update id ="update" parameterType="Purpose">
+    update gms_purpose set 
+      name = #{name}
+    where 
+      SNSno = #{no}
+  </update>
+  
+  <select id ="countAll" parameterType="int">
+    select count(*) from gms_purpose
+  </select>
+  
+  <delete id="delete" parameterType="int">
+    delete from gms_purpose
+    where 
+      fileno = #{no}
+  </delete>
+</mapper>
