@@ -8,7 +8,7 @@ import com.bts.yomojomo.domain.Purpose;
 
 @RestController
 public class PurposeController {
-  @Autowired
+  @Autowired //Controller 객체를 만들 때 Dao인터페이스 구현체를 찾아 자동으로 주입한다.
   PurposeDao purposeDao;
 
   @RequestMapping("/purpose/add")
