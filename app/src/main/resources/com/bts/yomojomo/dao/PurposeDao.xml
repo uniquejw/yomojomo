@@ -39,7 +39,7 @@
     update gms_purpose set 
       name = #{name}
     where 
-      SNSno = #{no}
+      fileno = #{no}
   </update>
   
   <select id ="countAll" parameterType="int">
