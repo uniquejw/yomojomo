@@ -33,7 +33,7 @@
     from
       gms_memb
     order by
-      membno dsec
+      membno desc
   </select>
   
   <select id="findByNo" resultMap="MemberMap" parameterType="int">
