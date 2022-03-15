@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bts.yomojomo.dao.MemberDao">
+  
+  <!-- 테이블의 컬럼과 객체필드를 연결한다. -->
+  <resultMap type="Member" id="MemberMap">
+    <id column="membno" property="no"/>
+    <result column="name" property="name"/>
+    <result column="pwd" property="pwd"/>
+    <result column="email" property="email"/>
+    <result column="tel" property="tel"/>
+    <result column="postno" property="postno"/>
+    <result column="baseaddr" property="baseaddr"/>
+    <result column="addr" property="addr"/>
+    <result column="type" property="type"/>
+    <result column="unsubscribe" property="unsubscribe"/>
+  </resultMap>
+
+  <select id="findAll" resultMap="MemberMap"> 
+    select
+      membno,
+      name,
+      pwd,
+      email,
+      tel,
+      postno,
+      baseaddr,
+      addr,
+      type,
+      unsubscribe
+    from
+      gms_memb
+    order by
+      membno asc
+  </select>
+  
+  <select id="findByNo" resultMap="MemberMap" parameterType="int">
+    select 
+      membno,
+      name
+    from 
+      gms_memb
+    where 
+      membno=#{no}
+  </select>
+
+  <insert id="insert" parameterType="Member">
+    insert into gms_memb(name, pwd, email, tel, postno, baseaddr, addr, type, unsubscribe) 
+    values(#{name}, #{pwd}, #{email}, #{tel}, #{postno}, #{baseaddr}, #{addr}, #{type}, #{unsubscribe})
+  </insert>
+  
+  <update id ="update" parameterType="Member">
+    update gms_memb set 
+      name = #{name},
+      pwd = #{pwd},
+      email = #{email},
+      tel = #{tel},
+      postno = #{postno},
+      baseaddr = #{baseaddr},
+      addr = #{addr},
+      type = #{type},
+      unsubscribe = #{unsubscribe}
+    where 
+      membno = #{no}
+  </update>
+  
+  <select id ="countAll" parameterType="int">
+    select count(*) from gms_memb
+  </select>
+  
+  <delete id="delete" parameterType="int">
+    delete from gms_memb
+    where 
+      membno = #{no}
+  </delete>
+</mapper>
