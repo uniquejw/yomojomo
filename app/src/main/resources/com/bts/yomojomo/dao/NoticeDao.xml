@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bts.yomojomo.dao.NoticeDao">
+  
+  <!-- 테이블의 컬럼과 객체필드를 연결한다. -->
+  <resultMap type="Notice" id="noticeMap">
+    <id column="noticeno" property="no"/>
+    <result column="mcate2no" property="mcate2No"/>
+    <result column="cate" property="cate"/>
+    <result column="title" property="title"/>
+    <result column="content" property="content"/>
+    <result column="dt" property="dt"/>
+  </resultMap>
+
+  <select id="findAll" resultMap="noticeMap"> 
+    select
+      noticeno,
+      mcate2no,
+      cate,
+      title,
+      content,
+      dt
+    from
+      gms_notice
+    order by
+      noticeno asc
+  </select>
+  
+  <select id="findByNo" resultMap="noticeMap" parameterType="int">
+    select 
+      noticeno,
+      mcate2no,
+      cate,
+      title,
+      content,
+      dt
+    from 
+      gms_notice
+    where 
+      noticeno=#{no}
+  </select>
+
+  <insert id="insert" parameterType="Notice">
+    insert into gms_notice(mcate2No,cate,title,content,dt) 
+    values(#{mcate2No},#{cate},#{title},#{content},#{dt})
+  </insert>
+  
+  <update id ="update" parameterType="Notice">
+    update gms_notice set 
+      
+      cate = #{cate},
+      title = #{title},
+      content = #{content},
+      dt = #{dt},
+      mcate2no = mcate2no
+    where 
+      noticeno = #{no}
+  </update>
+  
+  <select id ="countAll" parameterType="int">
+    select count(*) from gms_notice
+  </select>
+  
+  <delete id="delete" parameterType="int">
+    delete from gms_notice
+    where 
+      noticeno = #{no}
+  </delete>
+</mapper>
