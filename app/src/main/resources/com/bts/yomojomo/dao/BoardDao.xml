@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bts.yomojomo.dao.BoardDao">
+  
+  <!-- 테이블의 컬럼과 객체필드를 연결한다. -->
+  <resultMap type="Board" id="BoardMap">
+    <id column="bno" property="no"/>
+    <result column="gno" property="gno"/>
+    <result column="membno" property="membno"/>
+    <result column="dt" property="dt"/>
+    <result column="content" property="content"/>
+    <result column="viewcnt" property="viewcnt"/>
+  </resultMap>
+
+  <select id="findAll" resultMap="BoardMap"> 
+    select
+      bno,
+      gno,
+      membno,
+      dt,
+      content,
+      viewcnt
+    from
+      gms_board
+    order by
+      bno desc
+  </select>
+  
+  <select id="findByNo" resultMap="BoardMap" parameterType="int">
+    select 
+      bno,
+      gno,
+      membno
+    from 
+      gms_board
+    where 
+      bno=#{no}
+  </select>
+
+  <insert id="insert" parameterType="Board">
+    insert into gms_board(gno, membno, dt, content, viewcnt) 
+    values(#{gno}, #{membno}, #{dt}, #{content}, #{viewcnt})
+  </insert>
+  
+  <update id ="update" parameterType="Board">
+    update gms_board set 
+      bno = #{no},
+      gno = #{gno},
+      membno = #{membno},
+      dt = #{dt},
+      content = #{content},
+      viewcnt = #{viewcnt}
+    where 
+      bno = #{no}
+  </update>
+  
+  <select id ="countAll" parameterType="int">
+    select count(*) from gms_board
+  </select>
+  
+  <delete id="delete" parameterType="int">
+    delete from gms_board
+    where 
+      bno = #{no}
+  </delete>
+</mapper>
