@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bts.yomojomo.dao.AccountingDao">
+  
+  <!-- 테이블의 컬럼과 객체필드를 연결한다. -->
+  <resultMap type="Accounting" id="AccountingMap">
+    <id column="actno" property="no"/>
+    <result column="gno" property="gno"/>
+    <result column="actcateno" property="actcateno"/>
+    <result column="title" property="title"/>
+    <result column="amount" property="amount"/>
+    <result column="dt" property="date"/>
+    <result column="status" property="status"/>
+  </resultMap>
+
+  <select id="findAll" resultMap="AccountingMap"> 
+    select
+      actno,
+      gno,
+      actcateno,
+      title,
+      amount,
+      dt,
+      status
+    from
+      gms_accounting
+    order by
+      actno desc
+  </select>
+  
+  <select id="findByNo" resultMap="AccountingMap" parameterType="int">
+    select 
+      actno,
+      gno,
+      actcateno,
+      title,
+      amount,
+      dt,
+      status
+    from 
+      gms_accounting
+    where 
+      actno=#{no}
+  </select>
+
+  <insert id="insert" parameterType="Accounting">
+    insert into gms_accounting(gno, actcateno, title, amount, dt, status) 
+    values(#{gno}, #{actcateno}, #{title}, #{amount}, #{date}, #{status})
+  </insert>
+  
+  <update id ="update" parameterType="Accounting">
+    update gms_accounting set 
+      gno = gno,
+      actcateno = actcateno,
+      title = #{title},
+      amount = #{amount},
+      dt = #{date},
+      status = #{status}
+    where 
+      actno=#{no}
+  </update>
+  
+  <select id ="countAll" parameterType="int">
+    select count(*) from gms_accounting
+  </select>
+  
+  <delete id="delete" parameterType="int">
+    delete from gms_accounting
+    where 
+      actno = #{no}
+  </delete>
+</mapper>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bts.yomojomo.dao.AccountingCateDao">
+  
+  <resultMap type="AccountingCate" id="AccountingCateMap">
+    <id column="actcateno" property="no"/>
+    <result column="name" property="name"/>
+  </resultMap>
+
+  <select id="findAll" resultMap="AccountingCateMap"> 
+    select
+      actcateno,
+      name
+    from
+      gms_accounting_cate
+    order by
+      actcateno asc
+  </select>
+  
+  <select id="findByNo" resultMap="AccountingCateMap" parameterType="int">
+    select 
+      actcateno,
+      name
+    from 
+      gms_accounting_cate
+    where 
+      actcateno=#{no}
+  </select>
+
+  <insert id="insert" parameterType="AccountingCate">
+    insert into gms_accounting_cate(name) 
+    values(#{name})
+  </insert>
+  
+  <update id ="update" parameterType="AccountingCate">
+    update gms_accounting_cate set 
+      name = #{name}
+    where 
+      actcateno = #{no}
+  </update>
+  
+  <select id ="countAll" parameterType="int">
+    select count(*) from gms_accounting_cate
+  </select>
+  
+  <delete id="delete" parameterType="int">
+    delete from gms_accounting_cate
+    where 
+      actcateno = #{no}
+  </delete>
+</mapper>
