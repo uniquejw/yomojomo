@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bts.yomojomo.dao.GroupDao">
+  
+  <!-- 테이블의 컬럼과 객체필드를 연결한다. -->
+  <resultMap type="Group" id="GroupMap">
+    <id column="gno" property="no"/>
+    <result column="itrlocalno" property="itrlocalno"/>
+    <result column="fileno" property="fileno"/>
+    <result column="name" property="name"/>
+    <result column="cdate" property="cdate"/>
+    <result column="logo" property="logo"/>
+    <result column="intro" property="intro"/>
+    <result column="mcnt" property="mcnt"/>
+    <result column="fee" property="fee"/>
+    <result column="vcnt" property="vcnt"/>
+  </resultMap>
+
+  <select id="findAll" resultMap="GroupMap"> 
+    select
+      gno,
+      itrlocalno,
+      fileno,
+      name,
+      cdate,
+      logo,
+      intro,
+      mcnt,
+      fee,
+      vcnt
+      
+    from
+      gms_group
+    order by
+      gno desc
+  </select>
+  
+  <select id="findByNo" resultMap="GroupMap" parameterType="int">
+    select 
+      gno,
+      itrlocalno,
+      fileno,
+      name,
+      cdate,
+      logo,
+      intro,
+      mcnt,
+      fee,
+      vcnt
+    from 
+      gms_group
+    where 
+      gno=#{no}
+  </select>
+
+  <insert id="insert" parameterType="Group">
+    insert into gms_group
+    (
+      itrlocalno,
+      fileno,
+      name,
+      cdate,
+      logo,
+      intro,
+      mcnt,
+      fee,
+      vcnt
+      )
+    values(#{itrlocalno}, #{fileno}, #{name}, #{cdate}, #{logo}, #{intro}, #{mcnt}, #{fee}, #{vcnt})
+  </insert>
+  
+  <update id ="update" parameterType="Group">
+    update gms_group set 
+      gno = #{no},
+      itrlocalno = #{itrlocalno},
+      fileno = #{fileno},
+      name = #{name},
+      cdate = #{cdate},
+      logo = #{logo},
+      intro = #{intro},
+      mcnt = #{mcnt},
+      fee = #{fee},
+      vcnt = #{vcnt}
+      
+      
+    where 
+      gno = #{no}
+  </update>
+  
+  <select id ="countAll" parameterType="int">
+    select count(*) from gms_group
+  </select>
+  
+  <delete id="delete" parameterType="int">
+    delete from gms_group
+    where 
+      gno = #{no}
+  </delete>
+</mapper>

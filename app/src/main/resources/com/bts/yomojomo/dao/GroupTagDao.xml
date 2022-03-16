@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bts.yomojomo.dao.GroupTagDao">
+  
+  <!-- 테이블의 컬럼과 객체필드를 연결한다. -->
+  <resultMap type="GroupTag" id="GroupTagMap">
+    <id column="tagno" property="no"/>
+    <result column="gno" property="gno"/>
+    <result column="tag" property="tag"/>
+  </resultMap>
+
+  <select id="findAll" resultMap="GroupTagMap"> 
+    select
+    tagno,
+    gno,
+    tag
+      
+    from
+      gms_grouptag
+    order by
+     tagno desc
+  </select>
+  
+  <select id="findByNo" resultMap="GroupTagMap" parameterType="int">
+    select 
+      tagno,
+      gno,
+      tag
+    from 
+      gms_group
+    where 
+      gno=#{no}
+  </select>
+
+  <insert id="insert" parameterType="Group">
+    insert into gms_group
+    (
+      gno,
+      tag
+      )
+    values(#{gno}, #{tag})
+  </insert>
+  
+  <update id ="update" parameterType="GroupTag">
+    update gms_grouptag set 
+      tagno = #{no},
+      gno = #{gno},
+      tag = #{tag}
+      
+      
+      
+    where 
+      tagno = #{no}
+  </update>
+  
+  <select id ="countAll" parameterType="int">
+    select count(*) from gms_grouptag
+  </select>
+  
+  <delete id="delete" parameterType="int">
+    delete from gms_grouptag
+    where 
+      tagno = #{no}
+  </delete>
+</mapper>
