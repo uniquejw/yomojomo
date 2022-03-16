@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bts.yomojomo.dao.DestinationDao">
+  
+  <!-- 테이블의 컬럼과 객체필드를 연결한다. -->
+  <resultMap type="Destination" id="DestinationMap">
+    <id column="destno" property="no"/>
+    <result column="flat" property="flat"/>
+    <result column="flng" property="flng"/>
+    <result column="storename" property="storeName"/>
+    <result column="location_id" property="locationId"/>
+    <result column="regdt" property="regdt"/>
+    <result column="cnt" property="cnt"/>
+  </resultMap>
+
+  <select id="findAll" resultMap="DestinationMap"> 
+    select
+      destno,
+      flat,
+      flng,
+      storename,
+      location_id,
+      regdt,
+      cnt
+    from
+      gms_destination
+    order by
+      destno desc
+  </select>
+  
+  <select id="findByNo" resultMap="DestinationMap" parameterType="int">
+    select 
+      destno,
+      flat,
+      flng,
+      storename,
+      location_id,
+      regdt,
+      cnt
+    from 
+      gms_destination
+    where 
+      destno=#{no}
+  </select>
+
+  <insert id="insert" parameterType="Destination">
+    insert into gms_destination
+    (
+      flat,
+      flng,
+      storename,
+      location_id,
+      regdt,
+      cnt
+      )
+    values(#{flat}, #{flng}, #{storeName}, #{locationId}, #{regdt}, #{cnt})
+  </insert>
+  
+  <update id ="update" parameterType="Destination">
+    update gms_destination set 
+      destno = #{no},
+      flat = #{flat},
+      flng = #{flng},
+      storename = #{storeName},
+      location_id = #{locationId},
+      regdt = #{regdt},
+      cnt = #{cnt}
+      
+    where 
+      destno = #{no}
+  </update>
+  
+  <select id ="countAll" parameterType="int">
+    select count(*) from gms_destination
+  </select>
+  
+  <delete id="delete" parameterType="int">
+    delete from gms_destination
+    where 
+      destno = #{no}
+  </delete>
+</mapper>
