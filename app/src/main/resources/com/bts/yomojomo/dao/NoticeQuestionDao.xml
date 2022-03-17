@@ -6,7 +6,7 @@
   
   <!-- 테이블의 컬럼과 객체필드를 연결한다. -->
   <resultMap type="NoticeQuestion" id="noticeQuestionMap">
-    <!-- <id column="qno" property="no"/>
+    <!-- <id column="qno" property="qno"/>
     <result column="mcate2no" property="mcate2no"/>
     <result column="queryno" property="queryno"/>
     <result column="membno" property="membno"/>
@@ -17,7 +17,7 @@
     <result column="answer" property="answer"/>
     <result column="answerdt" property="answerdt"/> -->
   </resultMap>
-
+  
   <select id="findAll" resultMap="noticeQuestionMap"> 
     select
       qno,

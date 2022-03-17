@@ -13,7 +13,7 @@ public class NoticeQuestion {
   Date querydt;
   String answer;
   Date answerdt;
-
+  
   @Override
   public String toString() {
     return "NoticeQuestion [qno=" + qno + ", mcate2no=" + mcate2no + ", queryno=" + queryno
