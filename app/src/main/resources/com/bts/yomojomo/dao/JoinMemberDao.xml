@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bts.yomojomo.dao.JoinMemberDao">
+  
+  <!-- 테이블의 컬럼과 객체필드를 연결한다. -->
+  <resultMap type="JoinMember" id="JoinMemberMap">
+    <id column="membno" property="no"/>
+    <result column="gno" property="gno"/>
+    <result column="gradeno" property="gradeno"/>
+    
+  </resultMap>
+
+  <select id="findAll" resultMap="JoinMemberMap"> 
+    select
+      membno,
+      gno,
+      gradeno
+    from
+      gms_join_memb
+    order by
+      membno desc
+  </select>
+  
+  <select id="findByNo" resultMap="JoinMemberMap" parameterType="int">
+    select 
+      membno,
+      gno,
+      gradeno
+    from 
+      gms_join_memb
+    where 
+      membno=#{no}
+  </select>
+
+  <insert id="insert" parameterType="JoinMember">
+    insert into gms_join_memb(gradeno) 
+    values(#{gradeno})
+  </insert>
+  
+  <update id ="update" parameterType="JoinMember">
+    update gms_join_memb set 
+      
+      gradeno = #{gradeno}
+    where 
+      membno = #{no}
+  </update>
+  
+  <select id ="countAll" parameterType="int">
+    select count(*) from gms_join_memb
+  </select>
+  
+  <delete id="delete" parameterType="int">
+    delete from gms_join_memb
+    where 
+     membno = #{no}
+  </delete>
+</mapper>
