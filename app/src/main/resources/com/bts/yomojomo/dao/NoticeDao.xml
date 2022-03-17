@@ -43,13 +43,12 @@
   </select>
 
   <insert id="insert" parameterType="Notice">
-    insert into gms_notice(mcate2No,cate,title,content,dt) 
+    insert into gms_notice(mcate2no,cate,title,content,dt) 
     values(#{mcate2No},#{cate},#{title},#{content},#{dt})
   </insert>
   
   <update id ="update" parameterType="Notice">
     update gms_notice set 
-      
       cate = #{cate},
       title = #{title},
       content = #{content},

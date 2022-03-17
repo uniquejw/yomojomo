@@ -4,22 +4,22 @@ import java.sql.Date;
 
 public class NoticeQuestion {
   int no;
-  int mcate2No;
-  int queryNo;
-  int membNo;
+  int mcate2no;
+  int queryno;
+  int membno;
   String title;
   String content;
   String path;
   Date querydt;
   String answer;
-  Date anserdt;
+  Date answerdt;
 
 
   @Override
   public String toString() {
-    return "NoticeQuestion [no=" + no + ", mcate2No=" + mcate2No + ", queryNo=" + queryNo
-        + ", membNo=" + membNo + ", title=" + title + ", content=" + content + ", path=" + path
-        + ", querydt=" + querydt + ", answer=" + answer + ", anserdt=" + anserdt + "]";
+    return "NoticeQuestion [no=" + no + ", mcate2no=" + mcate2no + ", queryno=" + queryno
+        + ", membno=" + membno + ", title=" + title + ", content=" + content + ", path=" + path
+        + ", querydt=" + querydt + ", answer=" + answer + ", answerdt=" + answerdt + "]";
   }
   public int getNo() {
     return no;
@@ -27,23 +27,23 @@ public class NoticeQuestion {
   public void setNo(int no) {
     this.no = no;
   }
-  public int getMcate2No() {
-    return mcate2No;
+  public int getMcate2no() {
+    return mcate2no;
   }
-  public void setMcate2No(int mcate2No) {
-    this.mcate2No = mcate2No;
+  public void setMcate2no(int mcate2no) {
+    this.mcate2no = mcate2no;
   }
-  public int getQueryNo() {
-    return queryNo;
+  public int getQueryno() {
+    return queryno;
   }
-  public void setQueryNo(int queryNo) {
-    this.queryNo = queryNo;
+  public void setQueryno(int queryno) {
+    this.queryno = queryno;
   }
-  public int getMembNo() {
-    return membNo;
+  public int getMembno() {
+    return membno;
   }
-  public void setMembNo(int membNo) {
-    this.membNo = membNo;
+  public void setMembno(int membno) {
+    this.membno = membno;
   }
   public String getTitle() {
     return title;
@@ -75,11 +75,11 @@ public class NoticeQuestion {
   public void setAnswer(String answer) {
     this.answer = answer;
   }
-  public Date getAnserdt() {
-    return anserdt;
+  public Date getAnswerdt() {
+    return answerdt;
   }
-  public void setAnserdt(Date anserdt) {
-    this.anserdt = anserdt;
+  public void setAnswerdt(Date answerdt) {
+    this.answerdt = answerdt;
   }
 
 
