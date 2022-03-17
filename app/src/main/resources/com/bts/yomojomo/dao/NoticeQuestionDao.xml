@@ -50,7 +50,7 @@
     from 
       gms_notice_question
     where 
-      qno=#{no}
+      qno=#{qno}
   </select>
 
   <insert id="insert" parameterType="NoticeQuestion">
@@ -70,7 +70,7 @@
       queryno = queryno,
       membno = membno
     where 
-      qno = #{no}
+      qno = #{qno}
   </update>
   
   <select id ="countAll" parameterType="int">
@@ -80,6 +80,6 @@
   <delete id="delete" parameterType="int">
     delete from gms_notice_question
     where 
-      qno = #{no}
+      qno = #{qno}
   </delete>
 </mapper>
