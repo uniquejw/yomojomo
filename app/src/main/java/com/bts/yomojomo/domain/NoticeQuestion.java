@@ -3,7 +3,7 @@ package com.bts.yomojomo.domain;
 import java.sql.Date;
 
 public class NoticeQuestion {
-  int no;
+  int qno;
   int mcate2no;
   int queryno;
   int membno;
@@ -14,18 +14,17 @@ public class NoticeQuestion {
   String answer;
   Date answerdt;
 
-
   @Override
   public String toString() {
-    return "NoticeQuestion [no=" + no + ", mcate2no=" + mcate2no + ", queryno=" + queryno
+    return "NoticeQuestion [qno=" + qno + ", mcate2no=" + mcate2no + ", queryno=" + queryno
         + ", membno=" + membno + ", title=" + title + ", content=" + content + ", path=" + path
         + ", querydt=" + querydt + ", answer=" + answer + ", answerdt=" + answerdt + "]";
   }
-  public int getNo() {
-    return no;
+  public int getQno() {
+    return qno;
   }
-  public void setNo(int no) {
-    this.no = no;
+  public void setQno(int qno) {
+    this.qno = qno;
   }
   public int getMcate2no() {
     return mcate2no;
@@ -81,6 +80,7 @@ public class NoticeQuestion {
   public void setAnswerdt(Date answerdt) {
     this.answerdt = answerdt;
   }
+
 
 
 }
