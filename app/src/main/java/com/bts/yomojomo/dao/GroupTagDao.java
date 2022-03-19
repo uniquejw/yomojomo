@@ -13,11 +13,11 @@ public interface GroupTagDao {
 
   List<GroupTag> findAll();
 
-  int insert(GroupTag grouptag);
+  int insert(GroupTag groupTag);
 
   GroupTag findByNo(int no);
 
-  int update(GroupTag grouptag);
+  int update(GroupTag groupTag);
 
   int delete(int no);
 }

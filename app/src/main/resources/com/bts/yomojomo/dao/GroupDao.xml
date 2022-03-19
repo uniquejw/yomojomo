@@ -30,7 +30,6 @@
       mcnt,
       fee,
       vcnt
-      
     from
       gms_group
     order by
@@ -56,19 +55,14 @@
   </select>
 
   <insert id="insert" parameterType="Group">
-    insert into gms_group
-    (
-      itrlocalno,
-      fileno,
-      name,
-      cdate,
-      logo,
-      intro,
-      mcnt,
-      fee,
-      vcnt
-      )
-    values(#{itrlocalno}, #{fileno}, #{name}, #{cdate}, #{logo}, #{intro}, #{mcnt}, #{fee}, #{vcnt})
+    insert into gms_group (
+    itrlocalno,
+    fileno,
+    name,
+    logo,
+    intro,
+    fee) 
+    values(#{itrlocalno}, #{fileno}, #{name}, #{logo}, #{intro}, #{fee});
   </insert>
   
   <update id ="update" parameterType="Group">
@@ -77,14 +71,9 @@
       itrlocalno = #{itrlocalno},
       fileno = #{fileno},
       name = #{name},
-      cdate = #{cdate},
       logo = #{logo},
       intro = #{intro},
-      mcnt = #{mcnt},
-      fee = #{fee},
-      vcnt = #{vcnt}
-      
-      
+      fee = #{fee}
     where 
       gno = #{no}
   </update>

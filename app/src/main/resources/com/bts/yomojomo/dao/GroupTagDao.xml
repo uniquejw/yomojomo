@@ -13,14 +13,13 @@
 
   <select id="findAll" resultMap="GroupTagMap"> 
     select
-    tagno,
-    gno,
-    tag
-      
+      tagno,
+      gno,
+      tag
     from
       gms_grouptag
     order by
-     tagno desc
+      tagno desc
   </select>
   
   <select id="findByNo" resultMap="GroupTagMap" parameterType="int">
@@ -29,27 +28,20 @@
       gno,
       tag
     from 
-      gms_group
+      gms_grouptag
     where 
-      gno=#{no}
+      tagno=#{no}
   </select>
 
-  <insert id="insert" parameterType="Group">
-    insert into gms_group
-    (
-      gno,
-      tag
-      )
+  <insert id="insert" parameterType="GroupTag">
+    insert into gms_grouptag(gno,tag) 
     values(#{gno}, #{tag})
   </insert>
   
   <update id ="update" parameterType="GroupTag">
     update gms_grouptag set 
-      tagno = #{no},
-      gno = #{gno},
+      
       tag = #{tag}
-      
-      
       
     where 
       tagno = #{no}

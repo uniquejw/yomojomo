@@ -11,7 +11,6 @@
     <result column="actcateno" property="actcateno"/>
     <result column="title" property="title"/>
     <result column="amount" property="amount"/>
-    <result column="dt" property="date"/>
     <result column="status" property="status"/>
   </resultMap>
 
@@ -22,7 +21,6 @@
       actcateno,
       title,
       amount,
-      dt,
       status
     from
       gms_accounting
@@ -37,7 +35,6 @@
       actcateno,
       title,
       amount,
-      dt,
       status
     from 
       gms_accounting
@@ -46,8 +43,8 @@
   </select>
 
   <insert id="insert" parameterType="Accounting">
-    insert into gms_accounting(gno, actcateno, title, amount, dt, status) 
-    values(#{gno}, #{actcateno}, #{title}, #{amount}, #{date}, #{status})
+    insert into gms_accounting(gno, actcateno, title, amount, status) 
+    values(#{gno}, #{actcateno}, #{title}, #{amount}, #{status})
   </insert>
   
   <update id ="update" parameterType="Accounting">
@@ -56,7 +53,6 @@
       actcateno = actcateno,
       title = #{title},
       amount = #{amount},
-      dt = #{date},
       status = #{status}
     where 
       actno=#{no}

@@ -11,27 +11,27 @@ public class NoticeController {
   @Autowired //Controller 객체를 만들 때 Dao인터페이스 구현체를 찾아 자동으로 주입한다.
   NoticeDao noticeDao;
 
-  @RequestMapping("/purpose/add")
+  @RequestMapping("/notice/add")
   public Object add(Notice notice) {
     return noticeDao.insert(notice);
   }
 
-  @RequestMapping("/purpose/get")
+  @RequestMapping("/notice/get")
   public Object get(int no) {
     return noticeDao.findByNo(no);
   }
 
-  @RequestMapping("/purpose/list")
+  @RequestMapping("/notice/list")
   public Object list() {
     return noticeDao.findAll(); 
   }
 
-  @RequestMapping("/purpose/update")
+  @RequestMapping("/notice/update")
   public Object update(Notice notice) {
     return noticeDao.update(notice);
   }
 
-  @RequestMapping("/purpose/delete")
+  @RequestMapping("/notice/delete")
   public Object delete(int no) {
     return noticeDao.delete(no);
   }

@@ -63,6 +63,4 @@ public class Board {
   public void setViewcnt(int viewcnt) {
     this.viewcnt = viewcnt;
   }
-
-
 }

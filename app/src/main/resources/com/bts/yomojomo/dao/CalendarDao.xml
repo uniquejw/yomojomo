@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bts.yomojomo.dao.CalendarDao">
+  
+  <!-- 테이블의 컬럼과 객체필드를 연결한다. -->
+  <resultMap type="Calendar" id="CalendarMap">
+    <id column="calno" property="no"/>
+    <result column="name" property="name"/>
+    <result column="content" property="content"/>
+    <result column="gno" property="gno"/>
+    <result column="resulturl" property="resulturl"/>
+  </resultMap>
+
+  <select id="findAll" resultMap="CalendarMap"> 
+    select
+      calno,
+      name,
+      content,
+      gno,
+      resulturl
+    from
+      gms_calendar
+    order by
+      calno desc
+  </select>
+  
+  <select id="findByNo" resultMap="CalendarMap" parameterType="int">
+    select 
+      calno,
+      name,
+      content,
+      gno,
+      resulturl
+    from 
+      gms_calendar
+    where 
+      calno=#{no}
+  </select>
+
+  <insert id="insert" parameterType="Calendar">
+    insert into gms_calendar(name, content, gno, resulturl) 
+    values(#{name}, #{content}, #{gno}, #{resulturl})
+  </insert>
+  
+  <update id ="update" parameterType="Calendar">
+    update gms_calendar set 
+      name = #{name},
+      content = #{content},
+      gno = #{gno},
+      resulturl = #{resulturl}
+    where 
+      calno = #{no}
+  </update>
+  
+  <select id ="countAll" parameterType="int">
+    select count(*) from gms_calendar
+  </select>
+  
+  <delete id="delete" parameterType="int">
+    delete from gms_calendar
+    where 
+      calno = #{no}
+  </delete>
+</mapper>

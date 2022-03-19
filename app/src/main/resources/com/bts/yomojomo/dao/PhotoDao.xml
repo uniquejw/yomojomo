@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bts.yomojomo.dao.PhotoDao">
+  
+  <!-- 테이블의 컬럼과 객체필드를 연결한다. -->
+  <resultMap type="Photo" id="PhotoMap">
+  <id column="gpno" property="no"/>
+  <!--  <result column="bno" property="bno"/>
+  <result column="path" property="path"/>-->
+  </resultMap>
+
+  <select id="findAll" resultMap="PhotoMap"> 
+    select
+      gpno,
+      bno,
+      path
+    from
+      gms_Photo
+    order by
+      gpno desc
+  </select>
+  
+  <select id="findByNo" resultMap="PhotoMap" parameterType="int">
+    select 
+      gpno,
+      bno,
+      path
+    from 
+      gms_Photo
+    where 
+      gpno=#{no}
+  </select>
+
+  <insert id="insert" parameterType="Photo">
+    insert into gms_Photo(bno, path) 
+    values(#{bno}, #{path})
+  </insert>
+  
+  <update id ="update" parameterType="Photo">
+    update gms_Photo set 
+      bno = #{bno},
+      path = #{path}
+    where 
+      gpno = #{no}
+  </update>
+  
+  <select id ="countAll" parameterType="int">
+    select count(*) from gms_Photo
+  </select>
+  
+  <delete id="delete" parameterType="int">
+    delete from gms_Photo
+    where 
+      gpno = #{no}
+  </delete>
+</mapper>

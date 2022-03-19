@@ -32,7 +32,10 @@
     select 
       bno,
       gno,
-      membno
+      membno,
+      dt,
+      content,
+      viewcnt
     from 
       gms_board
     where 
@@ -46,7 +49,6 @@
   
   <update id ="update" parameterType="Board">
     update gms_board set 
-      bno = #{no},
       gno = #{gno},
       membno = #{membno},
       dt = #{dt},

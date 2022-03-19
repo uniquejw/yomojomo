@@ -1,7 +1,5 @@
 package com.bts.yomojomo.domain;
 
-
-
 public class GroupTag {
   int no;
   int gno;
@@ -30,11 +28,6 @@ public class GroupTag {
     this.tag = tag;
   }
 
-
-  
   
  
-
-  
-  
 }

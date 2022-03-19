@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bts.yomojomo.dao.ApplyFormDao">
+  
+  <!-- 테이블의 컬럼과 객체필드를 연결한다. -->
+  <resultMap type="ApplayForm" id="ApplayFormMap">
+    <id column="applno" property="no"/>
+    <result column="gno" property="gno"/>
+    <result column="membno" property="membno"/>
+    <result column="content" property="content"/>
+  </resultMap>
+
+  <select id="findAll" resultMap="ApplayFormMap"> 
+    select
+      applno,
+      gno,
+      membno,
+      content,
+      appldt
+    from
+      gms_applyform
+    order by
+      applno asc
+  </select>
+  
+  <select id="findByNo" resultMap="ApplayFormMap" parameterType="int">
+    select 
+      applno,
+      gno,
+      membno,
+      content,
+      appldt
+    from 
+      gms_applyform
+    where 
+      applno=#{no}
+  </select>
+
+  <insert id="insert" parameterType="ApplayForm">
+    insert into gms_applyform(gno, membno, content) 
+    values(#{gno}, #{membno}, #{content})
+  </insert>
+  
+  <update id ="update" parameterType="ApplayForm">
+    update gms_applyform set 
+      content = #{content}
+    where 
+      applno=#{no}
+  </update>
+  
+  <select id ="countAll" parameterType="int">
+    select count(*) from gms_applyform
+  </select>
+  
+  <delete id="delete" parameterType="int">
+    delete from gms_applyform
+    where 
+      applno=#{no}
+  </delete>
+</mapper>

@@ -8,11 +8,11 @@ import com.bts.yomojomo.domain.Board;
 
 @RestController
 public class BoardController {
-  @Autowired //Controller 객체를 만들 때 Dao인터페이스 구현체를 찾아 자동으로 주입한다.
+  @Autowired
   BoardDao boardDao;
 
   @RequestMapping("/board/add")
-  public int add(Board board) {
+  public Object add(Board board) {
     return boardDao.insert(board);
   }
 
@@ -27,7 +27,7 @@ public class BoardController {
   }
 
   @RequestMapping("/board/update")
-  public int update(Board board) {
+  public Object update(Board board) {
     return boardDao.update(board);
   }
 

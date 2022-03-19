@@ -6,70 +6,80 @@
   
   <!-- 테이블의 컬럼과 객체필드를 연결한다. -->
   <resultMap type="NoticeQuestion" id="noticeQuestionMap">
-    <id column="qno" property="no"/>
-    <result column="mcate2no" property="mcate2No"/>
-    <result column="queryNo" property="mcate2No"/>
-    <result column="membNo" property="mcate2No"/>
+    <!-- <id column="qno" property="qno"/>
+    <result column="mcate2no" property="mcate2no"/>
+    <result column="queryno" property="queryno"/>
+    <result column="membno" property="membno"/>
     <result column="title" property="title"/>
     <result column="content" property="content"/>
     <result column="path" property="path"/>
     <result column="querydt" property="querydt"/>
     <result column="answer" property="answer"/>
-    <result column="querydt" property="querydt"/>
+    <result column="answerdt" property="answerdt"/> -->
   </resultMap>
-
-  <select id="findAll" resultMap="noticeMap"> 
+  
+  <select id="findAll" resultMap="noticeQuestionMap"> 
     select
-      noticeno,
+      qno,
       mcate2no,
-      cate,
+      queryno,
+      membno,
       title,
       content,
-      dt
+      path,
+      querydt,
+      answer,
+      answerdt
     from
-      gms_notice
+      gms_notice_question
     order by
-      noticeno asc
+      qno asc
   </select>
   
-  <select id="findByNo" resultMap="noticeMap" parameterType="int">
+  <select id="findByNo" resultMap="noticeQuestionMap" parameterType="int">
     select 
-      noticeno,
       mcate2no,
-      cate,
+      queryno,
+      membno,
       title,
       content,
-      dt
+      path,
+      querydt,
+      answer,
+      answerdt
     from 
-      gms_notice
+      gms_notice_question
     where 
-      noticeno=#{no}
+      qno=#{qno}
   </select>
 
-  <insert id="insert" parameterType="Notice">
-    insert into gms_notice(mcate2No,cate,title,content,dt) 
-    values(#{mcate2No},#{cate},#{title},#{content},#{dt})
+  <insert id="insert" parameterType="NoticeQuestion">
+    insert into gms_notice_question(mcate2no,queryno,membno,title,content,path,querydt,answer,answerdt) 
+    values(#{mcate2no},#{queryno},#{membno},#{title},#{content},#{path},#{querydt},#{answer},#{answerdt})
   </insert>
   
-  <update id ="update" parameterType="Notice">
-    update gms_notice set 
-      
-      cate = #{cate},
+  <update id ="update" parameterType="NoticeQuestion">
+    update gms_notice_question set 
+      path = #{path},
       title = #{title},
       content = #{content},
-      dt = #{dt},
-      mcate2no = mcate2no
+      querydt = #{querydt},
+      answer = #{answer},
+      answerdt = #{answerdt},
+      mcate2no = mcate2no,
+      queryno = queryno,
+      membno = membno
     where 
-      noticeno = #{no}
+      qno = #{qno}
   </update>
   
   <select id ="countAll" parameterType="int">
-    select count(*) from gms_notice
+    select count(*) from gms_notice_question
   </select>
   
   <delete id="delete" parameterType="int">
-    delete from gms_notice
+    delete from gms_notice_question
     where 
-      noticeno = #{no}
+      qno = #{qno}
   </delete>
 </mapper>
