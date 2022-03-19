@@ -11,6 +11,7 @@
     <result column="actcateno" property="actcateno"/>
     <result column="title" property="title"/>
     <result column="amount" property="amount"/>
+    <result column="dt" property="date"/>
     <result column="status" property="status"/>
   </resultMap>
 
@@ -21,6 +22,7 @@
       actcateno,
       title,
       amount,
+      dt,
       status
     from
       gms_accounting
@@ -35,6 +37,7 @@
       actcateno,
       title,
       amount,
+      dt,
       status
     from 
       gms_accounting
