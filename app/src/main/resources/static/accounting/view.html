@@ -93,12 +93,13 @@
     
 //삭제 
 document.querySelector("#x-delete-btn").onclick = function() {
-  fetch(`accounting/get?no=${no}`)
+  fetch(`/accounting/delete?no=${no}`)
   .then(function(response) {
       return response.json();
     })
   .then(function(result) {
-    location.href = "index.html";
+    console.log("삭제");
+	  location.href = "index.html";
   });
 };
 
@@ -108,7 +109,5 @@ document.querySelector("#x-cancle-btn").onclick = function() {
 };
 
 </script>
-
-
 </body>
 </html>

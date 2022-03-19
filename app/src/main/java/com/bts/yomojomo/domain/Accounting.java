@@ -8,8 +8,9 @@ public class Accounting {
   int actcateno;
   String title;
   int amount;
-  int status;
   Date date;
+  int status;
+
   @Override
   public String toString() {
     return "Accounting [no=" + no + ", gno=" + gno + ", actcateno=" + actcateno + ", title=" + title
