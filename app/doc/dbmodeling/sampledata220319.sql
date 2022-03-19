@@ -11,14 +11,14 @@ insert into gms_destination(flat,flng,store_name,location_id,view_cnt) values('1
 insert into gms_itr_jobgroup(name) values("IT");
 insert into gms_itr_jobgroup(name) values("사무직");
 insert into gms_itr_jobgroup(name) values("생산직");
-insert into gms_mcate2(name) values('자주하는 질문');
-insert into gms_mcate2(name) values('자주하는 질문2');
-insert into gms_mcate2(name) values('자주하는 질문3');
-insert into gms_memb(name,pwd,email,tel,postno,baseaddr,addr,type,unsubscribe) 
+insert into gms_main_cate(name) values('자주하는 질문1');
+insert into gms_main_cate(name) values('자주하는 질문2');
+insert into gms_main_cate(name) values('자주하는 질문3');
+insert into gms_memb(name,pwd,email,tel,post_no,base_addr,addr,type,unsubscribe) 
 values('강사님','1111','123@naver.com','11112222','1234','봉천동 어딘가','102호','유형?',false);
-insert into gms_memb(name,pwd,email,tel,postno,baseaddr,addr,type,unsubscribe) 
+insert into gms_memb(name,pwd,email,tel,post_no,base_addr,addr,type,unsubscribe) 
 values('요모조모','1111','1243@naver.com','11112222','1234','봉천동 어딘가','102호','유형?',false);
-insert into gms_memb(name,pwd,email,tel,postno,baseaddr,addr,type,unsubscribe) 
+insert into gms_memb(name,pwd,email,tel,post_no,base_addr,addr,type,unsubscribe) 
 values('대한민국','1111','12323@naver.com','11112222','1234','봉천동 어딘가','102호','유형?',false);
 insert into gms_memb_grade(name) values('모임장');
 insert into gms_memb_grade(name) values('일반회원');
@@ -34,9 +34,9 @@ insert into gms_purpose(name) values ("등산");
 
 
 --외래키 포함
-insert into gms_keyword(searchname, membno) values ("한식", 1);
-insert into gms_keyword(searchname, membno) values ("당구", 1);
-insert into gms_keyword(searchname, membno) values ("노래방", 1);
+insert into gms_keyword(search_name, memb_no) values ("한식", 1);
+insert into gms_keyword(search_name, memb_no) values ("당구", 1);
+insert into gms_keyword(search_name, memb_no) values ("노래방", 1);
 insert into gms_group(itrlocalno, fileno, name, logo, intro, mcnt, fee, vcnt) values("1", "1", "소모임1", "C://a.jpg", "10", "20000", "1", 1);
 insert into gms_group(itrlocalno, fileno, name, logo, intro, mcnt, fee, vcnt) values("1", "1", "소모임2", "C://b.jpg", "20", "20000", "2", 1);
 insert into gms_group(itrlocalno, fileno, name, logo, intro, mcnt, fee, vcnt) values("1", "1", "소모임3", "C://c.jpg", "30", "20000", "3", 1);
@@ -46,6 +46,12 @@ insert into gms_applyform(g_no, memb_no, content ) values(3, 3, "가입하고싶
 insert into gms_calendar(name, content, result_url, g_no) values ("당구", "오호라", "www.naver.com", 1);
 insert into gms_calendar(name, content, gno) values ("축구", "오호라",  2);
 insert into gms_calendar(name, content, result_url, g_no) values ("농구", "오호라", "www.nate.com", 3);
+insert into gms_accounting(gno, actcateno, title, amount,  status) values(1, 1, "3월 회비", "20000",  0);
+insert into gms_accounting(gno, actcateno, title, amount,  status) values(1, 1, "3월 회비", "20000",  0);
+insert into gms_accounting(gno, actcateno, title, amount,  status) values(1, 1, "3월 회비", "20000",  0);
+insert into gms_join_memb(memb_no,g_no,g_memb_grd_no) values (1,1,1);
+insert into gms_join_memb(memb_no,g_no,g_memb_grd_no) values (2,2,2);
+insert into gms_join_memb(memb_no,g_no,g_memb_grd_no) values (3,3,1);
 insert into gms_accounting(g_no, act_cate_no, title, amount, status) values(1, 1, "3월 회비", "20000",  0);
 insert into gms_accounting(g_no, act_cate_no, title, amount, status) values(1, 1, "3월 회비", "20000",  0);
 insert into gms_accounting(g_no, act_cate_no, title, amount, status) values(1, 1, "3월 회비", "20000",  0);
@@ -100,6 +106,6 @@ insert into gms_recruit(title, content,  viewcnt, itrlocalno, fileno, membno) va
 insert into gms_comment(b_no, content, memb_no, g_no) values (1, "12", 1, 1 );
 insert into gms_comment(b_no, content, memb_no, g_no) values (2, "32", 2, 2);
 insert into gms_comment(b_no, content, memb_no, g_no) values (3, "137", 3, 3);
-insert into gms_itr_jobgroup_detail(name, ijgno) values ("연구원", 1);
-insert into gms_itr_jobgroup_detail(name, ijgno) values ("회사원", 2);
-insert into gms_itr_jobgroup_detail(name, ijgno) values ("트레이너", 3);
+insert into gms_itr_jobgroup_detail(name, itr_j_no) values ("연구원", 1);
+insert into gms_itr_jobgroup_detail(name, itr_j_no) values ("회사원", 2);
+insert into gms_itr_jobgroup_detail(name, itr_j_no) values ("트레이너", 3);
