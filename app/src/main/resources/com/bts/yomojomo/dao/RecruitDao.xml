@@ -82,4 +82,9 @@
     where
       recruit = #{no}
   </update>
+  
+
+    
+    
+    
 </mapper>
