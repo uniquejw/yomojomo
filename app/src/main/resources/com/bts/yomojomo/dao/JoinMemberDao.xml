@@ -7,8 +7,8 @@
   <!-- 테이블의 컬럼과 객체필드를 연결한다. -->
   <resultMap type="JoinMember" id="JoinMemberMap">
     <id column="memb_no" property="no"/>
-    <result column="g_no" property="gno"/>
-    <result column="g_memb_grd_no" property="gmembgrdno"/>
+    <result column="g_no" property="gNo"/>
+    <result column="g_memb_grd_no" property="gMembGrdNo"/>
     
   </resultMap>
 
@@ -35,13 +35,12 @@
   </select>
 
   <insert id="insert" parameterType="JoinMember">
-    insert into gms_join_memb(g_memb_grd_no) 
-    values(#{gmembgrdno})
+    insert into gms_join_memb(memb_no, g_no, g_memb_grd_no)
+    values(1, 2, 1)
   </insert>
   
   <update id ="update" parameterType="JoinMember">
     update gms_join_memb set 
-      
       g_memb_grd_no = #{gmembgrdno}
     where 
       memb_no = #{no}
