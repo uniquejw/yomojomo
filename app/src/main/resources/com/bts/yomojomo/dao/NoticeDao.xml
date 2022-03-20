@@ -39,7 +39,7 @@
 
   <insert id="insert" parameterType="Notice">
     insert into gms_notice(main_cate_no,cate,title,content,reg_dt) 
-    values(#{mainCateNo},#{cate},#{title},#{content},#{regDt})
+    values(1,#{cate},#{title},#{content},NOW())
   </insert>
   
   <update id ="update" parameterType="Notice">
@@ -47,7 +47,7 @@
       cate = #{cate},
       title = #{title},
       content = #{content},
-      reg_dt = #{regDt},
+      reg_dt = reg_dt,
       main_cate_no = main_cate_no
     where 
       notice_no = #{no}
