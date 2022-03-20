@@ -3,46 +3,47 @@ package com.bts.yomojomo.domain;
 import java.sql.Date;
 
 public class NoticeQuestion {
-  int qno;
-  int mcate2no;
-  int queryno;
-  int membno;
+  int qNo;
+  int mainCateNo;
+  int queryNo;
+  int membNo;
   String title;
   String content;
   String path;
-  Date querydt;
+  Date queryDt;
   String answer;
-  Date answerdt;
-  
+  Date answerDt;
+
+
   @Override
   public String toString() {
-    return "NoticeQuestion [qno=" + qno + ", mcate2no=" + mcate2no + ", queryno=" + queryno
-        + ", membno=" + membno + ", title=" + title + ", content=" + content + ", path=" + path
-        + ", querydt=" + querydt + ", answer=" + answer + ", answerdt=" + answerdt + "]";
+    return "NoticeQuestion [qNo=" + qNo + ", mainCateNo=" + mainCateNo + ", queryNo=" + queryNo
+        + ", membNo=" + membNo + ", title=" + title + ", content=" + content + ", path=" + path
+        + ", queryDt=" + queryDt + ", answer=" + answer + ", answerDt=" + answerDt + "]";
   }
-  public int getQno() {
-    return qno;
+  public int getqNo() {
+    return qNo;
   }
-  public void setQno(int qno) {
-    this.qno = qno;
+  public void setqNo(int qNo) {
+    this.qNo = qNo;
   }
-  public int getMcate2no() {
-    return mcate2no;
+  public int getMainCateNo() {
+    return mainCateNo;
   }
-  public void setMcate2no(int mcate2no) {
-    this.mcate2no = mcate2no;
+  public void setMainCateNo(int mainCateNo) {
+    this.mainCateNo = mainCateNo;
   }
-  public int getQueryno() {
-    return queryno;
+  public int getQueryNo() {
+    return queryNo;
   }
-  public void setQueryno(int queryno) {
-    this.queryno = queryno;
+  public void setQueryNo(int queryNo) {
+    this.queryNo = queryNo;
   }
-  public int getMembno() {
-    return membno;
+  public int getMembNo() {
+    return membNo;
   }
-  public void setMembno(int membno) {
-    this.membno = membno;
+  public void setMembNo(int membNo) {
+    this.membNo = membNo;
   }
   public String getTitle() {
     return title;
@@ -62,11 +63,11 @@ public class NoticeQuestion {
   public void setPath(String path) {
     this.path = path;
   }
-  public Date getQuerydt() {
-    return querydt;
+  public Date getQueryDt() {
+    return queryDt;
   }
-  public void setQuerydt(Date querydt) {
-    this.querydt = querydt;
+  public void setQueryDt(Date queryDt) {
+    this.queryDt = queryDt;
   }
   public String getAnswer() {
     return answer;
@@ -74,13 +75,11 @@ public class NoticeQuestion {
   public void setAnswer(String answer) {
     this.answer = answer;
   }
-  public Date getAnswerdt() {
-    return answerdt;
+  public Date getAnswerDt() {
+    return answerDt;
   }
-  public void setAnswerdt(Date answerdt) {
-    this.answerdt = answerdt;
+  public void setAnswerDt(Date answerDt) {
+    this.answerDt = answerDt;
   }
-
-
 
 }
