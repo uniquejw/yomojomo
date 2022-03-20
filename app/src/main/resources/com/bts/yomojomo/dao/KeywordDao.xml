@@ -6,45 +6,45 @@
   
   <!-- 테이블의 컬럼과 객체필드를 연결한다. -->
   <resultMap type="Keyword" id="KeywordMap">
-    <id column="kno" property="kno"/>
-    <result column="searchname" property="searchname"/>
-    <result column="membno" property="membno"/>
+    <id column="k_no" property="kNo"/>
+    <result column="search_name" property="searchName"/>
+    <result column="memb_no" property="membNo"/>
     
   </resultMap>
 
   <select id="findAll" resultMap="KeywordMap"> 
     select
-      kno,
-      searchname,
-      membno
+      k_no,
+      search_name,
+      memb_no
     from
       gms_keyword
     order by
-      kno desc
+      k_no desc
   </select>
   
   <select id="findByNo" resultMap="KeywordMap" parameterType="int">
     select 
-      kno,
-      searchname,
-      membno
+      k_no,
+      search_name,
+      memb_no
     from 
       gms_keyword
     where 
-      kno=#{kno}
+      k_no=#{kNo}
   </select>
 
   <insert id="insert" parameterType="Keyword">
-    insert into gms_keyword(searchname,membno) 
-    values(#{searchname}, #{membno})
+    insert into gms_keyword(search_name,memb_no) 
+    values(#{searchName}, #{membNo})
   </insert>
   
   <update id ="update" parameterType="Keyword">
     update gms_keyword set 
-      searchname = #{searchname},
-      membno = #{membno}
+      search_name = #{searchName},
+      memb_no = #{membNo}
     where 
-      kno = #{kno}
+      k_no = #{kNo}
   </update>
   
   <select id ="countAll" parameterType="int">
@@ -54,6 +54,6 @@
   <delete id="delete" parameterType="int">
     delete from gms_keyword
     where 
-     kno = #{kno}
+     k_no = #{kNo}
   </delete>
 </mapper>
