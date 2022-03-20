@@ -6,45 +6,45 @@
   
   <!-- 테이블의 컬럼과 객체필드를 연결한다. -->
   <resultMap type="JoinMember" id="JoinMemberMap">
-    <id column="membno" property="no"/>
-    <result column="gno" property="gno"/>
-    <result column="gradeno" property="gradeno"/>
+    <id column="memb_no" property="no"/>
+    <result column="g_no" property="gno"/>
+    <result column="g_memb_grd_no" property="gmembgrdno"/>
     
   </resultMap>
 
   <select id="findAll" resultMap="JoinMemberMap"> 
     select
-      membno,
-      gno,
-      gradeno
+      memb_no,
+      g_no,
+      g_memb_grd_no
     from
       gms_join_memb
     order by
-      membno desc
+      memb_no desc
   </select>
   
   <select id="findByNo" resultMap="JoinMemberMap" parameterType="int">
     select 
-      membno,
-      gno,
-      gradeno
+      memb_no,
+      g_no,
+      g_memb_grd_no
     from 
       gms_join_memb
     where 
-      membno=#{no}
+      memb_no=#{no}
   </select>
 
   <insert id="insert" parameterType="JoinMember">
-    insert into gms_join_memb(gradeno) 
-    values(#{gradeno})
+    insert into gms_join_memb(g_memb_grd_no) 
+    values(#{gmembgrdno})
   </insert>
   
   <update id ="update" parameterType="JoinMember">
     update gms_join_memb set 
       
-      gradeno = #{gradeno}
+      g_memb_grd_no = #{gmembgrdno}
     where 
-      membno = #{no}
+      memb_no = #{no}
   </update>
   
   <select id ="countAll" parameterType="int">
@@ -54,6 +54,6 @@
   <delete id="delete" parameterType="int">
     delete from gms_join_memb
     where 
-     membno = #{no}
+     memb_no = #{no}
   </delete>
 </mapper>

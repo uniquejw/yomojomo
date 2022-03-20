@@ -3,11 +3,12 @@ package com.bts.yomojomo.domain;
 public class JoinMember {
   int no;
   int gno;
-  int gradeno;
+  int gmembgrdno;
+  
   
   @Override
   public String toString() {
-    return "JoinMember [no=" + no + ", gno=" + gno + ", gradeno=" + gradeno + "]";
+    return "JoinMember [no=" + no + ", gno=" + gno + ", gmembgrdno=" + gmembgrdno + "]";
   }
   public int getNo() {
     return no;
@@ -21,14 +22,12 @@ public class JoinMember {
   public void setGno(int gno) {
     this.gno = gno;
   }
-  public int getGradeno() {
-    return gradeno;
+  public int getGmembgrdno() {
+    return gmembgrdno;
   }
-  public void setGradeno(int gradeno) {
-    this.gradeno = gradeno;
+  public void setGmembgrdno(int gmembgrdno) {
+    this.gmembgrdno = gmembgrdno;
   }
-  
- 
   
 
 }

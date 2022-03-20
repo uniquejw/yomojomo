@@ -6,45 +6,45 @@
   
   <!-- 테이블의 컬럼과 객체필드를 연결한다. -->
   <resultMap type="GroupTag" id="GroupTagMap">
-    <id column="tagno" property="no"/>
-    <result column="gno" property="gno"/>
-    <result column="tag" property="tag"/>
+    <id column="tag_no" property="no"/>
+    <result column="g_no" property="gno"/>
+    <result column="tag_name" property="tagname"/>
   </resultMap>
 
   <select id="findAll" resultMap="GroupTagMap"> 
     select
-      tagno,
-      gno,
-      tag
+      tag_no,
+      g_no,
+      tag_name
     from
       gms_grouptag
     order by
-      tagno desc
+      tag_no desc
   </select>
   
   <select id="findByNo" resultMap="GroupTagMap" parameterType="int">
     select 
-      tagno,
-      gno,
-      tag
+      tag_no,
+      g_no,
+      tag_name
     from 
       gms_grouptag
     where 
-      tagno=#{no}
+      tag_no=#{no}
   </select>
 
   <insert id="insert" parameterType="GroupTag">
-    insert into gms_grouptag(gno,tag) 
-    values(#{gno}, #{tag})
+    insert into gms_grouptag(g_no,tag_name) 
+    values(#{gno}, #{tagname})
   </insert>
   
   <update id ="update" parameterType="GroupTag">
     update gms_grouptag set 
       
-      tag = #{tag}
+      tag_name= #{tagname}
       
     where 
-      tagno = #{no}
+      tag_no = #{no}
   </update>
   
   <select id ="countAll" parameterType="int">
@@ -54,6 +54,6 @@
   <delete id="delete" parameterType="int">
     delete from gms_grouptag
     where 
-      tagno = #{no}
+      tag_no = #{no}
   </delete>
 </mapper>

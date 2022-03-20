@@ -1,9 +1,10 @@
 package com.bts.yomojomo.dao;
 
+
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import com.bts.yomojomo.domain.JoinMember;
-import com.bts.yomojomo.domain.Keyword;
+
 
 
 @Mapper 

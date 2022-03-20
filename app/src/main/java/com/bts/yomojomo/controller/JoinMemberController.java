@@ -5,9 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.bts.yomojomo.dao.JoinMemberDao;
-import com.bts.yomojomo.dao.KeywordDao;
 import com.bts.yomojomo.domain.JoinMember;
-import com.bts.yomojomo.domain.Keyword;
+
 
 
 

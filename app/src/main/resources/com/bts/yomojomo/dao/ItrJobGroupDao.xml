@@ -6,29 +6,29 @@
   
   <!-- 테이블의 컬럼과 객체필드를 연결한다. -->
   <resultMap type="ItrJobGroup" id="ItrJobGroupMap">
-    <id column="ijgno" property="no"/>
+    <id column="itr_j_no" property="no"/>
     <result column="name" property="name"/>
     
   </resultMap>
 
   <select id="findAll" resultMap="ItrJobGroupMap"> 
     select
-      ijgno,
+      itr_j_no,
       name
     from
       gms_itr_jobgroup
     order by
-      ijgno desc
+      itr_j_no desc
   </select>
   
   <select id="findByNo" resultMap="ItrJobGroupMap" parameterType="int">
     select 
-      ijgno,
+      itr_j_no,
       name
     from 
       gms_itr_jobgroup
     where 
-      ijgno=#{no}
+      itr_j_no=#{no}
   </select>
 
   <insert id="insert" parameterType="ItrJobGroup">
@@ -40,7 +40,7 @@
     update gms_itr_jobgroup set 
       name = #{name}
     where 
-      ijgno = #{no}
+      itr_j_no = #{no}
   </update>
   
   <select id ="countAll" parameterType="int">
@@ -50,6 +50,6 @@
   <delete id="delete" parameterType="int">
     delete from gms_itr_jobgroup
     where 
-     ijgno = #{no}
+     itr_j_no = #{no}
   </delete>
 </mapper>
