@@ -20,22 +20,22 @@
     var xFileName = document.querySelector('.fileName')
 
     document.querySelector('.add-btn').addEventListener("click", function() {
-      // console.log(eMail.value)
-      // console.log(pwd.value)
+      console.log(xMembNo.value)
+      console.log(xFileName.value)
       fetch(`/file/add?bno=${xMembNo.value}&name=${xFileName.value}`)
         .then(function(response) {
           return response.json();
         })
         .then(function(file) {
           console.log(file);
-        //   location.href = "index.html"
+          location.href = "index.html"
         })
 
       
     });
 
     document.querySelector('.cancel-btn').addEventListener('click', function() {
-      window.location.href = 'index.html'
+      location.href = 'index.html'
     })
 
     
