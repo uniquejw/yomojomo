@@ -6,45 +6,40 @@
   
   <!-- 테이블의 컬럼과 객체필드를 연결한다. -->
   <resultMap type="Notice" id="noticeMap">
-    <id column="noticeno" property="no"/>
-    <result column="mcate2no" property="mcate2No"/>
-    <result column="cate" property="cate"/>
-    <result column="title" property="title"/>
-    <result column="content" property="content"/>
-    <result column="dt" property="dt"/>
+    <id column="notice_no" property="no"/>
   </resultMap>
 
   <select id="findAll" resultMap="noticeMap"> 
     select
-      noticeno,
-      mcate2no,
+      notice_no,
+      main_cate_no,
       cate,
       title,
       content,
-      dt
+      reg_dt
     from
       gms_notice
     order by
-      noticeno asc
+      notice_no asc
   </select>
   
   <select id="findByNo" resultMap="noticeMap" parameterType="int">
     select 
-      noticeno,
-      mcate2no,
+       notice_no,
+      main_cate_no,
       cate,
       title,
       content,
-      dt
+      reg_dt
     from 
       gms_notice
     where 
-      noticeno=#{no}
+      notice_no=#{no}
   </select>
 
   <insert id="insert" parameterType="Notice">
-    insert into gms_notice(mcate2no,cate,title,content,dt) 
-    values(#{mcate2No},#{cate},#{title},#{content},#{dt})
+    insert into gms_notice(main_cate_no,cate,title,content,reg_dt) 
+    values(#{mainCateNo},#{cate},#{title},#{content},#{regDt})
   </insert>
   
   <update id ="update" parameterType="Notice">
@@ -52,10 +47,10 @@
       cate = #{cate},
       title = #{title},
       content = #{content},
-      dt = #{dt},
-      mcate2no = mcate2no
+      reg_dt = #{regDt},
+      main_cate_no = main_cate_no
     where 
-      noticeno = #{no}
+      notice_no = #{no}
   </update>
   
   <select id ="countAll" parameterType="int">
@@ -65,6 +60,6 @@
   <delete id="delete" parameterType="int">
     delete from gms_notice
     where 
-      noticeno = #{no}
+      notice_no = #{no}
   </delete>
 </mapper>

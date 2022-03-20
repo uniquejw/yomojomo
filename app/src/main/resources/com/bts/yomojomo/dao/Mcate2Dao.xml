@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bts.yomojomo.dao.Mcate2Dao">
   
   <!-- 테이블의 컬럼과 객체필드를 연결한다. -->
-  <resultMap type="Mcate2" id="Mcate2Map">
+  <resultMap type="MCate2" id="Mcate2Map">
   <id column="mcate2no" property="no"/>
+    <result column="name" property="name"/>
   </resultMap>
 
   <select id="findAll" resultMap="Mcate2Map"> 

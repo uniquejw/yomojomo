@@ -6,44 +6,42 @@
   
   <!-- 테이블의 컬럼과 객체필드를 연결한다. -->
   <resultMap type="Photo" id="PhotoMap">
-  <id column="gpno" property="no"/>
-  <!--  <result column="bno" property="bno"/>
-  <result column="path" property="path"/>-->
+  <id column="g_photo" property="no"/>
   </resultMap>
 
   <select id="findAll" resultMap="PhotoMap"> 
     select
-      gpno,
-      bno,
+      g_photo,
+      b_no,
       path
     from
       gms_Photo
     order by
-      gpno desc
+      g_photo desc
   </select>
   
   <select id="findByNo" resultMap="PhotoMap" parameterType="int">
     select 
-      gpno,
-      bno,
+      g_photo,
+      b_no,
       path
     from 
       gms_Photo
     where 
-      gpno=#{no}
+      g_photo=#{no}
   </select>
 
   <insert id="insert" parameterType="Photo">
-    insert into gms_Photo(bno, path) 
-    values(#{bno}, #{path})
+    insert into gms_Photo(b_no, path) 
+    values(#{bNo}, #{path})
   </insert>
   
   <update id ="update" parameterType="Photo">
     update gms_Photo set 
-      bno = #{bno},
+      b_no = #{bNo},
       path = #{path}
     where 
-      gpno = #{no}
+      g_photo = #{no}
   </update>
   
   <select id ="countAll" parameterType="int">
@@ -53,6 +51,6 @@
   <delete id="delete" parameterType="int">
     delete from gms_Photo
     where 
-      gpno = #{no}
+      g_photo = #{no}
   </delete>
 </mapper>

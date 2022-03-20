@@ -6,6 +6,7 @@
   
   <!-- 테이블의 컬럼과 객체필드를 연결한다. -->
   <resultMap type="NoticeQuestion" id="noticeQuestionMap">
+  <id column="q_no" property="no"/>
   </resultMap>
   
   <select id="findAll" resultMap="noticeQuestionMap"> 
@@ -40,7 +41,7 @@
     from 
       gms_notice_question
     where 
-      q_no=#{qNo}
+      q_no=#{no}
   </select>
 
   <insert id="insert" parameterType="NoticeQuestion">
@@ -60,7 +61,7 @@
       query_no = queryNo,
       memb_no = membNo
     where 
-      q_no = #{qNo}
+      q_no = #{no}
   </update>
   
   <select id ="countAll" parameterType="int">
@@ -70,6 +71,6 @@
   <delete id="delete" parameterType="int">
     delete from gms_notice_question
     where 
-      q_no = #{qNo}
+      q_no = #{no}
   </delete>
 </mapper>

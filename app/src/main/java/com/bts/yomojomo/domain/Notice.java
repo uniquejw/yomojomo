@@ -4,17 +4,17 @@ import java.sql.Date;
 
 public class Notice {
   int no;
-  int mcate2No;
+  int mainCateNo;
   String cate;
   String title;
   String content;
-  Date dt;
+  Date regDt;
 
 
   @Override
   public String toString() {
-    return "Notice [no=" + no + ", mcate2No=" + mcate2No + ", cate=" + cate + ", title=" + title
-        + ", content=" + content + ", dt=" + dt + "]";
+    return "Notice [no=" + no + ", mainCateNo=" + mainCateNo + ", cate=" + cate + ", title=" + title
+        + ", content=" + content + ", regDt=" + regDt + "]";
   }
   public int getNo() {
     return no;
@@ -22,11 +22,11 @@ public class Notice {
   public void setNo(int no) {
     this.no = no;
   }
-  public int getMcate2No() {
-    return mcate2No;
+  public int getMainCateNo() {
+    return mainCateNo;
   }
-  public void setMcate2No(int mcate2No) {
-    this.mcate2No = mcate2No;
+  public void setMainCateNo(int mainCateNo) {
+    this.mainCateNo = mainCateNo;
   }
   public String getCate() {
     return cate;
@@ -46,11 +46,11 @@ public class Notice {
   public void setContent(String content) {
     this.content = content;
   }
-  public Date getDt() {
-    return dt;
+  public Date getRegDt() {
+    return regDt;
   }
-  public void setDt(Date dt) {
-    this.dt = dt;
+  public void setRegDt(Date regDt) {
+    this.regDt = regDt;
   }
 
 }
