@@ -3,88 +3,88 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bts.yomojomo.dao.GroupDao">
-  
-  <!-- 테이블의 컬럼과 객체필드를 연결한다. -->
-  <resultMap type="Group" id="GroupMap">
-    <id column="gno" property="no"/>
-    <result column="itrlocalno" property="itrlocalno"/>
-    <result column="fileno" property="fileno"/>
-    <result column="name" property="name"/>
-    <result column="cdate" property="cdate"/>
-    <result column="logo" property="logo"/>
-    <result column="intro" property="intro"/>
-    <result column="mcnt" property="mcnt"/>
-    <result column="fee" property="fee"/>
-    <result column="vcnt" property="vcnt"/>
-  </resultMap>
 
-  <select id="findAll" resultMap="GroupMap"> 
-    select
-      gno,
-      itrlocalno,
-      fileno,
-      name,
-      cdate,
-      logo,
-      intro,
-      mcnt,
-      fee,
-      vcnt
-    from
-      gms_group
-    order by
-      gno desc
-  </select>
-  
-  <select id="findByNo" resultMap="GroupMap" parameterType="int">
-    select 
-      gno,
-      itrlocalno,
-      fileno,
-      name,
-      cdate,
-      logo,
-      intro,
-      mcnt,
-      fee,
-      vcnt
-    from 
-      gms_group
-    where 
-      gno=#{no}
-  </select>
+	<!-- 테이블의 컬럼과 객체필드를 연결한다. -->
+	<resultMap type="Group" id="GroupMap">
+		<id column="g_no" property="no" />
+		<result column="act_local_no" property="actlocalno" />
+		<result column="pups_no" property="pupsno" />
+		<result column="name" property="name" />
+		<result column="reg_dt" property="regdt" />
+		<result column="logo" property="logo" />
+		<result column="intro" property="intro" />
+		<result column="max_cnt" property="maxcnt" />
+		<result column="fee" property="fee" />
+		<result column="view_cnt" property="viewcnt" />
+	</resultMap>
 
-  <insert id="insert" parameterType="Group">
-    insert into gms_group (
-    itrlocalno,
-    fileno,
-    name,
-    logo,
-    intro,
-    fee) 
-    values(#{itrlocalno}, #{fileno}, #{name}, #{logo}, #{intro}, #{fee});
-  </insert>
-  
-  <update id ="update" parameterType="Group">
-    update gms_group set 
-      gno = #{no},
-      itrlocalno = #{itrlocalno},
-      fileno = #{fileno},
-      name = #{name},
-      logo = #{logo},
-      intro = #{intro},
-      fee = #{fee}
-    where 
-      gno = #{no}
-  </update>
-  
-  <select id ="countAll" parameterType="int">
-    select count(*) from gms_group
-  </select>
-  
-  <delete id="delete" parameterType="int">
-    delete from gms_group
-    where 
-      gno = #{no}
-  </delete>
+	<select id="findAll" resultMap="GroupMap">
+		select
+		g_no,
+		act_local_no,
+		pups_no,
+		name,
+		reg_dt,
+		logo,
+		intro,
+		max_cnt,
+		fee,
+		view_cnt
+		from
+		gms_group
+		order by
+		g_no desc
+	</select>
+
+	<select id="findByNo" resultMap="GroupMap" parameterType="int">
+		select
+		g_no,
+		act_local_no,
+		pups_no,
+		name,
+		reg_dt,
+		logo,
+		intro,
+		max_cnt,
+		fee,
+		view_cnt
+		from
+		gms_group
+		where
+		g_no=#{no}
+	</select>
+
+	<insert id="insert" parameterType="Group">
+		insert into gms_group (
+		act_local_no,
+		pups_no,
+		name,
+		logo,
+		intro,
+		fee)
+		values(#{actlocalno}, #{pupsno}, #{name}, #{logo}, #{intro}, #{fee});
+	</insert>
+
+	<update id="update" parameterType="Group">
+		update gms_group set
+		g_no = #{no},
+		act_local_no = #{actlocalno},
+		pups_no = #{pupsno},
+		name = #{name},
+		logo = #{logo},
+		intro = #{intro},
+		fee = #{fee}
+		where
+		g_no = #{no}
+	</update>
+
+	<select id="countAll" parameterType="int">
+		select count(*) from gms_group
+	</select>
+
+	<delete id="delete" parameterType="int">
+		delete from gms_group
+		where
+		g_no = #{no}
+	</delete>
 </mapper>
