@@ -5,28 +5,28 @@
 <mapper namespace="com.bts.yomojomo.dao.AccountingCateDao">
   
   <resultMap type="AccountingCate" id="AccountingCateMap">
-    <id column="actcateno" property="no"/>
+    <id column="act_cate_no" property="no"/>
     <result column="name" property="name"/>
   </resultMap>
 
   <select id="findAll" resultMap="AccountingCateMap"> 
     select
-      actcateno,
+      act_cate_no,
       name
     from
       gms_accounting_cate
     order by
-      actcateno asc
+      act_cate_no asc
   </select>
   
   <select id="findByNo" resultMap="AccountingCateMap" parameterType="int">
     select 
-      actcateno,
+      act_cate_no,
       name
     from 
       gms_accounting_cate
     where 
-      actcateno=#{no}
+      act_cate_no=#{no}
   </select>
 
   <insert id="insert" parameterType="AccountingCate">
@@ -38,7 +38,7 @@
     update gms_accounting_cate set 
       name = #{name}
     where 
-      actcateno = #{no}
+      act_cate_no = #{no}
   </update>
   
   <select id ="countAll" parameterType="int">
@@ -48,6 +48,6 @@
   <delete id="delete" parameterType="int">
     delete from gms_accounting_cate
     where 
-      actcateno = #{no}
+      act_cate_no = #{no}
   </delete>
 </mapper>
