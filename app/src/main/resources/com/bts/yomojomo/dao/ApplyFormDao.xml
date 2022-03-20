@@ -6,40 +6,41 @@
   
   <!-- 테이블의 컬럼과 객체필드를 연결한다. -->
   <resultMap type="ApplayForm" id="ApplayFormMap">
-    <id column="applno" property="no"/>
-    <result column="gno" property="gno"/>
-    <result column="membno" property="membno"/>
+    <id column="appl_no" property="no"/>
+    <result column="g_no" property="gno"/>
+    <result column="memb_no" property="membno"/>
     <result column="content" property="content"/>
+    <result column="appl_dt" property="date"/>
   </resultMap>
 
   <select id="findAll" resultMap="ApplayFormMap"> 
     select
-      applno,
-      gno,
-      membno,
+      appl_no,
+      g_no,
+      memb_no,
       content,
-      appldt
+      appl_dt
     from
       gms_applyform
     order by
-      applno asc
+      appl_no asc
   </select>
   
   <select id="findByNo" resultMap="ApplayFormMap" parameterType="int">
     select 
-      applno,
-      gno,
-      membno,
+      appl_no,
+      g_no,
+      memb_no,
       content,
-      appldt
+      appl_dt
     from 
       gms_applyform
     where 
-      applno=#{no}
+      appl_no=#{no}
   </select>
 
   <insert id="insert" parameterType="ApplayForm">
-    insert into gms_applyform(gno, membno, content) 
+    insert into gms_applyform(g_no, memb_no, content) 
     values(#{gno}, #{membno}, #{content})
   </insert>
   
@@ -47,7 +48,7 @@
     update gms_applyform set 
       content = #{content}
     where 
-      applno=#{no}
+      appl_no=#{no}
   </update>
   
   <select id ="countAll" parameterType="int">
@@ -57,6 +58,6 @@
   <delete id="delete" parameterType="int">
     delete from gms_applyform
     where 
-      applno=#{no}
+      appl_no=#{no}
   </delete>
 </mapper>
