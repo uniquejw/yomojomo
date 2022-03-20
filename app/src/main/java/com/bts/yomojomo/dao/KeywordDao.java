@@ -16,9 +16,9 @@ public interface KeywordDao {
 
   int insert(Keyword keyword);
 
-  Keyword findByNo(int kno);
+  Keyword findByNo(int kNo);
 
   int update(Keyword keyword);
 
-  int delete(int kno);
+  int delete(int kNo);
 }

@@ -6,28 +6,27 @@
   
   <!-- 테이블의 컬럼과 객체필드를 연결한다. -->
   <resultMap type="MembGrade" id="membGradeMap">
-     <id column="gradeno" property="no"/>
-    <!--<result column="name" property="name"/> -->
+  <id column="g_memb_grd_no" property="no"/>
   </resultMap>
 
   <select id="findAll" resultMap="membGradeMap"> 
     select
-      gradeno,
+      g_memb_grd_no,
       name
     from
       gms_memb_grade
     order by
-      gradeno asc
+      g_memb_grd_no asc
   </select>
   
   <select id="findByNo" resultMap="membGradeMap" parameterType="int">
     select 
-      gradeno,
+      g_memb_grd_no,
       name
     from 
       gms_memb_grade
     where 
-      gradeno=#{no}
+      g_memb_grd_no=#{no}
   </select>
 
   <insert id="insert" parameterType="MembGrade">
@@ -39,7 +38,7 @@
     update gms_memb_grade set 
       name = #{name}
     where 
-      gradeno = #{no}
+      g_memb_grd_no = #{no}
   </update>
   
   <select id ="countAll" parameterType="int">
@@ -49,6 +48,6 @@
   <delete id="delete" parameterType="int">
     delete from gms_memb_grade
     where 
-      gradeno = #{no}
+      g_memb_grd_no = #{no}
   </delete>
 </mapper>

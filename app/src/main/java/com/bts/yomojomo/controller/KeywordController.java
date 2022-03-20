@@ -20,8 +20,8 @@ public class KeywordController {
   }
 
   @RequestMapping("/keyword/get")
-  public Object get(int kno) {
-    return keywordDao.findByNo(kno);
+  public Object get(int kNo) {
+    return keywordDao.findByNo(kNo);
   }
 
   @RequestMapping("/keyword/list")
@@ -35,7 +35,7 @@ public class KeywordController {
   }
 
   @RequestMapping("/keyword/delete")
-  public Object delete(int kno) {
-    return keywordDao.delete(kno);
+  public Object delete(int kNo) {
+    return keywordDao.delete(kNo);
   }
 }

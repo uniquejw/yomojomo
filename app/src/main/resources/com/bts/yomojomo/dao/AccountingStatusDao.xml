@@ -5,46 +5,46 @@
 <mapper namespace="com.bts.yomojomo.dao.AccountingStatusDao">
   
   <resultMap type="AccountingStatus" id="AccountingStatusMap">
-    <id column="actno" property="actno"/>
-    <result column="gno" property="gno"/>
-    <result column="membno" property="membno"/>
-    <result column="paydt" property="paydt"/>
+    <id column="act_no" property="actno"/>
+    <result column="g_no" property="gno"/>
+    <result column="memb_no" property="membno"/>
+    <result column="pay_dt" property="paydt"/>
   </resultMap>
 
   <select id="findAll" resultMap="AccountingStatusMap"> 
     select
-      actno,
-      gno,
-      membno,
-      paydt
+      act_no,
+      g_no,
+      memb_no,
+      pay_dt
     from
       gms_accounting_status
     order by
-      actno asc
+      act_no asc
   </select>
   
   <select id="findByNo" resultMap="AccountingStatusMap" parameterType="int">
     select 
-      actno,
-      gno,
-      membno,
-      paydt
+      act_no,
+      g_no,
+      memb_no,
+      pay_dt
     from 
       gms_accounting_status
     where 
-      actno=#{actno}
+      act_no=#{actno}
   </select>
 
   <insert id="insert" parameterType="AccountingStatus">
-    insert into gms_accounting_status(actno,gno,membno,paydt) 
+    insert into gms_accounting_status(act_no,g_no,memb_no,pay_dt) 
     values(#{actno},#{gno},#{membno},#{paydt})
   </insert>
   
   <update id ="update" parameterType="AccountingStatus">
     update gms_accounting_status set 
-      paydt = #{paydt}
+      pay_dt = #{paydt}
     where 
-      actno=#{actno}
+      act_no=#{actno}
   </update>
   
   <select id ="countAll" parameterType="int">
@@ -54,6 +54,6 @@
   <delete id="delete" parameterType="int">
     delete from gms_accounting_status
     where 
-      actno=#{actno}
+      act_no=#{actno}
   </delete>
 </mapper>

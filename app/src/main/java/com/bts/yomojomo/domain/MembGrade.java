@@ -22,4 +22,6 @@ public class MembGrade {
     this.name = name;
   }
 
+
+
 }

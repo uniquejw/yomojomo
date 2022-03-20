@@ -2,13 +2,12 @@ package com.bts.yomojomo.domain;
 
 public class Photo {
   int no;
-  int bno;
+  int bNo;
   String path;
-
 
   @Override
   public String toString() {
-    return "Photo [no=" + no + ", bno=" + bno + ", path=" + path + "]";
+    return "Photo [no=" + no + ", bNo=" + bNo + ", path=" + path + "]";
   }
   public int getNo() {
     return no;
@@ -16,11 +15,11 @@ public class Photo {
   public void setNo(int no) {
     this.no = no;
   }
-  public int getBno() {
-    return bno;
+  public int getbNo() {
+    return bNo;
   }
-  public void setBno(int bno) {
-    this.bno = bno;
+  public void setbNo(int bNo) {
+    this.bNo = bNo;
   }
   public String getPath() {
     return path;

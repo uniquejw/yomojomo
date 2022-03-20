@@ -6,56 +6,47 @@
   
   <!-- 테이블의 컬럼과 객체필드를 연결한다. -->
   <resultMap type="NoticeQuestion" id="noticeQuestionMap">
-    <!-- <id column="qno" property="qno"/>
-    <result column="mcate2no" property="mcate2no"/>
-    <result column="queryno" property="queryno"/>
-    <result column="membno" property="membno"/>
-    <result column="title" property="title"/>
-    <result column="content" property="content"/>
-    <result column="path" property="path"/>
-    <result column="querydt" property="querydt"/>
-    <result column="answer" property="answer"/>
-    <result column="answerdt" property="answerdt"/> -->
+  <id column="q_no" property="no"/>
   </resultMap>
   
   <select id="findAll" resultMap="noticeQuestionMap"> 
     select
-      qno,
-      mcate2no,
-      queryno,
-      membno,
+      q_no,
+      main_cate_no,
+      query_no,
+      memb_no,
       title,
       content,
       path,
-      querydt,
+      query_dt,
       answer,
-      answerdt
+      answer_dt
     from
       gms_notice_question
     order by
-      qno asc
+      q_no asc
   </select>
   
   <select id="findByNo" resultMap="noticeQuestionMap" parameterType="int">
     select 
-      mcate2no,
-      queryno,
-      membno,
+      main_cate_no,
+      query_no,
+      memb_no,
       title,
       content,
       path,
-      querydt,
+      query_dt,
       answer,
-      answerdt
+      answer_dt
     from 
       gms_notice_question
     where 
-      qno=#{qno}
+      q_no=#{no}
   </select>
 
   <insert id="insert" parameterType="NoticeQuestion">
-    insert into gms_notice_question(mcate2no,queryno,membno,title,content,path,querydt,answer,answerdt) 
-    values(#{mcate2no},#{queryno},#{membno},#{title},#{content},#{path},#{querydt},#{answer},#{answerdt})
+    insert into gms_notice_question(main_cate_no,query_no,memb_no,title,content,path,query_dt,answer,answer_dt) 
+    values(#{mainCateNo},#{queryNo},#{membNo},#{title},#{content},#{path},#{queryDt},#{answer},#{answerDt})
   </insert>
   
   <update id ="update" parameterType="NoticeQuestion">
@@ -63,14 +54,14 @@
       path = #{path},
       title = #{title},
       content = #{content},
-      querydt = #{querydt},
+      query_dt = #{queryDt},
       answer = #{answer},
-      answerdt = #{answerdt},
-      mcate2no = mcate2no,
-      queryno = queryno,
-      membno = membno
+      answer_dt = #{answerDt},
+      main_cate_no = mainCateNo,
+      query_no = queryNo,
+      memb_no = membNo
     where 
-      qno = #{qno}
+      q_no = #{no}
   </update>
   
   <select id ="countAll" parameterType="int">
@@ -80,6 +71,6 @@
   <delete id="delete" parameterType="int">
     delete from gms_notice_question
     where 
-      qno = #{qno}
+      q_no = #{no}
   </delete>
 </mapper>

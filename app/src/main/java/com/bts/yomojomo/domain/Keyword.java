@@ -1,33 +1,35 @@
 package com.bts.yomojomo.domain;
 
 public class Keyword {
-  int kno;
-  String searchname;
-  int membno;
+  int kNo;
+  String searchName;
+  int membNo;
+  
   
   @Override
   public String toString() {
-    return "Keyword [kno=" + kno + ", searchname=" + searchname + ", membno=" + membno + "]";
+    return "Keyword [kNo=" + kNo + ", searchName=" + searchName + ", membNo=" + membNo + "]";
   }
   public int getKno() {
-    return kno;
+    return kNo;
   }
-  public void setKno(int kno) {
-    this.kno = kno;
+  public void setKno(int kNo) {
+    this.kNo = kNo;
   }
-  public String getSearchname() {
-    return searchname;
+  public String getSearchName() {
+    return searchName;
   }
-  public void setSearchname(String searchname) {
-    this.searchname = searchname;
+  public void setSearchName(String searchName) {
+    this.searchName = searchName;
   }
-  public int getMembno() {
-    return membno;
+  public int getMembNo() {
+    return membNo;
   }
-  public void setMembno(int membno) {
-    this.membno = membno;
+  public void setMembNo(int membNo) {
+    this.membNo = membNo;
   }
   
+
   
   
 
