@@ -32,17 +32,11 @@
       })
         .then(function(fileList) {
           for(var file of fileList) {
-            console.log(file)
-
-            // var tr = document.createElement('tr')
-            // tr.innerHTML = `<td>${member.no}</td>
-            // <td><a href="view.html?no=${member.no}">${member.email}</a></td>
-            // <td>${member.name}</td>
-            // <td>${member.pwd}</td>
-            // <td>${member.postno}</td>
-            // <td>${member.baseaddr}</td>
-            // <td>${member.addr}</td>`
-            // tbody.appendChild(tr)
+            var tr = document.createElement('tr')
+            tr.innerHTML = `<td><a href="view.html?no=${file.no}">${file.no}</a></td>
+            <td>${file.bno}</td>
+            <td>${file.name}</td>`
+            tbody.appendChild(tr)
           }
         }) 
 
