@@ -3,11 +3,11 @@ package com.bts.yomojomo.domain;
 public class GroupTag {
   int no;
   int gno;
-  String tag;
+  String tagname;
   
   @Override
   public String toString() {
-    return "GroupTag [no=" + no + ", gno=" + gno + ", tag=" + tag + "]";
+    return "GroupTag [no=" + no + ", gno=" + gno + ", tag_name=" + tagname + "]";
   }
   public int getNo() {
     return no;
@@ -21,13 +21,13 @@ public class GroupTag {
   public void setGno(int gno) {
     this.gno = gno;
   }
-  public String getTag() {
-    return tag;
+  public String getTagname() {
+    return tagname;
   }
-  public void setTag(String tag) {
-    this.tag = tag;
+  public void setTagname(String tagname) {
+    this.tagname = tagname;
   }
-
+  
   
  
 }

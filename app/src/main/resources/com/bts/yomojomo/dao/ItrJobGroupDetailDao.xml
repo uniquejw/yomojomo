@@ -6,45 +6,45 @@
   
   <!-- 테이블의 컬럼과 객체필드를 연결한다. -->
   <resultMap type="ItrJobGroupDetail" id="ItrJobGroupDetailMap">
-    <id column="ijgdno" property="no"/>
+    <id column="itr_j_dta_no" property="no"/>
     <result column="name" property="name"/>
-    <result column="ijgno" property="ijgno"/>
+    <result column="itr_j_no" property="itrjno"/>
     
   </resultMap>
 
   <select id="findAll" resultMap="ItrJobGroupDetailMap"> 
     select
-      ijgdno,
+      itr_j_dta_no,
       name,
-      ijgno
+      itr_j_no
     from
       gms_itr_jobgroup_detail
     order by
-      ijgdno desc
+      itr_j_dta_no desc
   </select>
   
   <select id="findByNo" resultMap="ItrJobGroupDetailMap" parameterType="int">
     select 
-      ijgdno,
+      itr_j_dta_no,
       name,
-      ijgno
+      itr_j_no
     from 
       gms_itr_jobgroup_detail
     where 
-      ijgdno=#{no}
+      itr_j_dta_no=#{no}
   </select>
 
   <insert id="insert" parameterType="ItrJobGroupDetail">
-    insert into gms_itr_jobgroup_detail(name,ijgno) 
-    values(#{name}, #{ijgno})
+    insert into gms_itr_jobgroup_detail(name,itr_j_no) 
+    values(#{name}, #{itrjno})
   </insert>
   
   <update id ="update" parameterType="ItrJobGroupDetail">
     update gms_itr_jobgroup_detail set 
       name = #{name},
-      ijgno = #{ijgno}
+      itr_j_no = #{itrjno}
     where 
-      ijgdno = #{no}
+      itr_j_dta_no = #{no}
   </update>
   
   <select id ="countAll" parameterType="int">
@@ -54,6 +54,6 @@
   <delete id="delete" parameterType="int">
     delete from gms_itr_jobgroup_detail
     where 
-     ijgdno = #{no}
+     itr_j_dta_no = #{no}
   </delete>
 </mapper>

@@ -11,13 +11,11 @@ public class Member {
   String addr;
   String type;
   boolean unsubscribe;
-  
-  
   @Override
   public String toString() {
     return "Member [no=" + no + ", name=" + name + ", pwd=" + pwd + ", email=" + email + ", tel="
         + tel + ", postno=" + postno + ", baseaddr=" + baseaddr + ", addr=" + addr + ", type="
-        + type + ", unsbuscribe=" + unsubscribe + "]";
+        + type + ", unsubscribe=" + unsubscribe + "]";
   }
   public int getNo() {
     return no;
@@ -73,10 +71,10 @@ public class Member {
   public void setType(String type) {
     this.type = type;
   }
-  public boolean isUnsbuscribe() {
+  public boolean isUnsubscribe() {
     return unsubscribe;
   }
-  public void setUnunsubscribe(boolean unsubscribe) {
+  public void setUnsubscribe(boolean unsubscribe) {
     this.unsubscribe = unsubscribe;
   }
 

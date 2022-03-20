@@ -6,56 +6,59 @@
   
   <!-- 테이블의 컬럼과 객체필드를 연결한다. -->
   <resultMap type="Accounting" id="AccountingMap">
-    <id column="actno" property="no"/>
-    <result column="gno" property="gno"/>
-    <result column="actcateno" property="actcateno"/>
+    <id column="act_no" property="no"/>
+    <result column="g_no" property="gno"/>
+    <result column="act_cate_no" property="actcateno"/>
     <result column="title" property="title"/>
     <result column="amount" property="amount"/>
+    <result column="reg_dt" property="date"/>
     <result column="status" property="status"/>
   </resultMap>
 
   <select id="findAll" resultMap="AccountingMap"> 
     select
-      actno,
-      gno,
-      actcateno,
+      act_no,
+      g_no,
+      act_cate_no,
       title,
       amount,
+      reg_dt,
       status
     from
       gms_accounting
     order by
-      actno desc
+      act_no desc
   </select>
   
   <select id="findByNo" resultMap="AccountingMap" parameterType="int">
     select 
-      actno,
-      gno,
-      actcateno,
+      act_no,
+      g_no,
+      act_cate_no,
       title,
       amount,
+      reg_dt,
       status
     from 
       gms_accounting
     where 
-      actno=#{no}
+      act_no=#{no}
   </select>
 
   <insert id="insert" parameterType="Accounting">
-    insert into gms_accounting(gno, actcateno, title, amount, status) 
+    insert into gms_accounting(g_no, act_cate_no, title, amount, status) 
     values(#{gno}, #{actcateno}, #{title}, #{amount}, #{status})
   </insert>
   
   <update id ="update" parameterType="Accounting">
     update gms_accounting set 
-      gno = gno,
-      actcateno = actcateno,
+      g_no = g_no,
+      act_cate_no = #{actcateno},
       title = #{title},
       amount = #{amount},
       status = #{status}
     where 
-      actno=#{no}
+      act_no=#{no}
   </update>
   
   <select id ="countAll" parameterType="int">
@@ -65,6 +68,6 @@
   <delete id="delete" parameterType="int">
     delete from gms_accounting
     where 
-      actno = #{no}
+      act_no=#{no}
   </delete>
 </mapper>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="../css/common.css">
+  <style>
+    .invisible {
+      clear: none;
+      border: 0px none;
+      float: 0;
+    }
+  </style>
+  <title>정산서</title>
+</head>
+<body>
+
+  <h1>정산서 상세</h1>
+  <form>
+    번호: <input id="x-no" class="invisible" type="number" readonly><br>
+    모임번호 : <input id="x-gno" class="invisible" type="number" readonly><br>
+    유형번호: <input id="x-actcateno" type="number"><br>
+    제목: <input id="x-title" type="text"><br>
+    작성일: <span id="x-date"></span><br>
+    금액: <input id="x-amount" type="number"><br>
+
+  <button id="x-update-btn" type="button">수정</button>
+  <button id="x-delete-btn" type="button">삭제</button>
+  <button id="x-cancle-btn" type="button">취소</button> 
+  </form>
+
+<script>
+
+  //1. URL에서 쿼리스트링 추출
+  let arr = location.href.split("?");
+  // console.log(arr);
+
+  if (arr.length == 1) {
+    alert("요청 형식이 올바르지 않습니다.")
+    throw "URL 형식 오류!"
+  }
+
+  let qs = arr[1];
+  //console.log(qs);
+
+  //2. 쿼리 스트링에서 no 값 추출
+  let params = new URLSearchParams(qs);
+  let no = params.get("no");
+
+  if (no == null) {
+    alert("게시물 번호가 없습니다.");
+    throw "파라미터 오류!";
+  }
+  //console.log(no);
+
+  let xNo = document.querySelector("#x-no");
+  let xGno = document.querySelector("#x-gno");
+  let xActcateno = document.querySelector("#x-actcateno");
+  let xTitle = document.querySelector("#x-title");
+  let xAmount = document.querySelector("#x-amount");
+  let xDate = document.querySelector("#x-date");
+
+  //3. 서버에서 데이터 가져오기
+  fetch(`/accounting/get?no=${no}`)
+    .then(function(response) {
+      return response.json();
+    })
+    .then(function(accounting) {
+      //4. 화면에 출력
+      xNo.value = accounting.no;
+      xGno.value = accounting.gno;
+      xActcateno.value = accounting.actcateno;
+      xTitle.value = accounting.title;
+      xAmount.value  = accounting.amount;
+      xDate.innerHTML = accounting.date;
+    });
+
+//수정
+  document.querySelector("#x-update-btn").onclick = function() {
+    if(xActcateno.value == "" || xTitle.value == "" || xAmount.value == "") {
+    window.alert("필수 입력 항목이 비어 있습니다.");
+    return;
+    }
+
+    fetch(`/accounting/update?no=${xNo.value}&gno=${xGno.value}&actcateno=${xActcateno.value}&title=${xTitle.value}&amount=${xAmount.value}`)
+  .then(function(response) {
+    return response.text();
+  })
+  .then(function(text) {
+    console.log(text);
+    location.href = "index.html";
+  });
+};
+    
+//삭제 
+document.querySelector("#x-delete-btn").onclick = function() {
+  fetch(`/accounting/delete?no=${no}`)
+  .then(function(response) {
+      return response.json();
+    })
+  .then(function(result) {
+    console.log("삭제");
+	  location.href = "index.html";
+  });
+};
+
+//취소
+document.querySelector("#x-cancle-btn").onclick = function() {
+  window.location.href = "index.html";
+};
+
+</script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <h1>그룹 직업 검색</h1>
+  <span>관심 직업명</span><br>
+  <input type="text" class ="name"><br>
+  <span>관심 직군 번호</span><br>
+  <input type="text" class ="itrjno"><br>
+  <button type="button" class ="add-btn">입력하기</button>
+  
+  <script>
+    var xname = document.querySelector('.name')
+    var itrjno = document.querySelector('.itrjno')
+    
+
+    document.querySelector('.add-btn').addEventListener("click", function() {
+      //console.log(xname.value)
+     
+      fetch(`/itrjobgroupdetail/add?name=${xname.value}&itrjno=${itrjno.value}`)
+      .then(function(response) {
+        return response.text();
+      })
+      .then(function(text) {
+        console.log(text)
+      })
+    });
+  </script>
+</body>
+</html>

@@ -3,11 +3,11 @@ package com.bts.yomojomo.domain;
 public class ItrJobGroupDetail {
   int no;
   String name;
-  int ijgno;
+  int itrjno;
   
   @Override
   public String toString() {
-    return "ItrJobGroupDetail [no=" + no + ", name=" + name + ", ijgno=" + ijgno + "]";
+    return "ItrJobGroupDetail [no=" + no + ", name=" + name + ", itrjno=" + itrjno + "]";
   }
   public int getNo() {
     return no;
@@ -21,13 +21,14 @@ public class ItrJobGroupDetail {
   public void setName(String name) {
     this.name = name;
   }
-  public int getIjgno() {
-    return ijgno;
+  public int getItrjno() {
+    return itrjno;
   }
-  public void setIjgno(int ijgno) {
-    this.ijgno = ijgno;
+  public void setItrjno(int itrjno) {
+    this.itrjno = itrjno;
   }
   
+
   
 
 }
