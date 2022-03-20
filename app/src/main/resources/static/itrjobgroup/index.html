@@ -7,26 +7,39 @@
   <title>Document</title>
 </head>
 <body>
-  <h1>그룹태그 검색</h1>
-  <span>관심 직군명</span><br>
-  <input type="text" class ="name"><br>
-  <button type="button" class ="add-btn">입력하기</button>
-  
+  <h1>그룹 태그명</h1>
+  <table border="1">
+    <thead>
+      <tr>
+        <th>번호</th>
+        <th>관심 직군명</th>
+      </tr>
+    </thead>
+    <tbody class="tbodyEl">
+    </tbody>
+  </table>
+  <button type="button"><a href="form.html">등록하기</a></button>
   <script>
     var xname = document.querySelector('.name')
+    var tbody = document.querySelector('.tbodyEl')
     
-
-    document.querySelector('.add-btn').addEventListener("click", function() {
-      //console.log(xname.value)
-     
-      fetch(`/itrjobgroup/add?name=${xname.value}`)
+      fetch("/itrjobgroup/list")
       .then(function(response) {
-        return response.text();
+        return response.json();
       })
-      .then(function(text) {
-        console.log(text)
+      .then(function(itrjobgroups) {
+        for(var itrjobgroup of itrjobgroups){
+          console.log(itrjobgroup.name)
+
+          var tr = document.createElement('tr')
+          tr.innerHTML = 
+            `<td>${itrjobgroup.no}</td>
+            <td><a href="view.html?no=${itrjobgroup.no}">${itrjobgroup.name}</a>
+            </td>`
+            tbody.appendChild(tr)
+        }
       })
-    });
+   
   </script>
 </body>
 </html>
