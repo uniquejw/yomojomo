@@ -1,0 +1,52 @@
+
+/* common*/
+* { 
+    padding : 0; 
+    margin : 0;
+    /*border: 0;*/
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+    box-sizing: border-box;
+}
+#container{
+    min-height: 80vh;
+}
+hr{
+    z-index: 99999;
+}
+a, p, span, button {
+    text-decoration: none;
+    color: #616161;
+}
+ol, ul, li {
+    list-style: none;
+}
+div{
+    margin: 3px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #616161;
+}
+
+button {
+    color: white;
+    background-color: rgb(17, 147, 218);
+    border-radius: 3px;
+    cursor: pointer;
+    border: 0;
+    width: 60px;
+    height: 27px;
+    font-size: 14px;
+}
+#width-fix-div{
+    width: 57vw;
+    margin: 0px auto;
+}
+
+#create-btn { /*button은 inline -> block을 줘서 줄 차지 하게 하고 margin auto줘야 가운데 정렬됨 */
+    display: block;
+    width: 28vw;
+    height: 3vh;
+    margin: 0px auto;
+}
