@@ -11,6 +11,13 @@
 }
 #container{
     min-height: 80vh;
+    width: 57vw;
+    margin: 0px auto;
+}
+#width-fix-div{
+    border: 0;
+    width: 50vw;
+    margin: 40px auto;
 }
 hr{
     z-index: 99999;
@@ -23,10 +30,14 @@ ol, ul, li {
     list-style: none;
 }
 div{
-    margin: 3px;
-    border-width: 1px;
+    /* margin: 5px; */
+    /* border-width: 1px;
     border-style: solid;
-    border-color: #616161;
+    border-color: #616161; */
+}
+input, button, textarea{
+    position: relative;
+    right: 0;
 }
 
 button {
@@ -39,9 +50,22 @@ button {
     height: 27px;
     font-size: 14px;
 }
-#width-fix-div{
-    width: 57vw;
-    margin: 0px auto;
+h1{
+    margin-bottom: 10px;
+}
+.table-row-group{
+    display: table-row-group;
+}
+.table-row{
+    display: table-row;
+    height: 60px;
+}
+.table-cell{
+    display: table-cell;
+}
+.title{
+    width: 8vw;
+    vertical-align: top;
 }
 
 #create-btn { /*button은 inline -> block을 줘서 줄 차지 하게 하고 margin auto줘야 가운데 정렬됨 */

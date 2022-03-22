@@ -18,19 +18,46 @@
 </head>
 <body>
   <div id="headers"></div>
-  <div id="width-fix-div">
-    <div id="container">
+  <div id="container">
+    <div id="width-fix-div">
       <h1>모임기본정보 </h1>
-      <div>모임이름* : <input type="text" value="모임이름을 적어주세요"> </div>
-      <div>이미지 <button>파일등록</button> 첨부파일 등록된 파일이 없습니다. </div>
-      <div>회비????</div>
-      <div>모임 인사말 <textarea name="" id="" cols="20" rows="3"></textarea></div>
-      <div>멤버목록   공개 <input type="radio" name="public" > 비공개 <input type="radio" name="public"></div>
-      <hr>
-      <h1>모임성격</h1>
-      <div> 주제</div>
-      <div>모임태그<input type="text"><button>등록</button></div>
-      <div>활동지역  <button id="local-btn">+추가</button></div>
+      <div class="table-row-group">
+        <div class="table-row">
+          <div class="table-cell title">모임이름* :</div>
+          <div class="table-cell"><input type="text" value="모임이름을 적어주세요"> </div>
+        </div>
+        <div class="table-row" >
+          <div class="table-cell title">이미지</div>
+          <div class="table-cell">첨부파일 등록된 파일이 없습니다.</div>
+          <div class="table-cell"><button>파일등록</button></div>
+        </div>
+        <div class="table-row ">
+          <div class="table-cell title">회비????</div>
+        </div>
+        <div class="table-row">
+          <div class="table-cell title">모임 인사말</div>
+          <div class="table-cell"><textarea name="" id="" cols="40" rows="3"></textarea></div>
+        </div>
+        <div class="table-row">
+          <div class="table-cell title">멤버목록</div>
+          <div class="table-cell">공개 <input type="radio" name="public" > 비공개 <input type="radio" name="public"></div>
+        </div>
+      </div>
+        <hr>
+        <h1>모임성격</h1>
+      <div class="table-row-group">
+        <div class="table-row">
+          <div class="table-cell title"> 주제</div>
+        </div>
+        <div class="table-row">
+          <div class="table-cell title">모임태그</div>
+          <div class="table-cell"><input type="text"><button>등록</button></div>
+        </div>
+        <div class="table-row">
+          <div class="table-cell title">활동지역</div>
+          <div class="table-cell"><button id="local-btn">+추가</button></div>
+        </div>
+      </div>
       <hr>
       <button id="create-btn">생성하기</button>
     </div>
