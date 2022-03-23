@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 초기화 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
+    <!-- 부트스트랩 css 적용 -->
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <style>
+    #main_header {
+      /* 중앙 정렬*/
+      width: 960px; margin: 0 auto;
+
+      /* 절대 좌표 */
+      height: 160px;
+      position: relative;
+    }
+    #main_header > #title {
+      position: absolute;
+      left: 20px; top: 30px;
+    }
+    #title {
+      border: 1px solid red;
+      text-align: center;
+    }
+    #content {
+      /* 중앙 정렬 */
+      width: 960px; margin: 0 auto;
+
+      /* 수평 레이아웃 구성 */
+      overflow: hidden;
+        }
+    #content > #main_section {
+        width: 750px;
+        float: left;
+    }
+    #x-board-table{
+      width: 800px;
+      margin: 20px;
+      padding: 0px;
+    }
+    #main-footer {
+      /* 중앙 정렬 */
+      width: 960px; margin: 0 auto;
+      margin-bottom: 10px;
+
+      /* 테두리 */
+      box-sizing: border-box;
+      padding: 10px;
+      border: 1px solid black;
+
+      /* 글자 정렬 */
+      text-align: center;
+        }
+  </style>
+
+  <title>리쿠루트</title>
+</head>
+<body>
+  <div id="main-header">
+    <div id="title">
+      <h1>헤더 들어갈 자리</h1>
+    </div>
+
+  </div>
+
+  <div id="content">
+    <section id="main_section">
+      <table id="x-board-table" border="1">
+        <thead>
+          <tr>
+            <th>번호</th>
+            <th>제목</th>
+            <th>조회수</th>
+            <th>등록일</th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+        </table>
+      </section>
+  </div>
+  
+  <div id="main-footer">
+    <h3>footer가 올자리</h3>
+  </div>
+
+</body>
+</html>

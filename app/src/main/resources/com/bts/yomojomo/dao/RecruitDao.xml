@@ -6,85 +6,98 @@
   
   <!-- 테이블의 컬럼과 객체필드를 연결한다. -->
   <resultMap type="Recruit" id="RcruitMap">
-    <id column="recruit" property="no"/>
+    <id column="rcu_b_no" property="no"/>
     <result column="title" property="title"/>
     <result column="content" property="content"/>
-    <result column="reddt" property="reddt"/>
-    <result column="viewcnt" property="viewCnt"/>
-    <result column="itrlocalno" property="itrLocalNo"/>
-    <result column="fileno" property="fileNo"/>
-    <result column="membno" property="membNo"/>
+    <result column="reg_dt" property="date"/>
+    <result column="view_cnt" property="viewCnt"/>
+    <result column="act_local_no" property="actLocalNo"/>
+    <result column="pups_no" property="purposeNo"/>
+    <result column="memb_no" property="membNo"/><!--gms_memb join 이름값-->
   </resultMap>
-
-  <select id="findAll" resultMap="RcruitMap"> 
+  
+  <select id="findAll" resultMap="RcruitMap"> <!--모두조회-->
     select
-      recruit,
+      rcu_b_no,
       title,
       content,
-      reddt,
-      viewcnt,
-      itrlocalno,
-      fileno,
-      membno
+      reg_dt,
+      view_cnt,
+      act_local_no,
+      pups_no,
+      memb_no
     from
       gms_recruit
     order by
-      recruit desc
+      reg_dt desc
   </select>
   
-  <select id="findByNo" resultMap="RcruitMap" parameterType="int">
-    select 
-      recruit,
+  <select id="findByNo" resultMap="RcruitMap" parameterType="int"> <!--게시글 번호로 조회-->
+    select
+      rcu_b_no,
       title,
       content,
-      reddt,
-      viewcnt,
-      itrlocalno,
-      fileno,
-      membno
-    from 
-      gms_recruit
+      reg_dt,
+      view_cnt,
+      act_local_no,
+      pups_no,
+      memb_no
+    from
+      gms_recruit 
     where 
-      recruit=#{no}
+      rcu_b_no=#{no}
   </select>
+  
+  <!--
+  <select id="findByName" resultMap="RcruitMap" parameterType="int"> 작성자 이름으로 조회
+    select
+      r.rcu_b_no,
+      r.title,
+      r.content,
+      r.reg_dt,
+      r.view_cnt,
+      r.act_local_no,
+      r.pups_no,
+      m.name
+    from
+      gms_recruit r
+      left outer join gms_memb m on r.memb_no = m.memb_no
+    where 
+      m.name=#{name}
+  </select>
+  -->
 
   <insert id="insert" parameterType="Recruit">
-    insert into gms_recruit(title, content, reddt, viewcnt, itrlocalno, fileno, membno) 
-    values(#{title}, #{content},"2022-03-16",0, 1, 1 ,1)
+    insert into gms_recruit(title, content, act_local_no, pups_no, memb_no) 
+    values(#{title}, #{content}, #{actLocalNo}, #{purposeNo}, #{membNo} )
   </insert>
   
   <update id ="update" parameterType="Recruit">
     update gms_recruit set 
       title = #{title},
       content = #{content},
-      reddt = #{reddt},
-      viewcnt = #{viewCnt},
-      itrlocalno = itrlocalno,
-      fileno = fileno,
-      membno =membno
+      act_local_no = #{actLocalNo},
+      pups_no = #{purposeNo},
+      memb_no = #{membNo}
     where 
-      recruit = #{no}
+      rcu_b_no = #{no}
+  </update>
+  
+  <delete id="delete" parameterType="int">
+    delete from gms_recruit
+    where 
+      rcu_b_no = #{no}
+  </delete>
+  
+  <update id="increaseViewCount" parameterType="int">
+    update gms_recruit set
+      view_cnt = view_cnt + 1
+    where
+      rcu_b_no = #{no}
   </update>
   
   <select id ="countAll" parameterType="int">
     select count(*) from gms_recruit
   </select>
-  
-  <delete id="delete" parameterType="int">
-    delete from gms_recruit
-    where 
-      recruit = #{no}
-  </delete>
-  
-  <update id="increaseViewCount" parameterType="int">
-    update gms_recruit set
-      viewcnt = viewcnt + 1
-    where
-      recruit = #{no}
-  </update>
-  
-
-    
-    
     
 </mapper>

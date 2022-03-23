@@ -1,22 +1,17 @@
 package com.bts.yomojomo.domain;
-
+//경현 
 import java.sql.Date;
 
 public class Recruit {
   int no;
   String title;
   String content;
-  Date reddt;
+  Date date;
   int viewCnt;
-  int itrLocalNo;
-  int fileNo;
-  int membNo;
-  @Override
-  public String toString() {
-    return "Recruit [no=" + no + ", title=" + title + ", content=" + content + ", reddt=" + reddt
-        + ", viewCnt=" + viewCnt + ", itrLocalNo=" + itrLocalNo + ", fileNo=" + fileNo + ", membNo="
-        + membNo + "]";
-  }
+  int actLocalNo; //활동지역번호
+  int purposeNo; //모임목적번호
+  int membNo; //회원번호
+
   public int getNo() {
     return no;
   }
@@ -35,11 +30,11 @@ public class Recruit {
   public void setContent(String content) {
     this.content = content;
   }
-  public Date getReddt() {
-    return reddt;
+  public Date getDate() {
+    return date;
   }
-  public void setReddt(Date reddt) {
-    this.reddt = reddt;
+  public void setDate(Date date) {
+    this.date = date;
   }
   public int getViewCnt() {
     return viewCnt;
@@ -47,17 +42,17 @@ public class Recruit {
   public void setViewCnt(int viewCnt) {
     this.viewCnt = viewCnt;
   }
-  public int getItrLocalNo() {
-    return itrLocalNo;
+  public int getActLocalNo() {
+    return actLocalNo;
   }
-  public void setItrLocalNo(int itrLocalNo) {
-    this.itrLocalNo = itrLocalNo;
+  public void setActLocalNo(int actLocalNo) {
+    this.actLocalNo = actLocalNo;
   }
-  public int getFileNo() {
-    return fileNo;
+  public int getPurposeNo() {
+    return purposeNo;
   }
-  public void setFileNo(int fileNo) {
-    this.fileNo = fileNo;
+  public void setPurposeNo(int purposeNo) {
+    this.purposeNo = purposeNo;
   }
   public int getMembNo() {
     return membNo;
@@ -65,6 +60,13 @@ public class Recruit {
   public void setMembNo(int membNo) {
     this.membNo = membNo;
   }
+  @Override
+  public String toString() {
+    return "Recruit [no=" + no + ", title=" + title + ", content=" + content + ", date=" + date
+        + ", viewCnt=" + viewCnt + ", actLocalNo=" + actLocalNo + ", purposeNo=" + purposeNo
+        + ", membNo=" + membNo + "]";
+  }
+
 
 
 }
