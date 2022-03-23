@@ -1,7 +1,9 @@
 package com.bts.yomojomo.domain;
 
+import java.sql.Date;
+
 public class Member {
-  int no;
+  int no; //memb_no
   String name;
   String pwd;
   String email;
@@ -10,13 +12,10 @@ public class Member {
   String baseaddr;
   String addr;
   String type;
-  boolean unsubscribe;
-  @Override
-  public String toString() {
-    return "Member [no=" + no + ", name=" + name + ", pwd=" + pwd + ", email=" + email + ", tel="
-        + tel + ", postno=" + postno + ", baseaddr=" + baseaddr + ", addr=" + addr + ", type="
-        + type + ", unsubscribe=" + unsubscribe + "]";
-  }
+  int unsubscribe;
+  int status;
+  Date stopDt;
+
   public int getNo() {
     return no;
   }
@@ -71,11 +70,29 @@ public class Member {
   public void setType(String type) {
     this.type = type;
   }
-  public boolean isUnsubscribe() {
+  public int getUnsubscribe() {
     return unsubscribe;
   }
-  public void setUnsubscribe(boolean unsubscribe) {
+  public void setUnsubscribe(int unsubscribe) {
     this.unsubscribe = unsubscribe;
   }
+  public int getStatus() {
+    return status;
+  }
+  public void setStatus(int status) {
+    this.status = status;
+  }
+  public Date getStopDt() {
+    return stopDt;
+  }
+  public void setStopDt(Date stopDt) {
+    this.stopDt = stopDt;
+  }
 
+  @Override
+  public String toString() {
+    return "Member [no=" + no + ", name=" + name + ", pwd=" + pwd + ", email=" + email + ", tel="
+        + tel + ", postno=" + postno + ", baseaddr=" + baseaddr + ", addr=" + addr + ", type="
+        + type + ", unsubscribe=" + unsubscribe + ", status=" + status + ", stopDt=" + stopDt + "]";
+  }
 }

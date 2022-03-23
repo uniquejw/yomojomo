@@ -1,7 +1,7 @@
 package com.bts.yomojomo.domain;
 
 public class ActiveLocal {
-  int no;
+  int no; //act_local_no
   String name;
 
   @Override

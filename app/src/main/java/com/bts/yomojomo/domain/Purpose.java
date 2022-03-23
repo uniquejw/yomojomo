@@ -1,7 +1,7 @@
 package com.bts.yomojomo.domain;
 
 public class Purpose {
-  int no;
+  int no; //pups_no
   String name;
 
 
