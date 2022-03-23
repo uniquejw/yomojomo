@@ -8,9 +8,6 @@ insert into gms_activelocal(name) values ("경기도");
 insert into gms_destination(flat,flng,store_name,location_id,view_cnt) values('123.2','1234.45','수제비가게',12314,124);
 insert into gms_destination(flat,flng,store_name,location_id,view_cnt) values('1451.22','1234.45','경현이네 고기집',12314,124);
 insert into gms_destination(flat,flng,store_name,location_id,view_cnt) values('13423.21','1234.45','재원s베이커리',12314,124);
-insert into gms_itr_jobgroup(name) values("IT");
-insert into gms_itr_jobgroup(name) values("사무직");
-insert into gms_itr_jobgroup(name) values("생산직");
 insert into gms_main_cate(name) values('자주하는 질문1');
 insert into gms_main_cate(name) values('자주하는 질문2');
 insert into gms_main_cate(name) values('자주하는 질문3');
@@ -71,9 +68,6 @@ insert into gms_final_SNS values(3,3,'434@naver.com');
 insert into gms_final_activelocal(memb_no, act_local_no) values (1,1);
 insert into gms_final_activelocal(memb_no, act_local_no) values (2,2);
 insert into gms_final_activelocal(memb_no, act_local_no) values (3,3);
-insert into gms_final_job(memb_no, itr_j_no) values (1,1);
-insert into gms_final_job(memb_no, itr_j_no) values (2,2);
-insert into gms_final_job(memb_no, itr_j_no) values (3,3);
 insert into gms_accounting_status(act_no, g_no, memb_no,pay_dt ) values (1,1,1,"2022-03-16");
 insert into gms_accounting_status(act_no, g_no, memb_no,pay_dt ) values (2,2,2,"2022-03-16");
 insert into gms_accounting_status(act_no, g_no, memb_no,pay_dt ) values (3,3,3,"2022-03-16");
@@ -107,6 +101,4 @@ insert into gms_recruit(title, content,  view_cnt, act_local_no, pups_no, memb_n
 insert into gms_comment(b_no, content, memb_no, g_no) values (1, "12", 1, 1 );
 insert into gms_comment(b_no, content, memb_no, g_no) values (2, "32", 2, 2);
 insert into gms_comment(b_no, content, memb_no, g_no) values (3, "137", 3, 3);
-insert into gms_itr_jobgroup_detail(name, itr_j_no) values ("연구원", 1);
-insert into gms_itr_jobgroup_detail(name, itr_j_no) values ("회사원", 2);
-insert into gms_itr_jobgroup_detail(name, itr_j_no) values ("트레이너", 3);
+

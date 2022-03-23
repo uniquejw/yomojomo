@@ -94,23 +94,20 @@ DROP TABLE IF EXISTS gms_report RESTRICT;
 -- 신고유형
 DROP TABLE IF EXISTS gms_report_cate RESTRICT;
 
--- 감방
-DROP TABLE IF EXISTS gms_ RESTRICT;
-
--- 감방유형
-DROP TABLE IF EXISTS TABLE RESTRICT;
-
 -- 회원
 CREATE TABLE gms_memb (
-  memb_no   INTEGER      NOT NULL COMMENT '회원번호', -- 회원번호
-  name      VARCHAR(50)  NOT NULL COMMENT '이름', -- 이름
-  pwd       VARCHAR(100) NOT NULL COMMENT '비밀번호', -- 비밀번호
-  email     VARCHAR(40)  NOT NULL COMMENT '이메일', -- 이메일
-  tel       VARCHAR(30)  NOT NULL COMMENT '전화번호', -- 전화번호
-  post_no   VARCHAR(10)  NOT NULL COMMENT '우편번호', -- 우편번호
-  base_addr VARCHAR(255) NOT NULL COMMENT '기본주소', -- 기본주소
-  addr      VARCHAR(255) NOT NULL COMMENT '상세주소', -- 상세주소
-  type      VARCHAR(50)  NOT NULL COMMENT '유형' -- 유형
+  memb_no     INTEGER      NOT NULL COMMENT '회원번호', -- 회원번호
+  name        VARCHAR(50)  NOT NULL COMMENT '이름', -- 이름
+  pwd         VARCHAR(100) NOT NULL COMMENT '비밀번호', -- 비밀번호
+  email       VARCHAR(40)  NOT NULL COMMENT '이메일', -- 이메일
+  tel         VARCHAR(30)  NOT NULL COMMENT '전화번호', -- 전화번호
+  post_no     VARCHAR(10)  NOT NULL COMMENT '우편번호', -- 우편번호
+  base_addr   VARCHAR(255) NOT NULL COMMENT '기본주소', -- 기본주소
+  addr        VARCHAR(255) NOT NULL COMMENT '상세주소', -- 상세주소
+  type        VARCHAR(50)  NOT NULL COMMENT '유형', -- 유형
+  unsubscribe BOOLEAN      NULL     COMMENT '탈퇴여부', -- 탈퇴여부
+  status      BOOLEAN      NULL     COMMENT '상태', -- 상태
+  stop_dt     DATE         NULL     COMMENT '제제일' -- 제제일
 )
 COMMENT '회원';
 
@@ -192,7 +189,9 @@ CREATE TABLE gms_group (
   intro        LONGTEXT     NOT NULL COMMENT '모임안내문구', -- 모임안내문구
   max_cnt      INTEGER      NOT NULL DEFAULT 1 COMMENT '모임인원수', -- 모임인원수
   fee          INTEGER      NOT NULL DEFAULT 0 COMMENT '회비', -- 회비
-  view_cnt     INTEGER      NOT NULL DEFAULT 0 COMMENT '방문자수' -- 방문자수
+  view_cnt     INTEGER      NOT NULL DEFAULT 0 COMMENT '방문자수', -- 방문자수
+  status       BOOLEAN      NULL     COMMENT '상태', -- 상태
+  stop_dt      DATE         NULL     COMMENT '제제일' -- 제제일
 )
 COMMENT '소모임';
 
@@ -331,7 +330,8 @@ CREATE TABLE gms_board (
   memb_no  INTEGER  NOT NULL COMMENT '회원번호', -- 회원번호
   reg_dt   DATE     NOT NULL DEFAULT current_timestamp() COMMENT '작성일시', -- 작성일시
   content  LONGTEXT NOT NULL COMMENT '내용', -- 내용
-  view_cnt INTEGER  NOT NULL DEFAULT 0 COMMENT '조회수' -- 조회수
+  view_cnt INTEGER  NOT NULL DEFAULT 0 COMMENT '조회수', -- 조회수
+  status   BOOLEAN  NULL     COMMENT '상태' -- 상태
 )
 COMMENT '모임게시글';
 
@@ -360,7 +360,8 @@ CREATE TABLE gms_comment (
   content LONGTEXT NOT NULL COMMENT '댓글내용 ', -- 댓글내용 
   memb_no INTEGER  NOT NULL COMMENT '회원번호', -- 회원번호
   g_no    INTEGER  NOT NULL COMMENT '모임번호', -- 모임번호
-  reg_dt  DATE     NOT NULL DEFAULT current_timestamp() COMMENT '등록일' -- 등록일
+  reg_dt  DATE     NOT NULL DEFAULT current_timestamp() COMMENT '등록일', -- 등록일
+  status  BOOLEAN  NULL     COMMENT '상태' -- 상태
 )
 COMMENT '모임내부 게시글 댓글';
 
@@ -823,7 +824,7 @@ CREATE TABLE gms_report (
   rpt_no      INTEGER     NOT NULL COMMENT '신고번호', -- 신고번호
   title       VARCHAR(50) NOT NULL COMMENT '신고제목', -- 신고제목
   content     LONGTEXT    NOT NULL COMMENT '신고내용', -- 신고내용
-  valid       BOOLEAN     NOT NULL COMMENT '유효여부', -- 유효여부
+  valid       BOOLEAN     NOT NULL DEFAULT 0 COMMENT '유효여부', -- 유효여부
   memb_no     INTEGER     NOT NULL COMMENT '작성자회원', -- 작성자회원
   rpt_cate_no INTEGER     NOT NULL COMMENT '신고유형번호', -- 신고유형번호
   reported    INTEGER     NOT NULL COMMENT '피신고대상번호' -- 피신고대상번호
@@ -836,6 +837,12 @@ ALTER TABLE gms_report
     PRIMARY KEY (
       rpt_no -- 신고번호
     );
+
+ALTER TABLE gms_report
+  MODIFY COLUMN rpt_no INTEGER NOT NULL AUTO_INCREMENT COMMENT '신고번호';
+
+ALTER TABLE gms_report
+  AUTO_INCREMENT = 1;
 
 -- 신고유형
 CREATE TABLE gms_report_cate (
@@ -851,36 +858,11 @@ ALTER TABLE gms_report_cate
       rpt_cate_no -- 신고유형번호
     );
 
--- 감방
-CREATE TABLE gms_ (
-  COL  <데이터 타입 없음> NOT NULL COMMENT '감방회원 번호', -- 감방회원 번호
-  COL2 <데이터 타입 없음> NULL     COMMENT '시작날짜', -- 시작날짜
-  COL3 <데이터 타입 없음> NULL     COMMENT '끝날자', -- 끝날자
-  COL4 <데이터 타입 없음> NULL     COMMENT '감방유형번호', -- 감방유형번호
-  COL5 <데이터 타입 없음> NULL     COMMENT '피신고대상번호' -- 피신고대상번호
-)
-COMMENT '감방';
+ALTER TABLE gms_report_cate
+  MODIFY COLUMN rpt_cate_no INTEGER NOT NULL AUTO_INCREMENT COMMENT '신고유형번호';
 
--- 감방
-ALTER TABLE gms_
-  ADD CONSTRAINT PK_gms_ -- 감방 기본키
-    PRIMARY KEY (
-      COL -- 감방회원 번호
-    );
-
--- 감방유형
-CREATE TABLE TABLE (
-  COL  <데이터 타입 없음> NOT NULL COMMENT '감방유형번호', -- 감방유형번호
-  COL2 <데이터 타입 없음> NULL     COMMENT '감방유형명' -- 감방유형명
-)
-COMMENT '감방유형';
-
--- 감방유형
-ALTER TABLE TABLE
-  ADD CONSTRAINT PK_TABLE -- 감방유형 기본키
-    PRIMARY KEY (
-      COL -- 감방유형번호
-    );
+ALTER TABLE gms_report_cate
+  AUTO_INCREMENT = 1;
 
 -- 최근검색어
 ALTER TABLE gms_keyword
@@ -1280,14 +1262,4 @@ ALTER TABLE gms_report
     )
     REFERENCES gms_memb ( -- 회원
       memb_no -- 회원번호
-    );
-
--- 감방
-ALTER TABLE gms_
-  ADD CONSTRAINT FK_TABLE_TO_gms_ -- 감방유형 -> 감방
-    FOREIGN KEY (
-      COL4 -- 감방유형번호
-    )
-    REFERENCES TABLE ( -- 감방유형
-      COL -- 감방유형번호
     );
