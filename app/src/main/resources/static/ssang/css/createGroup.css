@@ -29,15 +29,23 @@ a, p, span, button {
 ol, ul, li {
     list-style: none;
 }
+
 div{
     /* margin: 5px; */
     /* border-width: 1px;
     border-style: solid;
     border-color: #616161; */
 }
-input, button, textarea{
+button, textarea{
     position: relative;
     right: 0;
+    /* border-radius: 0.5em; */
+}
+input{
+    position: relative;
+    border: 1px solid #aaa;
+    border-radius: 0.2em;
+    box-shadow: 0 1px 0 1px rgba(0, 0, 0, 0.04);
 }
 
 button {
@@ -50,8 +58,10 @@ button {
     height: 27px;
     font-size: 14px;
 }
-h1{
-    margin-bottom: 10px;
+.sector{
+    font-weight: bold;
+    font-size: 24px;
+    margin-bottom: 15px;
 }
 .table-row-group{
     display: table-row-group;
@@ -67,6 +77,42 @@ h1{
     width: 8vw;
     vertical-align: top;
 }
+select { 
+    /*디폴트 스타일 제거*/
+    -moz-appearance: none;
+	-webkit-appearance: none;
+	appearance: none;
+
+    font-family: "Noto Sansf KR", sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+
+    color: #444;
+    background-color: #fff;
+
+    padding: 0.6em 1.4em 0.5em 0.8em;
+    margin: 0;
+
+    border: 1px solid #aaa;
+    border-radius: 0.5em;
+    box-shadow: 0 1px 0 1px rgba(0, 0, 0, 0.04);
+}
+select:hover {
+    border-color: #888;
+  }
+  
+select:focus {
+    border-color: #aaa;
+    box-shadow: 0 0 1px 3px rgba(59, 153, 252, 0.7);
+    box-shadow: 0 0 0 3px -moz-mac-focusring;
+    color: #222;
+    outline: none;
+  }
+  
+select:disabled {
+    opacity: 0.5;
+  }     
 
 #create-btn { /*button은 inline -> block을 줘서 줄 차지 하게 하고 margin auto줘야 가운데 정렬됨 */
     display: block;
