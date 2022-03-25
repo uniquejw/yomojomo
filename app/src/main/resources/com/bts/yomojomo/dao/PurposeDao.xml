@@ -6,28 +6,28 @@
   
   <!-- 테이블의 컬럼과 객체필드를 연결한다. -->
   <resultMap type="Purpose" id="purposeMap">
-    <id column="fileno" property="no"/>
+    <id column="pups_no" property="no"/>
     <result column="name" property="name"/>
   </resultMap>
 
   <select id="findAll" resultMap="purposeMap"> 
     select
-      fileno,
+      pups_no,
       name
     from
       gms_purpose
     order by
-      fileno asc
+      pups_no asc
   </select>
   
   <select id="findByNo" resultMap="purposeMap" parameterType="int">
     select 
-      fileno,
+      pups_no,
       name
     from 
       gms_purpose
     where 
-      fileno=#{no}
+      pups_no=#{no}
   </select>
 
   <insert id="insert" parameterType="Purpose">
@@ -39,7 +39,7 @@
     update gms_purpose set 
       name = #{name}
     where 
-      fileno = #{no}
+      pups_no = #{no}
   </update>
   
   <select id ="countAll" parameterType="int">
@@ -49,6 +49,6 @@
   <delete id="delete" parameterType="int">
     delete from gms_purpose
     where 
-      fileno = #{no}
+      pups_no = #{no}
   </delete>
 </mapper>
