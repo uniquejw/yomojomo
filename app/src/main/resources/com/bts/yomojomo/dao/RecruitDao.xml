@@ -4,7 +4,6 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bts.yomojomo.dao.RecruitDao">
   
-  <!-- 테이블의 컬럼과 객체필드를 연결한다. -->
   <resultMap type="Recruit" id="RcruitMap">
     <id column="rcu_b_no" property="no"/>
     <result column="title" property="title"/>
@@ -16,70 +15,37 @@
     <result column="memb_no" property="membNo"/>
   </resultMap>
   
-  <resultMap type="Member" id="MemberMap">
-    <id column=" memb_no" property="no"/>
-    <result column="name" property="name"/>
-    <result column="pwd" property="pwd"/>
-    <result column="email" property="email"/>
-    <result column="tel" property="tel"/>
-    <result column="post_no" property="postno"/>
-    <result column="base_addr" property="baseaddr"/>
-    <result column="addr" property="addr"/>
-    <result column="type" property="type"/>
-    <result column="unsubscribe" property="unsubscribe"/>
-    <result column="status" property="status"/>
-    <result column="stop_dt" property="stopDt"/>
-  </resultMap>
-  
-  <resultMap type="ActiveLocal" id="ActiveLocalMap">
-    <id column="pups_no" property="no"/>
-    <result column="name" property="purposeName"/>
-  </resultMap>
-  
-  <resultMap type="Purpose" id="PurposeMap">
-    <id column="act_local_no" property="no"/>
-    <result column="name" property="actLocalName"/>
-  </resultMap>
-  
   <select id="findAll" resultMap="RcruitMap"> <!--모두조회-->
-    select
-      r.rcu_b_no,
-      r.title,
-      r.content,
-      r.reg_dt,
-      r.view_cnt,
-      r.act_local_no,
-      r.pups_no,
-      r.memb_no,
-      al.name,
-      pp.name,
-      m.name
-    from
-      gms_recruit r
-        join gms_memb m on r.memb_no=m.memb_no
-        join gms_activelocal al on r.act_local_no=al.act_local_no
-        join gms_purpose pp on r.pups_no=pp.pups_no
-    order by
-      r.rcu_b_no desc
-  </select>
-  
-  <select id="findByNo" resultMap="RcruitMap" parameterType="int"> <!--게시글 번호로 조회-->
     select
       rcu_b_no,
       title,
       content,
       reg_dt,
       view_cnt,
-      act_local_no,
+      memb_no,
       pups_no,
-      memb_no
+      act_local_no
+    from gms_recruit
+    order by
+      rcu_b_no desc
+  </select>
+  
+  <select id="findByNo" resultMap="RcruitMap" parameterType="int"> <!--게시글 번호로 조회-->
+	   select
+      rcu_b_no,
+      title,
+      content,
+      reg_dt,
+      view_cnt,
+      memb_no,
+      pups_no,
+      act_local_no
     from
-      gms_recruit 
+      gms_recruit
     where 
       rcu_b_no=#{no}
   </select>
   
-  <!--
   <select id="findByName" resultMap="RcruitMap" parameterType="int"> 작성자 이름으로 조회
     select
       r.rcu_b_no,
@@ -96,7 +62,7 @@
     where 
       m.name=#{name}
   </select>
-  -->
+
 
   <insert id="insert" parameterType="Recruit">
     insert into gms_recruit(title, content, act_local_no, pups_no, memb_no) 

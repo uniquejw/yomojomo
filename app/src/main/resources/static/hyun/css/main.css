@@ -1,0 +1,13 @@
+body {
+  border: 1px solid red;
+  padding-top: 200px; 
+}
+footer {
+  text-align: center;
+  border: 1px solid red;
+  margin: 10px;
+  padding: 10px;
+}
+h1{
+  text-align: center;
+}

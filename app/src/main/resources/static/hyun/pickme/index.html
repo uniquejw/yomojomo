@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
+
+  <link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap.min.css">
+
+  <style>
+    #content{ 
+      width: 960px;
+      margin: 150px auto; /* 가운데 정렬 */
+    }
+    #localSelect{
+      display: inline-block;
+      width: 150px;
+    }
+    #search{
+      width: 200px;
+      margin: 0.5px;
+      float: right; /*오른쪽 정렬*/
+    }
+    footer {
+      text-align: center;
+      margin: 10px;
+      padding: 10px;
+    }
+  </style>
+  </head>
+
+
+  <div id="content" class="table-responsive-lg">
+    <div id="localSelect"> <!--지역선택란 나중에 다중 selectbox로 바꿔야함-->
+      <select class="form-select form-select-sm" aria-label=".form-select-sm example">
+        <option selected>지역선택</option>
+        <option value="1">서울</option>
+        <option value="2">경기</option>
+        <option value="3">인천</option>
+      </select>
+    </div>
+
+    <div id="search">
+      <form class="d-flex"> <!--검색창-->
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-primary btn-sm" type="submit">Search</button>
+      </form>
+    </div>
+
+  <table id="x-board-table" class="table table-hover">
+    <thead>
+      <tr>
+        <th>번호</th>
+        <th>제목</th>
+        <th>작성자</th>
+        <th>등록일</th>
+        <th>조회수</th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+  <button id="x-create-btn" type="button" style="float: right" class="btn btn-primary">등록</button>
+  
+  <!--페이지 네이션-->
+  <nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+      <li class="page-item disabled">
+        <a class="page-link">Previous</a>
+      </li>
+      <li class="page-item"><a class="page-link" href="#">1</a></li>
+      <li class="page-item"><a class="page-link" href="#">2</a></li>
+      <li class="page-item"><a class="page-link" href="#">3</a></li>
+      <li class="page-item">
+        <a class="page-link" href="#">Next</a>
+      </li>
+    </ul>
+  </nav>
+
+  </div>
+
+<!--네비바-->
+<nav class="navbar navbar-dark bg-primary navbar-expand-lg fixed-top navbar-extand-lg"> <!--fixed-top navbar-extand-lg: 상단고정-->
+  <div class="container">
+    <a class="navbar-brand" href="#">YOMOJOMO</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            카테고리
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="#">Action</a></li>
+            <li><a class="dropdown-item" href="#">Another action</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">Something else here</a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            공지사항
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="#">고객센터</a></li>
+            <li><a class="dropdown-item" href="#">Another action</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">Something else here</a></li>
+          </ul>
+        </li>
+      </ul>
+        <form class="d-flex">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-light" type="submit">Search</button>
+        </form>
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">로그인</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">회원가입</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>      
+<!--네비바 끝-->
+
+<!-- footer -->
+<div id="footer">
+  <footer class="container-fluid navbar-fixed-bottom">
+      <span>YOMOJOMO</span>
+      <span>Copyright 2022. YOMOJOMO. All Rights Reserved.</span>
+  </footer>
+  </div>
+  <!-- footer 끝 -->
+
+<!--핸들바-->
+  <script id="tr-template" type="text/x-handlebars-template">
+    {{#each this}}
+    <tr>
+      <td>{{no}}</td>
+      <td><a href="view.html?no={{no}}">{{title}}</a></td>
+      <td>{{membNo}}</td>
+      <td>{{date}}</td>
+      <td>{{viewCnt}}</td>
+    </tr>
+    {{/each}}
+  </script>
+
+<script src="../../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="../../node_modules/handlebars/dist/handlebars.min.js"></script>
+
+<script>
+  var tbody = document.querySelector("#x-board-table tbody");
+
+  var trTemplate = document.querySelector("#tr-template");
+  
+  var htmlGenerator = Handlebars.compile(trTemplate.innerHTML);
+  
+  fetch("/recruit/list")
+    .then(function(response) {
+      return response.json();
+    })
+    .then(function(recruits) {
+      console.log(recruits);
+        tbody.innerHTML = htmlGenerator(recruits);
+    });
+ 
+    document.querySelector("#x-create-btn").onclick = function(){
+      location.href="form.html";
+    };
+</script>
+</body>
+</html>

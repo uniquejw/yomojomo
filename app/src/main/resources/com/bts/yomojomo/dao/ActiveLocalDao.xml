@@ -5,40 +5,40 @@
 <mapper namespace="com.bts.yomojomo.dao.ActiveLocalDao">
   
   <resultMap type="ActiveLocal" id="ActiveLocalMap">
-    <id column="itrlocalno" property="no"/>
-    <result column="name" property="name"/>
+    <id column="pups_no" property="no"/>
+    <result column="name" property="purposeName"/>
   </resultMap>
 
   <select id="findAll" resultMap="ActiveLocalMap"> 
     select
-      itrlocalno,
-      name
+      pups_no,
+      purposeName
     from
       gms_activelocal
     order by
-      itrlocalno asc
+      pups_no asc
   </select>
   
   <select id="findByNo" resultMap="ActiveLocalMap" parameterType="int">
     select 
-      itrlocalno,
-      name
+      pups_no,
+      purposeName
     from 
       gms_activelocal
     where 
-      itrlocalno=#{no}
+      pups_no=#{pups_no}
   </select>
 
   <insert id="insert" parameterType="ActiveLocal">
     insert into gms_activelocal(name) 
-    values(#{name})
+    values(#{purposeName})
   </insert>
   
   <update id ="update" parameterType="ActiveLocal">
     update gms_activelocal set 
       name = #{name}
     where 
-      itrlocalno = #{no}
+      pups_no = #{no}
   </update>
   
   <select id ="countAll" parameterType="int">
@@ -48,6 +48,6 @@
   <delete id="delete" parameterType="int">
     delete from gms_activelocal
     where 
-      itrlocalno = #{no}
+      pups_no = #{no}
   </delete>
 </mapper>

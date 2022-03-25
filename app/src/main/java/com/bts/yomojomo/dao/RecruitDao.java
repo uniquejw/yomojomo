@@ -12,8 +12,6 @@ public interface RecruitDao {
 
   Recruit findByNo(int no);
 
-  //Recruit findByName(String name);
-
   int insert(Recruit recruit);
 
   int update(Recruit recruit);
