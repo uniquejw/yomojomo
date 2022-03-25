@@ -11,6 +11,9 @@ public class Recruit {
   int actLocalNo; //활동지역번호
   int purposeNo; //모임목적번호
   int membNo; //회원번호
+  String name; //회원 이름
+  String actLocalName;//활동지역이름
+  String purposeName; //관심활동이름
 
   public int getNo() {
     return no;
@@ -60,11 +63,30 @@ public class Recruit {
   public void setMembNo(int membNo) {
     this.membNo = membNo;
   }
+  public String getName() {
+    return name;
+  }
+  public void setName(String name) {
+    this.name = name;
+  }
+  public String getActLocalName() {
+    return actLocalName;
+  }
+  public void setActLocalName(String actLocalName) {
+    this.actLocalName = actLocalName;
+  }
+  public String getPurposeName() {
+    return purposeName;
+  }
+  public void setPurposeName(String purposeName) {
+    this.purposeName = purposeName;
+  }
   @Override
   public String toString() {
     return "Recruit [no=" + no + ", title=" + title + ", content=" + content + ", date=" + date
         + ", viewCnt=" + viewCnt + ", actLocalNo=" + actLocalNo + ", purposeNo=" + purposeNo
-        + ", membNo=" + membNo + "]";
+        + ", membNo=" + membNo + ", name=" + name + ", actLocalName=" + actLocalName
+        + ", purposeName=" + purposeName + "]";
   }
 
 
