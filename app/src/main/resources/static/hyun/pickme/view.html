@@ -7,10 +7,81 @@
   <title>게시글 상세</title>
 </head>
 <body>
-  <form>
-    제목:
-    작성자
+  <!--입력 폼 -->
+  <div id="content" class="table-responsive-lg">
+    <form>
+      제목 : <span id="x-title" type="text"></span><br>
+      작성자 : <span id="x-name"></span><br>
+      등록일 : <span id="x-regDate"></span><br>
+      조회수 : <span id="x-viewCount"></span><br>
+      내용 : <span id="x-content"></span><br>
+    <button id="x-update-btn" type="button" class="btn btn-primary">수정</button>
+    <button id="x-delete-btn" type="button" class="btn btn-primary">삭제</button>
+    <button id="x-cancel-btn" type="button" class="btn btn-primary">취소</button><br>
+    </form>    
+  </div>
+
+  <script>
+    let arr = location.href.split("?");
+    // console.log(arr);
+
+    if (arr.length == 1) {
+      alert("요청 형식이 올바르지 않습니다.")
+      throw "URL 형식 오류";
+    }
+
+    let qs = arr[1];
+    console.log(qs);
+
+    let params = new URLSearchParams(qs);
+    var no = params.get("no");
+
+    if(no == null) {
+      alert("게시물 번호가 없습니다.");
+      throw "파라미터 오류";
+    }
+    //console.log(no);
+
+    let xTitle = document.querySelector("#x-title");
+    let xName = document.querySelector("#x-name");
+    let xRegDate = document.querySelector("#x-regDate");
+    let xViewCnt = document.querySelector("#x-viewCount");
+    let xContent = document.querySelector("#x-content");
+
+    fetch(`/recruit/get?no=${no}`)
+      .then(function(response) {
+        // console.log(response);
+        return response.json();
+      })
+      .then(function(recruit){
+        console.log(recruit);
+        xTitle.innerHTML = recruit.title;
+        xName.innerHTML = recruit.membNo;
+        xRegDate.innerHTML = recruit.date;
+        xViewCnt.innerHTML = recruit.viewCnt;
+        xContent.innerHTML = recruit.content;
+      });
     
-  </form>
+    // 뒤로가기
+    document.querySelector("#x-cancel-btn").onclick = function() {
+    window.location.href = "index.html";
+    };
+
+    // 삭제
+    document.querySelector("#x-delete-btn").onclick = function() {
+      fetch(`/recruit/delete?no=${no}`)
+      .then(function(response) {
+        return response.json();
+      })
+      .then(function(result) {
+        // console.log(result);
+        window.alert("삭제되었습니다.");
+        location.href = "index.html";
+      });
+    };
+
+
+
+  </script>
 </body>
 </html>
