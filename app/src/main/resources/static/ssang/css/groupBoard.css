@@ -1,0 +1,144 @@
+
+/* common*/
+* { 
+    padding : 0; 
+    margin : 0;
+    /*border: 0;*/
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+    box-sizing: border-box;
+}
+
+#container{
+    
+}
+#width-fix-div{
+    min-height: 600px;
+    width: 700px;
+    margin: 0px auto;
+    border: 1px solid #616161;
+    border-radius: 9px;
+}
+hr{
+    z-index: 99999;
+}
+a, p, span, button {
+    text-decoration: none;
+    color: #616161;
+}
+ol, ul, li {
+    list-style: none;
+}
+div{
+    /* margin: 5px;  */
+    /* border: 1px solid #616161; */
+}
+
+button {
+    /* color: white;
+    background-color: rgb(17, 147, 218);
+    border-radius: 3px;
+    cursor: pointer;
+    border: 0;
+    width: 60px;
+    height: 27px;
+    font-size: 14px; */
+}
+.select-orderby{
+    height: 30px;
+    width: 97px;
+    border-radius: 5px;
+}
+.btn {
+    color: white;
+    background-color: rgb(17, 147, 218);
+    border-radius: 3px;
+    cursor: pointer;
+    border: 0;
+}
+.comment-btn{
+    width: 75px;
+    font-size: 14px;
+    height: 33px;
+    margin: auto;
+}
+.new-post-container{
+    border: 1px solid #616161;
+    border-radius: 5px;
+    height: 50px;
+    position: relative;
+}
+.new-post-btn{
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
+.menu-container{
+    text-align: center;
+    /* width: 100%; */
+}
+.group-title{
+    margin: 10px 0;
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0,auto;
+}
+.group-cate-btn{
+    background-color: #fff;
+    border-radius: 3px;
+    display: inline-block;
+    width: 138px;
+    height: 40px;
+    margin: 5px 5px;
+    font-size: 12px;
+    overflow: hidden;
+}
+div.search-container{
+    /* position: absolute; */
+    display: flex;
+    width: 100%;
+    height: 50px;
+    margin: 0 auto;
+}
+.search-input{
+    font-size: 24px;
+    font-weight: bold;
+    width: 85%;
+    color: #616161;
+}
+.search-btn{
+    width:15%;
+}
+.written-container{
+    margin: 10px 0 0 0;
+    padding: 10px 0 0 10px;
+    border-top: 1px solid #616161;
+    border-bottom: 1px solid #616161;
+}
+.written-author-div{
+    display: flex;
+}
+.written-content{
+    margin: 16px 0 0 0;
+    min-height: 300px;
+}
+.comment-div{
+    display: flex;
+    height: 40px;
+    margin: 0 0 10px 0;
+}
+.comment-name{
+    font-size: 20px;
+    font-weight: bold;
+}
+.comment-input{
+    padding: 8px;
+    font-size: 13px;
+    margin: 0 0 0 5px;
+    width: 555px;
+    position: relative;
+    border: 1px solid #aaa;
+    border-radius: 0.2em;
+    box-shadow: 0 1px 0 1px rgba(0, 0, 0, 0.04);
+}
