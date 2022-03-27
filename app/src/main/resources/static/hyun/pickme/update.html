@@ -10,15 +10,86 @@
   <!--입력 폼 -->
   <div id="content" class="table-responsive-lg">
     <form>
-      제목 : <span id="x-title" type="text"></span><br>
-      작성자 : <span id="x-name"></span><br>
-      등록일 : <span id="x-regDate"></span><br>
-      조회수 : <span id="x-viewCount"></span><br>
-      내용 : <span id="x-content"></span><br>
-    <button id="x-update-btn" type="button" class="btn btn-primary">수정</button>
-    <button id="x-delete-btn" type="button" class="btn btn-primary">삭제</button>
+      제목 : <input id="x-title" type="text"><br>
+      작성자 : <input id="x-name"><br>
+      활동지역 : <input id="x-activeLocal"><br>
+      관심활동 : <input id="x-purpose"><br>
+      내용 : <input id="x-content"><br>
+    <button id="x-update-btn" type="button" class="btn btn-primary">수정 완료</button>
     <button id="x-cancel-btn" type="button" class="btn btn-primary">취소</button><br>
     </form>    
   </div>
 </body>
+
+<script>
+  let arr = location.href.split("?");
+    // console.log(arr);
+
+    if (arr.length == 1) {
+      alert("요청 형식이 올바르지 않습니다.")
+      throw "URL 형식 오류";
+    }
+
+    let qs = arr[1];
+    console.log(qs);
+
+    let params = new URLSearchParams(qs);
+    var no = params.get("no");
+
+    if(no == null) {
+      alert("게시물 번호가 없습니다.");
+      throw "파라미터 오류";
+    }
+    //console.log(no);
+
+    let xTitle = document.querySelector("#x-title");
+    let xName = document.querySelector("#x-name");
+    let xActiveLocal = document.querySelector("#x-activeLocal");
+    let xPurpose = document.querySelector("#x-purpose");
+    let xContent = document.querySelector("#x-content");
+
+    fetch(`/recruit/get?no=${no}`)
+      .then(function(response) {
+        // console.log(response);
+        return response.json();
+      })
+      .then(function(recruit){
+        // console.log(recruit);
+        xTitle.value = recruit.title;
+        xName.value = recruit.membNo;
+        xActiveLocal.value = recruit.actLocalNo;
+        xPurpose.value = recruit.purposeNo;
+        xContent.value = recruit.content;
+      });
+
+    document.querySelector("#x-update-btn").onclick = function() {
+      if(        
+        xTitle.value == "" ||
+        xName.value == "" ||
+        xActiveLocal.value == "" ||
+        xPurpose.value == "" ||
+        xContent.value == "") 
+        {
+          window.alert("필수 입력 항목이 비어 있습니다.")
+          return;
+        }
+
+        var qs = `no=${no}&title=${xTitle.value}&content=${xContent.value}&actLocalNo=${xActiveLocal.value}&purposeNo=${xPurpose.value}&membNo=${xName.value}`
+        // console.log(qs);
+
+        fetch(`/recruit/update?${qs}`)
+          .then(function(response) {
+            return response.json();
+          })
+          .then(function(result) {
+            // console.log(result);
+            location.href = "index.html";
+          });
+    };
+    
+    // 뒤로가기
+    document.querySelector("#x-cancel-btn").onclick = function() {
+    window.location.href = "index.html";
+    };
+</script>
 </html>
