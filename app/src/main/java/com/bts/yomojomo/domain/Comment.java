@@ -9,11 +9,12 @@ public class Comment {
   int membno;
   int gno;
   Date regdt;
+  boolean status;
 
   @Override
   public String toString() {
     return "Comment [no=" + no + ", bno=" + bno + ", content=" + content + ", membno=" + membno
-        + ", gno=" + gno + ", regdt=" + regdt + "]";
+        + ", gno=" + gno + ", regdt=" + regdt + ", status=" + status + "]";
   }
 
   public int getNo() {
@@ -62,5 +63,13 @@ public class Comment {
 
   public void setRegdt(Date regdt) {
     this.regdt = regdt;
+  }
+
+  public boolean isStatus() {
+    return status;
+  }
+
+  public void setStatus(boolean status) {
+    this.status = status;
   }
 }

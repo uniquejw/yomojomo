@@ -6,14 +6,15 @@ public class Board {
   int no;
   int gno;
   int membno;
-  Date dt;
+  Date regdt;
   String content;
   int viewcnt;
+  boolean status;
 
   @Override
   public String toString() {
-    return "Board [no=" + no + ", gno=" + gno + ", membno=" + membno + ", dt=" + dt + ", content="
-        + content + ", viewcnt=" + viewcnt + "]";
+    return "Board [no=" + no + ", gno=" + gno + ", membno=" + membno + ", regdt=" + regdt
+        + ", content=" + content + ", viewcnt=" + viewcnt + ", status=" + status + "]";
   }
 
   public int getNo() {
@@ -40,12 +41,12 @@ public class Board {
     this.membno = membno;
   }
 
-  public Date getDt() {
-    return dt;
+  public Date getRegdt() {
+    return regdt;
   }
 
-  public void setDt(Date dt) {
-    this.dt = dt;
+  public void setRegdt(Date regdt) {
+    this.regdt = regdt;
   }
 
   public String getContent() {
@@ -62,5 +63,13 @@ public class Board {
 
   public void setViewcnt(int viewcnt) {
     this.viewcnt = viewcnt;
+  }
+
+  public boolean isStatus() {
+    return status;
+  }
+
+  public void setStatus(boolean status) {
+    this.status = status;
   }
 }

@@ -4,17 +4,17 @@ import java.sql.Date;
 
 public class FAQ {
   int no;
-  int mcate2no;
+  int maincateno;
   int queryno;
   String title;
   String content;
   String path;
-  Date appdt;
+  Date regdt;
 
   @Override
   public String toString() {
-    return "FAQ [no=" + no + ", mcate2no=" + mcate2no + ", queryno=" + queryno + ", title=" + title
-        + ", content=" + content + ", path=" + path + ", appdt=" + appdt + "]";
+    return "FAQ [no=" + no + ", maincateno=" + maincateno + ", queryno=" + queryno + ", title="
+        + title + ", content=" + content + ", path=" + path + ", regdt=" + regdt + "]";
   }
 
   public int getNo() {
@@ -25,12 +25,12 @@ public class FAQ {
     this.no = no;
   }
 
-  public int getMcate2no() {
-    return mcate2no;
+  public int getMaincateno() {
+    return maincateno;
   }
 
-  public void setMcate2no(int mcate2no) {
-    this.mcate2no = mcate2no;
+  public void setMaincateno(int maincateno) {
+    this.maincateno = maincateno;
   }
 
   public int getQueryno() {
@@ -65,11 +65,11 @@ public class FAQ {
     this.path = path;
   }
 
-  public Date getAppdt() {
-    return appdt;
+  public Date getRegdt() {
+    return regdt;
   }
 
-  public void setAppdt(Date appdt) {
-    this.appdt = appdt;
+  public void setRegdt(Date regdt) {
+    this.regdt = regdt;
   }
 }

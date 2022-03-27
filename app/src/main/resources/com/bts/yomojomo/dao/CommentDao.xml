@@ -6,56 +6,60 @@
   
   <!-- 테이블의 컬럼과 객체필드를 연결한다. -->
   <resultMap type="Comment" id="CommentMap">
-    <id column="cmtno" property="no"/>
-    <result column="bno" property="bno"/>
+    <id column="cmt_no" property="no"/>
+    <result column="b_no" property="bno"/>
     <result column="content" property="content"/>
-    <result column="membno" property="membno"/>
-    <result column="gno" property="gno"/>
-    <result column="regdt" property="regdt"/>
+    <result column="memb_no" property="membno"/>
+    <result column="g_no" property="gno"/>
+    <result column="reg_dt" property="regdt"/>
+    <result column="status" property="status"/>
   </resultMap>
 
   <select id="findAll" resultMap="CommentMap"> 
     select
-      cmtno,
-      bno,
+      cmt_no,
+      b_no,
       content,
-      membno,
-      gno,
-      regdt
+      memb_no,
+      g_no,
+      reg_dt,
+      status
     from
       gms_comment
     order by
-      cmtno desc
+      cmt_no desc
   </select>
   
   <select id="findByNo" resultMap="CommentMap" parameterType="int">
     select 
-      cmtno,
-      bno,
+      cmt_no,
+      b_no,
       content,
-      membno,
-      gno,
-      regdt
+      memb_no,
+      g_no,
+      reg_dt,
+      status
     from 
       gms_comment
     where 
-      cmtno=#{no}
+      cmt_no=#{no}
   </select>
 
   <insert id="insert" parameterType="Calendar">
-    insert into gms_comment(bno, content, membno, gno, regdt) 
-    values(#{bno}, #{content}, #{membno}, #{gno}, #{regdt})
+    insert into gms_comment(b_no, content, memb_no, g_no, reg_dt, status) 
+    values(#{bno}, #{content}, #{membno}, #{gno}, #{regdt}, #{status})
   </insert>
   
   <update id ="update" parameterType="Calendar">
     update gms_comment set 
-      bno = #{bno},
+      b_no = #{bno},
       content = #{content},
-      membno = #{membno},
-      gno = #{gno},
-      regdt = #{regdt}
+      memb_no = #{membno},
+      g_no = #{gno},
+      reg_dt = #{regdt}
+      status = #{status}
     where 
-      cmtno = #{no}
+      cmt_no = #{no}
   </update>
   
   <select id ="countAll" parameterType="int">
@@ -65,6 +69,6 @@
   <delete id="delete" parameterType="int">
     delete from gms_comment
     where 
-      cmtno = #{no}
+      cmt_no = #{no}
   </delete>
 </mapper>

@@ -6,60 +6,60 @@
   
   <!-- 테이블의 컬럼과 객체필드를 연결한다. -->
   <resultMap type="FAQ" id="FAQMap">
-    <id column="faqno" property="no"/>
-    <result column="mcate2no" property="mcate2no"/>
-    <result column="queryno" property="queryno"/>
+    <id column="faq_no" property="no"/>
+    <result column="main_cate_no" property="maincateno"/>
+    <result column="query_no" property="queryno"/>
     <result column="title" property="title"/>
     <result column="content" property="content"/>
     <result column="path" property="path"/>
-    <result column="appdt" property="appdt"/>
+    <result column="reg_dt" property="regdt"/>
   </resultMap>
 
   <select id="findAll" resultMap="FAQMap"> 
     select
-      faqno,
-      mcate2no,
-      queryno,
+      faq_no,
+      main_cate_no,
+      query_no,
       title,
       content,
       path,
-      appdt
+      reg_dt
     from
       gms_faq
     order by
-      faqno desc
+      faq_no desc
   </select>
   
   <select id="findByNo" resultMap="FAQMap" parameterType="int">
     select 
-      faqno,
-      mcate2no,
-      queryno,
+      faq_no,
+      main_cate_no,
+      query_no,
       title,
       content,
       path,
-      appdt
+      reg_dt
     from 
       gms_faq
     where 
-      faqno=#{no}
+      faq_no=#{no}
   </select>
 
   <insert id="insert" parameterType="FAQ">
-    insert into gms_faq(mcate2no, queryno, title, content, path, appdt) 
-    values(#{mcate2no}, #{queryno}, #{title}, #{content}, #{path}, #{appdt})
+    insert into gms_faq(main_cate_no, query_no, title, content, path, reg_dt) 
+    values(#{maincateno}, #{queryno}, #{title}, #{content}, #{path}, #{regdt})
   </insert>
   
   <update id ="update" parameterType="FAQ">
     update gms_faq set 
-      mcate2no = #{mcate2no},
-      queryno = #{queryno},
+      main_cate_no = #{maincateno},
+      query_no = #{queryno},
       title = #{title},
       content = #{content},
       path = #{path},
-      appdt = #{appdt}
+      reg_dt = #{regdt}
     where 
-      faqno = #{no}
+      faq_no = #{no}
   </update>
   
   <select id ="countAll" parameterType="int">
@@ -69,6 +69,6 @@
   <delete id="delete" parameterType="int">
     delete from gms_faq
     where 
-      faqno = #{no}
+      faq_no = #{no}
   </delete>
 </mapper>

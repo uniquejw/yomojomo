@@ -6,41 +6,41 @@
   
   <!-- 테이블의 컬럼과 객체필드를 연결한다. -->
   <resultMap type="Calendar" id="CalendarMap">
-    <id column="calno" property="no"/>
+    <id column="cal_no" property="no"/>
     <result column="name" property="name"/>
     <result column="content" property="content"/>
-    <result column="gno" property="gno"/>
-    <result column="resulturl" property="resulturl"/>
+    <result column="g_no" property="gno"/>
+    <result column="result_url" property="resulturl"/>
   </resultMap>
 
   <select id="findAll" resultMap="CalendarMap"> 
     select
-      calno,
+      cal_no,
       name,
       content,
-      gno,
-      resulturl
+      g_no,
+      result_url
     from
       gms_calendar
     order by
-      calno desc
+      cal_no desc
   </select>
   
   <select id="findByNo" resultMap="CalendarMap" parameterType="int">
     select 
-      calno,
+      cal_no,
       name,
       content,
-      gno,
-      resulturl
+      g_no,
+      result_url
     from 
       gms_calendar
     where 
-      calno=#{no}
+      cal_no=#{no}
   </select>
 
   <insert id="insert" parameterType="Calendar">
-    insert into gms_calendar(name, content, gno, resulturl) 
+    insert into gms_calendar(name, content, g_no, result_url) 
     values(#{name}, #{content}, #{gno}, #{resulturl})
   </insert>
   
@@ -48,10 +48,10 @@
     update gms_calendar set 
       name = #{name},
       content = #{content},
-      gno = #{gno},
-      resulturl = #{resulturl}
+      g_no = #{gno},
+      result_url = #{resulturl}
     where 
-      calno = #{no}
+      cal_no = #{no}
   </update>
   
   <select id ="countAll" parameterType="int">
@@ -61,6 +61,6 @@
   <delete id="delete" parameterType="int">
     delete from gms_calendar
     where 
-      calno = #{no}
+      cal_no = #{no}
   </delete>
 </mapper>

@@ -6,56 +6,60 @@
   
   <!-- 테이블의 컬럼과 객체필드를 연결한다. -->
   <resultMap type="Board" id="BoardMap">
-    <id column="bno" property="no"/>
-    <result column="gno" property="gno"/>
-    <result column="membno" property="membno"/>
-    <result column="dt" property="dt"/>
+    <id column="b_no" property="no"/>
+    <result column="g_no" property="gno"/>
+    <result column="memb_no" property="membno"/>
+    <result column="reg_dt" property="regdt"/>
     <result column="content" property="content"/>
-    <result column="viewcnt" property="viewcnt"/>
+    <result column="view_cnt" property="viewcnt"/>
+    <result column="status" property="status"/>
   </resultMap>
 
   <select id="findAll" resultMap="BoardMap"> 
     select
-      bno,
-      gno,
-      membno,
-      dt,
+      b_no,
+      g_no,
+      memb_no,
+      reg_dt,
       content,
-      viewcnt
+      view_cnt,
+      status
     from
       gms_board
     order by
-      bno desc
+      b_no desc
   </select>
   
   <select id="findByNo" resultMap="BoardMap" parameterType="int">
     select 
-      bno,
-      gno,
-      membno,
-      dt,
+      b_no,
+      g_no,
+      memb_no,
+      reg_dt,
       content,
-      viewcnt
+      view_cnt,
+      status
     from 
       gms_board
     where 
-      bno=#{no}
+      b_no=#{no}
   </select>
 
   <insert id="insert" parameterType="Board">
-    insert into gms_board(gno, membno, dt, content, viewcnt) 
-    values(#{gno}, #{membno}, #{dt}, #{content}, #{viewcnt})
+    insert into gms_board(g_no, memb_no,reg _dt, content, view_cnt, status) 
+    values(#{gno}, #{membno}, #{regdt}, #{content}, #{viewcnt}, #{status})
   </insert>
   
   <update id ="update" parameterType="Board">
     update gms_board set 
-      gno = #{gno},
-      membno = #{membno},
-      dt = #{dt},
+      g_no = #{gno},
+      memb_no = #{membno},
+      reg_dt = #{regdt},
       content = #{content},
-      viewcnt = #{viewcnt}
+      view_cnt = #{viewcnt},
+      status = #{status}
     where 
-      bno = #{no}
+      b_no = #{no}
   </update>
   
   <select id ="countAll" parameterType="int">
@@ -65,6 +69,6 @@
   <delete id="delete" parameterType="int">
     delete from gms_board
     where 
-      bno = #{no}
+      b_no = #{no}
   </delete>
 </mapper>
