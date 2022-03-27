@@ -1,0 +1,52 @@
+
+/* common*/
+* { 
+    padding : 0; 
+    margin : 0;
+    /*border: 0;*/
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+    box-sizing: border-box;
+}
+#container{
+    
+}
+hr{
+    z-index: 99999;
+}
+a, p, span, button {
+    text-decoration: none;
+    color: #616161;
+}
+ol, ul, li {
+    list-style: none;
+}
+div{
+    /* margin: 5px; */
+    border-width: 1px;
+    border-style: solid;
+    border-color: #616161;
+}
+input, button, textarea{
+    position: relative;
+    right: 0;
+}
+.select-cate-div{
+    width: 91vw;
+    font-size: 32px;
+    margin: 0 auto;
+    padding: 7px 27px;
+}
+.select{
+    font-size: 18px;
+    margin: 0 0 0 56px;
+    border: 1px solid #aaa;
+    border-radius: 3px;
+    box-shadow: 0 1px 0 1px rgba(0, 0, 0, 0.04);
+}
+.group-list-container{
+    margin: 0 auto;
+    width: 86vw;
+    min-height: 80vh;
+}
