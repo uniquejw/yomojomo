@@ -653,27 +653,42 @@ table {
 #page-content-wrapper {
   display: flex;
   justify-content: center;
+  width: 50%;
+  height: 70%;
 }
 
 .container-left {
-  width: 30%;
+  width: 50%;
 	float: left;
   text-align: center;
 }
-/* .left-content-2 {
-} */
+
+.left-content-1 {
+  height: 50%;
+  float: right;
+}
+
+.left-content-2 {
+  height: 50%;
+  float: right;
+}
 .my-name {
   font-weight: bold;
   font-size: 30px;
 }
 
 .container-right {
-  width: 30%;
-	float: left;
+  width: 50%;
+	float: right;
   text-align: center;
 }
 
 .right-content-1 {
+  height: 50%;
+  float: left;
+}
+.right-content-2 {
+  height: 50%;
   float: left;
 }
 
