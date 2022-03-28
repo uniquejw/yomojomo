@@ -23,7 +23,7 @@
 
   <script>
     let arr = location.href.split("?");
-    // console.log(arr);
+    console.log(arr);
 
     if (arr.length == 1) {
       alert("요청 형식이 올바르지 않습니다.")
@@ -56,7 +56,7 @@
       .then(function(recruit){
         console.log(recruit);
         xTitle.innerHTML = recruit.title;
-        xName.innerHTML = recruit.membNo;
+        xName.innerHTML = recruit.name;
         xRegDate.innerHTML = recruit.date;
         xViewCnt.innerHTML = recruit.viewCnt;
         xContent.innerHTML = recruit.content;

@@ -17,33 +17,34 @@
   
   <select id="findAll" resultMap="RcruitMap"> <!--모두조회-->
     select
-      rcu_b_no,
-      title,
-      content,
-      reg_dt,
-      view_cnt,
-      memb_no,
-      pups_no,
-      act_local_no
-    from gms_recruit
+      r.rcu_b_no,
+      r.title,
+      r.content,
+      r.reg_dt,
+      r.view_cnt,
+      m.name,
+      r.pups_no,
+      r.act_local_no
+    from gms_recruit r
+      inner join gms_memb m on r.memb_no=m.memb_no
     order by
-      rcu_b_no desc
+      r.rcu_b_no desc
   </select>
   
   <select id="findByNo" resultMap="RcruitMap" parameterType="int"> <!--게시글 번호로 조회-->
 	   select
-      rcu_b_no,
-      title,
-      content,
-      reg_dt,
-      view_cnt,
-      memb_no,
-      pups_no,
-      act_local_no
-    from
-      gms_recruit
+      r.rcu_b_no,
+      r.title,
+      r.content,
+      r.reg_dt,
+      r.view_cnt,
+      m.name,
+      r.pups_no,
+      r.act_local_no
+    from gms_recruit r
+      inner join gms_memb m on r.memb_no=m.memb_no
     where 
-      rcu_b_no=#{no}
+      r.rcu_b_no=#{no}
   </select>
   
   <select id="findByName" resultMap="RcruitMap" parameterType="int"> 작성자 이름으로 조회
