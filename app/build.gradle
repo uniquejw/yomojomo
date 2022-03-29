@@ -3,6 +3,7 @@ plugins {
   id 'io.spring.dependency-management' version '1.0.11.RELEASE'
   id 'java'
   id 'eclipse'
+  id "io.freefair.lombok" version "6.4.1"
 }
 
 group = 'com.eomcs'
@@ -14,6 +15,8 @@ repositories {
 }
 
 dependencies {
+  //
+
   // MariaDB JDBC 드라이버
   implementation 'org.mariadb.jdbc:mariadb-java-client:3.0.3'
   

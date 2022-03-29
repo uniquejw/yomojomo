@@ -5,25 +5,128 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>글 수정</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
+  <link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <style>
+    #content{ 
+      width: 960px;
+      margin: 150px auto; /* 가운데 정렬 */
+    }
+     body{
+      margin-top: 100px;
+    } 
+    form {
+      margin: 10px auto;
+    }
+    textarea { /*사이즈 고정*/
+      resize: none;
+      height: 300px;
+      word-wrap: break-word; /*단어의 분리를 결정하여 줄 바꿈에 관여*/
+      word-break: break-word; /*박스의 가로 영역을 넘친 단어 내에서 임의의 분리 여부를 결정하여 줄바꿈에 관여*/
+    }
+    #x-update-btn, #x-cancel-btn {
+      float: right;
+      margin: 5px;
+    }
+    table > tbody > tr > td:first-child {
+      text-align: right;
+      column-span: 300px;
+    }
+
+  </style>
 </head>
 <body>
   <!--입력 폼 -->
   <div id="content" class="table-responsive-lg">
     <form>
-      제목 : <input id="x-title" type="text"><br>
-      작성자 : <input id="x-name"><br>
-      활동지역 : <input id="x-activeLocal"><br>
-      관심활동 : <input id="x-purpose"><br>
-      내용 : <input id="x-content"><br>
-    <button id="x-update-btn" type="button" class="btn btn-primary">수정 완료</button>
-    <button id="x-cancel-btn" type="button" class="btn btn-primary">취소</button><br>
+      <table id="formTable" class="table table-borderless">
+        <tbody>
+          <tr>
+            <td width="150px">제목</td>
+            <td colspan="2"><input id="x-title" type="text" class="form-control"></td>
+          </tr>
+          <tr>
+            <td>작성자</td>
+            <td><input id="x-name" type="text" class="form-control" readonly></td>
+            <td><input id="x-name-no" type="text" class="form-control" readonly></td>
+          </tr>
+          <tr>
+            <td>활동지역</td>
+            <td><input id="x-activeLocalName" type="text" class="form-control" readonly></td>
+            <td><input id="x-activeLocal" type="number" class="form-control" readonly></td>
+          </tr>
+          <tr>
+            <td>관심활동</td>
+            <td><input id="x-purposeName" type="text" class="form-control" readonly></td>
+            <td><input id="x-purpose" type="number" class="form-control" readonly></td>
+          </tr>
+          <tr>
+            <td><label for="comment">내용:</label></td>
+            <td colspan="2"><textarea class="form-control" rows="5" id="x-content" name="text"></textarea></td>
+          </tr>
+        </tbody>
+      </table>
+      <button id="x-update-btn" type="button" class="btn btn-primary">수정 완료</button>
+      <button id="x-cancel-btn" type="button" class="btn btn-primary">취소</button><br>
     </form>    
   </div>
 </body>
 
+<!--네비바-->
+<nav class="navbar navbar-dark bg-primary navbar-expand-lg fixed-top navbar-extand-lg"> <!--fixed-top navbar-extand-lg: 상단고정-->
+  <div class="container">
+    <a class="navbar-brand" href="#">YOMOJOMO</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            카테고리
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="#">Action</a></li>
+            <li><a class="dropdown-item" href="#">Another action</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">Something else here</a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            공지사항
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="#">고객센터</a></li>
+            <li><a class="dropdown-item" href="#">Another action</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">Something else here</a></li>
+          </ul>
+        </li>
+      </ul>
+        <form class="d-flex">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-light" type="submit">Search</button>
+        </form>
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">로그인</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">회원가입</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>      
+<!--네비바 끝-->
+
+<script src="../../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="../../node_modules/handlebars/dist/handlebars.min.js"></script>
+
 <script>
   let arr = location.href.split("?");
-    // console.log(arr);
+    console.log(arr);
 
     if (arr.length == 1) {
       alert("요청 형식이 올바르지 않습니다.")
@@ -40,12 +143,15 @@
       alert("게시물 번호가 없습니다.");
       throw "파라미터 오류";
     }
-    //console.log(no);
+    console.log(no);
 
     let xTitle = document.querySelector("#x-title");
     let xName = document.querySelector("#x-name");
+    let xNameNo = document.querySelector("#x-name-no");
     let xActiveLocal = document.querySelector("#x-activeLocal");
+    let xActiveLocalName = document.querySelector("#x-activeLocalName");
     let xPurpose = document.querySelector("#x-purpose");
+    let xPurposeName = document.querySelector("#x-purposeName");
     let xContent = document.querySelector("#x-content");
 
     fetch(`/recruit/get?no=${no}`)
@@ -54,18 +160,21 @@
         return response.json();
       })
       .then(function(recruit){
-        // console.log(recruit);
+        console.log(recruit);
         xTitle.value = recruit.title;
-        xName.value = recruit.name;
+        xName.value = recruit.member[0].membName;
+        xNameNo.value = recruit.membNo;
         xActiveLocal.value = recruit.actLocalNo;
+        xActiveLocalName.value = recruit.activeLocal[0].activeLocalName;
         xPurpose.value = recruit.purposeNo;
+        xPurposeName.value = recruit.purpose[0].purposeName;
         xContent.value = recruit.content;
       });
 
     document.querySelector("#x-update-btn").onclick = function() {
       if(        
         xTitle.value == "" ||
-        xName.value == "" ||
+        xNameNo.value == "" ||
         xActiveLocal.value == "" ||
         xPurpose.value == "" ||
         xContent.value == "") 
@@ -74,15 +183,15 @@
           return;
         }
 
-        var qs = `no=${no}&title=${xTitle.value}&content=${xContent.value}&actLocalNo=${xActiveLocal.value}&purposeNo=${xPurpose.value}&membNo=${xName.value}`
-        // console.log(qs);
+        var qs = `no=${no}&title=${xTitle.value}&content=${xContent.value}&actLocalNo=${xActiveLocal.value}&purposeNo=${xPurpose.value}&membNo=${xNameNo.value}`
+        console.log(qs);
 
         fetch(`/recruit/update?${qs}`)
           .then(function(response) {
             return response.json();
           })
           .then(function(result) {
-            // console.log(result);
+            console.log(result);
             location.href = "index.html";
           });
     };
@@ -91,5 +200,12 @@
     document.querySelector("#x-cancel-btn").onclick = function() {
     window.location.href = "index.html";
     };
+
+    // function enter() {
+    //   var key = window.event.keyCode;
+    //   if (key === 13) {
+    //     document.getElementById('x-content').value = document.getElementById('x-content').value + "<br>";
+    //   }
+    // }
 </script>
 </html>

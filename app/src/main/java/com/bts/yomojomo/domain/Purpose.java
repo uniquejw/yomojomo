@@ -1,25 +1,12 @@
 package com.bts.yomojomo.domain;
 
+import lombok.Data;
+
+//필드명 교체시 저한테 말해주세요 - 경현
+
+@Data
 public class Purpose {
   int no; //pups_no
-  String name;
+  String purposeName;
 
-
-  @Override
-  public String toString() {
-    return "Purpose [no=" + no + ", name=" + name + "]";
-  }
-
-  public int getNo() {
-    return no;
-  }
-  public void setNo(int no) {
-    this.no = no;
-  }
-  public String getName() {
-    return name;
-  }
-  public void setName(String name) {
-    this.name = name;
-  }
 }

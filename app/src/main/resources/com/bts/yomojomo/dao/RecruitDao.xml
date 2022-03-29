@@ -15,13 +15,38 @@
     <result column="memb_no" property="membNo"/>
   </resultMap>
   
-  <select id="findAll" resultMap="RcruitMap"> <!--모두조회-->
+  <resultMap type="ActiveLocal" id="ActiveLocalMap">
+    <id column="act_local_no" property="no"/>
+    <result column="name" property="activeLocalName"/>
+  </resultMap>
+  
+  <resultMap type="Purpose" id="PurposeMap">
+    <id column="pups_no" property="no"/>
+    <result column="name" property="purposeName"/>
+  </resultMap>
+  
+  <resultMap type="Member" id="MemberMap">
+    <id column="memb_no" property="no"/>
+    <result column="name" property="membName"/>
+    <result column="pwd" property="pwd"/>
+    <result column="email" property="email"/>
+    <result column="tel" property="tel"/>
+    <result column="post_no" property="postno"/>
+    <result column="addr" property="addr"/>
+    <result column="type" property="type"/>
+    <result column="status" property="status"/>
+    <result column="stop_dt" property="stopDt"/>
+  </resultMap>
+  
+  
+  <select id="findAll" resultMap="RcruitMap"> 
     select
       r.rcu_b_no,
       r.title,
       r.content,
       r.reg_dt,
       r.view_cnt,
+      r.memb_no,
       m.name,
       r.pups_no,
       r.act_local_no
@@ -38,11 +63,14 @@
       r.content,
       r.reg_dt,
       r.view_cnt,
+      r.memb_no,
       m.name,
       r.pups_no,
-      r.act_local_no
+      r.act_local_no,
+      a.act_local_no
     from gms_recruit r
       inner join gms_memb m on r.memb_no=m.memb_no
+      inner join gms_activelocal a on r.act_local_no=a.act_local_no
     where 
       r.rcu_b_no=#{no}
   </select>
@@ -96,6 +124,33 @@
   
   <select id ="countAll" parameterType="int">
     select count(*) from gms_recruit
+  </select>
+  
+  <select id="findByActiveLocalNo" parameterType="int" resultMap="ActiveLocalMap">
+    select
+      act_local_no,
+      name
+    from gms_activelocal
+    where
+    act_local_no=#{no}
+  </select>
+
+  <select id="findByPurposeNo" parameterType="int" resultMap="PurposeMap">
+    select
+      pups_no,
+      name
+    from gms_purpose
+    where
+    pups_no=#{no}
+  </select>
+  
+  <select id="findByMemberNo" parameterType="int" resultMap="MemberMap">
+    select
+      memb_no,
+      name
+    from gms_memb
+    where
+    memb_no=#{no}
   </select>
     
 </mapper>
