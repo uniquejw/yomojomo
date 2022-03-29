@@ -8,6 +8,8 @@ import com.bts.yomojomo.dao.RecruitDao;
 import com.bts.yomojomo.domain.Recruit;
 import com.bts.yomojomo.service.RecruitService;
 
+//코드 수정시 저한테 말해주세요 - 경현
+
 @Service
 public class DefaultRecruitService implements RecruitService{
 
@@ -22,12 +24,21 @@ public class DefaultRecruitService implements RecruitService{
 
   @Override
   public List<Recruit> list() {
-    return recruitDao.findAll(); 
+    List<Recruit> recruits = recruitDao.findAll();
+    for (Recruit recruit : recruits) {
+      recruit.setActiveLocal(recruitDao.findByActiveLocalNo(recruit.getActLocalNo()));
+      recruit.setPurpose(recruitDao.findByPurposeNo(recruit.getPurposeNo()));
+      recruit.setMember(recruitDao.findByMemberNo(recruit.getMembNo()));
+    }
+    return recruits;
   }
 
   @Override
   public Recruit get(int no) {
     Recruit recruit = recruitDao.findByNo(no);
+    recruit.setActiveLocal(recruitDao.findByActiveLocalNo(recruit.getActLocalNo()));
+    recruit.setPurpose(recruitDao.findByPurposeNo(recruit.getPurposeNo()));
+    recruit.setMember(recruitDao.findByMemberNo(recruit.getMembNo()));
     if (recruit != null) {
       recruitDao.increaseViewCount(no);
     }
