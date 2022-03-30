@@ -10,8 +10,8 @@
   <title>게시글 상세</title>
   <style>
     #content{ 
-      width: 960px;
-      margin: 150px auto; /* 가운데 정렬 */
+      width: 1130px auto;
+      margin: 150px; 
     }
      body{
       margin-top: 100px;
@@ -39,14 +39,17 @@
 
   </style>
 </head>
+
 <body>
+  <div id="headers"></div>
+
   <!--입력 폼 -->
   <div id="content" class="table-responsive-lg">
     <form>
       <table id="formTable" class="table table-borderless">
         <tbody>
           <tr>
-            <td width="150px">제목</td>
+            <td width="80px">제목</td>
             <td><input id="x-title" type="text" class="form-control" readonly></td>
           </tr>
           <tr>
@@ -103,57 +106,17 @@
   </div>
 <!--모달 끝-->
 
-<!--네비바-->
-<nav class="navbar navbar-dark bg-primary navbar-expand-lg fixed-top navbar-extand-lg"> <!--fixed-top navbar-extand-lg: 상단고정-->
-  <div class="container">
-    <a class="navbar-brand" href="#">YOMOJOMO</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            카테고리
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
-          </ul>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            공지사항
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="#">고객센터</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
-          </ul>
-        </li>
-      </ul>
-        <form class="d-flex">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-light" type="submit">Search</button>
-        </form>
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">로그인</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">회원가입</a>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>      
-<!--네비바 끝-->
 
+  <script src="../../node_modules/jquery/dist/jquery.min.js"></script>
   <script src="../../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
   <script src="../../node_modules/handlebars/dist/handlebars.min.js"></script>
+  
+  <script type="text/javascript">
+    $(document).ready(function () {
+        $('#headers').load('../../junho/main2.html'); //헤더 인클루드
+        // $('#footers').load('../html'); //푸터부분 인클루드
+    });
+  </script>
 
   <script>
     let arr = location.href.split("?");

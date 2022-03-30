@@ -1,7 +1,7 @@
 --외래키 비포함
 insert into gms_accounting_cate(name) values("회비");
-insert into gms_accounting_cate(name) values("식비");
-insert into gms_accounting_cate(name) values("유니폼");
+insert into gms_accounting_cate(name) values("모임비");
+insert into gms_accounting_cate(name) values("기타");
 insert into gms_activelocal(name) values ("서울");
 insert into gms_activelocal(name) values ("인천");
 insert into gms_activelocal(name) values ("경기도");

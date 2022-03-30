@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
+  <link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <style>
+    #content{ 
+      width: 1130px auto;
+      margin: 150px; 
+    }
+     body{
+      margin-top: 100px;
+    } 
+    form {
+      margin: 10px auto;
+    }
+    #x-delete-btn, #x-update-btn, #x-cancle-btn {
+      float: right;
+      margin: 5px;
+    }
+    table > tbody > tr > td:first-child {
+      text-align: right;
+      column-span: 300px;
+    }
+  </style>
+
+
+</head>
+
+<body>
+  <div id="headers"></div>
+
+  <!--입력 폼-->
+  <div id="content" class="table-responsive-lg">
+    <form>
+      <table id="formTable" class="table table-borderless">
+        <tbody>
+          <tr>
+            <td width="150px">번호</td>
+            <td><input id="x-no" type="number" class="form-control" readonly></td>
+          </tr>
+          <tr>
+            <td>모임번호</td>
+            <td><input id="x-gno" type="number" class="form-control" readonly></td>
+          </tr>
+          <tr>
+            <td>유형번호</td>
+            <td><input id="x-actcateno" type="number" class="form-control" readonly></td>
+          </tr>
+          <tr>
+            <td>제목</td>
+            <td><input id="x-title" type="text" class="form-control" readonly></td>
+          </tr>
+          <tr>
+            <td>작성일</td>
+            <td><input id="x-date" type="text" class="form-control" readonly></td>
+          </tr>
+          <tr>
+            <td>금액</td>
+            <td><input id="x-amount" type="text" class="form-control" readonly></td>
+          </tr>
+        </tbody>
+      </table>
+        <button id="x-update-btn" type="button" class="btn btn-primary">수정</button>
+        <button id="x-delete-btn" type="button" class="btn btn-primary">삭제</button>
+        <button id="x-cancle-btn" type="button" class="btn btn-primary">취소</button> 
+  </form>
+</div>
+
+<script src="../../node_modules/jquery/dist/jquery.min.js"></script>
+<script src="../../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="../../node_modules/handlebars/dist/handlebars.min.js"></script>
+
+<script type="text/javascript">
+  $(document).ready(function () {
+      $('#headers').load('../../junho/main2.html'); //헤더 인클루드
+      // $('#footers').load('../html'); //푸터부분 인클루드
+  });
+</script>
+
+<script>
+  //1. URL에서 쿼리스트링 추출
+  let arr = location.href.split("?");
+  // console.log(arr);
+
+  if (arr.length == 1) {
+    alert("요청 형식이 올바르지 않습니다.")
+    throw "URL 형식 오류!"
+  }
+
+  let qs = arr[1];
+  //console.log(qs);
+
+  //2. 쿼리 스트링에서 no 값 추출
+  let params = new URLSearchParams(qs);
+  let no = params.get("no");
+
+  if (no == null) {
+    alert("게시물 번호가 없습니다.");
+    throw "파라미터 오류!";
+  }
+  // console.log(no);
+
+  let xNo = document.querySelector("#x-no");
+  let xGno = document.querySelector("#x-gno");
+  let xActcateno = document.querySelector("#x-actcateno");
+  let xTitle = document.querySelector("#x-title");
+  let xAmount = document.querySelector("#x-amount");
+  let xDate = document.querySelector("#x-date");
+
+  //3. 서버에서 데이터 가져오기
+  fetch(`/accounting/get?no=${no}`)
+    .then(function(response) {
+      return response.json();
+    })
+    .then(function(accounting) {
+      console.log(accounting);
+      //4. 화면에 출력
+      xNo.value = accounting.no;
+      xGno.value = accounting.gno;
+      xActcateno.value = accounting.actCate.no;
+      xTitle.value = accounting.title;
+      xAmount.value  = accounting.amount;
+      xDate.value = accounting.date;
+    });
+
+//update로 이동
+  document.querySelector("#x-update-btn").onclick = function() {
+    location.href = "update.html?no="+no;
+  };
+    
+//삭제 
+document.querySelector("#x-delete-btn").onclick = function() {
+  fetch(`/accounting/delete?no=${no}`)
+  .then(function(response) {
+      return response.json();
+    })
+  .then(function(result) {
+    console.log("삭제");
+	  location.href = "index.html";
+  });
+};
+
+//취소
+document.querySelector("#x-cancle-btn").onclick = function() {
+  window.location.href = "index.html";
+};
+
+</script>
+</body>
+</html>

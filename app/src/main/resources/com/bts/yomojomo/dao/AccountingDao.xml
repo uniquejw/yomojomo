@@ -4,59 +4,76 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bts.yomojomo.dao.AccountingDao">
   
-  <!-- 테이블의 컬럼과 객체필드를 연결한다. -->
   <resultMap type="Accounting" id="AccountingMap">
     <id column="act_no" property="no"/>
     <result column="g_no" property="gno"/>
-    <result column="act_cate_no" property="actcateno"/>
     <result column="title" property="title"/>
     <result column="amount" property="amount"/>
-    <result column="reg_dt" property="date"/>
     <result column="status" property="status"/>
-  </resultMap>
+    <result column="reg_dt" property="date"/>
+    <result column="act_cate_no" property="actcateno"/>
+    <association property="actCate" javaType="AccountingCate"> 
+      <id column="act_cate_no" property="no"/>
+      <result column="name" property="cateName"/>
+    </association>
+<!--<association property="actStatus" javaType="AccountingStatus">
+      <id column="act_no" property="actNo"/>
+      <result column="pay_dt" property="paydt"/>
+    </association>
+   <association property="member" javaType="Member">
+      <id column="memb_no" property="no"/>
+      <result column="name" property="membName"/>
+    </association>
+    <association property="group" javaType="Group">
+      <id column="g_no" property="no"/>
+      <result column="name" property="GroupName"/>
+    </association>  -->
+</resultMap>
 
   <select id="findAll" resultMap="AccountingMap"> 
-    select
-      act_no,
-      g_no,
-      act_cate_no,
-      title,
-      amount,
-      reg_dt,
-      status
-    from
-      gms_accounting
-    order by
-      act_no desc
+		select 
+		  a.act_no,
+		  a.g_no,
+		  ac.name,
+		  ac.act_cate_no,
+		  a.title,
+		  a.amount,
+		  a.status,
+		  a.reg_dt
+		from gms_accounting a
+		    inner join gms_accounting_cate ac on (a.act_cate_no=ac.act_cate_no)
+		order by
+		  a.act_no desc
   </select>
   
-  <select id="findByNo" resultMap="AccountingMap" parameterType="int">
+    <select id="findByNo" resultMap="AccountingMap" parameterType="int">
     select 
-      act_no,
-      g_no,
-      act_cate_no,
-      title,
-      amount,
-      reg_dt,
-      status
-    from 
-      gms_accounting
+      a.act_no,
+      a.g_no,
+      ac.name,
+      ac.act_cate_no,
+      a.title,
+      a.amount,
+      a.status,
+      a.reg_dt
+    from gms_accounting a
+        inner join gms_accounting_cate ac on (a.act_cate_no=ac.act_cate_no)
     where 
       act_no=#{no}
   </select>
-
+  
   <insert id="insert" parameterType="Accounting">
-    insert into gms_accounting(g_no, act_cate_no, title, amount, status) 
-    values(#{gno}, #{actcateno}, #{title}, #{amount}, #{status})
+    insert into gms_accounting(g_no,actCate,title,amount,status) 
+    values(#{gno},#{actCate.no},#{title},#{amount},#{status})
   </insert>
   
   <update id ="update" parameterType="Accounting">
     update gms_accounting set 
-      g_no = g_no,
-      act_cate_no = #{actcateno},
-      title = #{title},
-      amount = #{amount},
-      status = #{status}
+      g_no=#{gno},
+      actCate=#{actCate.no},
+      title=#{title},
+      amount=#{amount},
+      status=#{status}
     where 
       act_no=#{no}
   </update>
@@ -70,4 +87,6 @@
     where 
       act_no=#{no}
   </delete>
+  
+
 </mapper>

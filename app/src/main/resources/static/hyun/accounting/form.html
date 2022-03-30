@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <title>정산서</title>
+</head>
+<body>
+<div id="headers"></div>
+
+<form name="actForm">
+모임번호 : <input name="group" type="no"><br>
+유형 : <input name="cateName" type="no"><br>
+제목 : <input name="title" type="text"><br>
+금액 : <input name="amount" type="number"><br>
+상태 : <input name="status" type="number"><br>
+<button id="x-add-btn" type="button">등록</button> 
+<button id="x-cancle-btn" type="button">취소</button> 
+</form>
+
+<script>
+
+let fd = new FormData(document.forms.namedItem("actForm"));
+
+let xGno = document.querySelector("input[name=group]");
+let xActcateno = document.querySelector("input[name=cateName]");
+let xTitle = document.querySelector("input[name=title]");
+let xAmount = document.querySelector("input[name=amount]");
+
+//등록
+document.querySelector("#x-add-btn").onclick = function() {
+  if(xGno.value == "" ||
+     xActcateno.value == "" || 
+     xTitle.value == "" || 
+     xAmount.value == "") {
+    window.alert("필수 입력 항목이 비어 있습니다.");
+    return;
+  }
+
+fetch("/accounting/add", {
+  method: "POST",
+  body: fd
+})
+.then(function(response) {
+    return response.json();
+  })
+  .then(function(result) {
+    console.log(result);
+    // location.href = "index.html";
+  });
+};
+
+//취소
+document.querySelector("#x-cancle-btn").onclick = function() {
+  window.location.href = "index.html";
+};
+
+</script>
+
+</body>
