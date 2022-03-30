@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>모임리스트</title>
+  <!-- css 초기화 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
+
+  <link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap.min.css">
+
+  <!--공용css-->
+  <link rel="stylesheet" href="../../css/common.css">
+  <!--내css-->
+  <link rel="stylesheet" href="../css/groupList.css">
+  <!--인클루드-->
+  <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function () {
+        // $('#headers').load('../../junho/main.html'); //헤더 인클루드
+        $('#footers').load('../index.html'); //푸터부분 인클루드
+    });
+  </script>
+ 
+</head>
+<body>
+<div id="headers"></div>
+<div id="container">
+  <div class="select-cate-div">상세정보
+      <select name="" class="select area">
+          <option value="1">지역정보</option>
+      </select>
+      <select name="" class="select purpose">
+          <option value="1">모임목적</option>
+      </select>
+  </div>
+  <div class="group-list-container">
+    <ul>
+      <li class="item">
+        <div type="button" class="show">
+        <div class="image">사진</div>
+        <div class="group-name" >모임이름</div>
+        </div>
+      </li>
+      <li class="item">
+        <div type="button" class="show">
+        <div class="image">사진</div>
+        <div class="group-name" >모임이름</div>
+        </div>
+      </li>
+      <li class="item">
+        <div type="button" class="show">
+        <div class="image">사진</div>
+        <div class="group-name" >모임이름</div>
+        </div>
+      </li>
+      <li class="item">
+        <div type="button" class="show">
+        <div class="image">사진</div>
+        <div class="group-name" >모임이름</div>
+        </div>
+      </li>
+      <li class="item">
+        <div type="button" class="show">
+        <div class="image">사진</div>
+        <div class="group-name" >모임이름</div>
+        </div>
+      </li>
+      <li class="item">
+        <div type="button" class="show">
+        <div class="image">사진</div>
+        <div class="group-name" >모임이름</div>
+        </div>
+      </li>
+    </ul>
+    <div class="page"> < 1 2 3 4 > </div>
+  </div>
+
+    <div class="background">
+      <div class="window">
+        <div class="popup">
+          <div class="popup-img">사진</div>
+          <div class="popup-group-name">모임이름</div>
+          <div class="popup-group-content">모임정보</div>
+          <button id="apply">가입하기</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="report-background">
+      <div class="report-window">
+        <div class="report-popup">
+          <div class="report-group-name">모임 이름</div>
+          <div class="report-form">
+            <div id="report-form-title">가입신청서</div>
+            <table>
+              <tr>
+                <td>이름</td>
+                <td><input type="text"></td>
+              </tr>
+              <tr>
+                <td>사는지역</td>
+                <td><input type="text"></td>
+              </tr>
+              <tr>
+                <td>월 2회 참여하실 수 있습니까?</td>
+                <td><input type="text"></td>
+              </tr>
+              <tr>
+                <td>하고싶은말</td>
+              </tr>
+            </table>
+            <div><textarea name="" id="" cols="22" rows="3"></textarea></div>
+          </div>
+          <button id="close">가입하기</button>
+        </div>
+      </div>
+    </div>
+
+</div>    
+<div id="footers"></div>
+<script src="../node_modules/sweetalert2/dist/sweetalert2.min.js"></script>
+<script src="../node_modules/jquery/dist/jquery.min.js"></script>
+<script src="../../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="../../node_modules/handlebars/dist/handlebars.min.js"></script>
+<script> function show() {
+  document.querySelector(".background").className = "background show";
+}
+
+function showReport(){
+  document.querySelector(".background").className = "background";
+  document.querySelector(".report-background").className = "report-background show";
+}
+
+function close() {
+  document.querySelector(".report-background").className = "report-background";
+}
+
+
+var cols = document.querySelectorAll("div.show");
+[].forEach.call(cols,function(col){
+  col.addEventListener("click",show)
+})
+document.querySelector("#apply").addEventListener("click", showReport);
+document.querySelector("#close").addEventListener("click", close);</script>
+</body>
+</html>

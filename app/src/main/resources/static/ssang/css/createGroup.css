@@ -29,6 +29,10 @@ a, p, span, button {
 ol, ul, li {
     list-style: none;
 }
+table{
+    border-collapse: separate; border-spacing:30px 10px;
+
+}
 
 div{
     /* margin: 5px; */
