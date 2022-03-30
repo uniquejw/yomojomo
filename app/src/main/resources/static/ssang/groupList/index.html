@@ -5,6 +5,9 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>모임리스트</title>
+  <!-- 제이쿼리 -->
+  <script src="../../node_modules/sweetalert2/dist/sweetalert2.min.js"></script>
+  <script src="../../node_modules/jquery/dist/jquery.min.js"></script>
   <!-- css 초기화 -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
 
@@ -14,12 +17,12 @@
   <link rel="stylesheet" href="../../css/common.css">
   <!--내css-->
   <link rel="stylesheet" href="../css/groupList.css">
+  <!-- <link rel="stylesheet" href="../../junho/main.html"> -->
   <!--인클루드-->
-  <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
   <script type="text/javascript">
     $(document).ready(function () {
-        // $('#headers').load('../../junho/main.html'); //헤더 인클루드
-        $('#footers').load('../index.html'); //푸터부분 인클루드
+        $('#headers').load('../../junho/main2.html'); //헤더 인클루드
+        // $('#footers').load('../html'); //푸터부분 인클루드
     });
   </script>
  
@@ -27,7 +30,8 @@
 <body>
 <div id="headers"></div>
 <div id="container">
-  <div class="select-cate-div">상세정보
+  <div class="select-cate-div">
+      <span>상세정보</span>
       <select name="" class="select area">
           <option value="1">지역정보</option>
       </select>
@@ -73,8 +77,27 @@
         <div class="group-name" >모임이름</div>
         </div>
       </li>
+      <li id="item2123" class="item">
+        <div type="button" class="show">
+        <div class="image">사진</div>
+        <div class="group-name" >모임이름</div>
+        </div>
+      </li>
     </ul>
-    <div class="page"> < 1 2 3 4 > </div>
+    <!-- 페이지 부트스트랩 -->
+    <nav aria-label="Page navigation example">
+      <ul class="pagination justify-content-center">
+        <li class="page-item disabled">
+          <a class="page-link">Previous</a>
+        </li>
+        <li class="page-item"><a class="page-link" href="#">1</a></li>
+        <li class="page-item"><a class="page-link" href="#">2</a></li>
+        <li class="page-item"><a class="page-link" href="#">3</a></li>
+        <li class="page-item">
+          <a class="page-link" href="#">Next</a>
+        </li>
+      </ul>
+    </nav>
   </div>
 
     <div class="background">
@@ -83,7 +106,7 @@
           <div class="popup-img">사진</div>
           <div class="popup-group-name">모임이름</div>
           <div class="popup-group-content">모임정보</div>
-          <button id="apply">가입하기</button>
+          <button id="apply-form">가입하기</button>
         </div>
       </div>
     </div>
@@ -91,6 +114,7 @@
     <div class="report-background">
       <div class="report-window">
         <div class="report-popup">
+          <button id="close">닫기</button>
           <div class="report-group-name">모임 이름</div>
           <div class="report-form">
             <div id="report-form-title">가입신청서</div>
@@ -111,17 +135,16 @@
                 <td>하고싶은말</td>
               </tr>
             </table>
-            <div><textarea name="" id="" cols="22" rows="3"></textarea></div>
+            <textarea name="" id="" cols="40" rows="6" class="report-comment"></textarea>
           </div>
-          <button id="close">가입하기</button>
+          <button id="apply">가입하기</button>
         </div>
       </div>
     </div>
 
 </div>    
 <div id="footers"></div>
-<script src="../node_modules/sweetalert2/dist/sweetalert2.min.js"></script>
-<script src="../node_modules/jquery/dist/jquery.min.js"></script>
+
 <script src="../../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="../../node_modules/handlebars/dist/handlebars.min.js"></script>
 <script> function show() {
@@ -137,12 +160,15 @@ function close() {
   document.querySelector(".report-background").className = "report-background";
 }
 
-
 var cols = document.querySelectorAll("div.show");
 [].forEach.call(cols,function(col){
   col.addEventListener("click",show)
 })
-document.querySelector("#apply").addEventListener("click", showReport);
-document.querySelector("#close").addEventListener("click", close);</script>
+
+document.querySelector("#apply-form").addEventListener("click", showReport);
+document.querySelector("#apply").addEventListener("click", close);
+document.querySelector("#close").addEventListener("click", close);
+
+</script>
 </body>
 </html>
