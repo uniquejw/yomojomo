@@ -1,30 +1,156 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
+  <link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap.min.css">
+
   <title>정산서</title>
+
+  <style>
+    /*상준님 css*/
+    .menu-container{
+        margin-top: 80px;
+        text-align: center;
+        /* width: 100%; */
+    }
+    .menu-container{
+        text-align: center;
+        /* width: 100%; */
+    }
+    .group-title{
+        margin: 10px 0;
+        font-size: 24px;
+        font-weight: bold;
+        margin: 0,auto;
+    }
+    .group-cate-btn{
+        background-color: #fff;
+        border-radius: 3px;
+        display: inline-block;
+        width: 138px;
+        height: 40px;
+        margin: 5px 5px;
+        font-size: 12px;
+        overflow: hidden;
+    }
+    /*상준님 css 끝*/
+    #content{ 
+      width: 1130px auto;
+      margin: 150px; /* 가운데 정렬 */
+    }
+     body{
+      margin-top: 100px;
+    } 
+    form {
+      margin: 10px auto;
+    }
+    #x-add-btn, #x-cancel-btn {
+      float: right;
+      margin: 5px;
+    }
+    table > tbody > tr > td:first-child {
+      text-align: right;
+      column-span: 300px;
+    }
+    /*멤버 추가부분*/
+    #x-deleteMemb-btn {
+      margin: 10px auto;
+    }
+    .List-Container{
+      margin:auto; /*가운데 정렬*/
+      text-align:center;
+    }
+  </style>
+
 </head>
+
 <body>
 <div id="headers"></div>
 
-<form name="actForm">
-모임번호 : <input name="group" type="no"><br>
-유형 : <input name="cateName" type="no"><br>
-제목 : <input name="title" type="text"><br>
-금액 : <input name="amount" type="number"><br>
-상태 : <input name="status" type="number"><br>
-<button id="x-add-btn" type="button">등록</button> 
-<button id="x-cancle-btn" type="button">취소</button> 
-</form>
+<!--상준님 모임 헤더-->
+<div id="container">
+  <div class="menu-container">
+    <div class="group-title"><span>모임이름</span></div>
+    <button class="group-cate-btn" type="button">모임정보수정</button>
+    <button class="group-cate-btn" type="button">게시글</button>
+    <button class="group-cate-btn" type="button">사진첩</button>
+    <button class="group-cate-btn" type="button">일정</button>
+    <button class="group-cate-btn" type="button">첨부</button>
+    <button class="group-cate-btn" type="button">멤버</button>
+    <button class="group-cate-btn" type="button">회비 및 정산관리</button>
+  </div>
+</div>
+<!--상준님 모임 헤더 끝--> 
+
+  <!--입력 폼 -->
+  <div id="content" class="table-responsive-lg">
+    <form>
+      <table id="formTable" class="table table-borderless">
+        <tbody>
+          <tr>
+            <td width="150px">모임번호</td>
+            <td><input id="x-gno" type="number" class="form-control"></td>
+          </tr>
+          <tr>
+            <td>유형</td>
+            <td><input id="x-actcateno" type="number" class="form-control"></td>
+          </tr>
+          <tr>
+            <td>제목</td>
+            <td><input id="x-title" type="text" class="form-control"></td>
+          </tr>
+          <tr>
+            <td>금액</td>
+            <td><input id="x-amount" type="number" class="form-control"></td>
+          </tr>
+          <tr>
+            <td>상태</td>
+            <td><input id="x-status" type="number" class="form-control"></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!--멤버 추가부분-->
+      <div class="List-Container">
+        <div id="x-membList-container">
+          <div class="x-membList">
+            이름 : <input id="listmembName" type="text">
+            금액 : <input id="listAmount" type="number">
+            <button id="x-deleteMemb-btn" type="button" class="btn btn-primary" onclick="deleteDiv(event)">삭제</button><br>
+          </div>
+        </div>
+        <button id="x-addMemb-btn" type="button" class="btn btn-primary">추가</button><br>
+      </div>
+      
+      <button id="x-add-btn" type="button" class="btn btn-primary">등록</button>
+      <button id="x-cancel-btn" type="button" class="btn btn-primary">취소</button><br>
+    </form>    
+  </div>
+
+<script src="../../node_modules/jquery/dist/jquery.min.js"></script>
+<script src="../../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="../../node_modules/handlebars/dist/handlebars.min.js"></script>
+
+<!--공통헤더-->
+<script type="text/javascript">
+  $(document).ready(function () {
+      $('#headers').load('../../junho/main2.html'); //헤더 인클루드
+      // $('#footers').load('../html'); //푸터부분 인클루드
+  });
+</script>
 
 <script>
-
-let fd = new FormData(document.forms.namedItem("actForm"));
-
-let xGno = document.querySelector("input[name=group]");
-let xActcateno = document.querySelector("input[name=cateName]");
-let xTitle = document.querySelector("input[name=title]");
-let xAmount = document.querySelector("input[name=amount]");
+let xGno = document.querySelector("#x-gno");
+let xActcateno = document.querySelector("#x-actcateno");
+let xTitle = document.querySelector("#x-title");
+let xAmount = document.querySelector("#x-amount");
+let xMembList = document.querySelector(".x-membList");
+let xMembListCon = document.querySelector("#x-membList-container");
+// console.log(xMembListCon);
 
 //등록
 document.querySelector("#x-add-btn").onclick = function() {
@@ -36,23 +162,37 @@ document.querySelector("#x-add-btn").onclick = function() {
     return;
   }
 
-fetch("/accounting/add", {
-  method: "POST",
-  body: fd
-})
-.then(function(response) {
-    return response.json();
+  fetch(`/accounting/add?gno=${xGno.value}&actcateno=${xActcateno.value}&title=${xTitle.value}&amount=${xAmount.value}`)
+  .then(function(response) {
+    return response.text();
   })
-  .then(function(result) {
-    console.log(result);
-    // location.href = "index.html";
+  .then(function(text) {
+    // console.log(text);
+    location.href = "index.html";
   });
 };
 
 //취소
-document.querySelector("#x-cancle-btn").onclick = function() {
+document.querySelector("#x-cancel-btn").onclick = function() {
+  // console.log("클릭함");
   window.location.href = "index.html";
 };
+
+//멤버 추가 이벤트
+document.querySelector("#x-addMemb-btn").onclick = function() {
+  // console.log("클릭함");
+  var membList = xMembList.cloneNode(true);
+  membList.querySelector("#listAmount").value = "";
+  membList.querySelector("#listmembName").value = "";
+  xMembListCon.append(membList);
+};
+
+//멤버 삭제 이벤트
+function deleteDiv(e) {
+	  if (xMembListCon.childElementCount > 1) {
+	    xMembListCon.removeChild(e.target.parentNode);
+	  }
+  };
 
 </script>
 

@@ -32,6 +32,8 @@ public class AccountingController {
 
   @RequestMapping("/accounting/update")
   public int update(Accounting accounting) {
+
+
     return accountingService.update(accounting);
   }
 

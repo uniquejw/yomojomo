@@ -63,14 +63,14 @@
   </select>
   
   <insert id="insert" parameterType="Accounting">
-    insert into gms_accounting(g_no,actCate,title,amount,status) 
-    values(#{gno},#{actCate.no},#{title},#{amount},#{status})
+    insert into gms_accounting(g_no,act_cate_no,title,amount,status) 
+    values(#{gno},#{actcateno},#{title},#{amount},#{status})
   </insert>
   
   <update id ="update" parameterType="Accounting">
     update gms_accounting set 
       g_no=#{gno},
-      actCate=#{actCate.no},
+      act_cate_no=#{actcateno},
       title=#{title},
       amount=#{amount},
       status=#{status}
