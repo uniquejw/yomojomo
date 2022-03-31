@@ -1,8 +1,13 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="ko">
 <head>
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>모임개설</title>
+  <!-- 제이쿼리 -->
+  <script src="../../node_modules/sweetalert2/dist/sweetalert2.min.js"></script>
+  <script src="../../node_modules/jquery/dist/jquery.min.js"></script>
   <!-- css 초기화 -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
 
@@ -11,16 +16,7 @@
   <!--공용css-->
   <link rel="stylesheet" href="../../css/common.css">
   <!--내css-->
-  <link rel="stylesheet" href="../css/top.css">
-  <script src="//code.jquery.com/jquery-1.11.0.min.js">
-  </script>
-  <script type="text/javascript">   
-  $(document).ready( function() {
-            // $("#headers").load("../../junho/main.html");  //헤더 인클루드
-            $("#footers").load("common/footer.html");  //푸터부분 인클루드
-                  }
-            );
-  </script>
+  <link rel="stylesheet" href="/ssang/css/top.css">
   
 </head>
 <body>
@@ -36,10 +32,11 @@
       <button class="group-cate-btn" type="button">멤버</button>
       <button class="group-cate-btn" type="button">회비 및 정산관리</button>
     </div>
+    <div class="search-container">
+      <input type="text" class="search-input" value="글 내용, #태그, @작성자 검색"><button class="search-btn btn">검색</button>
+    </div>
     
 <div id="footers"></div>
-<script src="../node_modules/sweetalert2/dist/sweetalert2.min.js"></script>
-<script src="../node_modules/jquery/dist/jquery.min.js"></script>
 <script src="../../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="../../node_modules/handlebars/dist/handlebars.min.js"></script>
 </body>
