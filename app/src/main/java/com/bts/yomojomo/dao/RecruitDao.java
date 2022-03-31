@@ -15,6 +15,8 @@ public interface RecruitDao {
 
   Recruit findByNo(int no);
 
+  Recruit findByName(int name);
+
   int insert(Recruit recruit);
 
   int update(Recruit recruit);
@@ -31,5 +33,7 @@ public interface RecruitDao {
 
   //멤버 테이블
   List<Member> findByMemberNo(int memberNo);
+
+  List<Member> findByMemberName(String Name);
 
 }

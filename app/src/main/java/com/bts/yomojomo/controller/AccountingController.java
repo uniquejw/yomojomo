@@ -3,36 +3,42 @@ package com.bts.yomojomo.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.bts.yomojomo.dao.AccountingDao;
 import com.bts.yomojomo.domain.Accounting;
+import com.bts.yomojomo.service.AccountingService;
 
 @RestController
 public class AccountingController {
   @Autowired 
-  AccountingDao accountingDao;
+  AccountingService accountingService;
 
   @RequestMapping("/accounting/add")
   public int add(Accounting accounting) {
-    return accountingDao.insert(accounting);
+    return accountingService.add(accounting);
   }
 
   @RequestMapping("/accounting/get")
   public Object get(int no) {
-    return accountingDao.findByNo(no);
+    Accounting accounting = accountingService.get(no);
+    if (accounting == null) {
+      return "";
+    }
+    return accounting;
   }
 
   @RequestMapping("/accounting/list")
   public Object list() {
-    return accountingDao.findAll(); 
+    return accountingService.list();
   }
 
   @RequestMapping("/accounting/update")
   public int update(Accounting accounting) {
-    return accountingDao.update(accounting);
+
+
+    return accountingService.update(accounting);
   }
 
   @RequestMapping("/accounting/delete")
   public Object delete(int no) {
-    return accountingDao.delete(no);
+    return accountingService.delete(no);
   }
 }
