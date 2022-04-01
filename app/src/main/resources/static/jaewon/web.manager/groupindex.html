@@ -49,70 +49,85 @@
 							<li class="list-group-item list-group-item-action"><a
 								href="membindex.html">회원 관리</a></li>
 							<li class="list-group-item list-group-item-action"><a
-								href="groupindex.html">모임 관리</a></li>
+								href="groupindex.html">모임 관리</li>
 							<li class="list-group-item list-group-item-action"><a
-								href="reportindex.html">신고 내역 관리</a></li>
+								href="reportindex.html">신고 내역 관리</li>
 							<li class="list-group-item list-group-item-action"><a
-								href="qnaindex.html">문의 내역 관리</a></li>
+								href="qnaindex.html">문의 내역 관리</li>
 							<li class="list-group-item list-group-item-action"><a
-								href="center.html">고객센터 관리</a></li>
+								href="center.html">고객센터 관리</li>
 						</ul>
 					</div>
 				</div>
 			</div>
 			<div class="content">
-				<div class="status">
-					<div class="shadow-sm p-3 mb-5 bg-body rounded box">
-						<div class="profile">
-							<img src="../1.png" class="img-fluid"
-								style="height: 100px; width: 100px;">
-						</div>
-						<div class="profile">
-							<img src="../1.png" class="img-fluid"
-								style="height: 100px; width: 100px;">
-						</div>
-					</div>
+				<div class="shadow-sm p-3 mb-5 bg-body rounded inbox">
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th scope="col"></th>
+								<th scope="col">모임번호</th>
+								<th scope="col">모임이름</th>
+								<th scope="col">모임장</th>
+								<th scope="col">회원수</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<th scope="row">
+									<div>
+										<input class="form-check-input" type="checkbox"
+											id="checkboxNoLabel" value="" aria-label="...">
+									</div>
+								</th>
+								<th scope="row">1
+								<td>M ark</td>
+								<td>Otto</td>
+								<td>@mdo</td>
+							</tr>
+							<tr>
+								<th scope="row">
+									<div>
+										<input class="form-check-input" type="checkbox"
+											id="checkboxNoLabel" value="" aria-label="...">
+									</div>
+								</th>
+								<th scope="row">2</th>
+								<td>Jacob</td>
+								<td>Thornton</td>
+								<td>@fat</td>
+							</tr>
+							<tr>
+								<th scope="row">
+									<div>
+										<input class="form-check-input" type="checkbox"
+											id="checkboxNoLabel" value="" aria-label="...">
+									</div>
+								</th>
+								<th scope="row">3</th>
+								<td>Jacob</td>
+								<td>Thornton</td>
+								<td>@fat</td>
+							</tr>
+
+						</tbody>
+
+
+					</table>
+					<nav aria-label="Page navigation example">
+						<ul class="pagination page justify-content-center">
+							<li class="page-item"><a class="page-link" href="#">Previous</a></li>
+							<li class="page-item"><a class="page-link" href="#">1</a></li>
+							<li class="page-item"><a class="page-link" href="#">2</a></li>
+							<li class="page-item"><a class="page-link" href="#">3</a></li>
+							<li class="page-item"><a class="page-link" href="#">Next</a></li>
+						</ul>
+					</nav>
 				</div>
-				<div class="statusbox">
-					<div class="statusbox">
-						<div class="card box-bottom">
-							<div class="card-body">
-								<h6 class="card-title">99건 이상의 신고내역이 있습니다.</h6>
-								<p class="card-text"></p>
-								<button type="button" class="btn btn-primary position-relative">
-									확인하러 가기 <span
-										class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-										99+ <span class="visually-hidden">unread messages</span>
-									</span>
-								</button>
-							</div>
-						</div>
-						<div class="card box-bottom">
-							<div class="card-body">
-								<h6 class="card-title">99건 이상의 문의내역이 있습니다.</h6>
-								<p class="card-text"></p>
-								<button type="button" class="btn btn-primary position-relative">
-									확인하러 가기 <span
-										class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-										99+ <span class="visually-hidden">unread messages</span>
-									</span>
-								</button>
-							</div>
-						</div>
-						<div class="card box-bottom">
-							<div class="card-body">
-								<h6 class="card-title">99건 이상의 알림 메세지가 있습니다</h6>
-								<p class="card-text"></p>
-								<button type="button" class="btn btn-primary position-relative">
-									확인하러 가기 <span
-										class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-										99+ <span class="visually-hidden">unread messages</span>
-									</span>
-								</button>
-							</div>
-						</div>
-					</div>
-				</div>
+			</div>
+			<div class="right"></div>
+		</div>
+	</div>
 	<script src="../../node_modules/sweetalert2/dist/sweetalert2.min.js"></script>
 	<script src="../../node_modules/jquery/dist/jquery.min.js"></script>
 	<script

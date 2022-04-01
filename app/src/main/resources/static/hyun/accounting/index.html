@@ -8,34 +8,6 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
 <link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap.min.css">
 <style>
-/*상준님 css*/
-.menu-container{
-    margin-top: 80px;
-    text-align: center;
-    /* width: 100%; */
-}
-.menu-container{
-    text-align: center;
-    /* width: 100%; */
-}
-.group-title{
-    margin: 10px 0;
-    font-size: 24px;
-    font-weight: bold;
-    margin: 0,auto;
-}
-.group-cate-btn{
-    background-color: #fff;
-    border-radius: 3px;
-    display: inline-block;
-    width: 138px;
-    height: 40px;
-    margin: 5px 5px;
-    font-size: 12px;
-    overflow: hidden;
-}
-/*상준님 css 끝*/
-
 /*내꺼 css*/
 #body-content{
   width: 1130px auto;
@@ -55,32 +27,24 @@ table > tbody > tr > td {
 </head>
 
 <body>
-
-<!--공통헤더-->
-<div id="headers"></div>
+<script src="../../node_modules/jquery/dist/jquery.min.js"></script>
+<script src="../../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="../../node_modules/handlebars/dist/handlebars.min.js"></script>
+  
 
 <!--공통헤더 제이쿼리-->
 <script type="text/javascript">
   $(document).ready(function () {
-      $('#headers').load('../../junho/main2.html'); //헤더 인클루드
+      $('#headers').load('../../junho/mainHeader.html'); //헤더 인클루드
+      $('#top').load('../../ssang/groupBoard/none-search-top.html'); //상준님헤더
       // $('#footers').load('../html'); //푸터부분 인클루드
   });
 </script>
 
-<!--상준님 모임 헤더-->
-<div id="container">
-  <div class="menu-container">
-    <div class="group-title"><span>모임이름</span></div>
-    <button class="group-cate-btn" type="button">모임정보수정</button>
-    <button class="group-cate-btn" type="button">게시글</button>
-    <button class="group-cate-btn" type="button">사진첩</button>
-    <button class="group-cate-btn" type="button">일정</button>
-    <button class="group-cate-btn" type="button">첨부</button>
-    <button class="group-cate-btn" type="button">멤버</button>
-    <button class="group-cate-btn" type="button">회비 및 정산관리</button>
-  </div>
-</div>
-<!--상준님 모임 헤더 끝--> 
+<!--공통헤더-->
+<div id="headers"></div>
+<!--상준님 헤더-->
+<div id="top"></div>
 
 <div id="body-content"> <!--body content 시작-->
   <div id="select"> <!--회비 종류 카테고리 시작-->
@@ -124,16 +88,6 @@ table > tbody > tr > td {
   <!--페이지 네이션 끝-->
   
 </div><!--body content 끝-->
-<script src="../../node_modules/jquery/dist/jquery.min.js"></script>
-<script src="../../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-<script src="../../node_modules/handlebars/dist/handlebars.min.js"></script>
-
-<script type="text/javascript">
-  $(document).ready(function () {
-      $('#headers').load('../../junho/main2.html'); //헤더 인클루드
-      // $('#footers').load('../html'); //푸터부분 인클루드
-  });
-</script>
 
 <!--핸들바-->
 <script id="tr-template" type="text/x-handlebars-template">

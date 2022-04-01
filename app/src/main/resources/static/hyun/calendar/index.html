@@ -9,7 +9,6 @@
   <link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap.min.css">
 
   <!--full calendar 시작-->
-  @import 'bootstrap'
   <link href="../../node_modules/fullcalendar/main.css" rel="stylesheet" />
   <script src="../../node_modules/fullcalendar/main.js"></script>
   <script src="../../node_modules/fullcalendar/locales/ko.js"></script> <!--한글설정-->
@@ -25,34 +24,6 @@
   <!--full calendar 끝-->
 
   <style>
-  /*상준님 css*/
-  .menu-container{
-    margin-top: 80px;
-    text-align: center;
-    /* width: 100%; */
-  }
-  .menu-container{
-    text-align: center;
-    /* width: 100%; */
-  }
-  .group-title{
-    margin: 10px 0;
-    font-size: 24px;
-    font-weight: bold;
-    margin: 0,auto;
-  }
-  .group-cate-btn{
-    background-color: #fff;
-    border-radius: 3px;
-    display: inline-block;
-    width: 138px;
-    height: 40px;
-    margin: 5px 5px;
-    font-size: 12px;
-    overflow: hidden;
-  }
-  /*상준님 css 끝*/
-
   /*내 css*/
   #calendar-container{
     width: 1130px auto;
@@ -68,32 +39,22 @@
 <script src="../../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="../../node_modules/handlebars/dist/handlebars.min.js"></script>
 
-<!--공통헤더-->
-<div id="headers"></div>
+
 
 <!--공통헤더 제이쿼리-->
 <script type="text/javascript">
   $(document).ready(function () {
-      $('#headers').load('../../junho/main2.html'); //헤더 인클루드
+      $('#headers').load('../../junho/mainHeader.html'); //헤더 인클루드
+      $('#top').load('../../ssang/groupBoard/none-search-top.html'); //상준님헤더
       // $('#footers').load('../html'); //푸터부분 인클루드
   });
 </script>
 
+<!--공통헤더-->
+<div id="headers"></div>
+<!--상준님 헤더-->
+<div id="top"></div>
 
-<!--상준님 모임 헤더-->
-<div id="container">
-  <div class="menu-container">
-    <div class="group-title"><span>모임이름</span></div>
-    <button class="group-cate-btn" type="button">모임정보수정</button>
-    <button class="group-cate-btn" type="button">게시글</button>
-    <button class="group-cate-btn" type="button">사진첩</button>
-    <button class="group-cate-btn" type="button">일정</button>
-    <button class="group-cate-btn" type="button">첨부</button>
-    <button class="group-cate-btn" type="button">멤버</button>
-    <button class="group-cate-btn" type="button">회비 및 정산관리</button>
-  </div>
-</div>
-<!--상준님 모임 헤더 끝-->   
 
 <!--캘린더 API 자리-->
 <div id="calendar-container">
@@ -194,8 +155,7 @@ aria-hidden="true">
   // document.querySelector("#x-cancle-btn").onclick
   $("#x-cancle-btn").click(function(){
     $("#calendarModal").modal("hide");
-  });
-  
+  });  
 </script>
 
 </body>

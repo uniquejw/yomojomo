@@ -6,54 +6,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet"
+	href="../../node_modules/sweetalert2/dist/sweetalert2.min.css">
+<link rel="stylesheet"
 	href="../../node_modules/bootstrap/dist/css/bootstrap.min.css">
-
+<link rel="stylesheet" href="./css/main.css">
 <title>Manage Page</title>
-<style>
-.header {
-	height: 5vh;
-}
-
-.main {
-	height: 200vh;
-}
-
-.top {
-	height: 400px;
-}
-
-.bottom {
-	height: 20vh;
-}
-
-.logo {
-	height: 200px;
-	width: 150px;
-}
-
-.windowsize {
-	margin-bottom: 200px;
-	width: 800px;
-	margin-top: 500px;
-}
-
-.button {
-	width: 450px;
-}
-
-.footer {
-	height: 10vh;
-}
-
-.btn {
-	margin: 5px;
-	align-items: center;
-}
-
-.enter {
-	margin-top: 50px;
-}
-</style>
 <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
 	<div class="container-fluid">
 		<a class="navbar-brand" href="#">Navbar</a>
@@ -77,205 +34,187 @@
 </nav>
 </head>
 <body>
+	<div class="body-inner">
+		<div class="container fluid">
+			<div class="container-inner">
+				<div class="shadow-sm p-3 mb-5 bg-body rounded box">
+					<div class="frame">
+						<div class="row">
+							<div class="text-center">
+								<img src="../1.png" class="img-fluid logo">
+							</div>
 
-	<!-- START: Blank -->
-	<div class="container-fluid">
-		<div class="container-fluid header"></div>
-		<!-- END: Blank -->
+							<div class="btn">
+								<button type="button" class="btn btn-outline-secondary button">카카오톡으로
+									시작하기</button>
+								<button type="button" class="btn btn-outline-secondary button">페이스북으로
+									시작하기</button>
+								<button type="button" class="btn btn-outline-secondary button">구글로
+									시작하기</button>
+							</div>
+						</div>
+						<div class="row border-top top top">
+							<div class="input-group mb-5"></div>
 
-		<!-- START: Main Content -->
-		<div class="main">
-			<div class="top container-fluid main p-3 mb-2 light top"></div>
-			<div class="container-fluid main">
-				<div class="row">
-					<div class="">
-						<table class="table">
-							<thead>
+							<div class="row">
+								<div class="col-3 p-2 text-center fw-bold">이메일(아이디)</div>
+								<div class="col input-group mb-3 ">
+									<input class="form-control form-control-sm input fs-6"
+										type="text" placeholder="아이디 입력"
+										aria-label=".form-control-sm example">
 
-								<div
-									class=" shadow p-5 mb-7 lightrounded windowsize position-absolute top-50 start-50 translate-middle ">
-									<div class="row">
-										<div class="text-center">
-											<img src="../1.png" class="img-fluid logo">
-										</div>
+								</div>
+								<div class="col-1 p-1 text-center">@</div>
+								<div class="col input-group mb-3 ">
+									<input class="form-control form-control-sm input fs-6"
+										type="text" placeholder="주소 입력"
+										aria-label=".form-control-sm example">
 
-										<div class="btn center">
-											<button type="button"
-												class="btn btn-outline-secondary button">카카오톡으로
-												시작하기</button>
-											<button type="button"
-												class="btn btn-outline-secondary button">페이스북으로
-												시작하기</button>
-											<button type="button"
-												class="btn btn-outline-secondary button">구글로 시작하기</button>
-										</div>
+								</div>
+								<div class="col"></div>
+							</div>
+
+							<div class="row">
+								<div class="col-3 p-2 text-center fw-bold">비밀번호</div>
+								<div class="col input-group mb-3 ">
+									<input class="form-control form-control-sm input fs-6"
+										type="text" placeholder="비밀번호 입력"
+										aria-label=".form-control-sm example">
+
+								</div>
+								<div class="col-3 p-2"></div>
+							</div>
+							<div class="row">
+								<div class="col-3 p-2 text-center fw-bold">비밀번호</div>
+								<div class="col input-group mb-3 ">
+									<input class="form-control form-control-sm input fs-6"
+										type="text" placeholder="위의 비밀번호를 다시 입력해주세요"
+										aria-label=".form-control-sm example">
+
+								</div>
+								<div class="col-3 p-2"></div>
+							</div>
+							<div class="row">
+								<div class="col-3 p-2 text-center fw-bold">이름</div>
+								<div class="col input-group mb-3 ">
+									<input class="form-control form-control-sm input fs-6"
+										type="text" placeholder="이름 입력"
+										aria-label=".form-control-sm example">
+
+								</div>
+								<div class="col-3 p-2"></div>
+							</div>
+							<div class="row">
+								<div class="col-3 p-2 text-center fw-bold">휴대전화 번호</div>
+								<div class="col input-group mb-3 ">
+									<input class="form-control form-control-sm input fs-6"
+										type="text" placeholder="'-' 없이 입력해주세요"
+										aria-label=".form-control-sm example">
+
+								</div>
+								<div class="col-3 p-2"></div>
+							</div>
+						</div>
+						<div class="row border-top top">
+							<div class="input-group mb-5"></div>
+
+							<div class="row">
+								<div class="col-3 p-2 text-center fw-bold mb-2">관심 지역</div>
+								<select class="col form-select"
+									aria-label="Default select example">
+									<option selected>관심 지역</option>
+									<option value="1">One</option>
+									<option value="2">Two</option>
+									<option value="3">Three</option>
+								</select>
+								<div class="col-3 p-2 text-center fw-bold mb-2"></div>
+							</div>
+
+							<div class="row">
+								<div class="col-3 p-2 text-center fw-bold mb-2">관심 모임</div>
+								<select class="col form-select"
+									aria-label="Default select example">
+									<option selected>관심 모임</option>
+									<option value="1">One</option>
+									<option value="2">Two</option>
+									<option value="3">Three</option>
+								</select>
+								<div class="col-3 p-2 text-center fw-bold mb-2"></div>
+							</div>
+
+							<div class="row">
+								<div class="col-3 p-2 text-center fw-bold mb-2">관심 분야</div>
+								<select class="col form-select"
+									aria-label="Default select example">
+									<option selected>관심 분야</option>
+									<option value="1">One</option>
+									<option value="2">Two</option>
+									<option value="3">Three</option>
+								</select>
+								<div class="col-3 p-2 text-center fw-bold mb-2"></div>
+							</div>
+
+						</div>
+						<div class="row border-top top">
+							<div class="input-group mb-5"></div>
+
+							<div class="row left">
+								<div class="p-2 text-left fw-bold fs-4 mb-3">이용약관 / 개인정보
+									수집 및 이용 동의</div>
+							</div>
+
+							<div class="card border-light  left" style="margin-bottom: 50px;">
+								<h5 class="card-header">
+									<div class="form-check">
+										<input class="form-check-input" type="checkbox" value=""
+											id="flexCheckDefault"> <label
+											class="form-check-label" for="flexCheckDefault"> 전체
+											동의 </label>
 									</div>
-									<div class="row border-top enter">
-										<div class="input-group mb-5"></div>
-
-										<div class="row center">
-											<div class="col-3 p-2 text-center fw-bold">이메일(아이디)</div>
-											<div class="col input-group mb-3 ">
-												<input class="form-control form-control-sm input fs-6"
-													type="text" placeholder="아이디 입력"
-													aria-label=".form-control-sm example">
-
-											</div>
-											<div class="col-1 p-1 text-center">@</div>
-											<div class="col input-group mb-3 ">
-												<input class="form-control form-control-sm input fs-6"
-													type="text" placeholder="주소 입력"
-													aria-label=".form-control-sm example">
-
-											</div>
-											<div class="col"></div>
-										</div>
-
-										<div class="row center">
-											<div class="col-3 p-2 text-center fw-bold">비밀번호</div>
-											<div class="col input-group mb-3 ">
-												<input class="form-control form-control-sm input fs-6"
-													type="text" placeholder="비밀번호 입력"
-													aria-label=".form-control-sm example">
-
-											</div>
-											<div class="col-3 p-2"></div>
-										</div>
-										<div class="row center">
-											<div class="col-3 p-2 text-center fw-bold">비밀번호</div>
-											<div class="col input-group mb-3 ">
-												<input class="form-control form-control-sm input fs-6"
-													type="text" placeholder="위의 비밀번호를 다시 입력해주세요"
-													aria-label=".form-control-sm example">
-
-											</div>
-											<div class="col-3 p-2"></div>
-										</div>
-										<div class="row center">
-											<div class="col-3 p-2 text-center fw-bold">이름</div>
-											<div class="col input-group mb-3 ">
-												<input class="form-control form-control-sm input fs-6"
-													type="text" placeholder="이름 입력"
-													aria-label=".form-control-sm example">
-
-											</div>
-											<div class="col-3 p-2"></div>
-										</div>
-										<div class="row center">
-											<div class="col-3 p-2 text-center fw-bold">휴대전화 번호</div>
-											<div class="col input-group mb-3 ">
-												<input class="form-control form-control-sm input fs-6"
-													type="text" placeholder="'-' 없이 입력해주세요"
-													aria-label=".form-control-sm example">
-
-											</div>
-											<div class="col-3 p-2"></div>
-										</div>
+								</h5>
+								<div class="card-body">
+									<div class="form-check">
+										<input class="form-check-input" type="checkbox" value=""
+											id="flexCheckDefault"> <label
+											class="form-check-label" for="flexCheckDefault">
+											(필수)만 14세 이상입니다. </label>
 									</div>
-									<div class="row border-top enter">
-										<div class="input-group mb-5"></div>
-
-										<div class="row center">
-											<div class="col-3 p-2 text-center fw-bold mb-2">관심 지역</div>
-											<select class="col form-select"
-												aria-label="Default select example">
-												<option selected>관심 지역</option>
-												<option value="1">One</option>
-												<option value="2">Two</option>
-												<option value="3">Three</option>
-											</select>
-											<div class="col-3 p-2 text-center fw-bold mb-2"></div>
-										</div>
-
-										<div class="row center">
-											<div class="col-3 p-2 text-center fw-bold mb-2">관심 모임</div>
-											<select class="col form-select"
-												aria-label="Default select example">
-												<option selected>관심 모임</option>
-												<option value="1">One</option>
-												<option value="2">Two</option>
-												<option value="3">Three</option>
-											</select>
-											<div class="col-3 p-2 text-center fw-bold mb-2"></div>
-										</div>
-
-										<div class="row center">
-											<div class="col-3 p-2 text-center fw-bold mb-2">관심 분야</div>
-											<select class="col form-select"
-												aria-label="Default select example">
-												<option selected>관심 분야</option>
-												<option value="1">One</option>
-												<option value="2">Two</option>
-												<option value="3">Three</option>
-											</select>
-											<div class="col-3 p-2 text-center fw-bold mb-2"></div>
-										</div>
-
+									<div class="form-check">
+										<input class="form-check-input" type="checkbox" value=""
+											id="flexCheckDefault"> <label
+											class="form-check-label" for="flexCheckDefault">
+											(필수)이용약관 동의 </label>
 									</div>
-									<div class="row border-top enter">
-										<div class="input-group mb-5"></div>
-
-										<div class="row center">
-											<div class="p-2 text-left fw-bold fs-4 mb-3">이용약관 /
-												개인정보 수집 및 이용 동의</div>
-										</div>
-
-										<div class="card border-light" style="margin-bottom: 50px;">
-											<h5 class="card-header">
-												<div class="form-check">
-													<input class="form-check-input" type="checkbox" value=""
-														id="flexCheckDefault"> <label
-														class="form-check-label" for="flexCheckDefault">
-														전체 동의 </label>
-												</div>
-											</h5>
-											<div class="card-body">
-												<div class="form-check">
-													<input class="form-check-input" type="checkbox" value=""
-														id="flexCheckDefault"> <label
-														class="form-check-label" for="flexCheckDefault">
-														(필수)만 14세 이상입니다. </label>
-												</div>
-												<div class="form-check">
-													<input class="form-check-input" type="checkbox" value=""
-														id="flexCheckDefault"> <label
-														class="form-check-label" for="flexCheckDefault">
-														(필수)이용약관 동의 </label>
-												</div>
-												<div class="form-check">
-													<input class="col form-check-input" type="checkbox" value=""
-														id="flexCheckDefault"> <label
-														class="form-check-label" for="flexCheckDefault">
-														(필수)개인정보 수집 및 이용 동의 </label>
-												</div>
-												<div class="form-check">
-													<input class="form-check-input" type="checkbox" value=""
-														id="flexCheckDefault"> <label
-														class="form-check-label" for="flexCheckDefault">
-														(선택) 이메일 수신 </label>
-												</div>
-											</div>
-
-										</div>
-										<div class="btn center">
-											<button type="button" class="btn btn-primary button">가입
-												완료</button>
-										</div>
+									<div class="form-check">
+										<input class="col form-check-input" type="checkbox" value=""
+											id="flexCheckDefault"> <label
+											class="form-check-label" for="flexCheckDefault">
+											(필수)개인정보 수집 및 이용 동의 </label>
+									</div>
+									<div class="form-check ">
+										<input class="form-check-input" type="checkbox" value=""
+											id="flexCheckDefault"> <label
+											class="col form-check-label" for="flexCheckDefault">
+											(선택) 이메일 수신 </label>
 									</div>
 								</div>
-							</thead>
-							<tbody>
 
-							</tbody>
-						</table>
+							</div>
+							<div class="btn center">
+								<button type="button" class="btn btn-primary button">가입
+									완료</button>
+							</div>
+						</div>
 					</div>
+
 				</div>
 			</div>
 		</div>
-
 	</div>
-
-	<script src="../bootstrap5/src/js/bootstrap.bundle.min.js"></script>
+	<script src="../../node_modules/sweetalert2/dist/sweetalert2.min.js"></script>
+	<script src="../../node_modules/jquery/dist/jquery.min.js"></script>
+	<script
+		src="../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 <footer class="fixed-bottom bg-secondary text-white footer"> @
 	2022 </footer>

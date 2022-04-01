@@ -1,0 +1,30 @@
+<script language='javascript' src='CityData.js'></script>
+<script language='javascript' src='setting.js'></script>
+<table cellspacing='0' align='center' cellpadding='3' border='1' width='95%' bordercolordark='white' bordercolorlight='#D6D6D6'>
+<tr>
+    <td>
+    <select name='sCity' class='input' id='sCity' onChange='Next(this.selectedIndex,this.options[this.selectedIndex].value)'>
+        <option value=''> 선택하세요
+    </select>
+
+    <script language='javascript'>
+    var len = cat1_info0.length;
+    var selectBox = new Array();
+    var identity = new Array();
+    for(var i=1; i<len; ++i)
+    {
+        document.getElementById('sCity').options[i] = new Option(cat1_info0[i].name,cat1_info0[i].name);
+    }    
+    </script></td>
+</tr>
+<tr>
+    <td><div id='ChkBox'></div></td>
+</tr>
+<tr>
+    <td>최대 5개까지 지역 선택 가능,선택된 지역을 클릭시 지역에서 제외됨</td>
+</tr>
+<tr>
+    <td><div id='SelectBox'></div></td>
+</tr>
+</table>
+

@@ -140,6 +140,14 @@
     where
     act_local_no=#{no}
   </select>
+  
+  <select id="findByActiveLocalAll" parameterType="int" resultMap="ActiveLocalMap">
+    select
+      act_local_no,
+      name
+    from gms_activelocal
+    order by act_local_no asc
+  </select>
 
   <select id="findByPurposeNo" parameterType="int" resultMap="PurposeMap">
     select

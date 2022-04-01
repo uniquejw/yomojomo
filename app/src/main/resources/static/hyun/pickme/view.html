@@ -107,16 +107,16 @@
 <!--모달 끝-->
 
 
-  <script src="../../node_modules/jquery/dist/jquery.min.js"></script>
-  <script src="../../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-  <script src="../../node_modules/handlebars/dist/handlebars.min.js"></script>
-  
-  <script type="text/javascript">
-    $(document).ready(function () {
-        $('#headers').load('../../junho/main2.html'); //헤더 인클루드
-        // $('#footers').load('../html'); //푸터부분 인클루드
-    });
-  </script>
+<script src="../../node_modules/jquery/dist/jquery.min.js"></script>
+<script src="../../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="../../node_modules/handlebars/dist/handlebars.min.js"></script>
+
+<script type="text/javascript">
+  $(document).ready(function () {
+      $('#headers').load('../../junho/mainHeader.html'); //헤더 인클루드
+      // $('#footers').load('../html'); //푸터부분 인클루드
+  });
+</script>
 
   <script>
     let arr = location.href.split("?");
@@ -193,7 +193,7 @@
       })
       .then(function(recruit){
         // console.log(recruit);
-        xModalName.value = recruit.name;
+        xModalName.value = recruit.member[0].membName;
       });
     }
   </script>
