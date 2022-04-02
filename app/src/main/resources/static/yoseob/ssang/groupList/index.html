@@ -10,18 +10,25 @@
   <script src="../../node_modules/jquery/dist/jquery.min.js"></script>
   <!-- css 초기화 -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
-
   <link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap.min.css">
-
+<!-- 파비콘생성 -->
+<link rel="icon" href="/junho/img/favicon.png">
+<!-- css 초기화 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
+<!-- 폰트 -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700&display=swap" rel="stylesheet">
+<!-- 아이콘 연결 코드 -->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <!--공용css-->
   <link rel="stylesheet" href="../../css/common.css">
   <!--내css-->
   <link rel="stylesheet" href="../css/groupList.css">
-  <!-- <link rel="stylesheet" href="../../junho/main.html"> -->
   <!--인클루드-->
   <script type="text/javascript">
     $(document).ready(function () {
-        $('#headers').load('../../junho/main2.html'); //헤더 인클루드
+        $('#headers').load('../../junho/mainHeader.html'); //헤더 인클루드
         // $('#footers').load('../html'); //푸터부분 인클루드
     });
   </script>
@@ -44,7 +51,7 @@
       <li class="item">
         <div type="button" class="show">
         <div class="image">사진</div>
-        <div class="group-name" >모임이름</div>
+        <div class="group-name" >모임이름2</div>
         </div>
       </li>
       <li class="item">
@@ -114,19 +121,19 @@
             <div id="report-form-title">가입신청서</div>
             <table>
               <tr>
-                <td>이름</td>
+                <td><span>이름</span></td>
                 <td><input type="text"></td>
               </tr>
               <tr>
-                <td>사는지역</td>
+                <td><span>사는지역</span></td>
                 <td><input type="text"></td>
               </tr>
               <tr>
-                <td>월 2회 참여하실 수 있습니까?</td>
+                <td><span>월 2회 참여하실 수 있습니까?</span></td>
                 <td><input type="text"></td>
               </tr>
               <tr>
-                <td>하고싶은말</td>
+                <td><span>하고싶은말</span></td>
               </tr>
             </table>
             <textarea name="" id="" cols="40" rows="6" class="report-comment"></textarea>

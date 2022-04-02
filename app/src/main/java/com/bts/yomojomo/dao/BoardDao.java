@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Mapper;
 import com.bts.yomojomo.domain.Board;
 
 @Mapper 
+
 public interface BoardDao {
   int countAll();
 
@@ -17,4 +18,6 @@ public interface BoardDao {
   int update(Board board);
 
   int delete(int no);
+
+  int increaseViewCount(int no);
 }

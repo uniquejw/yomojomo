@@ -88,7 +88,7 @@ button {
     margin: 16px 0 0 0;
     min-height: 300px;
 }
-.comment-div{
+.comment-input-div{
     display: flex;
     height: 40px;
     margin: 0 0 10px 0;

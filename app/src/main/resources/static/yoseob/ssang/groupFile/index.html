@@ -19,7 +19,7 @@
   <!-- 인클루드 -->
   <script type="text/javascript">
     $(document).ready(function () {
-        $('#headers').load('../../junho/main2.html'); //헤더 인클루드
+        $('#headers').load('../../junho/mainHeader.html'); //헤더 인클루드
         $('#top').load('../groupBoard/top.html'); //모임 윗부분 인클루드
         // $('#footers').load('../html'); //푸터부분 인클루드
     });
@@ -28,27 +28,19 @@
 <body>
   <div id="headers"></div>
   <div id="top"></div>
+  <!-- 검색 -->
   <div id="container">
     <div id="width-fix-div">
-      <div class="write-board">게시글 수정</div>
-      <div class="written-width-fix">
-        <div class="written-author-div">
-          <div class="written-author-img-div">
-            <img class="written-author-img" src="../공연.jfif" style="width: 50px; height: 50px;" alt="">   &nbsp;&nbsp;&nbsp;
-          </div>
-          <div class="written-column-div">
-            <div class="written-author-name">&nbsp;&nbsp;&nbsp;이름</div>
-            <!-- <div class="written-createdTime">몇분전</div> -->
-          </div>
+      <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid">
+          <form class="d-flex">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+          </form>
         </div>
-        <div class="written-content-div">
-          <div class="written-content">내용 작성</div>
-        </div>
-        <div class="post-cancel-div">
-        <button id="s-cancel-btn">취소</button>
-        <button id="s-post-btn">확인</button>
-        </div>
-      </div>
+      </nav>
+      모든파일보기 
+      파일들
     </div>  
   </div>
 <div id="footers"></div>
