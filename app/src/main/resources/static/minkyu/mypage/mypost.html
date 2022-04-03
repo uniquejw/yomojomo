@@ -54,8 +54,8 @@
       margin: auto;
       justify-content: center;
       text-align: center;
-    }
-    .info1 > p {
+    } */
+    /* .info1 > p {
       margin-bottom: 5px;
     }
     .info2 {
@@ -72,8 +72,8 @@
     }
     .box {
       width: 100px;
-    }
-    #name {
+    } */
+    /* #name {
       font-weight: bold;
       font-size: 30px;
     }
@@ -82,47 +82,11 @@
       margin-top: 10px;
       border-radius: 80%;
     } */
-    .que:first-child{
-      border-top: 1px solid black;
+    .table {
+      text-align: center;
     }
-  
-    .que{
-      position: relative;
-      padding: 17px 0;
-      cursor: pointer;
-      font-size: 14px;
-      border-bottom: 1px solid #dddddd;
-      
-    }
-      
-    .que::before{
-      display: inline-block;
-      content: 'Q';
-      font-size: 14px;
-      color: #006633;
-      margin-right: 5px;
-    }
-
-    .que.on>span{
-      font-weight: bold;
-      color: #006633; 
-    }
-      
-    .anw {
-      display: none;
-        overflow: hidden;
-      font-size: 14px;
-      background-color: #f4f4f2;
-      padding: 27px 0;
-    }
-      
-    .anw::before {
-      display: inline-block;
-      content: 'A';
-      font-size: 14px;
-      font-weight: bold;
-      color: #666;
-      margin-right: 5px;
+    .board-path:hover {
+      text-decoration: underline;
     }
     .btn {
       float: right;
@@ -131,7 +95,6 @@
     #page-num {
       justify-content: center;
     }
-
   </style>
 </head>
 <body>
@@ -140,43 +103,60 @@
     <div class="inner">
       <div class="list-group sidebar">
         <a href="edit.html" class="list-group-item list-group-item-action">개인 정보 수정</a>
-        <a href="mypost.html" class="list-group-item list-group-item-action">내가 쓴 글</a>
+        <a href="mypost.html" class="list-group-item list-group-item-action active">내가 쓴 글</a>
         <a href="favor.html" class="list-group-item list-group-item-action">즐겨찾기한 글</a>
         <a href="group.html" class="list-group-item list-group-item-action">모임 리스트</a>
         <a href="recruit.html" class="list-group-item list-group-item-action">리쿠르팅 내역</a>
-        <a href="inquiry.html" class="list-group-item list-group-item-action active">문의 내역</a>
+        <a href="inquiry.html" class="list-group-item list-group-item-action">문의 내역</a>
       </div>
       <div class="container">
         <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
           <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="index.html">마이페이지</a></li>
-            <li class="breadcrumb-item active" aria-current="page">문의 내역</li>
+            <li class="breadcrumb-item active" aria-current="page">내가 쓴 글</li>
           </ol>
         </nav>
-        <div id="Accordion_wrap">
-          <div class="que">
-           <span>This is first question.</span>
-          </div>
-          <div class="anw">
-           <span>This is first answer.</span>
-          </div>
-           <div class="que">
-           <span>This is second question.</span>
-          </div>
-          <div class="anw">
-           <span>This is second answer.</span>
-          </div>
-           <div class="que">
-           <span>This is third question.</span>
-          </div>
-          <div class="anw">
-           <span>This is third answer.</span>
-          </div>
-     </div>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">선택</th>
+              <th scope="col">제목</th>
+              <th scope="col">내용</th>
+              <th scope="col">작성일</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="col">
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+              </th>
+              <td>가입신청합니다.</td>
+              <td><a href="게시글로 이동" class="board-path">내가 그린 기린 그림은 긴 기린 그린 그림이고</a></td>
+              <td>2999.99.99</td>
+            </tr>
+            <tr>
+              <th scope="col">
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+              </th>
+              <td>날씨가 좋네요!!</td>
+              <td><a href="게시글로 이동" class="board-path">간장공장공장장은 강 공장장이고</a></td>
+              <td>3999.99.99</td>
+            </tr>
+            <tr>
+              <th scope="col">
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+              </th>
+              <td>축구나 한판?</td>
+              <td><a href="게시글로 이동" class="board-path">BTS 봉준호 손흥민 JayPark</a></td>
+              <td>4999.99.99</td>
+            </tr>
+          </tbody>
+        </table>
         <div class="complete">
           <button type="button" class="btn btn-primary">삭제하기</button>
+          <button type="button" class="btn btn-outline-primary">수정하기</button>
         </div>
-        <nav aria-label="Page navigation">
+        <nav aria-label="Page navigation" >
           <ul class="pagination" id="page-num">
             <li class="page-item">
               <a class="page-link" href="#" aria-label="Previous">
@@ -197,12 +177,5 @@
   <footer>
     푸터
   </footer>
-  <script>
-    $(".que").click(function() {
-   $(this).next(".anw").stop().slideToggle(300);
-  $(this).toggleClass('on').siblings().removeClass('on');
-  $(this).next(".anw").siblings(".anw").slideUp(300); // 1개씩 펼치기
-});
-  </script>
 </body>
 </html>
