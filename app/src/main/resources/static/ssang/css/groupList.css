@@ -185,6 +185,7 @@ table{
     font-weight: bold;
     text-align: center;
     margin-bottom: 10px;
+    background-color: aquamarine;
   }
   .report-form table{
     margin: 0 auto;
