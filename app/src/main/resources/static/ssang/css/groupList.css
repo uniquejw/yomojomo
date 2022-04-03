@@ -123,10 +123,12 @@ table{
     height: 45px;
     font-size: 14px;
 }
-#close{
+.btn-close{
   position: absolute;
   right: 0;
 }
+
+
 
   .popup, .report-popup {
     position: absolute;
