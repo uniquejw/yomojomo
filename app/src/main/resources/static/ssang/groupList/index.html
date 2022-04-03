@@ -7,20 +7,21 @@
   <title>모임리스트</title>
   <!-- 제이쿼리 -->
   <script src="../../node_modules/sweetalert2/dist/sweetalert2.min.js"></script>
-  <script src="../../node_modules/jquery/dist/jquery.min.js"></script>
+  <!-- 파비콘생성 -->
+  <link rel="icon" href="/junho/img/favicon.png">
   <!-- css 초기화 -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
+  <!-- 폰트 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700&display=swap" rel="stylesheet">
+  <!-- 아이콘 연결 코드 -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <script src="../../node_modules/jquery/dist/jquery.min.js"></script>
+  <!-- Handlebars -->
+  <script src="../../node_modules/handlebars/dist/handlebars.min.js"></script>
+  <!-- 부트스트랩 -->
   <link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap.min.css">
-<!-- 파비콘생성 -->
-<link rel="icon" href="/junho/img/favicon.png">
-<!-- css 초기화 -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
-<!-- 폰트 -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700&display=swap" rel="stylesheet">
-<!-- 아이콘 연결 코드 -->
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <!--공용css-->
   <link rel="stylesheet" href="../../css/common.css">
   <!--내css-->
@@ -148,8 +149,6 @@
 </div>    
 <div id="footers"></div>
 
-<script src="../../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-<script src="../../node_modules/handlebars/dist/handlebars.min.js"></script>
 <script> 
 // 모임정보 팝업
 var cols = document.querySelectorAll("div.show");
