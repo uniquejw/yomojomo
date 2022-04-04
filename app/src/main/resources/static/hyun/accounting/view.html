@@ -7,9 +7,9 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
   <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
   <style>
-    #content{ 
-      width: 1130px auto;
-      margin: 150px; 
+    #view-content{ 
+      padding-top: 140px;
+      position: relative;
     }
      body{
       margin-top: 100px;
@@ -57,7 +57,8 @@
   <div id="top"></div>
 
   <!--입력 폼-->
-  <div id="content" class="table-responsive-lg">
+<div id="view-content" class="table-responsive-lg">
+  <div class="inner">
     <form>
       <table id="formTable" class="table table-borderless">
         <tbody>
@@ -101,16 +102,17 @@
       <button id="x-update-btn" type="button" class="btn btn-primary">수정</button>
       <button id="x-delete-btn" type="button" class="btn btn-primary">삭제</button>
       <button id="x-cancle-btn" type="button" class="btn btn-primary">취소</button> 
-  </form>
+    </form>
+  </div>
 </div>
 
-<script src="../../node_modules/jquery/dist/jquery.min.js"></script>
-<script src="../../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-<script src="../../node_modules/handlebars/dist/handlebars.min.js"></script>
+<script src="/node_modules/jquery/dist/jquery.min.js"></script>
+<script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/node_modules/handlebars/dist/handlebars.min.js"></script>
 
 <script type="text/javascript">
   $(document).ready(function () {
-      $('#headers').load('../../junho/main2.html'); //헤더 인클루드
+      $('#headers').load('junho/mainHeader.html'); //헤더 인클루드
       // $('#footers').load('../html'); //푸터부분 인클루드
   });
 </script>
