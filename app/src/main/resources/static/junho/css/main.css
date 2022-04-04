@@ -24,6 +24,9 @@ a {
 /* HEADER */
 header {
   background-color: rgb(17, 147, 218);
+  position: fixed;
+  z-index: 9;
+  width: 100%;
 }
 
 header>.inner {
@@ -119,6 +122,7 @@ header .main-menu ul.menu li a .material-icons {
 .main-function {
   background-color: #f6f5f0;
   border-bottom: 5px solid #c8c8c8;
+  padding-top: 120px;
 }
 
 .main-function>.inner {
