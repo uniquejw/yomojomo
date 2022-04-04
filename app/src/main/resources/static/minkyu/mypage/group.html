@@ -4,29 +4,28 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="../css/main.css">
   <title>MyPage</title>
   <!-- 제이쿼리 -->
-  <script src="../../node_modules/sweetalert2/dist/sweetalert2.min.js"></script>
-  <script src="../../node_modules/jquery/dist/jquery.min.js"></script>
+  <script src="/node_modules/sweetalert2/dist/sweetalert2.min.js"></script>
+  <script src="/node_modules/jquery/dist/jquery.min.js"></script>
   <!-- css 초기화 -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
   <!--공용css-->
-  <link rel="stylesheet" href="../../css/common.css">
+  <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/common.css">
   <!--내css-->
-  <link rel="stylesheet" href="../">
+  <link rel="stylesheet" href="/minkyu/css/main.css">
   <!--인클루드-->
   <script type="text/javascript">
     $(document).ready(function () {
-      $('#header').load('../../junho/mainHeader.html'); //헤더 인클루드
+      $('#header').load('/junho/mainHeader.html'); //헤더 인클루드
       // $('#footers').load('../html'); //푸터부분 인클루드
     });
   </script>
   <style>
     .card {
       margin: 0px 10px;
-      width: 220px;
+      width: 400px;
     }
    .card-img{
      width: auto;
@@ -40,7 +39,7 @@
 </head>
 <body>
   <div id="header"></div>
-  <main>
+  <div class="main">
     <div class="inner">
       <div class="list-group sidebar">
         <a href="edit.html" class="list-group-item list-group-item-action">개인 정보 수정</a>
@@ -80,10 +79,38 @@
               <button type="button" class="btn btn-primary btn-sm" id="btn">모임으로</button>
             </div>
           </div>
+          <div class="card">
+            <img src="../profile.jpg" class="card-img" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">강서구 축구 사랑회</h5>
+              <button type="button" class="btn btn-primary btn-sm" id="btn">모임으로</button>
+            </div>
+          </div>
+          <div class="card">
+            <img src="../profile.jpg" class="card-img" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">강서구 축구 사랑회</h5>
+              <button type="button" class="btn btn-primary btn-sm" id="btn">모임으로</button>
+            </div>
+          </div>
+          <div class="card">
+            <img src="../profile.jpg" class="card-img" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">강서구 축구 사랑회</h5>
+              <button type="button" class="btn btn-primary btn-sm" id="btn">모임으로</button>
+            </div>
+          </div>
+          <div class="card">
+            <img src="../profile.jpg" class="card-img" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">강서구 축구 사랑회</h5>
+              <button type="button" class="btn btn-primary btn-sm" id="btn">모임으로</button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  </main>
+  </div>
   <footer>
     푸터
   </footer>
