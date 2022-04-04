@@ -5,42 +5,55 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>자주하는 질문 상세보기</title>
+  <script src="../../node_modules/jquery/dist/jquery.min.js"></script>
+  <!-- css 초기화 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
   <link rel="stylesheet" href="../css/style.css">
-  
-  
- 
-
+  <!-- 부트스트랩 -->
+  <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.css">
+  <!-- JQUERY -->
+  <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+  <!-- 아이콘 -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
-  <div class = "container">
-    <div class = "all-notice-explanation">
-      <div class ="notice-explanation">
-       <img class = "exclamation-mark"src="../image/question_mark.png" >
-        <h1 class ="notice-head" style="margin-left:30px;">자주하는 질문</h1>
-          <p class ="notice-explanation-text">
-            저희 요모조모를 이용하면서 불편했던 점이나<br>
-                  궁금한 점을 빠르고 친절하게<br>
-                      안내해 드리겠습니다.<br>
-                아래 카테고리를 선택해 주세요.</p>   
-        </div>
-        <div class ="image">
-          <img class ="service_center" src="../image/service_center.png" >
-        </div>
-        <div class ="notice-category">
-          <img class ="question_mark"src="../image/question_mark.png" >
-          <span class ="faq">자주하는 질문</span>
-          <img class ="announcement_mark" src="../image/announcement.png">
-          <span class ="announcement">공지사항</span>
-          <img class ="informaiton_mark"src="../image/informaiton.png">
-          <span class ="information">서비스 안내</span>
-          <img class ="inquiry_mark"src="../image/inquiry.png" >
-          <span class = "inquiry">문의하기</span>
-        </div>
+  <script type="text/javascript">
+    $(document).ready(function () {
+        $('#header').load('/junho/mainHeader.html'); //헤더 인클루드
+        // $('#footers').load('../html'); //푸터부분 인클루드
+    });
+  </script>
+  <div id="header"></div>
+  
+<div class = "container">
+  <div class = "all-notice-explanation">
+    <div class ="notice-explanation">
+     <img class = "exclamation-mark"src="../image/Exclamation_mark.png" >
+      <h1 class ="notice-head">FaQ</h1>
+        <p class ="notice-explanation-text">
+          저희 요모조모를 이용하면서 불편했던 점이나<br>
+                궁금한 점을 빠르고 친절하게<br>
+                    안내해 드리겠습니다.<br>
+              아래 카테고리를 선택해 주세요.</p>   
+      </div>
+    <div class ="image">
+      <img class ="service_center" src="../image/service_center.png" >
+    </div>
+    <div class ="notice-category">
+      <span class="material-icons">question_mark</span>
+      <span class ="faq">자주하는 질문</span>
+      <span class="material-icons">volume_up</span>
+      <span class ="announcement">공지사항</span>
+      <span class="material-icons">search</span>
+      <span class ="announcement">서비스 안내</span>
+      <span class="material-icons">call</span>
+      <span class ="announcement">문의사항</span>
+    </div>
         <div class = "faq_search">
           <span>자주하는 질문</span>
           <div class = "search_window">
             <input type="text">
-            <img src="../image/informaiton.png">
+            <span class="material-icons">search</span>
             <div class = "keword_btn">
               <button>전체</button>
               <button>회원</button>
@@ -67,9 +80,6 @@
                     <div class="modal-dialog">
                       <div class="modal-content">
                         <div class="modal-header">
-                          
-                      
-                        </div>
                         <div class="modal-body">
                           아이디 찾기를 통해 이름과 전화번호를 입력하시면 찾으실 수 있습니다.
                         </div>

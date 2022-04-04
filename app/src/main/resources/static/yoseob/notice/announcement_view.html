@@ -6,12 +6,29 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>공지사항 상세</title>
   <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="/yoseob/css/style.css">
+  <script src="../../node_modules/jquery/dist/jquery.min.js"></script>
+  <!-- css 초기화 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
+  <!-- 부트스트랩 -->
+  <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.css">
+  <!-- JQUERY -->
+  <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+  <!-- 아이콘 -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   
   
  
 
 </head>
 <body>
+  <script type="text/javascript">
+    $(document).ready(function () {
+        $('#header').load('/junho/mainHeader.html'); //헤더 인클루드
+        // $('#footers').load('../html'); //푸터부분 인클루드
+    });
+  </script>
+  <div id="header"></div>
   <div class = "container">
     <div class = "all-notice-explanation">
       <div class ="notice-explanation">
@@ -25,14 +42,14 @@
           <img class ="service_center" src="../image/service_center.png" >
         </div>
         <div class ="notice-category">
-          <img class ="question_mark"src="../image/question_mark.png" >
+          <span class="material-icons">question_mark</span>
           <span class ="faq">자주하는 질문</span>
-          <img class ="announcement_mark" src="../image/announcement.png">
+          <span class="material-icons">volume_up</span>
           <span class ="announcement">공지사항</span>
-          <img class ="informaiton_mark"src="../image/informaiton.png">
-          <span class ="information">서비스 안내</span>
-          <img class ="inquiry_mark"src="../image/inquiry.png" >
-          <span class = "inquiry">문의하기</span>
+          <span class="material-icons">search</span>
+          <span class ="announcement">서비스 안내</span>
+          <span class="material-icons">call</span>
+          <span class ="announcement">문의사항</span>
         </div>
         
         <div class = "announcement_title">
