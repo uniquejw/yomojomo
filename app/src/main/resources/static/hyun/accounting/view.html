@@ -80,7 +80,7 @@
           </tr>
           <tr>
             <td>작성일</td>
-            <td><input id="x-date" type="text" class="form-control" readonly></td>
+            <td><input id="x-registDate" type="text" class="form-control" readonly></td>
           </tr>
           <tr>
             <td>금액</td>
@@ -145,7 +145,7 @@
   let xActcateno = document.querySelector("#x-actcateno");
   let xTitle = document.querySelector("#x-title");
   let xAmount = document.querySelector("#x-amount");
-  let xDate = document.querySelector("#x-date");
+  let xDate = document.querySelector("#x-registDate");
   let xMembList = document.querySelector(".x-membList");
   let xMembListCon = document.querySelector("#x-membList-container");
   // console.log(xMembListCon);
@@ -153,17 +153,18 @@
   //3. 서버에서 데이터 가져오기
   fetch(`/accounting/get?no=${no}`)
     .then(function(response) {
+      // console.log(response);
       return response.json();
     })
     .then(function(accounting) {
       console.log(accounting);
-      //4. 화면에 출력
+      // 4. 화면에 출력
       xNo.value = accounting.no;
-      xGno.value = accounting.gno;
+      xGno.value = accounting.group.no;
       xActcateno.value = accounting.actCate.no;
       xTitle.value = accounting.title;
       xAmount.value  = accounting.amount;
-      xDate.value = accounting.date;
+      xDate.value = accounting.registDate;
     });
 
 //update로 이동

@@ -12,7 +12,7 @@
     <result column="view_cnt" property="viewCnt"/>
     <association property="member" javaType="Member">
       <id column = "mno" property="no"/>
-      <result column="mname" property="membName"/>
+      <result column="mname" property="memberName"/>
     </association>
     <association property="activeLocal" javaType="ActiveLocal">
       <id column = "ano" property="no"/>

@@ -155,7 +155,7 @@
       .then(function(recruit){
         console.log(recruit);
         xTitle.value = recruit.title;
-        xName.value = recruit.member.membName;
+        xName.value = recruit.member.memberName;
         xRegDate.value = recruit.date;
         xViewCnt.value = recruit.viewCnt;
         xContent.value = recruit.content;
@@ -195,7 +195,7 @@
       })
       .then(function(recruit){
         // console.log(recruit);
-        xModalName.value = recruit.member[0].membName;
+        xModalName.value = recruit.member.memberName;
       });
     }
   </script>
