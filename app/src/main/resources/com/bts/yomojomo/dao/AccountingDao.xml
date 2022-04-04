@@ -6,17 +6,16 @@
   
   <resultMap type="Accounting" id="AccountingMap">
     <id column="act_no" property="no"/>
-    <result column="g_no" property="gno"/>
     <result column="title" property="title"/>
     <result column="amount" property="amount"/>
     <result column="status" property="status"/>
-    <result column="reg_dt" property="date"/>
+    <result column="reg_dt" property="registDate"/>
     <association property="actCate" javaType="AccountingCate"> 
-      <id column="act_cate_no" property="no"/>
+      <id column="actno" property="no"/>
       <result column="actname" property="cateName"/>
     </association>
     <association property="group" javaType="Group">
-      <id column="g_no" property="no"/>
+      <id column="gno" property="no"/>
       <result column="gname" property="GroupName"/>
     </association> 
 </resultMap>
@@ -24,9 +23,9 @@
   <select id="findAll" resultMap="AccountingMap"> 
 		select
 		  a.act_no,
-		  gg.g_no,
+		  gg.g_no gno,
 		  gg.name gname,
-		  act.act_cate_no,
+		  act.act_cate_no actno,
 		  act.name actname,
 		  a.title,
 		  a.amount,
@@ -43,9 +42,9 @@
     <select id="findByNo" resultMap="AccountingMap" parameterType="int">
     select
       a.act_no,
-      gg.g_no,
+      gg.g_no gno,
       gg.name gname,
-      act.act_cate_no,
+      act.act_cate_no actno,
       act.name actname,
       a.title,
       a.amount,
