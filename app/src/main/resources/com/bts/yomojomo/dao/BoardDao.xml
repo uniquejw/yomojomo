@@ -10,29 +10,40 @@
   <!-- 테이블의 컬럼과 객체필드를 연결한다. -->
   <resultMap type="Board" id="BoardMap">
     <id column="b_no" property="no"/>
-    <result column="g_no" property="gno"/>
-    <result column="memb_no" property="membno"/>
-    <result column="reg_dt" property="regdt"/>
+    <result column="g_no" property="groupNo"/>
+    <result column="memb_no" property="memberNo"/>
+    <result column="reg_dt" property="registDate"/>
     <result column="content" property="content"/>
-    <result column="view_cnt" property="viewcnt"/>
+    <result column="view_cnt" property="viewCount"/>
     <result column="status" property="status"/>
     <association property="writer" javaType="member">
-      <id column="no" property="no"/>
-      <result column="name" property="name"/>
+      <id column="writer_no" property="no"/>
+      <result column="writer_name" property="memberName"/>
     </association>
+    <collection property="comments" ofType="Comment">
+      <id column = "cmt_no" property="no"/>
+      <result column="cmt_content" property="content"/>
+      <result column="cmt_reg_dt" property="registDate"/>
+    </collection>
   </resultMap>
 
   <select id="findAll" resultMap="BoardMap"> 
-    select
-      b_no,
-      g_no,
-      memb_no,
-      reg_dt,
-      content,
-      view_cnt,
-      status
-    from
-      gms_board
+	select
+		b.b_no,
+		b.content,
+		b.reg_dt,
+		m.memb_no writer_no,
+		m.name writer_name,
+		c.cmt_no,
+		c.content cmt_content,
+		c.reg_dt cmt_reg_dt,
+		m2.memb_no cmt_writer_no,
+		m2.name cmt_writer_name
+	from 
+	   gms_board b
+		left outer join gms_comment c on b.b_no = c.b_no
+		left outer join gms_memb m on b.memb_no = m.memb_no
+		left outer join gms_memb m2 on c.memb_no = m2.memb_no
     order by
       b_no desc
   </select>

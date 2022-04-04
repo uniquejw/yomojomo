@@ -99,6 +99,8 @@ insert into gms_recruit(title, content,  view_cnt, act_local_no, pups_no, memb_n
 insert into gms_recruit(title, content,  view_cnt, act_local_no, pups_no, memb_no) values ("공부 해요", "오호라",  1, 2, 2, 2);
 insert into gms_recruit(title, content,  view_cnt, act_local_no, pups_no, memb_no) values ("술먹", "오호라",  1, 2, 2, 2);
 insert into gms_comment(b_no, content, memb_no, g_no) values (1, "12", 1, 1 );
+insert into gms_comment(b_no, content, memb_no, g_no) values (1, "13", 1, 1 );
+insert into gms_comment(b_no, content, memb_no, g_no) values (1, "14", 1, 1 );
 insert into gms_comment(b_no, content, memb_no, g_no) values (2, "32", 2, 2);
 insert into gms_comment(b_no, content, memb_no, g_no) values (3, "137", 3, 3);
 

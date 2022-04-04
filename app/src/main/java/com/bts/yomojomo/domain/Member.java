@@ -6,15 +6,15 @@ import lombok.Data;
 @Data
 public class Member {
   int no; //memb_no
-  String membName;
-  String pwd;
+  String memberName;
+  String passWord;
   String email;
   String tel;
-  String postno;
-  String baseaddr;
-  String addr;
+  String postNo;
+  String baseAddress;
+  String address;
   String type;
   int unsubscribe;
   int status;
-  Date stopDt;
+  Date stopDate;
 }
