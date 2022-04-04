@@ -10,6 +10,7 @@
     box-sizing: border-box;
 }
 #container{
+    padding-top: 120px;
     min-height: 80vh;
     width: 57vw;
     margin: 0px auto;

@@ -8,13 +8,10 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
   <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
   <style>
-    #content{ 
-      width: 1130px auto;
-      margin: 150px ;
+    #update-content{ 
+      padding-top: 140px;
+      position: relative;
     }
-    body{
-      margin-top: 100px;
-    } 
     form {
       margin: 10px auto;
     }
@@ -37,10 +34,12 @@
 </head>
 
 <body>
+  <!--공통헤더-->
   <div id="headers"></div>
 
   <!--입력 폼 -->
-  <div id="content" class="table-responsive-lg">
+<div id="update-content" class="table-responsive-lg">
+  <div class="inner">
     <form>
       <table id="formTable" class="table table-borderless">
         <tbody>
@@ -51,17 +50,17 @@
           <tr>
             <td>작성자</td>
             <td><input id="x-name" type="text" class="form-control" readonly></td>
-            <td><input id="x-name-no" type="text" class="form-control" readonly></td>
+            <td><input id="x-name-no" type="text" class="form-control"></td>
           </tr>
           <tr>
             <td>활동지역</td>
             <td><input id="x-activeLocalName" type="text" class="form-control" readonly></td>
-            <td><input id="x-activeLocal" type="number" class="form-control" readonly></td>
+            <td><input id="x-activeLocal" type="number" class="form-control"></td>
           </tr>
           <tr>
             <td>관심활동</td>
             <td><input id="x-purposeName" type="text" class="form-control" readonly></td>
-            <td><input id="x-purpose" type="number" class="form-control" readonly></td>
+            <td><input id="x-purpose" type="number" class="form-control"></td>
           </tr>
           <tr>
             <td><label for="comment">내용:</label></td>
@@ -71,8 +70,9 @@
       </table>
       <button id="x-update-btn" type="button" class="btn btn-primary">수정 완료</button>
       <button id="x-cancel-btn" type="button" class="btn btn-primary">취소</button><br>
-    </form>    
-  </div>
+    </form>
+  </div>    
+</div>
 </body>
 
 <script src="/node_modules/jquery/dist/jquery.min.js"></script>
@@ -124,12 +124,12 @@
       .then(function(recruit){
         console.log(recruit);
         xTitle.value = recruit.title;
-        xName.value = recruit.member[0].membName;
-        xNameNo.value = recruit.membNo;
-        xActiveLocal.value = recruit.actLocalNo;
-        xActiveLocalName.value = recruit.activeLocal[0].activeLocalName;
-        xPurpose.value = recruit.purposeNo;
-        xPurposeName.value = recruit.purpose[0].purposeName;
+        xName.value = recruit.member.membName;
+        xNameNo.value = recruit.member.no;
+        xActiveLocal.value = recruit.activeLocal.no;
+        xActiveLocalName.value = recruit.activeLocal.activeLocalName;
+        xPurpose.value = recruit.purpose.no;
+        xPurposeName.value = recruit.purpose.purposeName;
         xContent.value = recruit.content;
       });
 
@@ -145,7 +145,7 @@
           return;
         }
 
-        var qs = `no=${no}&title=${xTitle.value}&content=${xContent.value}&actLocalNo=${xActiveLocal.value}&purposeNo=${xPurpose.value}&membNo=${xNameNo.value}`
+        var qs = `no=${no}&title=${xTitle.value}&content=${xContent.value}&activeLocal.no=${xActiveLocal.value}&purpose.no=${xPurpose.value}&member.no=${xNameNo.value}`
         console.log(qs);
 
         fetch(`/recruit/update?${qs}`)

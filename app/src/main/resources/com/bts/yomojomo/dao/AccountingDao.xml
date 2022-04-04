@@ -11,66 +11,63 @@
     <result column="amount" property="amount"/>
     <result column="status" property="status"/>
     <result column="reg_dt" property="date"/>
-    <result column="act_cate_no" property="actcateno"/>
     <association property="actCate" javaType="AccountingCate"> 
       <id column="act_cate_no" property="no"/>
-      <result column="name" property="cateName"/>
-    </association>
-<!--<association property="actStatus" javaType="AccountingStatus">
-      <id column="act_no" property="actNo"/>
-      <result column="pay_dt" property="paydt"/>
-    </association>
-   <association property="member" javaType="Member">
-      <id column="memb_no" property="no"/>
-      <result column="name" property="membName"/>
+      <result column="actname" property="cateName"/>
     </association>
     <association property="group" javaType="Group">
       <id column="g_no" property="no"/>
-      <result column="name" property="GroupName"/>
-    </association>  -->
+      <result column="gname" property="GroupName"/>
+    </association> 
 </resultMap>
 
   <select id="findAll" resultMap="AccountingMap"> 
-		select 
+		select
 		  a.act_no,
-		  a.g_no,
-		  ac.name,
-		  ac.act_cate_no,
+		  gg.g_no,
+		  gg.name gname,
+		  act.act_cate_no,
+		  act.name actname,
 		  a.title,
 		  a.amount,
-		  a.status,
-		  a.reg_dt
-		from gms_accounting a
-		    inner join gms_accounting_cate ac on (a.act_cate_no=ac.act_cate_no)
-		order by
-		  a.act_no desc
+		  a.reg_dt,
+		  a.status
+		from 
+		  gms_accounting a
+		  inner join gms_accounting_cate act on (a.act_cate_no = act.act_cate_no)
+		  left outer join gms_group gg on (a.g_no = gg.g_no)
+		order by 
+		  a.act_no asc
   </select>
   
     <select id="findByNo" resultMap="AccountingMap" parameterType="int">
-    select 
+    select
       a.act_no,
-      a.g_no,
-      ac.name,
-      ac.act_cate_no,
+      gg.g_no,
+      gg.name gname,
+      act.act_cate_no,
+      act.name actname,
       a.title,
       a.amount,
-      a.status,
-      a.reg_dt
-    from gms_accounting a
-        inner join gms_accounting_cate ac on (a.act_cate_no=ac.act_cate_no)
+      a.reg_dt,
+      a.status
+    from 
+      gms_accounting a
+      inner join gms_accounting_cate act on (a.act_cate_no = act.act_cate_no)
+      left outer join gms_group gg on (a.g_no = gg.g_no)
     where 
-      act_no=#{no}
+      a.act_no=#{no}
   </select>
   
   <insert id="insert" parameterType="Accounting">
     insert into gms_accounting(g_no,act_cate_no,title,amount,status) 
-    values(#{gno},#{actcateno},#{title},#{amount},#{status})
+    values(#{group.no},#{actCate.no},#{title},#{amount},#{status})
   </insert>
   
   <update id ="update" parameterType="Accounting">
     update gms_accounting set 
-      g_no=#{gno},
-      act_cate_no=#{actcateno},
+      g_no=#{group.no},
+      act_cate_no=#{actCate.no},
       title=#{title},
       amount=#{amount},
       status=#{status}

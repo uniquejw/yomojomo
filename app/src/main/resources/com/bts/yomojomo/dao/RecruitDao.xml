@@ -10,34 +10,19 @@
     <result column="content" property="content"/>
     <result column="reg_dt" property="date"/>
     <result column="view_cnt" property="viewCnt"/>
-    <result column="act_local_no" property="actLocalNo"/>
-    <result column="pups_no" property="purposeNo"/>
-    <result column="memb_no" property="membNo"/>
+    <association property="member" javaType="Member">
+      <id column = "mno" property="no"/>
+      <result column="mname" property="membName"/>
+    </association>
+    <association property="activeLocal" javaType="ActiveLocal">
+      <id column = "ano" property="no"/>
+      <result column="aname" property="activeLocalName"/>
+    </association>
+    <association property="purpose" javaType="Purpose">
+      <id column = "pno" property="no"/>
+      <result column="pname" property="purposeName"/>
+    </association>
   </resultMap>
-  
-  <resultMap type="ActiveLocal" id="ActiveLocalMap">
-    <id column="act_local_no" property="no"/>
-    <result column="name" property="activeLocalName"/>
-  </resultMap>
-  
-  <resultMap type="Purpose" id="PurposeMap">
-    <id column="pups_no" property="no"/>
-    <result column="name" property="purposeName"/>
-  </resultMap>
-  
-  <resultMap type="Member" id="MemberMap">
-    <id column="memb_no" property="no"/>
-    <result column="name" property="membName"/>
-    <result column="pwd" property="pwd"/>
-    <result column="email" property="email"/>
-    <result column="tel" property="tel"/>
-    <result column="post_no" property="postno"/>
-    <result column="addr" property="addr"/>
-    <result column="type" property="type"/>
-    <result column="status" property="status"/>
-    <result column="stop_dt" property="stopDt"/>
-  </resultMap>
-  
   
   <select id="findAll" resultMap="RcruitMap"> 
      select
@@ -46,12 +31,12 @@
       r.content,
       r.reg_dt,
       r.view_cnt,
-      r.memb_no,
-      m.name,
-      r.pups_no,
-      p.name,
-      r.act_local_no,
-      a.name
+      m.memb_no mno,
+      m.name mname,
+      p.pups_no pno,
+      p.name pname,
+      a.act_local_no ano,
+      a.name aname
     from gms_recruit r
       inner join gms_memb m on r.memb_no=m.memb_no
       inner join gms_activelocal a on r.act_local_no=a.act_local_no
@@ -61,18 +46,18 @@
   </select>
   
   <select id="findByNo" resultMap="RcruitMap" parameterType="int"> <!--게시글 번호로 조회-->
-	   select
+     select
       r.rcu_b_no,
       r.title,
       r.content,
       r.reg_dt,
       r.view_cnt,
-      r.memb_no,
-      m.name,
-      r.pups_no,
-      p.name,
-      r.act_local_no,
-      a.name
+      m.memb_no mno,
+      m.name mname,
+      p.pups_no pno,
+      p.name pname,
+      a.act_local_no ano,
+      a.name aname
     from gms_recruit r
       inner join gms_memb m on r.memb_no=m.memb_no
       inner join gms_activelocal a on r.act_local_no=a.act_local_no
@@ -90,7 +75,7 @@
       r.view_cnt,
       r.act_local_no,
       r.pups_no,
-      r.memb_no,
+      m.memb_no,
       m.name
     from
       gms_recruit r
@@ -100,17 +85,17 @@
   </select>
 
   <insert id="insert" parameterType="Recruit">
-    insert into gms_recruit(title, content, act_local_no, pups_no, memb_no) 
-    values(#{title}, #{content}, #{actLocalNo}, #{purposeNo}, #{membNo} )
+    insert into gms_recruit(title, content, act_local_no, pups_no, memb_no) <!--실제 컬럼이름-->
+    values(#{title}, #{content}, #{activeLocal.no}, #{purpose.no}, #{member.no})
   </insert>
   
   <update id ="update" parameterType="Recruit">
     update gms_recruit set 
       title = #{title},
       content = #{content},
-      act_local_no = #{actLocalNo},
-      pups_no = #{purposeNo},
-      memb_no = #{membNo}
+      act_local_no = #{activeLocal.no},
+      pups_no = #{purpose.no},
+      memb_no = #{member.no}
     where 
       rcu_b_no = #{no}
   </update>
@@ -132,48 +117,6 @@
     select count(*) from gms_recruit
   </select>
   
-  <select id="findByActiveLocalNo" parameterType="int" resultMap="ActiveLocalMap">
-    select
-      act_local_no,
-      name
-    from gms_activelocal
-    where
-    act_local_no=#{no}
-  </select>
-  
-  <select id="findByActiveLocalAll" parameterType="int" resultMap="ActiveLocalMap">
-    select
-      act_local_no,
-      name
-    from gms_activelocal
-    order by act_local_no asc
-  </select>
 
-  <select id="findByPurposeNo" parameterType="int" resultMap="PurposeMap">
-    select
-      pups_no,
-      name
-    from gms_purpose
-    where
-    pups_no=#{no}
-  </select>
-  
-  <select id="findByMemberNo" parameterType="int" resultMap="MemberMap">
-    select
-      memb_no,
-      name
-    from gms_memb
-    where
-    memb_no=#{no}
-  </select>
-  
-  <select id="findByMemberName" parameterType="String" resultMap="MemberMap">
-    select
-      memb_no,
-      name
-    from gms_memb
-    where
-    name=#{name}
-  </select>
     
 </mapper>

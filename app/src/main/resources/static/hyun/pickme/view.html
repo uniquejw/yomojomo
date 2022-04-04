@@ -9,9 +9,9 @@
 
   <title>게시글 상세</title>
   <style>
-    #content{ 
-      width: 1130px auto;
-      margin: 150px; 
+    #view-content{ 
+      padding-top: 140px;
+      position: relative;
     }
      body{
       margin-top: 100px;
@@ -44,7 +44,8 @@
   <div id="headers"></div>
 
   <!--입력 폼 -->
-  <div id="content" class="table-responsive-lg">
+<div id="view-content" class="table-responsive-lg">
+  <div class="inner">
     <form>
       <table id="formTable" class="table table-borderless">
         <tbody>
@@ -76,6 +77,7 @@
         <button id="x-cancel-btn" type="button" class="btn btn-primary">취소</button><br>
     </form>    
   </div>
+</div>
 
   <!--모달 시작-->
   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -153,7 +155,7 @@
       .then(function(recruit){
         console.log(recruit);
         xTitle.value = recruit.title;
-        xName.value = recruit.member[0].membName;
+        xName.value = recruit.member.membName;
         xRegDate.value = recruit.date;
         xViewCnt.value = recruit.viewCnt;
         xContent.value = recruit.content;

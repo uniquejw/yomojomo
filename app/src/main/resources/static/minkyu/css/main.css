@@ -1,16 +1,13 @@
+.main {
+  padding-top: 120px;
+}
 .sidebar {
   float: left;
   margin-top: 10px;
   font-size: large;
   width: 200px;
 }
-.container1 {
-  padding: 50px;
-  position: relative;
-  display: flex;
-  height: 400px;
-}
-.container2 {
+.container {
   padding: 50px;
   position: relative;
   display: flex;

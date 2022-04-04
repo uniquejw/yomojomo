@@ -11,13 +11,10 @@
 
   <title>pick me 글 작성</title>
   <style>
-    #content{ 
-      width: 1130px auto;
-      margin: 150px; /* 가운데 정렬 */
+    #form-content{ 
+      padding-top: 140px;
+      position: relative;
     }
-     body{
-      margin-top: 100px;
-    } 
     form {
       margin: 10px auto;
     }
@@ -36,9 +33,12 @@
 </head>
 
 <body>
+  <!--공통 헤더-->
 <div id="headers"></div>
+
   <!--입력 폼 -->
-  <div id="content" class="table-responsive-lg">
+<div class="inner">
+  <div id="form-content" class="table-responsive-lg">
     <form>
       <table id="formTable" class="table table-borderless">
         <tbody>
@@ -68,6 +68,7 @@
         <button id="x-cancel-btn" type="button" class="btn btn-primary">취소</button><br>
     </form>    
   </div>
+</div>
 
   <script src="/node_modules/jquery/dist/jquery.min.js"></script>
   <script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -94,11 +95,12 @@
       return;
     }
 
-    fetch(`/recruit/add?title=${xTitle.value}&membNo=${xName.value}&actLocalNo=${xActiveLocal.value}&purposeNo=${xPurpose.value}&content=${xContent.value}`)
+    fetch(`/recruit/add?title=${xTitle.value}&member.no=${xName.value}&activeLocal.no=${xActiveLocal.value}&purpose.no=${xPurpose.value}&content=${xContent.value}`)
       .then(function(response){
         return response.text();
       })
       .then(function(text){
+        console.log(text);
         window.alert("등록되었습니다.");
         location.href = "index.html";
       });

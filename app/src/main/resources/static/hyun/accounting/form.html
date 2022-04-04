@@ -11,13 +11,10 @@
   <title>정산서</title>
 
   <style>
-    #content{ 
-      width: 1130px auto;
-      margin: 150px; /* 가운데 정렬 */
+    #form-content{ 
+      padding-top: 140px;
+      position: relative;
     }
-     body{
-      margin-top: 100px;
-    } 
     form {
       margin: 10px auto;
     }
@@ -62,7 +59,8 @@
   <div id="top"></div>
 
   <!--입력 폼 -->
-  <div id="content" class="table-responsive-lg">
+<div id="form-content" class="table-responsive-lg">
+  <div class="inner">
     <form>
       <table id="formTable" class="table table-borderless">
         <tbody>
@@ -105,6 +103,7 @@
       <button id="x-cancel-btn" type="button" class="btn btn-primary">취소</button><br>
     </form>    
   </div>
+</div>
 
 <script src="/node_modules/jquery/dist/jquery.min.js"></script>
 <script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -113,7 +112,7 @@
 <!--공통헤더-->
 <script type="text/javascript">
   $(document).ready(function () {
-      $('#headers').load('../../junho/main2.html'); //헤더 인클루드
+      $('#headers').load('/junho/'); //헤더 인클루드
       // $('#footers').load('../html'); //푸터부분 인클루드
   });
 </script>
@@ -137,13 +136,13 @@ document.querySelector("#x-add-btn").onclick = function() {
     return;
   }
 
-  fetch(`/accounting/add?gno=${xGno.value}&actcateno=${xActcateno.value}&title=${xTitle.value}&amount=${xAmount.value}`)
+  fetch(`/accounting/add?group.no=${xGno.value}&actcate.no=${xActcateno.value}&title=${xTitle.value}&amount=${xAmount.value}`)
   .then(function(response) {
     return response.text();
   })
   .then(function(text) {
     // console.log(text);
-    location.href = "index.html";
+    // location.href = "index.html";
   });
 };
 

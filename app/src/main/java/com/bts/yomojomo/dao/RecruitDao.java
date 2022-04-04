@@ -2,9 +2,6 @@ package com.bts.yomojomo.dao;
 
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
-import com.bts.yomojomo.domain.ActiveLocal;
-import com.bts.yomojomo.domain.Member;
-import com.bts.yomojomo.domain.Purpose;
 import com.bts.yomojomo.domain.Recruit;
 
 @Mapper 
@@ -25,15 +22,5 @@ public interface RecruitDao {
 
   int increaseViewCount(int no);
 
-  //관심지역 테이블
-  List<ActiveLocal> findByActiveLocalNo(int activeLocalNo);
-
-  //활동목적 테이블
-  List<Purpose> findByPurposeNo(int purposeNo);
-
-  //멤버 테이블
-  List<Member> findByMemberNo(int memberNo);
-
-  List<Member> findByMemberName(String Name);
 
 }

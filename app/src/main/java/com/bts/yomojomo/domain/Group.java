@@ -8,15 +8,15 @@ import lombok.Data;
 @Data
 public class Group {
   int no;           //g_no
-  int actlocalNo;   //act_local_no
-  int pupsNo;       //pups_no
+  int activeLocalNo;   //act_local_no
+  int purposeNo;       //pups_no
   String GroupName;      //name
-  Date regdt;       //reg_dt
+  Date registDate;       //reg_dt
   String logo;      //logo
   String intro;     //intro
-  int maxCnt;       //max_cnt
+  int maxCount;       //max_cnt
   int fee;          //fee
-  int viewCnt;      //view_cnt
+  int viewCount;      //view_cnt
   int status;       //status
-  int stopDt;       //stop_dt
+  int stopDate;       //stop_dt
 }

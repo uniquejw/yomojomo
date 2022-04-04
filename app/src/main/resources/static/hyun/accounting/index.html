@@ -10,8 +10,8 @@
 <style>
 /*내꺼 css*/
 #body-content{
-  width: 1130px auto;
-  margin: 100px 150px; 
+  padding-top: 140px;
+  position: relative;
 }
 #select{
   display: inline-block;
@@ -43,50 +43,51 @@ table > tbody > tr > td {
 
 <!--공통헤더-->
 <div id="headers"></div>
-<!--상준님 헤더-->
+<!-- 상준님 헤더 -->
 <div id="top"></div>
 
 <div id="body-content"> <!--body content 시작-->
-  <div id="select"> <!--회비 종류 카테고리 시작-->
-    <select class="form-select form-select-sm" aria-label=".form-select-sm example">
-      <option selected>유형선택</option>
-      <option value="1">회비</option>
-      <option value="2">모임비</option>
-      <option value="3">기타</option>
-    </select>
-  </div> <!--회비 종류 카테고리 끝-->
-  
-  <div id="content" class="table-responsive-lg">  <!--table div 시작-->
-    <table id="x-board-table" class="table table-hover">
-      <thead>
-        <tr>
-          <th width="50px">번호</th>
-          <th width="100px">유형</th>
-          <th width="600px">제목</th>
-          <th width="100px">작성일</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
-    <button id="x-create-btn" type="button" style="float: right" class="btn btn-primary">등록</button>
-  </div> <!--table div 끝-->
+  <div class="inner">
+    <div id="select"> <!--회비 종류 카테고리 시작-->
+      <select class="form-select form-select-sm" aria-label=".form-select-sm example">
+        <option selected>유형선택</option>
+        <option value="1">회비</option>
+        <option value="2">모임비</option>
+        <option value="3">기타</option>
+      </select>
+    </div> <!--회비 종류 카테고리 끝-->
+    
+    <div id="content" class="table-responsive-lg">  <!--table div 시작-->
+      <table id="x-board-table" class="table table-hover">
+        <thead>
+          <tr>
+            <th width="50px">번호</th>
+            <th width="100px">유형</th>
+            <th width="600px">제목</th>
+            <th width="100px">작성일</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <button id="x-create-btn" type="button" style="float: right" class="btn btn-primary">등록</button>
+    </div> <!--table div 끝-->
 
-  <!--페이지 네이션 시작-->
-  <nav aria-label="Page navigation example">
-    <ul class="pagination justify-content-center">
-      <li class="page-item disabled">
-        <a class="page-link">Previous</a>
-      </li>
-      <li class="page-item"><a class="page-link" href="#">1</a></li>
-      <li class="page-item"><a class="page-link" href="#">2</a></li>
-      <li class="page-item"><a class="page-link" href="#">3</a></li>
-      <li class="page-item">
-        <a class="page-link" href="#">Next</a>
-      </li>
-    </ul>
-  </nav>
-  <!--페이지 네이션 끝-->
-  
+    <!--페이지 네이션 시작-->
+    <nav aria-label="Page navigation example">
+      <ul class="pagination justify-content-center">
+        <li class="page-item disabled">
+          <a class="page-link">Previous</a>
+        </li>
+        <li class="page-item"><a class="page-link" href="#">1</a></li>
+        <li class="page-item"><a class="page-link" href="#">2</a></li>
+        <li class="page-item"><a class="page-link" href="#">3</a></li>
+        <li class="page-item">
+          <a class="page-link" href="#">Next</a>
+        </li>
+      </ul>
+    </nav>
+    <!--페이지 네이션 끝-->
+  </div>
 </div><!--body content 끝-->
 
 <!--핸들바-->
