@@ -659,16 +659,19 @@ table {
 
 .container-left {
   width: 50%;
-	float: left;
-  text-align: center;
+	display: flex;
+  align-items: center;
+  flex-direction: column;
 }
 
 .left-content-1 {
+  width: 50%;
   height: 50%;
   float: right;
 }
 
 .left-content-2 {
+  width: 50%;
   height: 50%;
   float: right;
 }
@@ -681,13 +684,16 @@ table {
   width: 50%;
 	float: right;
   text-align: center;
+  flex-direction: column;
 }
 
 .right-content-1 {
+  width: 50%;
   height: 50%;
   float: left;
 }
 .right-content-2 {
+  width: 50%;
   height: 50%;
   float: left;
 }
@@ -11349,6 +11355,7 @@ textarea.form-control-lg {
   min-height: 100vh;
   margin-left: -15rem;
   transition: margin 0.25s ease-out;
+  border-right: 0.5px solid;
 }
 
 #sidebar-wrapper .sidebar-heading {

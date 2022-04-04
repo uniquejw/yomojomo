@@ -81,14 +81,23 @@ button {
     border-top: 1px solid #616161;
     border-bottom: 1px solid #616161;
 }
-.written-author-div{
+/* 게시글 저자 */
+.written-author-div, .comment-author-div{
     display: flex;
 }
+.written-author-div .modify-div{
+    flex-grow: 1;
+}
+.written-author-div .modify-div button {
+    float: right;
+}
+/* 게시글 */
 .written-content{
     margin: 16px 0 0 0;
     min-height: 300px;
 }
-.comment-div{
+/* 댓글 */
+.comment-input-div{
     display: flex;
     height: 40px;
     margin: 0 0 10px 0;
@@ -106,4 +115,15 @@ button {
     border: 1px solid #aaa;
     border-radius: 0.2em;
     box-shadow: 0 1px 0 1px rgba(0, 0, 0, 0.04);
+}
+.comment-content{
+}
+.comment-content button{
+    color: white;
+    background-color: rgb(17, 147, 218);
+    border-radius: 3px;
+    cursor: pointer;
+    border: 0;
+    float: right;
+    margin: 0 9px;
 }

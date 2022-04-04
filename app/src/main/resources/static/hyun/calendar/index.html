@@ -9,9 +9,11 @@
   <link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap.min.css">
 
   <!--full calendar 시작-->
-  <link href="../../node_modules/fullcalendar/main.css" rel="stylesheet" />
-  <script src="../../node_modules/fullcalendar/main.js"></script>
-  <script src="../../node_modules/fullcalendar/locales/ko.js"></script> <!--한글설정-->
+  <link href="/node_modules/fullcalendar/main.css" rel="stylesheet" />
+  <script src="/node_modules/fullcalendar/main.min.js"></script>
+  <script src="/node_modules/@fullcalendar/daygrid/main.js"></script>
+  <script src ="/node_modules/@fullcalendar/interaction/main.js"></script>
+  <script src="/node_modules/fullcalendar/locales/ko.js"></script> <!--한글설정-->
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       var calendarEl = document.getElementById('calendar');
@@ -37,15 +39,12 @@
 <body>
 <script src="../../node_modules/jquery/dist/jquery.min.js"></script>
 <script src="../../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-<script src="../../node_modules/handlebars/dist/handlebars.min.js"></script>
-
-
 
 <!--공통헤더 제이쿼리-->
 <script type="text/javascript">
   $(document).ready(function () {
-      $('#headers').load('../../junho/mainHeader.html'); //헤더 인클루드
-      $('#top').load('../../ssang/groupBoard/none-search-top.html'); //상준님헤더
+      $('#headers').load('/junho/mainHeader.html'); //헤더 인클루드
+      $('#top').load('/ssang/groupBoard/none-search-top.html'); //상준님헤더
       // $('#footers').load('../html'); //푸터부분 인클루드
   });
 </script>
@@ -55,6 +54,47 @@
 <!--상준님 헤더-->
 <div id="top"></div>
 
+<!--서버에서 약속 리스트 가져오기-->
+<div>
+<h1>캘린더</h1>
+<table id="x-calendar-table" border="1">
+<thead>
+    <tr>
+        <th>캘린더번호</th>
+        <th>약속이름</th>
+        <th>약속내용</th>
+        <th>모임번호</th>
+        <th>결과url</th>
+        <th>시작날짜</th>
+        <th>끝날짜</th>
+    </tr>
+</thead>
+<tbody></tbody>
+</table>
+</div>
+<script>
+      var tbody = document.querySelector("#x-calendar-table tbody")
+    //   console.log(tbody);
+
+    fetch("/calendar/list")
+    .then(function(response) {
+        return response.json();
+    })
+    .then(function(calendars) {
+        console.log(calendars);
+        for(var calendar of calendars) {
+            var tr = document.createElement("tr");
+            tr.innerHTML = `<td>${calendar.no}</td>
+            <td>${calendar.name}</td>
+            <td>${calendar.content}</td>
+            <td>${calendar.gno}</td>
+            <td>${calendar.resulturl}</td>
+            <td>${calendar.startDt}</td>
+            <td>${calendar.endDt}</td>`;
+            tbody.appendChild(tr);
+        }
+    });
+</script>
 
 <!--캘린더 API 자리-->
 <div id="calendar-container">
@@ -122,6 +162,7 @@
 </script>
 
 
+<!--일정관리 추가 눌렀을 때 모달창-->
 <div class="modal fade" id="calendarModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
 aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -151,12 +192,15 @@ aria-hidden="true">
   </div>
 </div>
 
-<script>
+<script>//일정관리 - 추가 버튼 모달창 닫기
   // document.querySelector("#x-cancle-btn").onclick
   $("#x-cancle-btn").click(function(){
     $("#calendarModal").modal("hide");
   });  
 </script>
+
+
+
 
 </body>
 </html>

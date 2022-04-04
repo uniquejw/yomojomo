@@ -10,9 +10,8 @@
   <script src="../../node_modules/jquery/dist/jquery.min.js"></script>
   <!-- css 초기화 -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
-
+  <!-- 부트스트랩 -->
   <link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap.min.css">
-
   <!--공용css-->
   <link rel="stylesheet" href="../../css/common.css">
   <!--내css-->
@@ -20,7 +19,7 @@
   <!--인클루드-->
   <script type="text/javascript">
     $(document).ready(function () {
-        $('#headers').load('../../junho/main2.html'); //헤더 인클루드
+        $('#headers').load('../../junho/mainHeader.html'); //헤더 인클루드
         $('#top').load('../groupBoard/top.html'); //모임 윗부분 인클루드
         // $('#footers').load('../html'); //푸터부분 인클루드
     });
@@ -51,11 +50,32 @@
               <div class="written-author-name">이름</div>
               <div class="written-createdTime">몇분전</div>
             </div>
+            <div class="modify-div">
+              <button>삭제</button>
+              <button>수정</button>
+            </div>
           </div>
-          <div class="written-content">게시글 내용이 솰쏼라 ...더보기</div>
-          <div class="comment-div">
+          <div class="written-content">게시글 내용 ...더보기</div>
+          <div class="comment-input-div">
             <div class="comment-name">댓글</div>
             <input type="text" value="댓글 달기" class="comment-input"><button class="comment-btn btn">확인</button>
+          </div>
+        </div>
+        <!-- 댓글수정삭제 -->
+        <div class="comment-div">
+          <div class="comment-author-div">
+            <div class="comment-author-img-div">
+              <img class="comment-author-img" src="" alt="">댓글 프로필 사진 자리  &nbsp;&nbsp;&nbsp;
+            </div>
+            <div class="comment-column-div">
+              <div class="comment-author-name">댓글이름</div>
+              <div class="comment-createdTime">댓글몇분전</div>
+            </div>
+          </div>
+          <div class="comment-content">
+            댓글이 좌라락
+            <button>수정</button>
+            <button>삭제</button>
           </div>
         </div>
       </div>  

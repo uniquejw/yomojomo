@@ -11,6 +11,8 @@
     <result column="content" property="content"/>
     <result column="g_no" property="gno"/>
     <result column="result_url" property="resulturl"/>
+    <result column="start_dt" property="startDt"/>
+    <result column="end_dt" property="endDt"/>
   </resultMap>
 
   <select id="findAll" resultMap="CalendarMap"> 
@@ -19,6 +21,8 @@
       name,
       content,
       g_no,
+      start_dt,
+      end_dt,
       result_url
     from
       gms_calendar
@@ -27,21 +31,23 @@
   </select>
   
   <select id="findByNo" resultMap="CalendarMap" parameterType="int">
-    select 
+    select
       cal_no,
       name,
       content,
       g_no,
+      start_dt,
+      end_dt,
       result_url
-    from 
+    from
       gms_calendar
     where 
       cal_no=#{no}
   </select>
 
   <insert id="insert" parameterType="Calendar">
-    insert into gms_calendar(name, content, g_no, result_url) 
-    values(#{name}, #{content}, #{gno}, #{resulturl})
+    insert into gms_calendar(name, content, g_no, result_url, start_dt, end_dt) 
+    values(#{name}, #{content}, #{gno}, #{resulturl}, #{startDt}, #{endDt})
   </insert>
   
   <update id ="update" parameterType="Calendar">
@@ -49,7 +55,9 @@
       name = #{name},
       content = #{content},
       g_no = #{gno},
-      result_url = #{resulturl}
+      result_url = #{resulturl},
+      start_dt=#{startDt},
+      end_dt=#{endDt}
     where 
       cal_no = #{no}
   </update>
