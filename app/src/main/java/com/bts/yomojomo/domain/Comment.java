@@ -1,75 +1,16 @@
 package com.bts.yomojomo.domain;
 
 import java.sql.Date;
+import lombok.Data;
 
+@Data
 public class Comment {
   int no;
-  int bno;
+  int boardNo;
   String content;
-  int membno;
-  int gno;
-  Date regdt;
+  int memberNo;
+  int groupNo;
+  Date registDate;
   boolean status;
 
-  @Override
-  public String toString() {
-    return "Comment [no=" + no + ", bno=" + bno + ", content=" + content + ", membno=" + membno
-        + ", gno=" + gno + ", regdt=" + regdt + ", status=" + status + "]";
-  }
-
-  public int getNo() {
-    return no;
-  }
-
-  public void setNo(int no) {
-    this.no = no;
-  }
-
-  public int getBno() {
-    return bno;
-  }
-
-  public void setBno(int bno) {
-    this.bno = bno;
-  }
-
-  public String getContent() {
-    return content;
-  }
-
-  public void setContent(String content) {
-    this.content = content;
-  }
-
-  public int getMembno() {
-    return membno;
-  }
-
-  public void setMembno(int membno) {
-    this.membno = membno;
-  }
-
-  public int getGno() {
-    return gno;
-  }
-
-  public void setGno(int gno) {
-    this.gno = gno;
-  }
-
-  public Date getRegdt() {
-    return regdt;
-  }
-
-  public void setRegdt(Date regdt) {
-    this.regdt = regdt;
-  }
-
-  public boolean isStatus() {
-    return status;
-  }
-
-  public void setStatus(boolean status) {
-    this.status = status;
-  }
 }
