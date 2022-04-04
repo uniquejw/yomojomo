@@ -94,11 +94,12 @@
       return;
     }
 
-    fetch(`/recruit/add?title=${xTitle.value}&membNo=${xName.value}&actLocalNo=${xActiveLocal.value}&purposeNo=${xPurpose.value}&content=${xContent.value}`)
+    fetch(`/recruit/add?title=${xTitle.value}&member.no=${xName.value}&activeLocal.no=${xActiveLocal.value}&purpose.no=${xPurpose.value}&content=${xContent.value}`)
       .then(function(response){
         return response.text();
       })
       .then(function(text){
+        console.log(text);
         window.alert("등록되었습니다.");
         location.href = "index.html";
       });

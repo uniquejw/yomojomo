@@ -108,20 +108,11 @@
       var calendar = new FullCalendar.Calendar(calendarEl, {
           timeZone: 'UTC',
           initialView: 'dayGridMonth', // 홈페이지에서 다른 형태의 view를 확인할  수 있다.
-          events:[ // 일정 데이터 추가 , DB의 event를 가져오려면 JSON 형식으로 변환해 events에 넣어주면된다.
-              {
-                  title:'일정',
-                  start:'2022-03-31 00:00:00',
-                  end:'2022-04-01 24:00:00' 
-                  // color 값을 추가해 색상도 변경 가능 자세한 내용은 하단의 사이트 참조
-              },
-              {
-                  title:'일정2',
-                  start:'2022-04-05 00:00:00',
-                  end:'2022-04-05 24:00:00' 
-                  // color 값을 추가해 색상도 변경 가능 자세한 내용은 하단의 사이트 참조
-              }
-          ], headerToolbar: {
+          events:function(result, successCallback, failureCallback) {
+              
+          }
+              
+          , headerToolbar: {
               center: 'addEventButton' // headerToolbar에 버튼을 추가
           }, customButtons: {
               addEventButton: { // 추가한 버튼 설정
@@ -192,11 +183,38 @@ aria-hidden="true">
   </div>
 </div>
 
-<script>//일정관리 - 추가 버튼 모달창 닫기
+<script>
+//일정관리 - 추가 버튼 모달창 닫기
   // document.querySelector("#x-cancle-btn").onclick
   $("#x-cancle-btn").click(function(){
     $("#calendarModal").modal("hide");
   });  
+
+  //ajax를 통해 데이터를 넘겨 받는다.
+  $.ajax({
+      url: '/calendar/list',
+      tyle: 'GET',
+      success: function(response) {
+          var list = response;
+          console.log(list);
+
+          var calendarEl = document.getElementById('calendar');
+
+          var events = list.map(function(item) {
+              return {
+                no : item.no,
+                gno : item.gno,
+                name : item.name,
+                content : item.content,
+                resulturl : item.resulturl,
+                startDt : item.startDt,
+                endDt : item.endDt
+              }
+          });
+          successCallback()
+      }
+  })
+
 </script>
 
 

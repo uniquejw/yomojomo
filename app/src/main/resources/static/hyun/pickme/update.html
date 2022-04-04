@@ -51,17 +51,17 @@
           <tr>
             <td>작성자</td>
             <td><input id="x-name" type="text" class="form-control" readonly></td>
-            <td><input id="x-name-no" type="text" class="form-control" readonly></td>
+            <td><input id="x-name-no" type="text" class="form-control"></td>
           </tr>
           <tr>
             <td>활동지역</td>
             <td><input id="x-activeLocalName" type="text" class="form-control" readonly></td>
-            <td><input id="x-activeLocal" type="number" class="form-control" readonly></td>
+            <td><input id="x-activeLocal" type="number" class="form-control"></td>
           </tr>
           <tr>
             <td>관심활동</td>
             <td><input id="x-purposeName" type="text" class="form-control" readonly></td>
-            <td><input id="x-purpose" type="number" class="form-control" readonly></td>
+            <td><input id="x-purpose" type="number" class="form-control"></td>
           </tr>
           <tr>
             <td><label for="comment">내용:</label></td>
@@ -124,12 +124,12 @@
       .then(function(recruit){
         console.log(recruit);
         xTitle.value = recruit.title;
-        xName.value = recruit.member[0].membName;
-        xNameNo.value = recruit.membNo;
-        xActiveLocal.value = recruit.actLocalNo;
-        xActiveLocalName.value = recruit.activeLocal[0].activeLocalName;
-        xPurpose.value = recruit.purposeNo;
-        xPurposeName.value = recruit.purpose[0].purposeName;
+        xName.value = recruit.member.membName;
+        xNameNo.value = recruit.member.no;
+        xActiveLocal.value = recruit.activeLocal.no;
+        xActiveLocalName.value = recruit.activeLocal.activeLocalName;
+        xPurpose.value = recruit.purpose.no;
+        xPurposeName.value = recruit.purpose.purposeName;
         xContent.value = recruit.content;
       });
 
@@ -145,7 +145,7 @@
           return;
         }
 
-        var qs = `no=${no}&title=${xTitle.value}&content=${xContent.value}&actLocalNo=${xActiveLocal.value}&purposeNo=${xPurpose.value}&membNo=${xNameNo.value}`
+        var qs = `no=${no}&title=${xTitle.value}&content=${xContent.value}&activeLocal.no=${xActiveLocal.value}&purpose.no=${xPurpose.value}&member.no=${xNameNo.value}`
         console.log(qs);
 
         fetch(`/recruit/update?${qs}`)

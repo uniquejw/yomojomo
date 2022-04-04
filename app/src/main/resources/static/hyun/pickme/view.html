@@ -153,7 +153,7 @@
       .then(function(recruit){
         console.log(recruit);
         xTitle.value = recruit.title;
-        xName.value = recruit.member[0].membName;
+        xName.value = recruit.member.membName;
         xRegDate.value = recruit.date;
         xViewCnt.value = recruit.viewCnt;
         xContent.value = recruit.content;

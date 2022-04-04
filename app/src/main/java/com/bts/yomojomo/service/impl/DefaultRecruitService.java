@@ -24,21 +24,13 @@ public class DefaultRecruitService implements RecruitService{
 
   @Override
   public List<Recruit> list() {
-    List<Recruit> recruits = recruitDao.findAll();
-    for (Recruit recruit : recruits) {
-      recruit.setActiveLocal(recruitDao.findByActiveLocalNo(recruit.getActLocalNo()));
-      recruit.setPurpose(recruitDao.findByPurposeNo(recruit.getPurposeNo()));
-      recruit.setMember(recruitDao.findByMemberNo(recruit.getMembNo()));
-    }
-    return recruits;
+    return recruitDao.findAll();
   }
 
   @Override
   public Recruit get(int no) {
     Recruit recruit = recruitDao.findByNo(no);
-    recruit.setActiveLocal(recruitDao.findByActiveLocalNo(recruit.getActLocalNo()));
-    recruit.setPurpose(recruitDao.findByPurposeNo(recruit.getPurposeNo()));
-    recruit.setMember(recruitDao.findByMemberNo(recruit.getMembNo()));
+
     if (recruit != null) {
       recruitDao.increaseViewCount(no);
     }

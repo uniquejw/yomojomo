@@ -15,4 +15,5 @@ public class Accounting {
   int status;
   Date date; //reg_dt
   AccountingCate actCate;
+  Group group;
 }

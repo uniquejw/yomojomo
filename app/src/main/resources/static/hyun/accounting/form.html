@@ -13,11 +13,8 @@
   <style>
     #content{ 
       width: 1130px auto;
-      margin: 150px; /* 가운데 정렬 */
+      padding-top: 100px;
     }
-     body{
-      margin-top: 100px;
-    } 
     form {
       margin: 10px auto;
     }
@@ -113,7 +110,7 @@
 <!--공통헤더-->
 <script type="text/javascript">
   $(document).ready(function () {
-      $('#headers').load('../../junho/main2.html'); //헤더 인클루드
+      $('#headers').load('/junho/'); //헤더 인클루드
       // $('#footers').load('../html'); //푸터부분 인클루드
   });
 </script>
@@ -137,13 +134,13 @@ document.querySelector("#x-add-btn").onclick = function() {
     return;
   }
 
-  fetch(`/accounting/add?gno=${xGno.value}&actcateno=${xActcateno.value}&title=${xTitle.value}&amount=${xAmount.value}`)
+  fetch(`/accounting/add?group.no=${xGno.value}&actcate.no=${xActcateno.value}&title=${xTitle.value}&amount=${xAmount.value}`)
   .then(function(response) {
     return response.text();
   })
   .then(function(text) {
     // console.log(text);
-    location.href = "index.html";
+    // location.href = "index.html";
   });
 };
 
