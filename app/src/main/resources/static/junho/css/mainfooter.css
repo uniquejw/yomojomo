@@ -1,0 +1,37 @@
+/* footer */
+footer {
+  background-color: rgb(17, 147, 218);
+  position: relative;
+  color: #fff;
+  font-weight: 700;
+}
+
+footer>.inner {
+  height: 200px;
+  
+}
+
+footer .logo {
+  height: 75px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto 0;
+}
+
+footer .logo img {
+  width: 75px;
+  height: 75px;
+  border-radius: 50%;
+}
+
+footer .footer-content {
+  position: absolute;
+  left: 90px;
+  padding: 10px;
+}
+
+footer .footer-content li {
+  margin-bottom: 10px;
+}
