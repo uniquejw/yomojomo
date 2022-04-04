@@ -8,13 +8,10 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
   <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
   <style>
-    #content{ 
-      width: 1130px auto;
-      margin: 150px ;
+    #update-content{ 
+      padding-top: 140px;
+      position: relative;
     }
-    body{
-      margin-top: 100px;
-    } 
     form {
       margin: 10px auto;
     }
@@ -37,10 +34,12 @@
 </head>
 
 <body>
+  <!--공통헤더-->
   <div id="headers"></div>
 
   <!--입력 폼 -->
-  <div id="content" class="table-responsive-lg">
+<div id="update-content" class="table-responsive-lg">
+  <div class="inner">
     <form>
       <table id="formTable" class="table table-borderless">
         <tbody>
@@ -71,8 +70,9 @@
       </table>
       <button id="x-update-btn" type="button" class="btn btn-primary">수정 완료</button>
       <button id="x-cancel-btn" type="button" class="btn btn-primary">취소</button><br>
-    </form>    
-  </div>
+    </form>
+  </div>    
+</div>
 </body>
 
 <script src="/node_modules/jquery/dist/jquery.min.js"></script>
