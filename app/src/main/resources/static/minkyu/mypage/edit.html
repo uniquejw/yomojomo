@@ -4,26 +4,31 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="../css/main.css">
   <title>MyPage</title>
   <!-- 제이쿼리 -->
-  <script src="../../node_modules/sweetalert2/dist/sweetalert2.min.js"></script>
-  <script src="../../node_modules/jquery/dist/jquery.min.js"></script>
+  <script src="/node_modules/sweetalert2/dist/sweetalert2.min.js"></script>
+  <script src="/node_modules/jquery/dist/jquery.min.js"></script>
   <!-- css 초기화 -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
   <!--공용css-->
-  <link rel="stylesheet" href="../../css/common.css">
+  <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/common.css">
   <!--내css-->
-  <link rel="stylesheet" href="../">
+  <link rel="stylesheet" href="/minkyu/css/main.css">
   <!--인클루드-->
   <script type="text/javascript">
     $(document).ready(function () {
-      $('#header').load('../../junho/mainHeader.html'); //헤더 인클루드
+      $('#header').load('/junho/mainHeader.html'); //헤더 인클루드
       // $('#footers').load('../html'); //푸터부분 인클루드
     });
   </script>
   <style>
+    #container {
+      padding: 50px;
+      position: relative;
+      display: flex;
+      height: 930px;
+    }
     .info-table {
       border: 1px solid #333;
       /* display: flex; */
@@ -95,7 +100,7 @@
       bottom: 0;
       right: 0;
     }
-    .btn {
+    #btn {
       margin-bottom: 20px;
       margin-right: 60px;
     }
@@ -113,7 +118,7 @@
         <a href="recruit.html" class="list-group-item list-group-item-action">리쿠르팅 내역</a>
         <a href="inquiry.html" class="list-group-item list-group-item-action">문의 내역</a>
       </div>
-      <div class="container">
+      <div id="container">
         <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
           <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="index.html">마이페이지</a></li>
@@ -274,7 +279,7 @@
             </div>
           </div>
           <div class="complete">
-            <button type="button" class="btn btn-outline-primary">수정하기</button>
+            <button type="button" id="btn" class="btn btn-outline-primary">수정하기</button>
           </div>
         </div>
       </div>
