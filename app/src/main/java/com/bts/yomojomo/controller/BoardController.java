@@ -36,7 +36,7 @@ public class BoardController {
   }
 
   @RequestMapping("/board/delete")
-  public Object delete(int no) {
-    return boardService.delete(no);
+  public Object delete(Board board) {
+    return boardService.delete(board);
   }
 }
