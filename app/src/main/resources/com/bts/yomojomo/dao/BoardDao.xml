@@ -62,20 +62,18 @@
     where 
       b_no=#{no}
   </select>
-
-  <insert id="insert" parameterType="Board">
-    insert into gms_board(g_no, memb_no,reg _dt, content, view_cnt, status) 
-    values(#{gno}, #{membno}, #{regdt}, #{content}, #{viewcnt}, #{status})
+    
+    <!-- 자동 증가된 PK 값을 받고 싶을 때! -->
+  <insert id="insert" parameterType="Board" keyProperty="no" keyColumn="b_no" useGeneratedKeys="true">
+    insert into gms_board(g_no, memb_no, content) 
+    values(#{groupNo}, #{memberNo}, #{content})
   </insert>
   
   <update id ="update" parameterType="Board">
     update gms_board set 
-      g_no = #{gno},
-      memb_no = #{membno},
-      reg_dt = #{regdt},
-      content = #{content},
-      view_cnt = #{viewcnt},
-      status = #{status}
+      g_no = g_no,
+      memb_no = memb_no,
+      content = #{content}
     where 
       b_no = #{no}
   </update>
