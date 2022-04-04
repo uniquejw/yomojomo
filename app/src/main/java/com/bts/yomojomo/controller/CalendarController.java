@@ -3,36 +3,40 @@ package com.bts.yomojomo.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.bts.yomojomo.dao.CalendarDao;
 import com.bts.yomojomo.domain.Calendar;
+import com.bts.yomojomo.service.CalendarSerivce;
 
 @RestController
 public class CalendarController {
   @Autowired
-  CalendarDao calendarDao;
+  CalendarSerivce calendarservice;
 
   @RequestMapping("/calendar/add")
-  public Object add(Calendar calendar) {
-    return calendarDao.insert(calendar);
+  public int add(Calendar calendar) {
+    return calendarservice.add(calendar);
   }
 
   @RequestMapping("/calendar/get")
   public Object get(int no) {
-    return calendarDao.findByNo(no);
+    Calendar calendar = calendarservice.get(no);
+    if (calendar == null) {
+      return "";
+    }
+    return calendar;
   }
 
   @RequestMapping("/calendar/list")
   public Object list() {
-    return calendarDao.findAll(); 
+    return calendarservice.list();
   }
 
   @RequestMapping("/calendar/update")
   public Object update(Calendar calendar) {
-    return calendarDao.update(calendar);
+    return calendarservice.update(calendar);
   }
 
   @RequestMapping("/calendar/delete")
   public Object delete(int no) {
-    return calendarDao.delete(no);
+    return calendarservice.delete(no);
   }
 }

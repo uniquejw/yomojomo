@@ -1,0 +1,39 @@
+.sidebar {
+  float: left;
+  margin-top: 10px;
+  font-size: large;
+  width: 200px;
+}
+.container1 {
+  padding: 50px;
+  position: relative;
+  display: flex;
+  height: 400px;
+}
+.container2 {
+  padding: 50px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+.breadcrumb {
+  position: absolute;
+  left: 0;
+  top: 0;
+  margin: 16px;
+}
+/* 테이블 사용시에만 */
+.table {
+  text-align: center;
+}
+.board-path:hover {
+  text-decoration: underline;
+}
+#page-num {
+  justify-content: center;
+}
+/* 수정,삭제 버튼 */
+.btn-type1 {
+  float: right;
+  margin: 0px 5px;
+}
