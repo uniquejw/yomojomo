@@ -31,7 +31,7 @@ header {
 
 header>.inner {
   background-color: rgb(17, 147, 218);
-  height: 120px;
+  height: 10vh;
 }
 
 header .logo {
