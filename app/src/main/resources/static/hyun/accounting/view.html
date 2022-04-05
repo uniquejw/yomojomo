@@ -8,7 +8,8 @@
   <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
   <style>
     #view-content{ 
-      padding-top: 140px;
+      padding-top: 10vh;
+      padding-bottom: 10vh;
       position: relative;
     }
      body{
@@ -47,7 +48,7 @@
     $(document).ready(function () {
         $('#headers').load('/junho/mainHeader.html'); //헤더 인클루드
         $('#top').load('/ssang/groupBoard/none-search-top.html'); //상준님헤더
-        // $('#footers').load('../html'); //푸터부분 인클루드
+        $('#footers').load('/junho/mainfooter.html'); //푸터부분 인클루드
     });
   </script>
   
@@ -105,6 +106,8 @@
     </form>
   </div>
 </div>
+<!--공통풋터-->
+<div id="footers"></div>
 
 <script src="/node_modules/jquery/dist/jquery.min.js"></script>
 <script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
