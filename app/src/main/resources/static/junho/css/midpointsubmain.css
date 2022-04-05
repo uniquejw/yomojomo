@@ -1,0 +1,102 @@
+/* COMMON */
+body {
+  font-family: 'Nanum Gothic', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.4;
+  color: #333;
+}
+
+img {
+  display: block;
+}
+
+a {
+  text-decoration: none;
+}
+
+/* MIDPOINT */
+.midpoint {
+  background-color: #f6f5f0;
+  padding-top: 10vh;
+}
+
+.midpoint>.inner {
+  background-color: #f6f5f0;
+  height: 80vh;
+}
+.test1 {
+  display: flex;
+}
+.midpoint .midpoint-section {
+  padding-top: 30px;
+  background-color: #f6f5f0;
+}
+.midpoint .midpoint-section .midpoint-input {
+  margin: 0;
+  padding: 10px 10px 0 0;
+  overflow-y: auto;
+  max-height: calc(90vh - 190px);
+}
+
+.midpoint .midpoint-section .midpoint-input li {
+  margin-bottom: 15px;
+  height: 130px;
+  position: relative;
+}
+
+.midpoint .midpoint-section .midpoint-input h5 {
+  font-weight: 700;
+}
+
+.midpoint .midpoint-section .midpoint-input li .name-input {
+  width: 100px;
+  height: 40px;
+  margin-bottom: 5px;
+  outline: none;
+  border: 2px solid rgb(17, 147, 218);
+  padding-left: 5px;
+}
+
+.midpoint .midpoint-section .midpoint-input li .destination-input {
+  position: relative;
+}
+
+.midpoint .midpoint-section .midpoint-input li .destination-input input {
+  width: 300px;
+  height: 40px;
+  padding-bottom: 5px;
+  border: 2px solid rgb(17, 147, 218);
+  box-sizing: border-box;
+  padding-left: 5px;
+}
+
+.midpoint .midpoint-section .midpoint-input li .destination-input .material-icons {
+  height: 40px;
+  width: 40px;
+  position: absolute;
+  display: flex;
+  top: 0;
+  bottom: 0;
+  margin: auto 0;
+  left: calc(300px - 40px);
+  background-color: red;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  border: 2px solid rgb(17, 147, 218);
+  box-sizing: border-box;
+  background-color: rgb(17, 147, 218);
+  color: #fff;
+}
+
+.midpoint .midpoint-section .midpoint-input li .btn-grouping {
+  padding-top: 5px;
+  display: flex;
+  position: absolute;
+  left: calc(300px - 72.5px);
+}
+
+.midpoint .midpoint-section .midpoint-input li .btn-primary {
+  display: block;
+}
