@@ -12,5 +12,5 @@ public class Comment {
   int groupNo;
   Date registDate;
   boolean status;
-
+  Member writer;
 }
