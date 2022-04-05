@@ -5,6 +5,7 @@ body {
   font-weight: 400;
   line-height: 1.4;
   color: #333;
+  overflow-y: hidden;
 }
 
 img {
@@ -25,31 +26,36 @@ a {
   background-color: #f6f5f0;
   height: 80vh;
 }
-.test1 {
-  display: flex;
-}
+
 .midpoint .midpoint-section {
   padding-top: 30px;
   background-color: #f6f5f0;
 }
-.midpoint .midpoint-section .midpoint-input {
+
+.midpoint .midpoint-section .content {
+  display: flex;
+  position: relative;
+}
+.midpoint .midpoint-section .content .midpoint-input {
   margin: 0;
   padding: 10px 10px 0 0;
-  overflow-y: auto;
+  overflow-y: scroll;
   max-height: calc(90vh - 190px);
+  width: 30%;
 }
 
-.midpoint .midpoint-section .midpoint-input li {
+.midpoint .midpoint-section .content .midpoint-input li {
   margin-bottom: 15px;
   height: 130px;
   position: relative;
 }
 
-.midpoint .midpoint-section .midpoint-input h5 {
+.midpoint .midpoint-section .content .midpoint-input h5 {
   font-weight: 700;
+  margin-bottom: 5px;
 }
 
-.midpoint .midpoint-section .midpoint-input li .name-input {
+.midpoint .midpoint-section .content .midpoint-input li .name-input {
   width: 100px;
   height: 40px;
   margin-bottom: 5px;
@@ -58,20 +64,21 @@ a {
   padding-left: 5px;
 }
 
-.midpoint .midpoint-section .midpoint-input li .destination-input {
+.midpoint .midpoint-section .content .midpoint-input li .destination-input {
   position: relative;
 }
 
-.midpoint .midpoint-section .midpoint-input li .destination-input input {
+.midpoint .midpoint-section .content .midpoint-input li .destination-input input {
   width: 300px;
   height: 40px;
   padding-bottom: 5px;
   border: 2px solid rgb(17, 147, 218);
   box-sizing: border-box;
   padding-left: 5px;
+  outline: none;
 }
 
-.midpoint .midpoint-section .midpoint-input li .destination-input .material-icons {
+.midpoint .midpoint-section .content .midpoint-input li .destination-input .material-icons {
   height: 40px;
   width: 40px;
   position: absolute;
@@ -90,13 +97,20 @@ a {
   color: #fff;
 }
 
-.midpoint .midpoint-section .midpoint-input li .btn-grouping {
+.midpoint .midpoint-section .content .midpoint-input li .btn-grouping {
   padding-top: 5px;
   display: flex;
   position: absolute;
   left: calc(300px - 72.5px);
 }
 
-.midpoint .midpoint-section .midpoint-input li .btn-primary {
+.midpoint .midpoint-section .content .midpoint-input li .btn-primary {
   display: block;
+}
+
+.midpoint .midpoint-section .content #map {
+  position: absolute;
+  width: 70%;
+  height: 70vh;
+  right: 0;
 }
