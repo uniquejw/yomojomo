@@ -103,6 +103,8 @@
 </script>
 <script src="../../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="../../node_modules/handlebars/dist/handlebars.min.js"></script>
+
+<!-- 핸들바 -->
 <script>
   var writtenContainer = document.querySelector("#handlebars-container");
 
@@ -119,5 +121,13 @@
     writtenContainer.innerHTML = htmlGenerator(boards);
   })
 </script>
+
+<!-- 작성버튼클릭이벤트 -->
+<script>
+  document.querySelector(".new-post-btn").onclick = function() {
+    window.location.href = "form.html";
+  };
+</script>
+
 </body>
 </html>

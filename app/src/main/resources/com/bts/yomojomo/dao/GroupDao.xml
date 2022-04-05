@@ -7,15 +7,14 @@
 	<!-- 테이블의 컬럼과 객체필드를 연결한다. -->
 	<resultMap type="Group" id="GroupMap">
 		<id column="g_no" property="no" />
-		<result column="act_local_no" property="actlocalno" />
-		<result column="pups_no" property="pupsno" />
+		<result column="act_local_no" property="activeLocalNo" />
+		<result column="pups_no" property="purposeNo" />
 		<result column="name" property="name" />
-		<result column="reg_dt" property="regdt" />
+		<result column="reg_dt" property="registDate" />
 		<result column="logo" property="logo" />
 		<result column="intro" property="intro" />
-		<result column="max_cnt" property="maxcnt" />
-		<result column="fee" property="fee" />
-		<result column="view_cnt" property="viewcnt" />
+		<result column="max_cnt" property="maxCount" />
+		<result column="view_cnt" property="viewCount" />
 	</resultMap>
 
 	<select id="findAll" resultMap="GroupMap">
@@ -60,9 +59,8 @@
 		pups_no,
 		name,
 		logo,
-		intro,
-		fee)
-		values(#{actlocalno}, #{pupsno}, #{name}, #{logo}, #{intro}, #{fee});
+		intro
+		values(#{actlocalno}, #{pupsno}, #{name}, #{logo}, #{intro});
 	</insert>
 
 	<update id="update" parameterType="Group">
