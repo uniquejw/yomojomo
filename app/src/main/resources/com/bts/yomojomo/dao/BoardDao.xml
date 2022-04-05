@@ -8,7 +8,7 @@
   <!-- collection -> has many / association -> has one -->
   
   <!-- 테이블의 컬럼과 객체필드를 연결한다. -->
-  <resultMap type="Board" id="BoardMap">
+  <resultMap type="Board" id="BoardMap" >
     <id column="b_no" property="no"/>
     <result column="g_no" property="groupNo"/>
     <result column="memb_no" property="memberNo"/>
@@ -24,8 +24,14 @@
       <id column = "cmt_no" property="no"/>
       <result column="cmt_content" property="content"/>
       <result column="cmt_reg_dt" property="registDate"/>
+      <association property="writer" javaType="member">
+      <id column="cmt_writer_no" property="no"/>
+      <result column="cmt_writer_name" property="memberName"/>
+      </association>
     </collection>
+    
   </resultMap>
+  
 
   <select id="findAll" resultMap="BoardMap"> 
 	select

@@ -75,7 +75,7 @@ button {
     bottom: 0;
 }
 
-.written-container{
+#handlebars-container{
     margin: 10px 0 0 0;
     padding: 10px 0 0 10px;
     border-top: 1px solid #616161;
@@ -115,8 +115,6 @@ button {
     border: 1px solid #aaa;
     border-radius: 0.2em;
     box-shadow: 0 1px 0 1px rgba(0, 0, 0, 0.04);
-}
-.comment-content{
 }
 .comment-content button{
     color: white;
