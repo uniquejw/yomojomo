@@ -19,28 +19,3 @@ var idSearch_click = function() {
 	});
 }
 
-
-	; $(document).ready(function() {
-		/////////모///달///기///능///////////
-		// 1. 모달창 히든 불러오기
-		$('.searchBtn').click(function() {
-			{
-
-			}
-			$('.modal').show();
-		});
-		// 2. 모달창 닫기 버튼
-		$('.close').on('click', function() {
-			$('.modal').hide();
-		});
-		$('.btn-close').on('click', function() {
-			$('.modal').hide();
-		});
-		// 3. 모달창 위도우 클릭 시 닫기
-		$(window).on('click', function() {
-			if (event.target == $('.modal').get(0)) {
-				$('.modal').hide();
-			}
-		});
-
-	});
