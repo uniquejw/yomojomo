@@ -4,7 +4,6 @@ https://fullcalendar.io/
 
 설치  
 `npm install fullcalendar` 실행
-`npm install @fullcalendar/core @fullcalendar/interaction @fullcalendar/daygrid` 실행
 
 설명 블로그
 https://m.blog.naver.com/lifetripper/221930938974  
@@ -25,5 +24,9 @@ alter table gms_calendar
 insert into gms_calendar(name, content, result_url, g_no, start_dt, end_dt) values ("정모1", "7시 강남역1번출구", "www.naver.com", 1, "2022-04-03", "20220403");
 insert into gms_calendar(name, content, result_url, g_no, start_dt, end_dt) values ("정모2", "7시 구디 4번 출구", "www.naver.com", 1, "2022-04-03", "2022-04-03");
 insert into gms_calendar(name, content, result_url, g_no, start_dt, end_dt) values ("정모3", "12시 점심약속", "www.naver.com", 1, "2022-04-03", "2022-04-03");
+insert into gms_calendar(name, content, g_no, start_dt, end_dt) 
+values ("정모4", "12시 점심약속", 1, "2022-04-30", "2022-04-30");
+insert into gms_calendar(name, content, g_no, start_dt, end_dt) 
+values ("정모5", "약속", 1, "2022-04-26", "2022-04-27");
 ```
 

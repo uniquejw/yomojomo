@@ -10,7 +10,8 @@
 <style>
 /*내꺼 css*/
 #body-content{
-  padding-top: 140px;
+  padding-top: 10vh;
+  padding-bottom: 10vh;
   position: relative;
 }
 #select{
@@ -37,7 +38,7 @@ table > tbody > tr > td {
   $(document).ready(function () {
       $('#headers').load('/junho/mainHeader.html'); //헤더 인클루드
       $('#top').load('/ssang/groupBoard/none-search-top.html'); //상준님헤더
-      // $('#footers').load('../html'); //푸터부분 인클루드
+      $('#footers').load('/junho/mainfooter.html'); //푸터부분 인클루드
   });
 </script>
 
@@ -45,6 +46,7 @@ table > tbody > tr > td {
 <div id="headers"></div>
 <!-- 상준님 헤더 -->
 <div id="top"></div>
+
 
 <div id="body-content"> <!--body content 시작-->
   <div class="inner">
@@ -89,6 +91,9 @@ table > tbody > tr > td {
     <!--페이지 네이션 끝-->
   </div>
 </div><!--body content 끝-->
+
+<!--공통풋터-->
+<div id="footers"></div>
 
 <!--핸들바-->
 <script id="tr-template" type="text/x-handlebars-template">

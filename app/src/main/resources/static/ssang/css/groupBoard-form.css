@@ -79,12 +79,12 @@ button {
     /* flex-direction: row-reverse; */
     margin: 0 0 10px 0;
 }
-.written-content-div{
+textarea{
     position: absolute;
     width: 80%;
     margin: 35px 0 0 0;
     min-height: 281px;
-    border: 1px solid #616161;
+    /* border: 1px solid #616161; */
     left: 0px;
     bottom: 0px;
 }

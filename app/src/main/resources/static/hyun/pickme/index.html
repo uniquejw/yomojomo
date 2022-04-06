@@ -10,7 +10,8 @@
 
   <style>
     #body-content{ 
-      padding-top: 140px;
+      padding-top: 10vh;
+      padding-bottom: 10vh;
       position: relative;
     }
     #localSelect{
@@ -41,7 +42,7 @@
   <script type="text/javascript">
     $(document).ready(function () {
         $('#headers').load('/junho/mainHeader.html'); //헤더 인클루드
-        // $('#footers').load('../html'); //푸터부분 인클루드
+        $('#footers').load('/junho/mainfooter.html'); //헤더 인클루드
     });
   </script>
 
@@ -97,7 +98,7 @@
       </nav>
     </div>
   </div>
-
+  <div id="footers"></div>
   <!--시도, 시군구 선택-->
   <script type="text/javascript">
   $('document').ready(function() {

@@ -9,20 +9,9 @@
   <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
 
   <!--full calendar 시작-->
-  <link href="/node_modules/fullcalendar/main.css" rel="stylesheet" />
+  <link href="/node_modules/fullcalendar/main.min.css" rel="stylesheet" />
   <script src="/node_modules/fullcalendar/main.min.js"></script>
-  <script src="/node_modules/@fullcalendar/daygrid/main.js"></script>
-  <script src ="/node_modules/@fullcalendar/interaction/main.js"></script>
   <script src="/node_modules/fullcalendar/locales/ko.js"></script> <!--한글설정-->
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      var calendarEl = document.getElementById('calendar');
-      var calendar = new FullCalendar.Calendar(calendarEl, {
-        initialView: 'dayGridMonth'
-      });
-      calendar.render();
-    });
-  </script>
   <!--full calendar 끝-->
 
   <style>
@@ -54,103 +43,97 @@
 <!--상준님 헤더-->
 <div id="top"></div>
 
-<!--서버에서 약속 리스트 가져오기-->
-<div>
-<h1>캘린더</h1>
-<table id="x-calendar-table" border="1">
-<thead>
-    <tr>
-        <th>캘린더번호</th>
-        <th>약속이름</th>
-        <th>약속내용</th>
-        <th>모임번호</th>
-        <th>결과url</th>
-        <th>시작날짜</th>
-        <th>끝날짜</th>
-    </tr>
-</thead>
-<tbody></tbody>
-</table>
-</div>
-<script>
-      var tbody = document.querySelector("#x-calendar-table tbody")
-    //   console.log(tbody);
-
-    fetch("/calendar/list")
-    .then(function(response) {
-        return response.json();
-    })
-    .then(function(calendars) {
-        console.log(calendars);
-        for(var calendar of calendars) {
-            var tr = document.createElement("tr");
-            tr.innerHTML = `<td>${calendar.no}</td>
-            <td>${calendar.name}</td>
-            <td>${calendar.content}</td>
-            <td>${calendar.gno}</td>
-            <td>${calendar.resulturl}</td>
-            <td>${calendar.startDt}</td>
-            <td>${calendar.endDt}</td>`;
-            tbody.appendChild(tr);
-        }
-    });
-</script>
-
 <!--캘린더 API 자리-->
 <div id="calendar-container">
   <div id='calendar'></div>
 </div>
 
-<!--캘린더-->
+
 <script type="text/javascript">
-  document.addEventListener('DOMContentLoaded', function () {
-      var calendarEl = document.getElementById('calendar');
-      var calendar = new FullCalendar.Calendar(calendarEl, {
-          timeZone: 'UTC',
-          initialView: 'dayGridMonth', // 홈페이지에서 다른 형태의 view를 확인할  수 있다.
-          events:function(result, successCallback, failureCallback) {
-              
-          }
-              
-          , headerToolbar: {
-              center: 'addEventButton' // headerToolbar에 버튼을 추가
-          }, customButtons: {
-              addEventButton: { // 추가한 버튼 설정
-                  text : "일정 추가",  // 버튼 내용
-                  click : function(){ // 버튼 클릭 시 이벤트 추가
-                      $("#calendarModal").modal("show"); // modal 나타내기
+document.addEventListener('DOMContentLoaded', function () {
+    var calendarEl = document.getElementById('calendar');
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+    height: '700px', // calendar 높이 설정  
+    expandRows: true, // 화면에 맞게 높이 재설정
+    timeZone: 'UTC',
+    initialView: 'dayGridMonth', //월만 보이게함
+    editable: true, // false로 변경 시 draggable 작동 x 
+    displayEventTime: false, // 시간 표시 x
+    headerToolbar: {center: 'addEventButton'}, // headerToolbar에 버튼을 추가
+    eventClick: function(info) { //날짜를 클릭하면 나오는 이벤트
+    var eventObj = info.event;
+        if (eventObj.url) { //url이 있다면 새 탭으로 url을 연결한다.
+            alert(
+            'Clicked ' + eventObj.title + '.\n' +
+            'Will open ' + eventObj.url + ' in a new tab'
+            );
+            window.open(eventObj.url);
+            info.jsEvent.preventDefault(); // 현재 탭에서 url이 열리는 것을 막는다.
+        } else { //url이 없는 일반 일정일 경우 내용 가져온 것을 보여주면 된다. db연결 되면 수정해야 할 것 같음
+            alert('Clicked ' + eventObj.title);
+            }
+        }
+    , customButtons: {
+        addEventButton: { // 일정 추가 버튼 설정
+            text : "일정 추가",  // 버튼 내용
+            click : function(){ // 버튼 클릭 시 이벤트 추가
+                $("#calendarModal").modal("show"); // modal 나타내기
+                $("#x-addCalendar").on("click",function(){  // modal의 추가 버튼 클릭 시
+                    var content = $("#calendar_content").val();
+                    var start_date = $("#calendar_start_date").val();
+                    var end_date = $("#calendar_end_date").val();
+                    
+                    //내용 입력 여부 확인
+                    if(content == null || content == ""){
+                        alert("내용을 입력하세요.");
+                    }else if(start_date == "" || end_date ==""){
+                        alert("날짜를 입력하세요.");
+                    }else if(new Date(end_date)- new Date(start_date) < 0){ // date 타입으로 변경 후 확인
+                        alert("종료일이 시작일보다 먼저입니다.");
+                    }else{ // 정상적인 입력 시 
+                        //ajax로 add 시키는 코드 필요
+                        calendar.addEvent({ //캘린더에 출력됨
+                            "title" : content,
+                            "start" : start_date,
+                            "end" : end_date
+                        });                                
+                        //전송할 객체 생성
+                        console.log(obj);
+                        
+                    }
+                });
+            }
+        }
+    },
+    events: function(info, successCallback, failureCallback) {
+        $.ajax({
+            url: '/calendar/list',
+            type: 'POST',
+            success: function(param) {   
+            var events = [];     
+            console.log(param);
+            $.each(param, function(index, data){
+                events.push({
+                    id : data.no,
+                    title : data.name,
+                    start : data.startDt,
+                    end : data.endDt,
+                    })
+                }) //each END
+                successCallback(events);
+            }// success end
+        }) //ajax end
+    }//events 끝        
 
-                      $("#x-addCalendar").on("click",function(){  // modal의 추가 버튼 클릭 시
-                          var content = $("#calendar_content").val();
-                          var start_date = $("#calendar_start_date").val();
-                          var end_date = $("#calendar_end_date").val();
-                          
-                          //내용 입력 여부 확인
-                          if(content == null || content == ""){
-                              alert("내용을 입력하세요.");
-                          }else if(start_date == "" || end_date ==""){
-                              alert("날짜를 입력하세요.");
-                          }else if(new Date(end_date)- new Date(start_date) < 0){ // date 타입으로 변경 후 확인
-                              alert("종료일이 시작일보다 먼저입니다.");
-                          }else{ // 정상적인 입력 시
-                              var obj = {
-                                  "title" : content,
-                                  "start" : start_date,
-                                  "end" : end_date
-                              }//전송할 객체 생성
 
-                              console.log(obj); //서버로 해당 객체를 전달해서 DB 연동 가능
-                          }
-                      });
-                  }
-              }
-          },
-          editable: true, // false로 변경 시 draggable 작동 x 
-          displayEventTime: false // 시간 표시 x
-      });
-      calendar.render();
-  });
+    }); //var calendar End
+    calendar.render(); // 달력 출력
+  }); //document.addEventListener End
 </script>
+
+
+
+
 
 
 <!--일정관리 추가 눌렀을 때 모달창-->
@@ -189,32 +172,6 @@ aria-hidden="true">
   $("#x-cancle-btn").click(function(){
     $("#calendarModal").modal("hide");
   });  
-
-  //ajax를 통해 데이터를 넘겨 받는다.
-  $.ajax({
-      url: '/calendar/list',
-      tyle: 'GET',
-      success: function(response) {
-          var list = response;
-          console.log(list);
-
-          var calendarEl = document.getElementById('calendar');
-
-          var events = list.map(function(item) {
-              return {
-                no : item.no,
-                gno : item.gno,
-                name : item.name,
-                content : item.content,
-                resulturl : item.resulturl,
-                startDt : item.startDt,
-                endDt : item.endDt
-              }
-          });
-          successCallback()
-      }
-  })
-
 </script>
 
 
