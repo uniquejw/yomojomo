@@ -8,7 +8,7 @@ import com.bts.yomojomo.dao.CalendarDao;
 import com.bts.yomojomo.domain.Calendar;
 import com.bts.yomojomo.service.CalendarSerivce;
 
-@Service
+@Service 
 public class DefaultCalendarService implements CalendarSerivce{
 
   @Autowired
