@@ -6,7 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
-
   <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
 
   <title>pick me 글 작성</title>
@@ -33,6 +32,18 @@
 </head>
 
 <body>
+
+  <script src="/node_modules/jquery/dist/jquery.min.js"></script>
+  <script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="/node_modules/handlebars/dist/handlebars.min.js"></script>
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+        $('#headers').load('/junho/mainHeader.html'); //헤더 인클루드
+        $('#footer').load('/junho/mainfooter.html'); //푸터부분 인클루드
+    });
+  </script>
+
   <!--공통 헤더-->
 <div id="headers"></div>
 
@@ -70,16 +81,7 @@
   </div>
 </div>
 
-  <script src="/node_modules/jquery/dist/jquery.min.js"></script>
-  <script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-  <script src="/node_modules/handlebars/dist/handlebars.min.js"></script>
-
-  <script type="text/javascript">
-    $(document).ready(function () {
-        $('#headers').load('/junho/mainHeader.html'); //헤더 인클루드
-        // $('#footers').load('../html'); //푸터부분 인클루드
-    });
-  </script>
+<div id="footer"></div>
 
 <script>
   let xTitle = document.querySelector("#x-title");
