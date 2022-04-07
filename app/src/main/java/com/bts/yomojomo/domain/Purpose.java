@@ -8,5 +8,4 @@ import lombok.Data;
 public class Purpose {
   int no; //pups_no
   String purposeName;
-
 }

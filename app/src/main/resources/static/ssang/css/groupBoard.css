@@ -11,7 +11,7 @@
 }
 
 #container{
-    padding-top: 120px;
+    min-height: 80vh;
 }
 #width-fix-div{
     min-height: 600px;
@@ -93,6 +93,7 @@ button {
 }
 /* 게시글 */
 .written-content{
+    padding-top: 10vh;
     margin: 16px 0 0 0;
     min-height: 300px;
 }

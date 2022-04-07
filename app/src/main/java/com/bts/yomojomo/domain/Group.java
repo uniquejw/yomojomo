@@ -15,8 +15,8 @@ public class Group {
   String logo;      //logo
   String intro;     //intro
   int maxCount;       //max_cnt
-  int fee;          //fee
   int viewCount;      //view_cnt
   int status;       //status
   int stopDate;       //stop_dt
+  ActiveLocal activeLocal;
 }
