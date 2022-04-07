@@ -1,7 +1,7 @@
 
 css(".login", "display", "none");
 
-fetch("/sign/getLoginUser").then(function(response) {
+fetch("/member/getLoginUser").then(function(response) {
 	return response.json();
 }).then(function(result) {
 	if (result.status == "success") {
@@ -22,7 +22,7 @@ document.querySelector("#login-btn").onclick = function () {
 };
 
 document.querySelector("#logout-btn").onclick = function() {
-  fetch("/sign/signout").then(function(response) {
+  fetch("/member/signout").then(function(response) {
 	  location.reload();
   });
 };

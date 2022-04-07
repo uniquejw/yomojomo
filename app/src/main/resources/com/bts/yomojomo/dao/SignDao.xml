@@ -8,9 +8,9 @@
 
 	<resultMap type="sign" id="signMap">
 		<id column="memb_no" property="no" />
-		<result column="name" property="memberName"/>
-		<result column="pwd" property="passWord"/>
-		<result column="email" property="email"/>
+		<result column="name" property="memberName" />
+		<result column="pwd" property="passWord" />
+		<result column="email" property="email" />
 		<result column="tel" property="tel" />
 		<result column="post_no" property="postNo" />
 		<result column="base_addr" property="baseAddress" />
@@ -21,15 +21,7 @@
 		<result column="stop_dt" property="stopDate" />
 	</resultMap>
 
-	<insert id="insert" parameterType="sign">
-		insert into gms_memb(name, pwd, email, tel, post_no, base_addr, addr, type)
-		values(#{memberName}, #{password}, #{email}, #{tel}, #{postNo}, #{baseAddress}, #{address} ,#{type})
-	</insert>
-
-	<select id="findByEmailAndPassword" resultMap="signMap">
-		select memb_no, name, email from gms_memb 
-		where email=#{email} and pwd=#{password}
-	</select>
+	
 </mapper>
 
 

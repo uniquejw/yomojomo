@@ -38,3 +38,8 @@ img {
 .top {
 	margin-top: 50px;
 }
+
+.modal{
+	position:absolute;
+	top:50%;
+}
