@@ -9,7 +9,7 @@
 
 		var fd = new FormData(document.forms.namedItem("formyo"));
 
-		fetch("/sign/signin", {
+		fetch("/member/signin", {
 			method : "POST",
 			body : new URLSearchParams(fd)
 		}).then(function(response) {
