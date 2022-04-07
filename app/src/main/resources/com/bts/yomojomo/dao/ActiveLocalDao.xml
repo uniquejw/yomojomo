@@ -5,49 +5,29 @@
 <mapper namespace="com.bts.yomojomo.dao.ActiveLocalDao">
   
   <resultMap type="ActiveLocal" id="ActiveLocalMap">
-    <id column="pups_no" property="no"/>
-    <result column="name" property="purposeName"/>
+    <id column="act_local_no" property="no"/>
+    <result column="name_si" property="nameSi"/>
+    <result column="name_gu" property="nameGu"/>
   </resultMap>
 
-  <select id="findAll" resultMap="ActiveLocalMap"> 
-    select
-      pups_no,
-      purposeName
-    from
-      gms_activelocal
-    order by
-      pups_no asc
+  <select id="findSi" resultMap="ActiveLocalMap"> 
+    select distinct name_si from gms_activelocal;
+   </select>
+   
+   <select id="findGungu" resultMap="ActiveLocalMap" parameterType="String"> 
+    SELECT act_local_no,name_gu FROM gms_activelocal WHERE name_si LIKE concat('%',#{value},'%')
   </select>
+  
   
   <select id="findByNo" resultMap="ActiveLocalMap" parameterType="int">
     select 
-      pups_no,
-      purposeName
+      act_local_no,
+      name_si,
+      name_gu
     from 
       gms_activelocal
     where 
-      pups_no=#{pups_no}
+      act_local_no=#{no}
   </select>
 
-  <insert id="insert" parameterType="ActiveLocal">
-    insert into gms_activelocal(name) 
-    values(#{purposeName})
-  </insert>
-  
-  <update id ="update" parameterType="ActiveLocal">
-    update gms_activelocal set 
-      name = #{name}
-    where 
-      pups_no = #{no}
-  </update>
-  
-  <select id ="countAll" parameterType="int">
-    select count(*) from gms_activelocal
-  </select>
-  
-  <delete id="delete" parameterType="int">
-    delete from gms_activelocal
-    where 
-      pups_no = #{no}
-  </delete>
 </mapper>

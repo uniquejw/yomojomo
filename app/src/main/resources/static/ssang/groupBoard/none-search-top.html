@@ -1,13 +1,10 @@
 
-
+<meta charset="UTF-8">
   <!--내css-->
   <link rel="stylesheet" href="/ssang/css/none-search-top.css">
-  
-</head>
-<body>
-  <div id="container">
+  <div id="top-container">
     <div class="menu-container">
-      <div class="group-title">강서, 양천 축구 동호회 모임</div>
+      <div id="group-title"></div>
       <button class="group-cate-btn" type="button">모임정보수정</button>
       <button class="group-cate-btn" type="button">게시글</button>
       <button class="group-cate-btn" type="button">사진첩</button>
@@ -17,3 +14,41 @@
       <button class="group-cate-btn" type="button">회비 및 정산관리</button>
     </div>
   </div>
+
+
+  <script>
+    
+  // // 1) URL에서 쿼리스트링(query string)을 추출한다.
+  // var arr = location.href.split("?");
+  // console.log(arr);
+
+  // if (arr.length == 1) {
+  //   alert("요청 형식이 옳바르지 않습니다.")
+  //   throw "URL 형식 오류!";
+  // }
+
+  // var qs = arr[1];
+  // console.log(qs);
+
+  // // 2) 쿼리 스트링에서 email 값을 추출한다.
+  // var params = new URLSearchParams(qs);
+  // var no = params.get("no");
+
+  // if (no == null) {
+  //   alert("해당 번호의 모임이 없습니다.");
+  //   throw "파라미터 오류!";
+  // }
+  // console.log(no);
+
+  // // var xName = document.querySelector("#x-name");
+  
+  // // 3) 서버에서 데이터 가져오기
+  // fetch(`/group/get?no=${no}`)
+  //   .then(function(response) {
+  //     return response.json();
+  //   })
+  //   .then(function(result) {
+  //     console.log(result.groupName);
+  //     document.querySelector("#group-title").innerHTML = result.groupName;
+  //   })
+  </script>

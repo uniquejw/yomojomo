@@ -9,13 +9,14 @@
 		<id column="g_no" property="no" />
 		<result column="act_local_no" property="activeLocalNo" />
 		<result column="pups_no" property="purposeNo" />
-		<result column="name" property="name" />
+		<result column="name" property="GroupName" />
 		<result column="reg_dt" property="registDate" />
 		<result column="logo" property="logo" />
 		<result column="intro" property="intro" />
 		<result column="max_cnt" property="maxCount" />
 		<result column="view_cnt" property="viewCount" />
 	</resultMap>
+	
 
 	<select id="findAll" resultMap="GroupMap">
 		select
@@ -27,13 +28,14 @@
 		logo,
 		intro,
 		max_cnt,
-		fee,
 		view_cnt
 		from
 		gms_group
 		order by
 		g_no desc
 	</select>
+	
+	
 
 	<select id="findByNo" resultMap="GroupMap" parameterType="int">
 		select
@@ -45,7 +47,6 @@
 		logo,
 		intro,
 		max_cnt,
-		fee,
 		view_cnt
 		from
 		gms_group
