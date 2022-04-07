@@ -4,14 +4,14 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>recruit</title>
+  <title>Pick me!</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
   <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
 
   <style>
     #body-content{ 
-      padding-top: 10vh;
-      padding-bottom: 10vh;
+      padding-top: 150px;
+      padding-bottom: 150px;
       position: relative;
     }
     #localSelect{
@@ -36,8 +36,7 @@
   <script src="/node_modules/jquery/dist/jquery.min.js"></script>
   <script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
   <script src="/node_modules/handlebars/dist/handlebars.min.js"></script>
-    
-  
+ 
   <!--공통헤더 제이쿼리-->
   <script type="text/javascript">
     $(document).ready(function () {
@@ -98,7 +97,9 @@
       </nav>
     </div>
   </div>
+
   <div id="footer"></div>
+
   <!--시도, 시군구 선택-->
   <script type="text/javascript">
   $('document').ready(function() {
@@ -148,33 +149,38 @@
     </script>
   <!--시도, 시군구 선택-->
 
-  <!--핸들바-->
+  <!--handlebars-->
   <script id="tr-template" type="text/x-handlebars-template">
     {{#each this}}
     <tr>
       <td>{{no}}</td>
-      <td><a href="view.html?no={{no}}">{{title}}</a></td>
+      <td><a href="view.html?no={{no}}">{{this.title}}</a></td>
       <td>{{member.memberName}}</td>
       <td>{{date}}</td>
       <td>{{viewCnt}}</td>
     </tr>
     {{/each}}
   </script>
+  <!--handlebars END-->
 
 <script>
   var tbody = document.querySelector("#x-board-table tbody");
-
-  var trTemplate = document.querySelector("#tr-template");
-  
+  var trTemplate = document.querySelector("#tr-template");  
   var htmlGenerator = Handlebars.compile(trTemplate.innerHTML);
   
-  fetch("/recruit/list")
+  fetch("/pickme/list")
     .then(function(response) {
       return response.json();
     })
-    .then(function(recruits) {
-      console.log(recruits);
-        tbody.innerHTML = htmlGenerator(recruits);
+    .then(function(result) {
+      if (result.status == "fail") {
+        window.alert("서버 요청 오류!");
+        console.log(result.data);
+        return;
+      } else {
+        console.log(result);
+        tbody.innerHTML = htmlGenerator(result);
+      }
     });
  
     document.querySelector("#x-create-btn").onclick = function(){

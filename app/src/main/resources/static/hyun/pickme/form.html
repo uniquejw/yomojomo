@@ -11,7 +11,8 @@
   <title>pick me 글 작성</title>
   <style>
     #form-content{ 
-      padding-top: 140px;
+      padding-top: 30vh;
+      padding-bottom: 30vh;
       position: relative;
     }
     form {
@@ -39,39 +40,35 @@
 
   <script type="text/javascript">
     $(document).ready(function () {
-        $('#headers').load('/junho/mainHeader.html'); //헤더 인클루드
+        $('#header').load('/junho/mainHeader.html'); //헤더 인클루드
         $('#footer').load('/junho/mainfooter.html'); //푸터부분 인클루드
     });
   </script>
 
   <!--공통 헤더-->
-<div id="headers"></div>
+<div id="header"></div>
 
   <!--입력 폼 -->
 <div class="inner">
   <div id="form-content" class="table-responsive-lg">
-    <form>
+    <form name="pickme-form">
       <table id="formTable" class="table table-borderless">
         <tbody>
           <tr>
             <td width="150px">제목</td>
-            <td><input id="x-title" type="text" class="form-control" placeholder="제목을 입력해주세요"></td>
-          </tr>
-          <tr>
-            <td>작성자</td>
-            <td><input id="x-name" type="number" class="form-control"></td> <!--나중에 이름으로 수정해야함-->
+            <td><input name="title" type="text" class="form-control" placeholder="제목을 입력해주세요"></td>
           </tr>
           <tr>
             <td>활동지역</td>
-            <td><input id="x-activeLocal" type="number" class="form-control"></td><!--나중에 이름으로 수정해야함-->
+            <td><input name="activeLocal.no" type="number" class="form-control"></td><!--나중에 이름으로 수정해야함-->
           </tr>
           <tr>
             <td>관심활동</td>
-            <td><input id="x-purpose" type="number" class="form-control"></td><!--나중에 이름으로 수정해야함-->
+            <td><input name="purpose.no" type="number" class="form-control"></td><!--나중에 이름으로 수정해야함-->
           </tr>
           <tr>
             <td><label for="comment">내용:</label></td>
-            <td><textarea class="form-control" rows="5" id="x-content" name="text"></textarea></td>
+            <td><textarea class="form-control" rows="5" name="content"></textarea></td>
           </tr>
         </tbody>
       </table>
@@ -84,11 +81,11 @@
 <div id="footer"></div>
 
 <script>
-  let xTitle = document.querySelector("#x-title");
-  let xName = document.querySelector("#x-name");
-  let xActiveLocal = document.querySelector("#x-activeLocal");
-  let xPurpose = document.querySelector("#x-purpose");
-  let xContent = document.querySelector("#x-content");
+  let xTitle = document.querySelector("input[name=title]");
+  let xActiveLocal = document.querySelector("input[name=activeLocal]");
+  console.log(xActiveLocal);
+  let xPurpose = document.querySelector("input[name=purpose]");
+  let xContent = document.querySelector("textarea");
 
   //등록버튼
   document.querySelector("#x-add-btn").onclick = function() {
@@ -97,16 +94,26 @@
       return;
     }
 
-    fetch(`/recruit/add?title=${xTitle.value}&member.no=${xName.value}&activeLocal.no=${xActiveLocal.value}&purpose.no=${xPurpose.value}&content=${xContent.value}`)
-      .then(function(response){
-        return response.text();
+    var fd = new FormData(document.forms.namedItem("pickme-form"))
+
+    fetch("/pickme/add", {
+      method: "POST",
+      body: new URLSearchParams(fd)
       })
-      .then(function(text){
-        console.log(text);
-        window.alert("등록되었습니다.");
-        location.href = "index.html";
+      .then(function(response){
+        return response.json();
+      })
+      .then(function(result){
+        console.log(result);
+        if (result.status == "success") {
+          window.alert("등록되었습니다.");
+          location.href = "index.html";
+        } else {
+          window.alert("게시글 등록 실패!");
+          console.log(result.data);
+        }
       });
-  }  
+  }//("#x-add-btn").onclick END
 
   //취소버튼
   document.querySelector("#x-cancel-btn").onclick = function() {

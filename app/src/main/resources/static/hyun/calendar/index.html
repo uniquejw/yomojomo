@@ -17,10 +17,13 @@
   <style>
   /*내 css*/
   #calendar-container{
-    padding-top: 10vh;
-    padding-bottom: 10vh;
-    /* position: relative; */
+    width: 1130px auto;
+    margin: 100px 150px; 
   }
+  /* .fc-view-harness fc-view-harness-active{
+      min-width: 500px;
+  } */
+
   </style>
 
 <title>일정</title>
@@ -47,17 +50,18 @@
 
 <!--캘린더 API 자리-->
 <div id="calendar-container">
-    <div class="inner">
+    <!-- <div class="inner"> -->
         <div id='calendar'></div>
-    </div>
+    <!-- </div> -->
 </div>
 
 <script type="text/javascript">
 document.addEventListener('DOMContentLoaded', function () {
     var calendarEl = document.getElementById('calendar');
     var calendar = new FullCalendar.Calendar(calendarEl, {
-        height: 'auto', // calendar 높이 설정  
+        height: 600, // calendar 높이 설정  
         expandRows: true, // 화면에 맞게 높이 재설정
+        handleWindowResize: true, //브라우저 창의 크기를 조정할 때 캘린더 크기를 자동으로 조정
         // locale : 'ko', //한글
         timeZone: 'local',
         initialView: 'dayGridMonth', //월만 보이게함
@@ -117,7 +121,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                         alert("삭제되었습니다.")
                                     }
                                 }) //delete요청 ajax END
-                            window.location.reload()
+                            window.location.reload();
                             })// deletebtn function END
                             $("#modal-UpdateBtn").on("click", function() { //UpdateBtn function
                                 //내용 입력 여부 확인
@@ -143,9 +147,9 @@ document.addEventListener('DOMContentLoaded', function () {
                                             dataType: 'text',
                                             success: function(data) {
                                                 if (data == 1) {
-                                                    alert("수정되었습니다.");
+                                                    alert("변경되었습니다.");
                                                 } else {
-                                                    alert("수정 실패");
+                                                    alert("변경 실패");
                                                 }
                                             } //success END
                                         }) //update요청 ajax END
@@ -197,7 +201,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                         alert("에러발생");
                                     }// error END
                                 }) //add ajax END                        
-                            } //정상입력시 else문 END                        
+                            } //정상입력시 else문 END
                             window.location.reload();
                         }); // modal 추가 버튼 클릭 이벤트 END
                     } // 버튼 클릭 시 이벤트 END
@@ -277,5 +281,6 @@ aria-hidden="true">
 </div> <!--view-Modal END-->
 
 <div id="footer"></div>
+
 </body>
 </html>

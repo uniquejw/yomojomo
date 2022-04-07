@@ -7,10 +7,12 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
   <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
 
-  <title>게시글 상세</title>
+  <title>Pick me!</title>
+  
   <style>
     #view-content{ 
-      padding-top: 140px;
+      padding-top: 150px;
+      padding-bottom: 150px;
       position: relative;
     }
      body{
@@ -74,7 +76,7 @@
         <button id="x-invitation-btn" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">초대하기</button> 
         <button id="x-update-btn" type="button" class="btn btn-primary">수정</button>
         <button id="x-delete-btn" type="button" class="btn btn-primary">삭제</button>
-        <button id="x-cancel-btn" type="button" class="btn btn-primary">취소</button><br>
+        <button id="x-cancel-btn" type="button" class="btn btn-primary">확인</button><br>
     </form>    
   </div>
 </div>
@@ -108,98 +110,111 @@
   </div>
 <!--모달 끝-->
 
-
 <script src="/node_modules/jquery/dist/jquery.min.js"></script>
 <script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="/node_modules/handlebars/dist/handlebars.min.js"></script>
 
-<script type="text/javascript">
+<div id="footer"></div>
+
+<script>
   $(document).ready(function () {
       $('#header').load('/junho/mainHeader.html'); //헤더 인클루드
       $('#footer').load('/junho/mainfooter.html'); //푸터부분 인클루드
   });
-  </script>
 
-<div id="footer"></div>
+  let arr = location.href.split("?");
+  console.log(arr);
 
-  <script>
-    let arr = location.href.split("?");
-    console.log(arr);
+  if (arr.length == 1) {
+    alert("요청 형식이 올바르지 않습니다.")
+    throw "URL 형식 오류";
+  }
 
-    if (arr.length == 1) {
-      alert("요청 형식이 올바르지 않습니다.")
-      throw "URL 형식 오류";
-    }
+  let qs = arr[1];
+  console.log(qs);
 
-    let qs = arr[1];
-    console.log(qs);
+  let params = new URLSearchParams(qs);
+  var no = params.get("no");
 
-    let params = new URLSearchParams(qs);
-    var no = params.get("no");
+  if(no == null) {
+    alert("게시물 번호가 없습니다.");
+    throw "파라미터 오류";
+  }
+  //console.log(no);
 
-    if(no == null) {
-      alert("게시물 번호가 없습니다.");
-      throw "파라미터 오류";
-    }
-    //console.log(no);
+  let xTitle = document.querySelector("#x-title");
+  let xName = document.querySelector("#x-name");
+  let xRegDate = document.querySelector("#x-regDate");
+  let xViewCnt = document.querySelector("#x-viewCount");
+  let xContent = document.querySelector("#x-content");
 
-    let xTitle = document.querySelector("#x-title");
-    let xName = document.querySelector("#x-name");
-    let xRegDate = document.querySelector("#x-regDate");
-    let xViewCnt = document.querySelector("#x-viewCount");
-    let xContent = document.querySelector("#x-content");
+  fetch(`/pickme/get?no=${no}`)
+    .then(function(response) {
+      // console.log(response);
+      return response.json();
+    })
+    .then(function(result){
+      if (result.status == "fail") {
+        window.alert("서버 요청 오류!");
+        console.log(result.data);
+      } else {
+        let pickmeCont = result.data;
+        // console.log(pickmeCont);      
+        xTitle.value = pickmeCont.title;
+        xName.value = pickmeCont.member.memberName;
+        xRegDate.value = pickmeCont.date;
+        xViewCnt.value = pickmeCont.viewCnt;
+        xContent.value = pickmeCont.content;
+      }
+    });
+  
+  // 뒤로가기
+  document.querySelector("#x-cancel-btn").onclick = function() {
+  window.location.href = "index.html";
+  };
 
-    fetch(`/recruit/get?no=${no}`)
-      .then(function(response) {
-        // console.log(response);
-        return response.json();
-      })
-      .then(function(recruit){
-        console.log(recruit);
-        xTitle.value = recruit.title;
-        xName.value = recruit.member.memberName;
-        xRegDate.value = recruit.date;
-        xViewCnt.value = recruit.viewCnt;
-        xContent.value = recruit.content;
-      });
-    
-    // 뒤로가기
-    document.querySelector("#x-cancel-btn").onclick = function() {
-    window.location.href = "index.html";
-    };
-
-    // 삭제
-    document.querySelector("#x-delete-btn").onclick = function() {
-      fetch(`/recruit/delete?no=${no}`)
-      .then(function(response) {
-        return response.json();
-      })
-      .then(function(result) {
-        // console.log(result);
+  // 삭제
+  document.querySelector("#x-delete-btn").onclick = function() {
+    fetch(`/pickme/delete?no=${no}`)
+    .then(function(response) {
+      return response.json();
+    })
+    .then(function(result) {
+      // console.log(result);
+      if(result.status == "success") {
         window.alert("삭제되었습니다.");
         location.href = "index.html";
-      });
-    };
+      } else {
+        window.alert("삭제 실패");
+        console.log(result.data);
+      }
+    });
+  };
 
-    // update로 이동
-    document.querySelector("#x-update-btn").onclick = function() {
-      location.href = "update.html?no="+no;
-    };
+  // update로 이동
+  document.querySelector("#x-update-btn").onclick = function() {
+    location.href = "update.html?no="+no;
+  };
 
-    //초대 받을 사람 이름 출력하기
-    document.querySelector("#x-invitation-btn").onclick = function() {
-      // console.log("클릭");
-      var xModalName = document.querySelector("#recipient-name");
-      fetch(`/recruit/get?no=${no}`)
-      .then(function(response) {
-        // console.log(response);
-        return response.json();
-      })
-      .then(function(recruit){
-        // console.log(recruit);
-        xModalName.value = recruit.member.memberName;
-      });
-    }
-  </script>
+  //초대 받을 사람 이름 출력하기 -> 나중에 member controller완성되면 거기랑 붙여야함.
+  document.querySelector("#x-invitation-btn").onclick = function() {
+    var xModalName = document.querySelector("#recipient-name");
+    fetch(`/pickme/get?no=${no}`)
+    .then(function(response) {
+      // console.log(response);
+      return response.json();
+    })
+    .then(function(result){
+      if (result.status == "fail") {
+        window.alert("서버 요청 오류!");
+        console.log(result.data);
+      } else {
+        let recipientName = result.data;
+        console.log(recipientName);
+      // xModalName.value = .member.memberName;
+      }
+    });
+  }
+</script>
 </body>
 </html>

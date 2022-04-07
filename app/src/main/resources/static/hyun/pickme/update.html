@@ -4,12 +4,15 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>글 수정</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
   <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
+  
+  <title>Pick me!</title>
+  
   <style>
     #update-content{ 
-      padding-top: 140px;
+      padding-top: 150px;
+      padding-bottom: 150px;
       position: relative;
     }
     form {
@@ -29,13 +32,16 @@
       text-align: right;
       column-span: 300px;
     }
-
   </style>
 </head>
 
 <body>
-  <!--공통헤더-->
-  <div id="headers"></div>
+<script src="/node_modules/jquery/dist/jquery.min.js"></script>
+<script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/node_modules/handlebars/dist/handlebars.min.js"></script>
+
+<!--공통헤더-->
+<div id="header"></div>
 
   <!--입력 폼 -->
 <div id="update-content" class="table-responsive-lg">
@@ -45,22 +51,22 @@
         <tbody>
           <tr>
             <td width="150px">제목</td>
-            <td colspan="2"><input id="x-title" type="text" class="form-control"></td>
+            <td colspan="2"><input name="title" type="text" class="form-control"></td>
           </tr>
           <tr>
             <td>작성자</td>
             <td><input id="x-name" type="text" class="form-control" readonly></td>
-            <td><input id="x-name-no" type="text" class="form-control"></td>
+            <!-- <td><input id="x-name-no" type="text" class="form-control"></td> -->
           </tr>
           <tr>
             <td>활동지역</td>
             <td><input id="x-activeLocalName" type="text" class="form-control" readonly></td>
-            <td><input id="x-activeLocal" type="number" class="form-control"></td>
+            <td><input name="activeLocal.no" type="number" class="form-control"></td>
           </tr>
           <tr>
             <td>관심활동</td>
             <td><input id="x-purposeName" type="text" class="form-control" readonly></td>
-            <td><input id="x-purpose" type="number" class="form-control"></td>
+            <td><input name="purpose.no" type="number" class="form-control"></td>
           </tr>
           <tr>
             <td><label for="comment">내용:</label></td>
@@ -68,108 +74,115 @@
           </tr>
         </tbody>
       </table>
-      <button id="x-update-btn" type="button" class="btn btn-primary">수정 완료</button>
+      <button id="x-update-btn" type="button" class="btn btn-primary">수정</button>
       <button id="x-cancel-btn" type="button" class="btn btn-primary">취소</button><br>
     </form>
   </div>    
 </div>
 </body>
 
-<script src="/node_modules/jquery/dist/jquery.min.js"></script>
-<script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-<script src="/node_modules/handlebars/dist/handlebars.min.js"></script>
-
 <script type="text/javascript">
   $(document).ready(function () {
       $('#header').load('/junho/mainHeader.html'); //헤더 인클루드
       $('#footer').load('/junho/mainfooter.html'); //푸터부분 인클루드
   });
-
-<div id="footer"></div>
 </script>
 
+<div id="footer"></div>
+
 <script>
-  let arr = location.href.split("?");
-    console.log(arr);
+let arr = location.href.split("?");
+  console.log(arr);
 
-    if (arr.length == 1) {
-      alert("요청 형식이 올바르지 않습니다.")
-      throw "URL 형식 오류";
-    }
+  if (arr.length == 1) {
+    alert("요청 형식이 올바르지 않습니다.")
+    throw "URL 형식 오류";
+  }
 
-    let qs = arr[1];
-    console.log(qs);
+  let qs = arr[1];
+  console.log(qs);
 
-    let params = new URLSearchParams(qs);
-    var no = params.get("no");
+  let params = new URLSearchParams(qs);
+  var no = params.get("no");
 
-    if(no == null) {
-      alert("게시물 번호가 없습니다.");
-      throw "파라미터 오류";
-    }
-    console.log(no);
+  if(no == null) {
+    alert("게시물 번호가 없습니다.");
+    throw "파라미터 오류";
+  }
+  console.log(no);
 
-    let xTitle = document.querySelector("#x-title");
-    let xName = document.querySelector("#x-name");
-    let xNameNo = document.querySelector("#x-name-no");
-    let xActiveLocal = document.querySelector("#x-activeLocal");
-    let xActiveLocalName = document.querySelector("#x-activeLocalName");
-    let xPurpose = document.querySelector("#x-purpose");
-    let xPurposeName = document.querySelector("#x-purposeName");
-    let xContent = document.querySelector("#x-content");
+  let xTitle = document.querySelector("input[name=title]");
+  let xName = document.querySelector("#x-name");
+  let xNameNo = document.querySelector("#x-name-no");
+  let xActiveLocal = document.querySelector("input[name=activeLocal]");
+  let xActiveLocalName = document.querySelector("#x-activeLocalName");
+  let xPurpose = document.querySelector("input[name=purpose]");
+  let xPurposeName = document.querySelector("#x-purposeName");
+  let xContent = document.querySelector("textarea");
 
-    fetch(`/recruit/get?no=${no}`)
-      .then(function(response) {
-        // console.log(response);
-        return response.json();
-      })
-      .then(function(recruit){
-        console.log(recruit);
-        xTitle.value = recruit.title;
-        xName.value = recruit.member.memberName;
-        xNameNo.value = recruit.member.no;
-        xActiveLocal.value = recruit.activeLocal.no;
-        xActiveLocalName.value = recruit.activeLocal.activeLocalName;
-        xPurpose.value = recruit.purpose.no;
-        xPurposeName.value = recruit.purpose.purposeName;
-        xContent.value = recruit.content;
-      });
+  fetch(`/pickme/get?no=${no}`)
+    .then(function(response) {
+      // console.log(response);
+      return response.json();
+    })
+    .then(function(result){
+      console.log(result);
+      if (result.status == "fail") {
+        window.alert("서버 요청 오류!");
+      } else {
+        let pickmeCont = result.data;
+        // console.log(pickmeCont.purpose.purposeName);
+     
+        // xTitle.value = pickmeCont.title;
+        // xActiveLocal.value = pickmeCont.activeLocal.no;
+        // xActiveLocalName.value = (pickmeCont.activeLocal.nameSi) + " " + (pickmeCont.activeLocal.nameGu);
+        xPurpose.value = pickmeCont.purpose.no;
+        xPurposeName.value = pickmeCont.purpose.purposeName;
+        xContent.value = pickmeCont.content;
+      }
+    });
 
-    document.querySelector("#x-update-btn").onclick = function() {
-      if(        
-        xTitle.value == "" ||
-        xNameNo.value == "" ||
-        xActiveLocal.value == "" ||
-        xPurpose.value == "" ||
-        xContent.value == "") 
-        {
-          window.alert("필수 입력 항목이 비어 있습니다.")
-          return;
-        }
+  document.querySelector("#x-update-btn").onclick = function() {
+    if(        
+      xTitle.value == "" ||
+      xNameNo.value == "" ||
+      xActiveLocal.value == "" ||
+      xPurpose.value == "" ||
+      xContent.value == "") 
+      {
+        window.alert("필수 입력 항목이 비어 있습니다.")
+        return;
+      }
 
-        var qs = `no=${no}&title=${xTitle.value}&content=${xContent.value}&activeLocal.no=${xActiveLocal.value}&purpose.no=${xPurpose.value}&member.no=${xNameNo.value}`
-        console.log(qs);
+      var qs = `no=${no}&title=${xTitle.value}&content=${xContent.value}&activeLocal.no=${xActiveLocal.value}&purpose.no=${xPurpose.value}&member.no=${xNameNo.value}`
+      console.log(qs);
 
-        fetch(`/recruit/update?${qs}`)
-          .then(function(response) {
-            return response.json();
-          })
-          .then(function(result) {
-            console.log(result);
+      fetch(`/recruit/update?${qs}`)
+        .then(function(response) {
+          return response.json();
+        })
+        .then(function(result) {
+          console.log(result);
+          if (result.status == "success") {
+            window.alert("수정되었습니다.")
             location.href = "index.html";
-          });
-    };
-    
-    // 뒤로가기
-    document.querySelector("#x-cancel-btn").onclick = function() {
-    window.location.href = "index.html";
-    };
+          } else {
+            window.alert("게시글 변경 실패");
+            console.log(result.data);
+          }
+        });
+  };
+  
+  // 뒤로가기
+  document.querySelector("#x-cancel-btn").onclick = function() {
+  window.location.href = "index.html";
+  };
 
-    // function enter() {
-    //   var key = window.event.keyCode;
-    //   if (key === 13) {
-    //     document.getElementById('x-content').value = document.getElementById('x-content').value + "<br>";
-    //   }
-    // }
+  // function enter() {
+  //   var key = window.event.keyCode;
+  //   if (key === 13) {
+  //     document.getElementById('x-content').value = document.getElementById('x-content').value + "<br>";
+  //   }
+  // }
 </script>
 </html>
