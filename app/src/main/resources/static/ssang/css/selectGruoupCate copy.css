@@ -10,7 +10,8 @@
     box-sizing: border-box;
 }
 #container{
-    padding-top: 120px;
+    padding-top: 10vh;
+    min-height: 80vh;
 }
 hr{
     z-index: 99999;

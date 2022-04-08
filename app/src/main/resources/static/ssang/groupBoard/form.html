@@ -21,7 +21,7 @@
     $(document).ready(function () {
         $('#headers').load('../../junho/mainHeader.html'); //헤더 인클루드
         $('#top').load('../groupBoard/top.html'); //모임 윗부분 인클루드
-        // $('#footers').load('../html'); //푸터부분 인클루드
+        $('#footers').load('../../junho/mainfooter.html'); //푸터부분 인클루드
     });
   </script>
 </head>
@@ -41,12 +41,12 @@
             <!-- <div class="written-createdTime">몇분전</div> -->
           </div>
         </div>
-        <div class="written-content-div">
-          <div class="written-content">내용 작성</div>
-        </div>
+        <form name="form1">
+          <textarea >입력하세요</textarea>
+        </form>
         <div class="post-cancel-div">
-        <button id="s-cancel-btn">취소</button>
-        <button id="s-post-btn">확인</button>
+        <button id="s-cancel-btn" type="button">취소</button>
+        <button id="s-post-btn" type="button">확인</button>
         </div>
       </div>
     </div>  
@@ -54,5 +54,33 @@
 <div id="footers"></div>
 <script src="../../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="../../node_modules/handlebars/dist/handlebars.min.js"></script>
+<!-- insert -->
+<script>
+
+fetch("/board/list")
+  .then(function(response){
+    return response.json();
+  })
+    .then(function(boards){
+      console.log(boards);
+    });
+
+
+// var xContent = document.querySelector("textarea");
+// document.querySelector("#s-post-btn").onclick = function() {
+//     if (xContent.value == "") {
+//       window.alert("항목이 비어 있습니다.");
+//       return;
+//     }
+
+    // var fd = new FormData(document.forms.namedItem("form1"));
+
+    // fetch("/board/add", {
+    // 	  method: "POST",
+    // 	  body: fd
+    //   }).then(function(response){}).then(function(t) {});
+  // };
+
+</script>
 </body>
 </html>

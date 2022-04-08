@@ -5,9 +5,9 @@
 <mapper namespace="com.bts.yomojomo.dao.MemberDao">
   
   <!-- 테이블의 컬럼과 객체필드를 연결한다. -->
-  <resultMap type="Member" id="MemberMap">
+  <resultMap type="Member" id="memberMap">
     <id column="memb_no" property="no"/>
-    <result column="name" property="name"/>
+    <result column="name" property="memberName"/>
     <result column="pwd" property="pwd"/>
     <result column="email" property="email"/>
     <result column="tel" property="tel"/>
@@ -18,7 +18,7 @@
     <result column="unsubscribe" property="unsubscribe"/>
   </resultMap>
 
-  <select id="findAll" resultMap="MemberMap"> 
+  <!-- <select id="findAll" resultMap="MemberMap"> 
     select
       memb_no,
       name,
@@ -82,5 +82,41 @@
     delete from gms_memb
     where 
       memb_no = #{no}
-  </delete>
+  </delete> -->
+  
+  <insert id="insert" parameterType="Member">
+		insert into gms_memb(name,
+		pwd, email, tel, post_no, base_addr, addr, type)
+		values(#{memberName},
+		#{password}, #{email}, #{tel}, #{postNo}, #{baseAddress}, #{address}
+		,#{type})
+	</insert>
+
+	<select id="findByEmailAndPassword" resultMap="memberMap">
+		select memb_no,
+		name, email from gms_memb
+		where email=#{email} and pwd=#{password}
+	</select>
+
+	<select id="findidByNameandTel" resultMap="memberMap">
+		select email
+		from
+		gms_memb
+		where name=#{name} and tel=#{tel}
+	</select>
+
+	<select id="findpwdByEmailandTel" resultMap="memberMap">
+		select email
+		from
+		gms_memb
+		where email=#{email} and tel=#{tel}
+	</select>
+
+	<update id="updatepwd" parameterType="Member">
+		update gms_memb
+		set
+		pwd = #{password}
+		where
+		email=#{email}
+	</update>
 </mapper>

@@ -9,7 +9,8 @@
   <title>회비 및 정산관리</title>
   <style>
     #update-content{ 
-      padding-top: 140px;
+      padding-top: 10vh;
+      padding-bottom: 10vh;
       position: relative;
     }
     form {
@@ -43,14 +44,14 @@
   <!--공통헤더 제이쿼리-->
   <script type="text/javascript">
     $(document).ready(function () {
-        $('#headers').load('/junho/mainHeader.html'); //헤더 인클루드
+        $('#header').load('/junho/mainHeader.html'); //헤더 인클루드
         $('#top').load('/ssang/groupBoard/none-search-top.html'); //상준님헤더
-        // $('#footers').load('../html'); //푸터부분 인클루드
+        $('#footer').load('/junho/mainfooter.html'); //푸터부분 인클루드
     });
   </script>
   
   <!--공통헤더-->
-  <div id="headers"></div>
+  <div id="header"></div>
   <!--상준님 헤더-->
   <div id="top"></div>
 
@@ -78,7 +79,7 @@
           </tr>
           <tr>
             <td>작성일</td>
-            <td><input id="x-date" type="text" class="form-control"></td>
+            <td><input id="x-registDate" type="text" class="form-control"></td>
           </tr>
           <tr>
             <td>금액</td>
@@ -108,14 +109,9 @@
     </form>
   </div>
 </div>
+<!--공통풋터-->
+<div id="footer"></div>
 </body>
-
-<script type="text/javascript">
-  $(document).ready(function () {
-      $('#headers').load('/junho/mainHeader.html'); //헤더 인클루드
-      // $('#footers').load('../html'); //푸터부분 인클루드
-  });
-</script>
 
 <script>
   //1. URL에서 쿼리스트링 추출
@@ -145,7 +141,7 @@
   let xActcateno = document.querySelector("#x-actcateno");
   let xTitle = document.querySelector("#x-title");
   let xAmount = document.querySelector("#x-amount");
-  let xDate = document.querySelector("#x-date");
+  let xDate = document.querySelector("#x-registDate");
   let xStatus = document.querySelector("#x-status");
   let xMembList = document.querySelector(".x-membList");
   let xMembListCon = document.querySelector("#x-membList-container");
@@ -160,11 +156,11 @@
       console.log(accounting);
       //4. 화면에 출력
       xNo.value = accounting.no;
-      xGno.value = accounting.gno;
+      xGno.value = accounting.group.no;
       xActcateno.value = accounting.actCate.no;
       xTitle.value = accounting.title;
       xAmount.value  = accounting.amount;
-      xDate.value = accounting.date;
+      xDate.value = accounting.registDate;
       xStatus.value = accounting.status;
     });
 
@@ -174,7 +170,7 @@ document.querySelector("#x-update-btn").onclick = function() {
     return;
     }
 
-    fetch(`/accounting/update?no=${xNo.value}&gno=${xGno.value}&actcateno=${xActcateno.value}&title=${xTitle.value}&amount=${xAmount.value}&status=${xStatus.value}`)
+    fetch(`/accounting/update?no=${xNo.value}&group.no=${xGno.value}&actCate.no=${xActcateno.value}&title=${xTitle.value}&amount=${xAmount.value}&status=${xStatus.value}`)
   .then(function(response) {
     return response.text();
   })

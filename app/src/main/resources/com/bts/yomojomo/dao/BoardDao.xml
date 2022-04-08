@@ -8,7 +8,7 @@
   <!-- collection -> has many / association -> has one -->
   
   <!-- 테이블의 컬럼과 객체필드를 연결한다. -->
-  <resultMap type="Board" id="BoardMap">
+  <resultMap type="Board" id="BoardMap" >
     <id column="b_no" property="no"/>
     <result column="g_no" property="groupNo"/>
     <result column="memb_no" property="memberNo"/>
@@ -24,8 +24,14 @@
       <id column = "cmt_no" property="no"/>
       <result column="cmt_content" property="content"/>
       <result column="cmt_reg_dt" property="registDate"/>
+      <association property="writer" javaType="member">
+      <id column="cmt_writer_no" property="no"/>
+      <result column="cmt_writer_name" property="memberName"/>
+      </association>
     </collection>
+    
   </resultMap>
+  
 
   <select id="findAll" resultMap="BoardMap"> 
 	select
@@ -62,20 +68,18 @@
     where 
       b_no=#{no}
   </select>
-
-  <insert id="insert" parameterType="Board">
-    insert into gms_board(g_no, memb_no,reg _dt, content, view_cnt, status) 
-    values(#{gno}, #{membno}, #{regdt}, #{content}, #{viewcnt}, #{status})
+    
+    <!-- 자동 증가된 PK 값을 받고 싶을 때! -->
+  <insert id="insert" parameterType="Board" keyProperty="no" keyColumn="b_no" useGeneratedKeys="true">
+    insert into gms_board(g_no, memb_no, content) 
+    values(#{groupNo}, #{memberNo}, #{content})
   </insert>
   
   <update id ="update" parameterType="Board">
     update gms_board set 
-      g_no = #{gno},
-      memb_no = #{membno},
-      reg_dt = #{regdt},
-      content = #{content},
-      view_cnt = #{viewcnt},
-      status = #{status}
+      g_no = g_no,
+      memb_no = memb_no,
+      content = #{content}
     where 
       b_no = #{no}
   </update>

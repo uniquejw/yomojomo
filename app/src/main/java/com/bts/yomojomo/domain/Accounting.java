@@ -8,12 +8,10 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 public class Accounting {
   int no;       //act_no
-  int gno;      //g_no
-  int actcateno;
   String title;
   int amount;
   int status;
-  Date date; //reg_dt
+  Date registDate; //reg_dt
   AccountingCate actCate;
   Group group;
 }

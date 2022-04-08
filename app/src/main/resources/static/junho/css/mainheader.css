@@ -31,7 +31,7 @@ header {
 
 header>.inner {
   background-color: rgb(17, 147, 218);
-  height: 120px;
+  height: 10vh;
 }
 
 header .logo {
@@ -131,7 +131,7 @@ header .main-menu ul.menu li {
   padding: 10px 10px;
 }
 
-header .main-menu ul.menu li:nth-child(3) {
+header .main-menu ul.menu li:nth-child(4) {
   padding: 0 10px;
 }
 

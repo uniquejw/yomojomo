@@ -21,7 +21,7 @@
     $(document).ready(function () {
         $('#headers').load('../../junho/mainHeader.html'); //헤더 인클루드
         $('#top').load('../groupBoard/top.html'); //모임 윗부분 인클루드
-        // $('#footers').load('../html'); //푸터부분 인클루드
+        $('#footers').load('../../junho/mainfooter.html'); //푸터부분 인클루드
     });
   </script>
   
@@ -31,7 +31,7 @@
   <div id="top"></div>
   <div id="container">
     
-    <div id="width-fix-div-container"></div>
+    <div id="width-fix-div-container">
       <div id="width-fix-div">
         <div class="new-post-container">새로운 소식을 남겨보세요
           <button class="new-post-btn"><img src="" alt="작성버튼 이미지"></button>
@@ -41,47 +41,93 @@
           <option value="2">오래된순</option>
           <option value="3">제목순</option>
         </select>
-        <div class="written-container">
-          <div class="written-author-div">
-            <div class="written-author-img-div">
-              <img class="written-author-img" src="" alt="">프로필 사진 자리  &nbsp;&nbsp;&nbsp;
-            </div>
-            <div class="written-column-div">
-              <div class="written-author-name">이름</div>
-              <div class="written-createdTime">몇분전</div>
-            </div>
-            <div class="modify-div">
-              <button>삭제</button>
-              <button>수정</button>
-            </div>
-          </div>
-          <div class="written-content">게시글 내용 ...더보기</div>
-          <div class="comment-input-div">
-            <div class="comment-name">댓글</div>
-            <input type="text" value="댓글 달기" class="comment-input"><button class="comment-btn btn">확인</button>
-          </div>
-        </div>
-        <!-- 댓글수정삭제 -->
-        <div class="comment-div">
-          <div class="comment-author-div">
-            <div class="comment-author-img-div">
-              <img class="comment-author-img" src="" alt="">댓글 프로필 사진 자리  &nbsp;&nbsp;&nbsp;
-            </div>
-            <div class="comment-column-div">
-              <div class="comment-author-name">댓글이름</div>
-              <div class="comment-createdTime">댓글몇분전</div>
-            </div>
-          </div>
-          <div class="comment-content">
-            댓글이 좌라락
-            <button>수정</button>
-            <button>삭제</button>
-          </div>
-        </div>
-      </div>  
-  </div>
+        <!-- 게시물 -->
+        <!-- 핸들바 -->
+        <div id="handlebars-container"></div>  
+                    
+      </div><!-- width-fix-div -->
+    </div><!--   width-fix-div-container -->
+  </div><!--  컨테이너 -->
 <div id="footers"></div>
+
+<script id="div-template2" type="text/x-handlebars-template">
+  {{#each this}}
+  <p>{{no}},{{content}},{{writer.memberName}}<br>
+    {{#each comments}}
+      {{no}},{{content}},{{writer.memberName}}<br>
+    {{/each}}
+  </p>
+  {{/each}}
+</script>
+<script id="div-template" type="text/x-handlebars-template">
+  {{#each this}}
+  <div >
+    <div class="written-author-div" >
+      <div class="written-author-img-div">
+        <img class="written-author-img" src="" alt="">프로필 사진 자리  &nbsp;&nbsp;&nbsp;
+      </div>
+      <div class="written-column-div">
+        <div class="written-author-name">{{writer.memberName}}</div>
+        <div class="written-createdTime">{{registDate}}</div>
+      </div>
+      <div class="modify-div">
+        <button>삭제</button>
+        <button>수정</button>
+      </div>
+    </div>
+  
+    <div class="written-content">{{content}}</div>
+    
+    <div class="comment-input-div">
+      <div class="comment-name">댓글</div>
+      <input type="text" placeholder="댓글 달기" class="comment-input"><button class="comment-btn btn">확인</button>
+    </div>
+    <div style="border: 1px solid black;">
+      <div class="comment-author-div">
+        <div class="comment-author-img-div">
+          <img class="comment-author-img" src="" alt="">댓글 프로필 사진 자리  &nbsp;&nbsp;&nbsp;
+        </div>
+        <div class="comment-column-div">
+          <div class="comment-author-name">{{comments.[0].writer.memberName}}</div>
+          <div class="comment-createdTime">{{comments.[0].registDate}}</div>
+        </div>
+      </div>
+      <div class="comment-content">
+        {{comments.[0].content}}
+        <button>수정</button>
+        <button>삭제</button>
+      </div>
+    </div>
+  </div>
+  {{/each}}
+</script>
 <script src="../../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="../../node_modules/handlebars/dist/handlebars.min.js"></script>
+
+<!-- 핸들바 -->
+<script>
+  var writtenContainer = document.querySelector("#handlebars-container");
+
+  var divTemplate = document.querySelector("#div-template");
+
+  var htmlGenerator = Handlebars.compile(divTemplate.innerHTML);
+
+  fetch("/board/list")
+  .then(function(response) {
+    return response.json();
+  })
+  .then(function(boards){
+    console.log(boards)
+    writtenContainer.innerHTML = htmlGenerator(boards);
+  })
+</script>
+
+<!-- 작성버튼클릭이벤트 -->
+<script>
+  document.querySelector(".new-post-btn").onclick = function() {
+    window.location.href = "form.html";
+  };
+</script>
+
 </body>
 </html>

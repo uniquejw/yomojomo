@@ -7,5 +7,6 @@ import lombok.Data;
 @Data
 public class ActiveLocal {
   int no; //act_local_no
-  String activeLocalName;
+  String nameSi;
+  String nameGu;
 }

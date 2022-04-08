@@ -8,22 +8,11 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
   <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
 
-  <!--full calendar 시작-->
-  <link href="/node_modules/fullcalendar/main.css" rel="stylesheet" />
+  <!--full calendar node_modues-->
+  <link href="/node_modules/fullcalendar/main.min.css" rel="stylesheet" />
   <script src="/node_modules/fullcalendar/main.min.js"></script>
-  <script src="/node_modules/@fullcalendar/daygrid/main.js"></script>
-  <script src ="/node_modules/@fullcalendar/interaction/main.js"></script>
   <script src="/node_modules/fullcalendar/locales/ko.js"></script> <!--한글설정-->
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      var calendarEl = document.getElementById('calendar');
-      var calendar = new FullCalendar.Calendar(calendarEl, {
-        initialView: 'dayGridMonth'
-      });
-      calendar.render();
-    });
-  </script>
-  <!--full calendar 끝-->
+  <!--full calendar node_modues END-->
 
   <style>
   /*내 css*/
@@ -31,9 +20,13 @@
     width: 1130px auto;
     margin: 100px 150px; 
   }
-  </style>
-<title>일정</title>
+  /* .fc-view-harness fc-view-harness-active{
+      min-width: 500px;
+  } */
 
+  </style>
+
+<title>일정</title>
 </head>
 
 <body>
@@ -43,115 +36,181 @@
 <!--공통헤더 제이쿼리-->
 <script type="text/javascript">
   $(document).ready(function () {
-      $('#headers').load('/junho/mainHeader.html'); //헤더 인클루드
+      $('#header').load('/junho/mainHeader.html'); //헤더 인클루드
       $('#top').load('/ssang/groupBoard/none-search-top.html'); //상준님헤더
-      // $('#footers').load('../html'); //푸터부분 인클루드
+      $('#footer').load('/junho/mainfooter.html'); //푸터부분 인클루드
   });
 </script>
+<!--공통헤더 제이쿼리 끝-->
 
 <!--공통헤더-->
-<div id="headers"></div>
-<!--상준님 헤더-->
+<div id="header"></div>
+<!--모임 헤더-->
 <div id="top"></div>
-
-<!--서버에서 약속 리스트 가져오기-->
-<div>
-<h1>캘린더</h1>
-<table id="x-calendar-table" border="1">
-<thead>
-    <tr>
-        <th>캘린더번호</th>
-        <th>약속이름</th>
-        <th>약속내용</th>
-        <th>모임번호</th>
-        <th>결과url</th>
-        <th>시작날짜</th>
-        <th>끝날짜</th>
-    </tr>
-</thead>
-<tbody></tbody>
-</table>
-</div>
-<script>
-      var tbody = document.querySelector("#x-calendar-table tbody")
-    //   console.log(tbody);
-
-    fetch("/calendar/list")
-    .then(function(response) {
-        return response.json();
-    })
-    .then(function(calendars) {
-        console.log(calendars);
-        for(var calendar of calendars) {
-            var tr = document.createElement("tr");
-            tr.innerHTML = `<td>${calendar.no}</td>
-            <td>${calendar.name}</td>
-            <td>${calendar.content}</td>
-            <td>${calendar.gno}</td>
-            <td>${calendar.resulturl}</td>
-            <td>${calendar.startDt}</td>
-            <td>${calendar.endDt}</td>`;
-            tbody.appendChild(tr);
-        }
-    });
-</script>
 
 <!--캘린더 API 자리-->
 <div id="calendar-container">
-  <div id='calendar'></div>
+    <!-- <div class="inner"> -->
+        <div id='calendar'></div>
+    <!-- </div> -->
 </div>
 
-<!--캘린더-->
 <script type="text/javascript">
-  document.addEventListener('DOMContentLoaded', function () {
-      var calendarEl = document.getElementById('calendar');
-      var calendar = new FullCalendar.Calendar(calendarEl, {
-          timeZone: 'UTC',
-          initialView: 'dayGridMonth', // 홈페이지에서 다른 형태의 view를 확인할  수 있다.
-          events:function(result, successCallback, failureCallback) {
-              
-          }
-              
-          , headerToolbar: {
-              center: 'addEventButton' // headerToolbar에 버튼을 추가
-          }, customButtons: {
-              addEventButton: { // 추가한 버튼 설정
-                  text : "일정 추가",  // 버튼 내용
-                  click : function(){ // 버튼 클릭 시 이벤트 추가
-                      $("#calendarModal").modal("show"); // modal 나타내기
-
-                      $("#x-addCalendar").on("click",function(){  // modal의 추가 버튼 클릭 시
-                          var content = $("#calendar_content").val();
-                          var start_date = $("#calendar_start_date").val();
-                          var end_date = $("#calendar_end_date").val();
-                          
-                          //내용 입력 여부 확인
-                          if(content == null || content == ""){
-                              alert("내용을 입력하세요.");
-                          }else if(start_date == "" || end_date ==""){
-                              alert("날짜를 입력하세요.");
-                          }else if(new Date(end_date)- new Date(start_date) < 0){ // date 타입으로 변경 후 확인
-                              alert("종료일이 시작일보다 먼저입니다.");
-                          }else{ // 정상적인 입력 시
-                              var obj = {
-                                  "title" : content,
-                                  "start" : start_date,
-                                  "end" : end_date
-                              }//전송할 객체 생성
-
-                              console.log(obj); //서버로 해당 객체를 전달해서 DB 연동 가능
-                          }
-                      });
-                  }
-              }
-          },
-          editable: true, // false로 변경 시 draggable 작동 x 
-          displayEventTime: false // 시간 표시 x
-      });
-      calendar.render();
-  });
+document.addEventListener('DOMContentLoaded', function () {
+    var calendarEl = document.getElementById('calendar');
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+        height: 600, // calendar 높이 설정  
+        expandRows: true, // 화면에 맞게 높이 재설정
+        handleWindowResize: true, //브라우저 창의 크기를 조정할 때 캘린더 크기를 자동으로 조정
+        // locale : 'ko', //한글
+        timeZone: 'local',
+        initialView: 'dayGridMonth', //월만 보이게함
+        editable: false, // false로 변경 시 draggable 작동 x 
+        displayEventTime: false, // 시간 표시 x
+        headerToolbar: {center: 'addEventButton'}, // headerToolbar에 버튼을 추가
+        
+        events: function(info, successCallback, failureCallback) { //캘린더 화면에 뿌리기
+            $.ajax({
+                    url: '/calendar/list',
+                    type: 'POST',
+                    success: function(param) {   
+                    var events = [];                     
+                    $.each(param, function(index, data){
+                        // var endtime = $.FullCalendar.formatDate(data.endDt, "yyyy-mm-dd 23-59-59")
+                        events.push({
+                            id : data.no,
+                            title : data.name,
+                            start : data.startDt,
+                            end: data.endDt + 'T23:59:59'
+                            })
+                        }) //each END
+                        successCallback(events);
+                    }// success END
+                }) //캘린더 리스트 불러오는ajax END
+        },//events ajax list function END   
+        eventClick: function(info) { //날짜를 클릭하면 나오는 이벤트
+        var eventObj = info.event;
+                $.ajax({
+                    url: '/calendar/get',
+                    type: 'POST',
+                    data: {
+                        no: eventObj.id
+                    },
+                    success: function(data) {   
+                        console.log(data);
+                        $("#view-Modal").modal("show"); //상세보기 모달창 나타냄
+                        $("#view-modal-title").val(data.name);
+                        $("#view-modal-content").val(data.content);
+                        $("#view-modal-gno").val(data.gno);
+                        $("#view-modal-startDt").val(data.startDt);
+                        $("#view-modal-endDt").val(data.endDt);
+                        if ($("#view-modal-resultURL").val() != ""){
+                            $("#view-modal-resultURL").val(data.resulturl);
+                        } else {
+                            $("#view-modal-resultURL").val("URL이 없습니다");
+                        }
+                            $("#modal-DeleteBtn").on("click", function() { //deletebtn function
+                                $.ajax({
+                                    url: '/calendar/delete',
+                                    type: 'POST',
+                                    data: {
+                                        no: eventObj.id
+                                    },
+                                    success: function(data) {
+                                        console.log(data);
+                                        alert("삭제되었습니다.")
+                                    }
+                                }) //delete요청 ajax END
+                            window.location.reload();
+                            })// deletebtn function END
+                            $("#modal-UpdateBtn").on("click", function() { //UpdateBtn function
+                                //내용 입력 여부 확인
+                                    if($("#view-modal-content").val() == null || $("#view-modal-content").val() == ""){
+                                        alert("내용을 입력하세요.");
+                                    }else if($("#view-modal-startDt").val() == "" || $("#view-modal-endDt").val() ==""){
+                                        alert("날짜를 입력하세요.");
+                                    }else if(new Date($("#view-modal-endDt").val())- new Date($("#view-modal-startDt").val()) < 0){ // date 타입으로 변경 후 확인
+                                        alert("종료일이 시작일보다 먼저입니다.");
+                                    }else{ //정상 입력
+                                        $.ajax({
+                                            url: '/calendar/update',
+                                            type: 'POST',
+                                            data: {
+                                                no: data.no,
+                                                gno: $("#view-modal-gno").val(),
+                                                content: $("#view-modal-content").val(),
+                                                name: $("#view-modal-title").val(),
+                                                startDt: $("#view-modal-startDt").val(),
+                                                endDt: $("#view-modal-endDt").val(),
+                                                result_url: $("#view-modal-resultURL").val(),
+                                            },
+                                            dataType: 'text',
+                                            success: function(data) {
+                                                if (data == 1) {
+                                                    alert("변경되었습니다.");
+                                                } else {
+                                                    alert("변경 실패");
+                                                }
+                                            } //success END
+                                        }) //update요청 ajax END
+                                    } // else 정상입력 END
+                                window.location.reload();
+                                }) //UpdateBtn function END
+                    }// calendar/get success END
+                }) //calendar/get END
+            } //eventClick END
+        , customButtons: {
+            addEventButton: { // 일정 추가 버튼 설정
+                text : "일정 추가",  // 버튼 내용
+                click : function(){ // 버튼 클릭 시 이벤트 추가
+                    $("#calendarModal").modal("show"); // modal 나타내기
+                    $("#x-addCalendar").on("click",function(){  // modal 추가 버튼 클릭 시
+                        var startDt = $("#add-modal-startDt").val();
+                        var endDt = $("#add-modal-endDt").val();
+                        var content = $("#add-modal-content").val();
+                        var xname = $("#add-modal-title").val();
+                        //내용 입력 여부 확인
+                        if(content == null || content == ""){
+                            alert("내용을 입력하세요.");
+                        }else if(startDt == "" || endDt ==""){
+                            alert("날짜를 입력하세요.");
+                        }else if(new Date(endDt)- new Date(startDt) < 0){ // date 타입으로 변경 후 확인
+                            alert("종료일이 시작일보다 먼저입니다.");
+                        }else{ // 정상적인 입력 시 
+                            // ajax로 add 시키는 코드
+                            $.ajax ({
+                                url: '/calendar/add',
+                                type: 'POST',
+                                data: {
+                                    gno: $("#add-modal-gno").val(),
+                                    name: $("#add-modal-title").val(),
+                                    content: content,
+                                    startDt: startDt,
+                                    endDt: endDt,
+                                    resulturl: $("#add-modal-URL").val()
+                                }, //Data END
+                                dataType: 'text',
+                                    success: function(data) {
+                                        if (data == 1) {
+                                            alert("일정이 추가 되었습니다.");
+                                        } else {
+                                            alert("일정 추가 실패");
+                                        }
+                                    }, //success END
+                                    error: function() {
+                                        alert("에러발생");
+                                    }// error END
+                                }) //add ajax END                        
+                            } //정상입력시 else문 END
+                            window.location.reload();
+                        }); // modal 추가 버튼 클릭 이벤트 END
+                    } // 버튼 클릭 시 이벤트 END
+            }// addEventButton END
+        }, //customButtons
+    }); //var calendar End
+    calendar.render(); // 달력 출력
+  }); //document.addEventListener End
 </script>
-
 
 <!--일정관리 추가 눌렀을 때 모달창-->
 <div class="modal fade" id="calendarModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -159,66 +218,69 @@ aria-hidden="true">
   <div class="modal-dialog" role="document">
       <div class="modal-content">
           <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">일정을 입력하세요.</h5>
+            <h5 class="modal-title" id="exampleModalLabel">일정을 입력하세요.</h5>
               <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
               </button> -->
           </div>
           <div class="modal-body">
               <div class="form-group">
-                  <label for="taskId" class="col-form-label">일정 내용</label>
-                  <input type="text" class="form-control" id="calendar_content" name="calendar_content">
-                  <label for="taskId" class="col-form-label">시작 날짜</label>
-                  <input type="date" class="form-control" id="calendar_start_date" name="calendar_start_date">
-                  <label for="taskId" class="col-form-label">종료 날짜</label>
-                  <input type="date" class="form-control" id="calendar_end_date" name="calendar_end_date">
+                    <label for="taskId" class="col-form-label">모임 번호</label> <!--나중에삭제-->
+                    <input type="text" class="form-control" id="add-modal-gno">
+                    <label for="taskId" class="col-form-label">일정 제목</label>
+                    <input type="text" class="form-control" id="add-modal-title">
+                    <label for="taskId" class="col-form-label">일정 내용</label>
+                    <input type="text" class="form-control" id="add-modal-content">
+                    <label for="taskId" class="col-form-label">시작 날짜</label>
+                    <input type="date" class="form-control" id="add-modal-startDt">
+                    <label for="taskId" class="col-form-label">종료 날짜</label>
+                    <input type="date" class="form-control" id="add-modal-endDt">
+                    <label for="taskId" class="col-form-label">모임장소 URL</label>
+                    <input type="url" class="form-control" id="add-modal-URL">
               </div>
           </div>
           <div class="modal-footer">
               <button type="button" class="btn btn-primary" id="x-addCalendar">추가</button>
-              <button type="button" class="btn btn-secondary" data-dismiss="modal"
-                  id="x-cancle-btn">닫기</button>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
           </div>
       </div>
   </div>
 </div>
 
-<script>
-//일정관리 - 추가 버튼 모달창 닫기
-  // document.querySelector("#x-cancle-btn").onclick
-  $("#x-cancle-btn").click(function(){
-    $("#calendarModal").modal("hide");
-  });  
+<!--상세보기 모달창-->
+<div class="modal" id="view-Modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <!--모임 title들어감-->
+                <input type="text" id="view-modal-title" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div> <!--modal-header END-->
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="taskId" class="col-form-label">약속 내용</label>                    
+                    <input type="text" id="view-modal-content" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                    <label for="taskId" class="col-form-label">모임 번호</label>
+                    <input type="text" id="view-modal-gno" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                    <label for="taskId" class="col-form-label">시작 날짜</label>
+                    <input type="text" id="view-modal-startDt" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                    <label for="taskId" class="col-form-label">끝 날짜</label>
+                    <input type="text" id="view-modal-endDt" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                    <label for="taskId" class="col-form-label">모임 장소 URL</label>
+                    <input type="text" id="view-modal-resultURL" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                </div><!--form-group END-->
+            </div><!--modal-body END-->
+            <div class="modal-footer">
+                <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
+                <button type="button" class="btn btn-primary" id="modal-UpdateBtn">변경</button>
+                <button type="button" class="btn btn-primary" id="modal-DeleteBtn">삭제</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+            </div> <!--modal-footer END-->
+        </div> <!--modal-content END-->
+    </div> <!--modal-dialog END-->
+</div> <!--view-Modal END-->
 
-  //ajax를 통해 데이터를 넘겨 받는다.
-  $.ajax({
-      url: '/calendar/list',
-      tyle: 'GET',
-      success: function(response) {
-          var list = response;
-          console.log(list);
-
-          var calendarEl = document.getElementById('calendar');
-
-          var events = list.map(function(item) {
-              return {
-                no : item.no,
-                gno : item.gno,
-                name : item.name,
-                content : item.content,
-                resulturl : item.resulturl,
-                startDt : item.startDt,
-                endDt : item.endDt
-              }
-          });
-          successCallback()
-      }
-  })
-
-</script>
-
-
-
+<div id="footer"></div>
 
 </body>
 </html>

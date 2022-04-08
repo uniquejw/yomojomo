@@ -2,7 +2,7 @@ package com.bts.yomojomo.dao;
 
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
-import com.bts.yomojomo.domain.Destination;
+import com.bts.yomojomo.domain.ActiveLocal;
 import com.bts.yomojomo.domain.Group;
 
 @Mapper 
@@ -21,4 +21,8 @@ public interface GroupDao {
   int update(Group group);
 
   int delete(int no);
+
+  int increaseViewCount(int no);
+
+  ActiveLocal findSi();
 }

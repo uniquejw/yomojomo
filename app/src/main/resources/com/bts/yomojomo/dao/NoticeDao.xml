@@ -7,6 +7,11 @@
   <!-- 테이블의 컬럼과 객체필드를 연결한다. -->
   <resultMap type="Notice" id="noticeMap">
     <id column="notice_no" property="no"/>
+    <result column="main_cate_no" property="mainCategoryNo" />
+    <result column="cate" property="cate" />
+    <result column="title" property="title" />
+    <result column="content" property="content" />
+    <result column="reg_dt" property="regDate" />
   </resultMap>
 
   <select id="findAll" resultMap="noticeMap"> 

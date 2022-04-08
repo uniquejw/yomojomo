@@ -7,6 +7,15 @@
   <!-- 테이블의 컬럼과 객체필드를 연결한다. -->
   <resultMap type="NoticeQuestion" id="noticeQuestionMap">
   <id column="q_no" property="no"/>
+    <result column="main_cate_no" property="mainCategoryNo" />
+	<result column="query_no" property="queryNo" />
+	<result column="memb_no" property="memberNo" />
+	<result column="title" property="title" />
+	<result column="content" property="content" />
+    <result column="path" property="path" />
+	<result column="query_dt" property="queryDate" />
+	<result column="answer" property="answer" />
+	<result column="answer_dt" property="answerDate" />
   </resultMap>
   
   <select id="findAll" resultMap="noticeQuestionMap"> 
