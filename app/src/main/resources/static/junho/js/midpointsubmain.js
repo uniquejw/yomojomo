@@ -3,19 +3,11 @@ $(document).ready(function () {
     $('#footer').load('/junho/mainfooter.html'); //푸터부분 인클루드
 });
 
-console.log('안녕')
-
 var addBtnEl = document.querySelector('.add-people');
 var inputListEl = document.querySelector('.midpoint .midpoint-input');
 var inputListEls = document.querySelector('.midpoint .midpoint-input li');
 
 var addBtnClickCount = 1;
-
-console.log(addBtnEl)
-console.log(inputListEl)
-console.log(inputListEls)
-
-
 
 addBtnEl.addEventListener('click', function() {
   console.log(addBtnClickCount++);
