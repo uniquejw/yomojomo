@@ -17,8 +17,7 @@ public class PickmeController {
 
   //log를 출력하는 도구 준비
   private static final Logger log = LoggerFactory.getLogger(PickmeController.class);
-  //    log.info("게시글 등록!"); //운영자가 확인하기를 원하는 정보
-  //    log.debug(pickme.toString()); //개발자가 확인하기를 원하는 정보
+
 
   @Autowired 
   PickmeService pickmeService;
@@ -31,11 +30,13 @@ public class PickmeController {
 
   @RequestMapping("/pickme/add")
   public Object add(Pickme pickme, HttpSession session) {
+    log.info("게시글 등록!"); // 운영자가 확인하기를 원하는 정보
+    log.debug(pickme.toString()); // 개발자가 확인하기를 원하는 정보
+
     Member member = (Member) session.getAttribute("loginUser");
     pickme.setMember(member);
-
     pickmeService.add(pickme);
-    log.info("게시물 등록");
+
     return new ResultMap().setStatus(SUCCESS);
   }
 
@@ -52,6 +53,7 @@ public class PickmeController {
   public Object update(Pickme pickme, HttpSession session) {
     Member member = (Member) session.getAttribute("loginUser");
     pickme.setMember(member);
+
     int count = pickmeService.update(pickme);
 
     if (count == 1) {

@@ -99,13 +99,13 @@
       pups_no = #{purpose.no},
       memb_no = #{member.no}
     where 
-      pm_b_no = #{no}
+      pm_b_no = #{no} and memb_no = #{member.no}
   </update>
   
   <delete id="delete" parameterType="int">
     delete from gms_pickme
     where 
-      pm_b_no = #{no}
+      pm_b_no = #{no} and memb_no = #{member.no}
   </delete>
   
   <update id="increaseViewCount" parameterType="int">

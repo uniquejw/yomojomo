@@ -46,7 +46,7 @@
   <!--입력 폼 -->
 <div id="update-content" class="table-responsive-lg">
   <div class="inner">
-    <form>
+    <form id="pickme-update">
       <table id="formTable" class="table table-borderless">
         <tbody>
           <tr>
@@ -56,24 +56,24 @@
           <tr>
             <td>작성자</td>
             <td><input id="x-name" type="text" class="form-control" readonly></td>
-            <!-- <td><input id="x-name-no" type="text" class="form-control"></td> -->
           </tr>
-          <tr>
+          <tr>  
             <td>활동지역</td>
             <td><input id="x-activeLocalName" type="text" class="form-control" readonly></td>
-            <td><input name="activeLocal.no" type="number" class="form-control"></td>
+            <td><input id= "x-activeLocalNo" name="activeLocal.no" type="number" class="form-control"></td>
           </tr>
           <tr>
             <td>관심활동</td>
             <td><input id="x-purposeName" type="text" class="form-control" readonly></td>
-            <td><input name="purpose.no" type="number" class="form-control"></td>
+            <td><input id="x-purposeNo" name="purpose.no" type="number" class="form-control"></td>
           </tr>
           <tr>
             <td><label for="comment">내용:</label></td>
-            <td colspan="2"><textarea class="form-control" rows="5" id="x-content" name="text"></textarea></td>
+            <td colspan="2"><textarea class="form-control" rows="5" id="x-content" name="content"></textarea></td>
           </tr>
         </tbody>
       </table>
+    </form>
       <button id="x-update-btn" type="button" class="btn btn-primary">수정</button>
       <button id="x-cancel-btn" type="button" class="btn btn-primary">취소</button><br>
     </form>
@@ -113,10 +113,9 @@ let arr = location.href.split("?");
 
   let xTitle = document.querySelector("input[name=title]");
   let xName = document.querySelector("#x-name");
-  let xNameNo = document.querySelector("#x-name-no");
-  let xActiveLocal = document.querySelector("input[name=activeLocal]");
+  let xActiveLocal = document.querySelector("#x-activeLocalNo");
   let xActiveLocalName = document.querySelector("#x-activeLocalName");
-  let xPurpose = document.querySelector("input[name=purpose]");
+  let xPurpose = document.querySelector("#x-purposeNo");
   let xPurposeName = document.querySelector("#x-purposeName");
   let xContent = document.querySelector("textarea");
 
@@ -131,11 +130,11 @@ let arr = location.href.split("?");
         window.alert("서버 요청 오류!");
       } else {
         let pickmeCont = result.data;
-        // console.log(pickmeCont.purpose.purposeName);
      
-        // xTitle.value = pickmeCont.title;
-        // xActiveLocal.value = pickmeCont.activeLocal.no;
-        // xActiveLocalName.value = (pickmeCont.activeLocal.nameSi) + " " + (pickmeCont.activeLocal.nameGu);
+        xTitle.value = pickmeCont.title;
+        xName.value = pickmeCont.member.memberName;
+        xActiveLocal.value = pickmeCont.activeLocal.no;
+        xActiveLocalName.value = (pickmeCont.activeLocal.nameSi) + " " + (pickmeCont.activeLocal.nameGu);
         xPurpose.value = pickmeCont.purpose.no;
         xPurposeName.value = pickmeCont.purpose.purposeName;
         xContent.value = pickmeCont.content;
@@ -143,9 +142,11 @@ let arr = location.href.split("?");
     });
 
   document.querySelector("#x-update-btn").onclick = function() {
+    var fd = new FormData(document.forms.namedItem("pickme-update"))    
+    fd.append("no", no);
+
     if(        
       xTitle.value == "" ||
-      xNameNo.value == "" ||
       xActiveLocal.value == "" ||
       xPurpose.value == "" ||
       xContent.value == "") 
@@ -154,12 +155,13 @@ let arr = location.href.split("?");
         return;
       }
 
-      var qs = `no=${no}&title=${xTitle.value}&content=${xContent.value}&activeLocal.no=${xActiveLocal.value}&purpose.no=${xPurpose.value}&member.no=${xNameNo.value}`
-      console.log(qs);
-
-      fetch(`/recruit/update?${qs}`)
+      fetch("/pickme/update", {
+      method: "POST",
+        body: new URLSearchParams(fd)
+        })
         .then(function(response) {
-          return response.json();
+        // console.log(response);
+        return response.json();
         })
         .then(function(result) {
           console.log(result);
@@ -171,7 +173,7 @@ let arr = location.href.split("?");
             console.log(result.data);
           }
         });
-  };
+    }; //("#x-update-btn").onclick END
   
   // 뒤로가기
   document.querySelector("#x-cancel-btn").onclick = function() {
