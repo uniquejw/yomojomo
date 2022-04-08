@@ -298,3 +298,109 @@
     
     margin-left: 730px;
   }
+
+  .inquiry_title {
+    border-bottom: solid 2px black;
+    
+  }
+
+  .faq_1 {
+    margin-top: 20px;
+  }
+
+  .inquiry_body {
+    margin-top: 40px;
+  }
+  .inquiry_body .name {
+    margin-left: 80px;
+    
+  }
+  .inquiry_body .tel {
+    margin-left: 250px;
+  }
+
+  .inquiry_body input {
+    margin-left: 50px;
+  }
+ .inquiry_body .inquiry_body_email {
+   margin-top: 10px;
+   border-top: solid 2px gray;
+ }
+  .inquiry_body .email_text {
+    margin-left: 62px;
+    margin-top: 15px;
+  }
+
+  .inquiry_body .title_text {
+    margin-left: 80px;
+  }
+
+  .inquiry_body .inquiry_body_title {
+    margin-top: 10px;
+    border-top: solid 2px gray;
+  }
+
+
+  .content_text {
+    float:left;
+    margin-left: 80px;
+    margin-top: 15px;
+  }
+
+  .textarea {
+       margin-left: 50px;
+       margin-top: 20px;
+  }
+
+  .inquiry_body_content {
+    margin-top: 15px;
+  
+    border-top: solid 2px gray;
+  }
+
+  .inquiry_body_upload {
+   
+    margin-top: 20px;
+    border-top: solid 2px gray;
+  }
+  
+  .upload_text {
+    margin-left: 55px;
+  }
+
+  .upload_all {
+    margin-top: 20px;
+  }
+
+  .upload_input {
+    width: 450px;
+    margin-left: 50px;
+  }
+
+  .information_upload {
+    font-size: 8px;
+    margin-left: 300px;
+  }
+
+  .inquiry_body_agree {
+    margin-top: 20px;
+    border-top: solid 2px gray;
+    padding-top:  20px;
+    position: relative;
+  }
+
+  .inquiry_body_agree span {
+    margin-left: 55px;
+    margin-top : 30px;
+  }
+  
+  .text_all {
+    float: left;
+  }
+  .checkbox_all {
+    float: left;
+    margin-left: 40px;
+    margin-top: 30px;
+  }
+
+  
