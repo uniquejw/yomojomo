@@ -2,10 +2,10 @@ package com.bts.yomojomo.domain;
 
 import java.sql.Date;
 import lombok.Data;
-
-//필드명 카멜표기법으로 변경 주석은 db 컬럼명 - 경현
+import lombok.experimental.Accessors;
 
 @Data
+@Accessors(chain = true)
 public class Group {
   int no;           //g_no
   int activeLocalNo;   //act_local_no
