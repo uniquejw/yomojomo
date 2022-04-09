@@ -46,6 +46,9 @@
           <button class="new-post-btn icon"><span class="material-icons md-34">
             create 
           </span></button>
+          <button class="settings-btn icon"><span class="material-icons md-34 a11y-hidden">
+            settings
+          </span></button>
         </div>
         
         <select class="select-orderby">
@@ -108,10 +111,10 @@
           <div class="comment-author-name">{{comments.[0].writer.memberName}}</div>
           <div class="comment-createdTime">{{comments.[0].registDate}}</div>
         </div>
-        <div class="modify-div">
+        <!-- <div class="modify-div">
           <button class="comment-delete icon" type="button"><span class="material-icons md-34">delete</span></button>
           <button class="comment-edit icon" type="button"><span class="material-icons md-34">mode_edit</span></button>
-        </div>
+        </div> -->
       </div>
       <div class="comment-content">
         {{comments.[0].content}}
@@ -142,11 +145,14 @@
   })
 </script>
 
-<!-- 작성버튼클릭이벤트 -->
+<!--버튼클릭이벤트 -->
 <script>
   document.querySelector(".new-post-btn").onclick = function() {
     window.location.href = "form.html";
   };
+  $(document).on("click",".board-edit",function(){
+    window.location.href = "view.html";
+  })
 </script>
 
 </body>

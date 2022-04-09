@@ -51,10 +51,10 @@ input#x-title {
     border: 1px solid #aaa;
     border-radius: 0.2em;
     box-shadow: 0 1px 0 1px rgba(0, 0, 0, 0.04);
-    height: 27px;
-}
-#x-title{
+    height: 35px;
     margin: -2px 0 0 0;
+    width: 180px;
+    border-radius: 0.5em;
 }
 .table-cell label{
     padding: 9px 13px;

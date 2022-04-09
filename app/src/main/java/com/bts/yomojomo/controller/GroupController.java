@@ -1,5 +1,6 @@
 package com.bts.yomojomo.controller;
 
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -9,10 +10,10 @@ import com.bts.yomojomo.domain.Group;
 @RestController
 public class GroupController {
   @Autowired //Controller 객체를 만들 때 Dao인터페이스 구현체를 찾아 자동으로 주입한다.
- GroupDao groupDao;
+  GroupDao groupDao;
 
   @RequestMapping("/group/add")
-  public int add(Group group) {
+  public int add(Group group, HttpSession session) {
     return groupDao.insert(group);
   }
 
