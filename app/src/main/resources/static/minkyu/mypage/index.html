@@ -23,61 +23,57 @@
     });
   </script>
   <style>
-    #container {
-      padding: 50px;
-      position: relative;
+    .my-info {
+      border: 1px solid gray;
+      border-radius: 10px;
       display: flex;
-      height: 400px;
-    }
-    .info-table {
-      border: 1px solid #333;
-      display: flex;
-      width: 820px;
+      width: 100%;
       height: 280px;
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      margin: auto;
       justify-content: center;
       text-align: center;
     }
     .info1 {
-      padding: 40px;
+      padding: 40px 20px;
     }
     .info1 > p {
       margin-bottom: 5px;
     }
     .info2 {
-      padding: 20px;
+      padding: 50px 0px;
     }
-    .link-box {
-      padding: 20px;
-      display: flex;
-      justify-content: center;
-      margin-left: 10%;
+    .info2 > p {
+      margin-bottom: 7px;
     }
-    .link-box > div {
-      margin: 30px;
-    }
-    .box {
-      width: 200px;
-      text-decoration: none;
-    }
-    #name {
+    #info-name {
       font-weight: bold;
       font-size: 30px;
     }
-    #profile {
+    #info-img {
       margin: auto;
       border-radius: 80%;
       width: auto;
       height: 100px;
     }
-    .badge{
-      width: 50px;
-      height: 20px;
+    .favor-group {
+     display: flex;
+     flex-wrap: wrap;
+    }
+    .card {
+      margin: 0px 5px;
+    }
+    .card > img {
+      width: auto;
+      height: 180px;
+    }
+    .card-body {
+      width: 180px;
+      height: auto;
+      text-align: center;
+    }
+    .card-body > h5 {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
     }
   </style>
 </head>
@@ -89,51 +85,69 @@
         <a href="edit.html" class="list-group-item list-group-item-action">개인 정보 수정</a>
         <a href="mypost.html" class="list-group-item list-group-item-action">내가 쓴 글</a>
         <a href="favor.html" class="list-group-item list-group-item-action">즐겨찾기한 글</a>
-        <a href="group.html" class="list-group-item list-group-item-action">모임 리스트</a>
-        <a href="recruit.html" class="list-group-item list-group-item-action">리쿠르팅 내역</a>
+        <a href="group.html" class="list-group-item list-group-item-action">가입 승인/대기</a>
+        <a href="pickme.html" class="list-group-item list-group-item-action">픽미 게시판 내역</a>
         <a href="inquiry.html" class="list-group-item list-group-item-action">문의 내역</a>
       </div>
-      <div id="container">
+      <div class="base">
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb">
             <li class="breadcrumb-item active" aria-current="page">마이페이지</li>
           </ol>
         </nav>
-        <div class="info-table">
-          <div class="info1">
-            <img id="profile" src="../profile.jpg">
-            <p id="name">박서준</p>
-            <p>이메일 주소 : jkjk@naver.com</p>
-            <p>핸드폰 번호 : 989-8989-8989</p>
+        <div class="content">
+          <div>
+            <h3>마이페이지</h3>
+            <br>
           </div>
-          <div class="info2">
-            <p>주소 : 미국 남동구 세종로 37</p>
-            <p>근무지 : 판교 네이버 웹개발 1팀</p>
-            <p>지역 : 서울</p>
-            <p>결혼 여부 : 미혼</p>
+          <div class="my-info">
+            <div class="info1">
+              <img id="info-img" src="../profile.jpg">
+              <p id="info-name">박서준</p>
+              <p>이메일 주소 : jkjk@naver.com</p>
+              <p>핸드폰 번호 : 989-8989-8989</p>
+            </div>
+            <div class="info2">
+              <p>주소 : 미국 남동구 세종로 37</p>
+              <p>근무지 : 판교 네이버 웹개발 1팀</p>
+              <p>지역 : 서울</p>
+              <p>결혼 여부 : 미혼</p>
+              <br>
+              <span class="badge rounded-pill bg-primary category">낚시</span>
+              <span class="badge rounded-pill bg-primary category">독서</span>
+              <span class="badge rounded-pill bg-primary category">축구</span>
+              <span class="badge rounded-pill bg-primary category">한식</span>
+              <span class="badge rounded-pill bg-primary category">중식</span>
+              <br>
+              <span class="badge rounded-pill bg-primary category">공부</span>
+              <span class="badge rounded-pill bg-primary category">IT</span>
+              <span class="badge rounded-pill bg-primary category">문학</span>
+              <span class="badge rounded-pill bg-primary category">30대</span>
+              <span class="badge rounded-pill bg-primary category">남자</span>
+            </div>
+          </div>
+          <br>
+          <div>
+            <h4 class="title">즐겨찾는 모임</h4>
             <br>
-            <span class="badge rounded-pill bg-primary">낚시</span>
-            <span class="badge rounded-pill bg-primary">독서</span>
-            <span class="badge rounded-pill bg-primary">축구</span>
-            <span class="badge rounded-pill bg-primary">한식</span>
-            <span class="badge rounded-pill bg-primary">중식</span>
-            <br>
-            <span class="badge rounded-pill bg-primary">공부</span>
-            <span class="badge rounded-pill bg-primary">IT</span>
-            <span class="badge rounded-pill bg-primary">문학</span>
-            <span class="badge rounded-pill bg-primary">30대</span>
-            <span class="badge rounded-pill bg-primary">남자</span>
+          </div>
+          <div class="favor-group">
+            <div class="card border-secondary w-30 h-25">
+              <img src="../profile.jpg" class="card-img-top" alt="...">
+              <div class="card-body">
+                <h5>축구왕슛돌이</h5>
+              </div>
+            </div>
+            <div class="card border-secondary w-30 h-25">
+              <img src="../profile.jpg" class="card-img-top" alt="...">
+              <div class="card-body">
+                <h5>축구왕슛돌이</h5>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>  
-    <div class="link-box">
-      <div class="card border-dark mb-3 card text-center" style="max-width: 18rem;">
-        <div class="card-body text-dark">
-          <h5 class="card-title box"><a href="일정관리페이지로">일정관리</a></h5>
-        </div>
-      </div>
-    </div>
   </div>
   <footer>
     푸터
