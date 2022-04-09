@@ -11,29 +11,37 @@ var addBtnClickCount = 1;
 var selectDestinationEl = document.querySelector('.select-destination')
 var keyword = document.getElementById('keyword');
 var modalGroupEl = document.querySelector('.modal-group')
-
+var clickLiListEls = null;
 
 addBtnEl.addEventListener('click', function() {
-  console.log(addBtnClickCount++);
-  var h5El = document.createElement('h5');
-  h5El.innerHTML = `사용자${addBtnClickCount}`
+  var codes = getMidpointList(++addBtnClickCount)
 
-
-  var inputListEls = document.createElement('li');
-  inputListEls.innerHTML = `<input type="text" class="name-input" placeholder="사용자 입력">
-  <div class="destination-input">
-    <button type="button" calss ="modal-click${addBtnClickCount}" style="border: 0; padding: 0;" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="setTimeout(function(){ map.relayout();}, 200);">
-      <input type="text" calss ="destination-list${addBtnClickCount} destination-item" placeholder="위치 입력">
-      <span class="material-icons">search</span>
-    </button>
-  </div>
-  <div class="btn-grouping">
-    <button type="button" class="btn btn-primary">cancel</button>
-  </div>`;
-  console.log(inputListEls)
-  inputListEl.appendChild(h5El)
-  inputListEl.appendChild(inputListEls)
+  console.log(codes[1])
+  inputListEl.appendChild(codes[0])
+  inputListEl.appendChild(codes[1])
+  clickLiListEls = document.querySelectorAll('.midpoint li');
 })
+
+
+
+function getMidpointList(j) {
+    var h5El = document.createElement('h5');
+    h5El.innerHTML = `사용자${j}`
+    var inputListEls = document.createElement('li'),
+        midpointStr = '<input type="text" class="name-input" placeholder="사용자 입력">' + 
+            '<div class="destination-input">' +
+            '<button type="button" class ="modal-click'+j+ ' modal-click" style="border: 0; padding: 0;" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="setTimeout(function(){ map.relayout(); clickTest('+j+')}, 200); clicktest()">'+
+            '<input type="text" class ="destination-item'+j+ ' destination-item" placeholder="위치 입력">' + 
+            '<span class="material-icons">search</span>'+
+            '</button>'+
+            '</div>'+
+            '<div class="btn-grouping">'+
+            '<button type="button" class="btn btn-primary">cancel</button>'+
+            '</div>';
+    inputListEls.innerHTML = midpointStr;
+    return [h5El, inputListEls]
+    
+}
 
 
 // 지도 다루기
@@ -90,7 +98,6 @@ function placesSearchCB(data, status, pagination) {
         
         var itemEls = document.querySelectorAll('.item')
         var infoEl = null;
-        console.log(itemEls)
 
         itemEls.forEach((target) => target.addEventListener("click", function(e){
             if (e.target.tagName == 'DIV') {
@@ -276,52 +283,59 @@ function removeAllChildNods(el) {
     }
 }
 
-
-
-
-
-var saveBtnClickCount = 0;
-var saveBtnEl = document.querySelector('.btn-save')
-console.log(saveBtnEl)
-saveBtnEl.addEventListener('click', function() {
+var finalDstination = [];
+var clickSaveBtn = 0;
+function clickTest(i) {
+    console.log('clcick'+i)
+    var destinationItemEl = document.querySelector(`.destination-item${i}`);
+    var saveBtnEl = document.querySelector('.btn-save')
     
-    var arr = [];
-    destinationInputEl.value = selectDestinationEl.innerHTML
-    arr[saveBtnClickCount++] = destinationInputEl.value;
-    console.log(arr);
-    window.onload = function() {
-        console.log(document.querySelectorAll('.destination-item'))
+    saveBtnEl.addEventListener('click', function() {
+        if (selectDestinationEl.innerHTML != '') {
+            destinationItemEl.value = selectDestinationEl.innerHTML;
+            finalDstination[clickSaveBtn++] = selectDestinationEl.innerHTML;
+            selectDestinationEl.innerHTML = "";
+            keyword.value = "";
+            destinationItemEl = null;
+            console.log(finalDstination)
+            return finalDstination;
+        }
+        
+        // 주소로 좌표를 검색합니다
+        // geocoder.addressSearch(destinationInputEl.value, function(result, status) {
 
-    }
-    selectDestinationEl.innerHTML = "";
-    keyword.value = "";
+        //     // 정상적으로 검색이 완료됐으면 
+        //     if (status === kakao.maps.services.Status.OK) {
+        
+        //         var coords1 = new kakao.maps.LatLng(result[0].y, result[0].x);
+        
+        //         // 결과값으로 받은 위치를 마커로 표시합니다
+        //         var marker1 = new kakao.maps.Marker({
+        //             map1: map1,
+        //             position: coords1
+        //         });
+        
+        //         // 인포윈도우로 장소에 대한 설명을 표시합니다
+        //         var infowindow = new kakao.maps.InfoWindow({
+        //             content: '<div style="width:150px;text-align:center;padding:6px 0;">우리회사</div>'
+        //         });
+        //         infowindow.open(map1, marker1);
+        
+        //         // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+        //         map1.setCenter(coords1);
+        //     } 
+        // });  
+    })
     
+}
 
-    // 주소로 좌표를 검색합니다
-    geocoder.addressSearch(destinationInputEl.value, function(result, status) {
 
-        // 정상적으로 검색이 완료됐으면 
-         if (status === kakao.maps.services.Status.OK) {
-    
-            var coords1 = new kakao.maps.LatLng(result[0].y, result[0].x);
-    
-            // 결과값으로 받은 위치를 마커로 표시합니다
-            var marker1 = new kakao.maps.Marker({
-                map1: map1,
-                position: coords1
-            });
-    
-            // 인포윈도우로 장소에 대한 설명을 표시합니다
-            var infowindow = new kakao.maps.InfoWindow({
-                content: '<div style="width:150px;text-align:center;padding:6px 0;">우리회사</div>'
-            });
-            infowindow.open(map1, marker1);
-    
-            // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-            map1.setCenter(coords1);
-        } 
-    });  
-})
+
+
+
+
+
+
 
 
 
