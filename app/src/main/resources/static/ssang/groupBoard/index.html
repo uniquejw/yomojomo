@@ -6,14 +6,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>모임개설</title>
   <!-- 제이쿼리 -->
-  <script src="../../node_modules/sweetalert2/dist/sweetalert2.min.js"></script>
-  <script src="../../node_modules/jquery/dist/jquery.min.js"></script>
+  <script src="/node_modules/sweetalert2/dist/sweetalert2.all.min.js"></script>
+  <!-- 파비콘생성 -->
+  <link rel="icon" href="/junho/img/favicon.png">
   <!-- css 초기화 -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
+  <!-- 폰트 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700&display=swap" rel="stylesheet">
+  <!-- 아이콘 연결 코드 -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <script src="/node_modules/jquery/dist/jquery.min.js"></script>
+  <!-- Handlebars -->
+  <script src="/node_modules/handlebars/dist/handlebars.min.js"></script>
   <!-- 부트스트랩 -->
-  <link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
   <!--공용css-->
-  <link rel="stylesheet" href="../../css/common.css">
+  <link rel="stylesheet" href="/css/common.css">
   <!--내css-->
   <link rel="stylesheet" href="../css/groupBoard.css">
   <!--인클루드-->
@@ -30,12 +40,14 @@
   <div id="headers"></div>
   <div id="top"></div>
   <div id="container">
-    
     <div id="width-fix-div-container">
       <div id="width-fix-div">
-        <div class="new-post-container">새로운 소식을 남겨보세요
-          <button class="new-post-btn"><img src="" alt="작성버튼 이미지"></button>
+        <div class="new-post-container"> 새로운 소식을 남겨보세요
+          <button class="new-post-btn icon"><span class="material-icons md-34">
+            create 
+          </span></button>
         </div>
+        
         <select class="select-orderby">
           <option value="1">최신순</option>
           <option value="2">오래된순</option>
@@ -61,18 +73,20 @@
 </script>
 <script id="div-template" type="text/x-handlebars-template">
   {{#each this}}
-  <div >
+  <div id="written-board">
     <div class="written-author-div" >
       <div class="written-author-img-div">
-        <img class="written-author-img" src="" alt="">프로필 사진 자리  &nbsp;&nbsp;&nbsp;
+        <img class="written-author-img" src="" alt=""><span class="material-icons md-34">
+          face
+          </span>  &nbsp;&nbsp;&nbsp;
       </div>
       <div class="written-column-div">
         <div class="written-author-name">{{writer.memberName}}</div>
         <div class="written-createdTime">{{registDate}}</div>
       </div>
       <div class="modify-div">
-        <button>삭제</button>
-        <button>수정</button>
+        <button class="board-delete icon" type="button"><span class="material-icons md-34">delete</span></button>
+        <button class="board-edit icon" type="button"><span class="material-icons md-34">mode_edit</span></button>
       </div>
     </div>
   
@@ -80,25 +94,31 @@
     
     <div class="comment-input-div">
       <div class="comment-name">댓글</div>
-      <input type="text" placeholder="댓글 달기" class="comment-input"><button class="comment-btn btn">확인</button>
+      <input type="text" placeholder="댓글 달기" class="comment-input"><button class="comment-btn" type="button">확인</button>
     </div>
-    <div style="border: 1px solid black;">
+    <!-- 댓글불러오기  -->
+    <div id="written-comment">
       <div class="comment-author-div">
         <div class="comment-author-img-div">
-          <img class="comment-author-img" src="" alt="">댓글 프로필 사진 자리  &nbsp;&nbsp;&nbsp;
+          <img class="comment-author-img" src="" alt=""><span class="material-icons md-34">
+            face
+            </span>  &nbsp;&nbsp;&nbsp;
         </div>
         <div class="comment-column-div">
           <div class="comment-author-name">{{comments.[0].writer.memberName}}</div>
           <div class="comment-createdTime">{{comments.[0].registDate}}</div>
         </div>
+        <div class="modify-div">
+          <button class="comment-delete icon" type="button"><span class="material-icons md-34">delete</span></button>
+          <button class="comment-edit icon" type="button"><span class="material-icons md-34">mode_edit</span></button>
+        </div>
       </div>
       <div class="comment-content">
         {{comments.[0].content}}
-        <button>수정</button>
-        <button>삭제</button>
       </div>
     </div>
   </div>
+  <hr>
   {{/each}}
 </script>
 <script src="../../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
