@@ -39,12 +39,35 @@
 <div id="headers"></div>
 <div id="container">
   <div class="select-cate-div">
-      <span>상세정보</span>
-      <select name="" class="select area">
-          <option value="1">지역정보</option>
-      </select>
+      <span class="title">상세정보</span>
+      <select name="sido1"  id="sido1" class="select area"></select>
+      <select name="gungu1"  id="gungu1"class="select area"></select>
       <select name="" class="select purpose">
-          <option value="1">모임목적</option>
+        <optgroup>
+          <option selected >모임목적</option>
+          <option value="22">문화/예술/음악</option>
+          <option value="1">교육/자기개발</option>
+          <option value="2">육아/가족/반려동물</option>
+          <option value="3">인문/과학</option>
+          <option value="4">스포츠/레져</option>
+          <option value="5">도서/독서</option>
+          <option value="6">정치/사회/역사</option>
+          <option value="7">건강/의료</option>
+          <option value="8">영화/애니메이션</option>
+          <option value="9">경제/금융/재테크</option>
+          <option value="10">인테리어/조경/DIY</option>
+          <option value="11">게임</option>
+          <option value="12">여행/취미/여가</option>
+          <option value="13">공연/전시</option>
+          <option value="14">디자인</option>
+          <option value="15">TV/미디어</option>
+          <option value="16">패션/뷰티</option>
+          <option value="17">외국어</option>
+          <option value="18">IT/컴퓨터</option>
+          <option value="19">쇼핑/생활/푸드</option>
+          <option value="20">기부/봉사</option>
+          <option value="21">창업/경영</option>
+        </optgroup>
       </select>
   </div>
   <div class="group-list-container">
@@ -148,42 +171,6 @@
     </div>
 </div>    
 <div id="footers"></div>
-
-<script> 
-// 모임정보 팝업
-var cols = document.querySelectorAll("div.show");
-[].forEach.call(cols,function(col){
-  col.addEventListener("click",show)
-})
-
-function show() {
-  document.querySelector(".background").className = "background show";
-}
-
-// 가입신청서 팝업
-document.querySelector("#apply-form").addEventListener("click", showReport);
-function showReport(){
-  document.querySelector(".background").className = "background";
-  document.querySelector(".report-background").className = "report-background show";
-}
-
-//신청하기
-document.querySelector("#apply").addEventListener("click", close);
-
-
-//닫기
-var cols = document.querySelectorAll("button.btn-close");
-[].forEach.call(cols,function(col){
-  col.addEventListener("click",close)
-})
-// document.querySelector(".close").addEventListener("click", close);
-function close() {
-  document.querySelector(".report-background").className = "report-background";
-  document.querySelector(".background").className = "background";
-}
-
-
-
-</script>
+<script src="/ssang/js/grouplist.js"></script>
 </body>
 </html>

@@ -11,6 +11,8 @@
 }
 #container{
     min-height: 80vh;
+    padding-top: 10vh;
+    margin-bottom: 40px;
 }
 hr{
     z-index: 99999;
@@ -46,6 +48,10 @@ table{
     /* border: 1px solid #616161; */
     border-radius: 3px;
     background-color: rgb(17, 147, 218);
+    box-shadow: 3px 3px 5px;
+}
+.select-cate-div .title{
+  color: white;
 }
 .select{
     font-size: 18px;
@@ -71,6 +77,9 @@ table{
     margin: 60px 60px;
     text-align: center;
 }
+.group-list-container ul{
+  margin: 0 0 40px 0;
+}
 .group-list-container .item .image, .popup-img{
     width: 100%;
     height: 200px;
@@ -80,6 +89,8 @@ table{
 }
 .group-list-container .item .group-name{
     font-size: 24px;
+    height: 33px;
+    margin-top: 10px;
 }
 
 /* 모달 */
@@ -135,10 +146,10 @@ table{
     top: 50%;
     left: 50%;
     background-color: #ffffff;
-    box-shadow: 0 2px 7px rgba(0, 0, 0, 0.3);
+    box-shadow: 9px 12px 6px rgba(0, 0, 0, 0.3);
 
     width: 500px;
-    height: 700px;
+    min-height: 700px;
     text-align: center;
 
     /* 초기에 약간 아래에 배치 */
@@ -164,6 +175,8 @@ table{
 
   .report-popup{
       text-align: justify;
+      top: 45%;
+      
   }
   /* 가입신청서 */
   .report-group-name{
@@ -177,23 +190,26 @@ table{
   .report-form{
     margin: 14px auto;
     width: 440px;
-    height: 400px;
+    min-height: 400px;
     border: 4px solid rgb(17, 147, 218);
   }
   .report-form-title{
+    margin: 11px 0 0 0;
     font-size: 28px;
     font-weight: bold;
     text-align: center;
     margin-bottom: 10px;
-    background-color: aquamarine;
   }
   .report-form table{
-    margin: 0 auto;
+    margin: 25px auto;
   }
   tr td input[type="text"]{
     margin: 0 0 17px 41px;
   }
+  .report-background table input {
+    height: 30px;
+  }
   
   .report-comment{
-    margin: 10px 56px;
+    margin: 10px 66px;
   }

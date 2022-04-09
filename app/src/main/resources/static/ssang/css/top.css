@@ -28,7 +28,7 @@ ol, ul, li {
     text-align: center;
     /* width: 100%; */
 }
-.group-title{
+#group-title{
     margin: 10px 0;
     font-size: 24px;
     font-weight: bold;
@@ -43,6 +43,8 @@ ol, ul, li {
     margin: 5px 5px;
     font-size: 12px;
     overflow: hidden;
+    box-shadow: inset 0.5px 0.5px 2px 0px;
+    border: 0;
 }
 div.search-container{
     /* position: absolute; */
@@ -56,6 +58,8 @@ div.search-container{
     font-weight: bold;
     width: 85%;
     color: #616161;
+    border: none;
+    box-shadow: inset 0.5px 0.5px 2px 0px;
 }
 .search-btn{
     width:15%;

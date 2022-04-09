@@ -48,7 +48,7 @@
   // 지역선택완료
   $(document).on("click",".no-btn",function(){
     document.querySelector(".background-gu").className = "background-gu";
-    document.querySelector("#local-btn").className = "local-btn selected";
+    document.querySelector("#local-btn").className = "local-btn a11y-hidden";
     document.querySelector(".cancel-local-btn").className = "cancel-local-btn show";
     document.querySelector(".correct-local").className = "correct-local";
     var value = $(this).val();
@@ -70,9 +70,9 @@
   document.querySelector(".cancel-local-btn").addEventListener("click", cancelLocal);
   
   function cancelLocal() {
-    document.querySelector(".cancel-local-btn").className = "cancel-local-btn";
+    document.querySelector(".cancel-local-btn").className = "cancel-local-btn a11y-hidden";
     document.querySelector(".local-btn").className = "local-btn";
-    document.querySelector(".correct-local").className = "correct-local selected";
+    document.querySelector(".correct-local").className = "correct-local a11y-hidden";
   }
 
   //닫기 버튼 이벤트
@@ -85,9 +85,37 @@
   document.querySelector(".background-gu").className = "background-gu";
   }
 
+  var xTitle = document.querySelector("#x-title")
+  var xIntro = document.querySelector("#x-intro")
+  var xPurpose = document.querySelector("#x-purpose")
+  
 
+  $("#x-file").on('change',function(){
+    var fileName = $("#x-file").val();
+    $(".upload-name").val(fileName);
+  });
 //   모임 생성 
-document.querySelector("#create-btn").addEventListener("click", create);
-function create() {
-    fetch("/group/insert").then(function(response){}).then(function(){})
+document.querySelector("#create-btn").onclick = function() {
+  if (xTitle.value == "" || xIntro.value == "" || xPurpose.value == "") {
+    Swal.fire({
+      icon: 'error',
+      title: '잠시만요!!',
+      text: '필수입력사항(*)을 기재해 주세요',
+      footer: ''
+    })
+    return;
+  }
+
+  var formData = new FormData(); // new FromData()로 새로운 객체 생성
+    formData.append('name','hyemin');
+    formData.append('item','hi'); // <input name="item" value="hi"> 와 같다.
+    formData.append('item','hello'); // <input name="item" value="hello">
+
+  // fetch("/group/add",{
+  //   method : "POST",
+  //   body : ?
+  // })
+  // .then(function(response){
+
+  // }).then(function(){})
 }
