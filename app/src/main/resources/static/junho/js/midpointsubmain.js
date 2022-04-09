@@ -23,7 +23,7 @@ addBtnEl.addEventListener('click', function() {
   inputListEls.innerHTML = `<input type="text" class="name-input" placeholder="사용자 입력">
   <div class="destination-input">
     <button type="button" calss ="modal-click${addBtnClickCount}" style="border: 0; padding: 0;" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="setTimeout(function(){ map.relayout();}, 200);">
-      <input type="text" calss ="destination-list${addBtnClickCount}" placeholder="위치 입력">
+      <input type="text" calss ="destination-list${addBtnClickCount} destination-item" placeholder="위치 입력">
       <span class="material-icons">search</span>
     </button>
   </div>
@@ -48,10 +48,6 @@ var map1 = new kakao.maps.Map(mapContainer1, mapOption1);
 
 // 주소-좌표 변환 객체를 생성합니다
 var geocoder = new kakao.maps.services.Geocoder();
-
-
-
-
 
 
 // 마커를 담을 배열입니다
@@ -284,12 +280,22 @@ function removeAllChildNods(el) {
 
 
 
+var saveBtnClickCount = 0;
 var saveBtnEl = document.querySelector('.btn-save')
 console.log(saveBtnEl)
 saveBtnEl.addEventListener('click', function() {
+    
+    var arr = [];
     destinationInputEl.value = selectDestinationEl.innerHTML
+    arr[saveBtnClickCount++] = destinationInputEl.value;
+    console.log(arr);
+    window.onload = function() {
+        console.log(document.querySelectorAll('.destination-item'))
+
+    }
     selectDestinationEl.innerHTML = "";
     keyword.value = "";
+    
 
     // 주소로 좌표를 검색합니다
     geocoder.addressSearch(destinationInputEl.value, function(result, status) {
