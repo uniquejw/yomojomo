@@ -20,7 +20,7 @@ public class CalendarController {
   @Autowired
   CalendarSerivce calendarservice;
 
-  @RequestMapping("/calendar/list")
+  @RequestMapping("/calendar/list")//나중에 member 완료되면 group no로 바꾸기 까먹지말기
   public Object list() {
     log.info("캘린더 목록 조회");
     return new ResultMap().setStatus(SUCCESS).setData(calendarservice.list());

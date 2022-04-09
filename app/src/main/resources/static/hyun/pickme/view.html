@@ -159,7 +159,7 @@
         console.log(result.data);
       } else {
         let pickmeCont = result.data;
-        // console.log(pickmeCont);      
+        console.log(pickmeCont);      
         xTitle.value = pickmeCont.title;
         xName.value = pickmeCont.member.memberName;
         xRegDate.value = pickmeCont.date;
@@ -183,7 +183,7 @@
       console.log(result);
       if(result.status == "success") {
         window.alert("삭제되었습니다.");
-        // location.href = "index.html";
+        location.href = "index.html";
       } else {
         window.alert("삭제 실패");
         console.log(result.data);
