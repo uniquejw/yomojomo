@@ -5,14 +5,14 @@ import com.bts.yomojomo.domain.Calendar;
 
 public interface CalendarSerivce {
 
-  int add(Calendar calendar);
-
   List<Calendar> list();
+
+  int add(Calendar calendar);
 
   Calendar get(int no);
 
   int update(Calendar calendar);
 
-  int delete(int no);
+  int delete(Calendar calendar);
 
 }

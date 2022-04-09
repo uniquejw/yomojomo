@@ -38,8 +38,8 @@ public class DefaultCalendarService implements CalendarSerivce{
 
   @Transactional
   @Override
-  public int delete(int no) {
-    return calendarDao.delete(no);
+  public int delete(Calendar calendar) {
+    return calendarDao.delete(calendar);
   }
 
 }
