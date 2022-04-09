@@ -34,7 +34,7 @@
 		order by g.g_no asc, jm.g_memb_grd_no asc 
   </select>
   
-  <select id="findByGradeNo" resultMap="JoinMemberMap" parameterType="int">
+  <select id="findByGradeNoAll" resultMap="JoinMemberMap" parameterType="int">
     select 
       jm.g_no gno, 
       g.name gname,

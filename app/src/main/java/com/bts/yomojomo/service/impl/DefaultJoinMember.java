@@ -22,7 +22,7 @@ public class DefaultJoinMember implements JoinMemberService{
 
   @Override // 경현 - 수정시 말해주세용
   public List<JoinMember> findByGradeNo(int no) {
-    return joinMemberDao.findByGradeNo(no);
+    return joinMemberDao.findByGradeNoAll(no);
   }
 
   @Override
