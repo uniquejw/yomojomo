@@ -13,9 +13,9 @@
 			method : "POST",
 			body : new URLSearchParams(fd)
 		}).then(function(response) {
-			return response.text();
-		}).then(function(text) {
-			if (text == "success") {
+			return response.json();
+		}).then(function(result) {
+			if (result.status == "success") {
 				location.href = "/junho/index.html";
 			} else {
 				window.alert("로그인 실패!")

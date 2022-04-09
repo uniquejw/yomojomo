@@ -1,34 +1,12 @@
 package com.bts.yomojomo.domain;
 
+import lombok.Data;
+import lombok.experimental.Accessors;
+
+@Data
+@Accessors(chain = true)
 public class JoinMember {
-  int no;
-  int gNo;
-  int gMembGrdNo;
-  @Override
-  public String toString() {
-    return "JoinMember [no=" + no + ", gNo=" + gNo + ", gMembGrdNo=" + gMembGrdNo + "]";
-  }
-  public int getNo() {
-    return no;
-  }
-  public void setNo(int no) {
-    this.no = no;
-  }
-  public int getgNo() {
-    return gNo;
-  }
-  public void setgNo(int gNo) {
-    this.gNo = gNo;
-  }
-  public int getgMembGrdNo() {
-    return gMembGrdNo;
-  }
-  public void setgMembGrdNo(int gMembGrdNo) {
-    this.gMembGrdNo = gMembGrdNo;
-  }
-
-
-
-
-
+  int membNo;         //memb_no -> 외래키라 no에서 membNo로 바꿈 여기만 바꿈
+  int gNo;              //g_no
+  int gMembGrdNo;       //g_memb_grd_no
 }
