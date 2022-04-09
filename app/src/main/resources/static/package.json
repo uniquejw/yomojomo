@@ -10,7 +10,7 @@
     "fullcalendar": "^5.10.2",
     "handlebars": "^4.7.7",
     "jquery": "^3.6.0",
-    "sweetalert2": "^11.4.5"
+    "sweetalert2": "^11.4.8"
   },
   "type": "module",
   "name": "static",
