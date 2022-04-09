@@ -10,14 +10,18 @@
     <result column="amount" property="amount"/>
     <result column="status" property="status"/>
     <result column="reg_dt" property="registDate"/>
-    <association property="actCate" javaType="AccountingCate"> 
+    <association property="actCate" javaType="AccountingCate">  <!--카테고리-->
       <id column="actno" property="no"/>
       <result column="actname" property="cateName"/>
     </association>
     <association property="group" javaType="Group">
       <id column="gno" property="no"/>
       <result column="gname" property="GroupName"/>
-    </association> 
+    </association>
+    <association property="member" javaType="Member"> <!-- gms_member -->
+       <id column = "mno" property="no"/>
+       <result column="mname" property="memberName"/>
+    </association>
 </resultMap>
 
   <select id="findAll" resultMap="AccountingMap"> 
@@ -37,6 +41,28 @@
 		  left outer join gms_group gg on (a.g_no = gg.g_no)
 		order by 
 		  a.act_no asc
+  </select>
+  
+  <!--카테고리별 리스트 불러오기-->
+   <select id="selectedCate" resultMap="AccountingMap" > 
+    select
+      a.act_no,
+      gg.g_no gno,
+      gg.name gname,
+      act.act_cate_no actno,
+      act.name actname,
+      a.title,
+      a.amount,
+      a.reg_dt,
+      a.status
+    from 
+      gms_accounting a
+      inner join gms_accounting_cate act on (a.act_cate_no = act.act_cate_no)
+      left outer join gms_group gg on (a.g_no = gg.g_no)
+    where
+      act.act_cate_no = #{actCate.no}
+    order by 
+      a.act_no
   </select>
   
     <select id="findByNo" resultMap="AccountingMap" parameterType="int">
@@ -83,6 +109,16 @@
     where 
       act_no=#{no}
   </delete>
+  
+  <resultMap type="AccountingCate" id="AccountingCateMap">
+    <id column="act_cate_no" property="no"/>
+    <result column="name" property="cateName"/>
+  </resultMap>
+  
+  <select id="cateListAll" resultMap="AccountingCateMap"> <!--카테고리 불러오기-->
+    select * from gms_accounting_cate
+    order by act_cate_no asc
+  </select>
   
 
 </mapper>

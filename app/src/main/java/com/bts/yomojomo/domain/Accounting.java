@@ -7,11 +7,15 @@ import lombok.experimental.Accessors;
 @Data
 @Accessors(chain = true)
 public class Accounting {
-  int no;       //act_no
+  int no;               //act_no
   String title;
   int amount;
   int status;
-  Date registDate; //reg_dt
+  Date registDate;      //reg_dt
+
+  //외래키
   AccountingCate actCate;
   Group group;
+  Member member;
+
 }

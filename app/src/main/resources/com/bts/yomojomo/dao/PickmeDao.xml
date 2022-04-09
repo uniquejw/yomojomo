@@ -57,6 +57,7 @@
       m.memb_no mno,
       m.name mname,
       p.pups_no pno,
+      p.name pname,
       a.act_local_no ano,
       a.name_si asi,
       a.name_gu agu

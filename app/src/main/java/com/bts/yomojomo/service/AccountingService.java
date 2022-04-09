@@ -2,6 +2,7 @@ package com.bts.yomojomo.service;
 
 import java.util.List;
 import com.bts.yomojomo.domain.Accounting;
+import com.bts.yomojomo.domain.AccountingCate;
 
 public interface AccountingService {
 
@@ -9,10 +10,14 @@ public interface AccountingService {
 
   List<Accounting> list();
 
+  List<AccountingCate> findCateList();
+
+  List<Accounting> findSelectCateList(Accounting accounting);
+
   Accounting get(int no);
 
   int update(Accounting accounting);
 
-  int delete(int no);
+  int delete(Accounting accounting);
 
 }
