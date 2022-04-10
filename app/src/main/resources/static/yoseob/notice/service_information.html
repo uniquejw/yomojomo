@@ -31,7 +31,7 @@
   <div class = "all-notice-explanation">
     <div class ="notice-explanation">
      <img class = "exclamation-mark"src="../image/information.png" >
-      <h1 class ="notice-head">FaQ</h1>
+      <h1 class ="notice-head">서비스안내</h1>
         <p class ="notice-explanation-text">
           저희 요모조모를 이용하면서 불편했던 점이나<br>
                 궁금한 점을 빠르고 친절하게<br>
@@ -44,14 +44,28 @@
     </div>
     <div class ="notice-category">
       <span class="material-icons">question_mark</span>
-      <span class ="faq">자주하는 질문</span>
+      <span id ="faq-btn" class ="faq"><a>자주하는 질문</a></span>
       <span class="material-icons">volume_up</span>
-      <span class ="announcement">공지사항</span>
+      <span id ="announcement-btn"class ="announcement"><a>공지사항</a></span>
       <span class="material-icons">search</span>
-      <span class ="announcement">서비스 안내</span>
+      <span id ="information-btn" class ="announcement"><a>서비스 안내</a></span>
       <span class="material-icons">call</span>
-      <span class ="announcement">문의사항</span>
+      <span id="inquiry-btn" class ="announcement"><a>문의사항</a></span>
     </div>
+    <script>
+      document.querySelector("#faq-btn").onclick = function () {
+        location.href = "/yoseob/notice/faq_view.html";
+      };
+      document.querySelector("#announcement-btn").onclick = function () {
+        location.href = "/yoseob/notice/announcement.html";
+      };
+      document.querySelector("#information-btn").onclick = function () {
+        location.href = "/yoseob/notice/service_information.html";
+      };
+      document.querySelector("#inquiry-btn").onclick = function () {
+        location.href = "/yoseob/notice/inquiry.html";
+      };
+    </script>
     
     <div class="sidebar">
       <div><h3>회원</h3></div>
