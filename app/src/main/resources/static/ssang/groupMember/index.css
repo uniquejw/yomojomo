@@ -1,0 +1,106 @@
+/* common*/
+* { 
+    padding : 0; 
+    margin : 0;
+    /*border: 0;*/
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+    box-sizing: border-box;
+}
+
+#container{
+    min-height: 80vh;
+}
+.width-fix-container{
+    min-height: 600px;
+    width: 700px;
+    margin: 20px auto;
+    border-radius: 9px;
+}
+hr{
+    z-index: 99999;
+}
+a, p, span, button {
+    text-decoration: none;
+    color: #616161;
+}
+ol, ul, li {
+    list-style: none;
+}
+div{
+    /* margin: 5px; 
+    border: 1px solid #616161; */
+}
+/* 아이콘 설정 */
+.material-icons{
+    color: rgb(17, 147, 218);
+    margin-left: 3px;
+    font-size: 34px;
+}
+.material-icons.report-btn{
+    color: rgb(231, 76, 60);
+    margin-left: 3px;
+    font-size: 34px;
+}
+.material-icons.md-32 { font-size: 32px; }
+.report-btn, .settings-btn{
+    background-color: #fff;
+    border: none;
+    display: block;
+}
+/* 인원수 */
+.memb-count {
+    display: inline-block;
+    font-weight: bold;
+    margin: 0 0 10px 0;
+}
+/* 초대버튼 */
+.invite-btn{
+    border-radius: 3px;
+    float: right;
+}
+#invite-btn .btn{
+    color: white;
+    background-color: rgb(17, 147, 218);
+    border-radius: 3px;
+    cursor: pointer;
+    border: 0;
+    width: 60px;
+    height: 27px;
+    font-size: 14px;
+}
+.memb-content-container{
+    min-height: 500px;
+    margin: 10px 0 0 0;
+}
+.memb-select{
+    float: right;
+}
+.memb-list-container{
+    width: 350px;
+}
+.memb-list{
+    min-height: 300px;
+    padding: 20px;
+}
+.memb-item-column{
+ display: inline-block;
+}
+.memb-item{
+    margin: 0 0 50px 0;
+    position: relative;
+    height: 100%;
+    text-align: center;
+    display:table;
+    vertical-align:middle;
+}
+#x-memb-name{
+    margin: 0 30px 0 0;
+}
+.modify-btn-div{
+    float: right;
+}
+.grade{
+    display: inline-block;
+}
