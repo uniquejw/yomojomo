@@ -73,7 +73,7 @@
           </tr>
           <tr>
             <td>유형번호</td>
-            <td><input id="x-actcateno" type="number" class="form-control" readonly></td>
+            <td><input id="x-actcateno" type="text" class="form-control" readonly></td>
           </tr>
           <tr>
             <td>제목</td>
@@ -86,6 +86,15 @@
           <tr>
             <td>금액</td>
             <td><input id="x-amount" type="text" class="form-control" readonly></td>
+          </tr>
+          <tr>
+            <td>진행상태</td>
+            <td>
+              <select id="x-status" name="status" disabled class="form-select form-select-sm" aria-label=".form-select-sm example">
+                <option id="statusOp" value="0">진행</option>
+                <option id="statusOp" value="1">완료</option>
+              </select>       
+            </td>
           </tr>
         </tbody>
       </table>
@@ -129,6 +138,7 @@
   //2. 쿼리 스트링에서 no 값 추출
   let params = new URLSearchParams(qs);
   let no = params.get("no");
+  // console.log(no);
 
   if (no == null) {
     alert("게시물 번호가 없습니다.");
@@ -142,6 +152,7 @@
   let xTitle = document.querySelector("#x-title");
   let xAmount = document.querySelector("#x-amount");
   let xDate = document.querySelector("#x-registDate");
+  let xStatus = document.querySelector("#x-status");
   let xMembList = document.querySelector(".x-membList");
   let xMembListCon = document.querySelector("#x-membList-container");
   // console.log(xMembListCon);
@@ -152,15 +163,17 @@
       // console.log(response);
       return response.json();
     })
-    .then(function(accounting) {
-      console.log(accounting);
+    .then(function(result) {
+      // console.log(result.data);
+      // console.log(result.data.actCate.cateName);
       // 4. 화면에 출력
-      xNo.value = accounting.no;
-      xGno.value = accounting.group.no;
-      xActcateno.value = accounting.actCate.no;
-      xTitle.value = accounting.title;
-      xAmount.value  = accounting.amount;
-      xDate.value = accounting.registDate;
+      xNo.value = result.data.no;
+      xGno.value = result.data.group.no;
+      xActcateno.value = result.data.actCate.cateName;
+      xTitle.value = result.data.title;
+      xAmount.value  = result.data.amount;
+      xDate.value = result.data.registDate;
+      xStatus.value = result.data.status;
     });
 
 //update로 이동

@@ -58,24 +58,31 @@
   <!--입력 폼-->
 <div id="update-content" class="table-responsive-lg">
   <div class="inner">
-    <form>
+    <form name="accounting-update-form">
       <table id="formTable" class="table table-borderless">
         <tbody>
           <tr>
             <td width="150px">번호</td>
-            <td><input id="x-no" type="number" class="form-control"></td>
+            <td><input id="x-no" name="no" type="number" class="form-control"></td>
           </tr>
           <tr>
             <td>모임번호</td>
-            <td><input id="x-gno" type="number" class="form-control"></td>
-          </tr>
-          <tr>
-            <td>유형번호</td>
-            <td><input id="x-actcateno" type="number" class="form-control"></td>
+            <td><input id="x-gno" name="group.no" type="number" class="form-control"></td>
           </tr>
           <tr>
             <td>제목</td>
-            <td><input id="x-title" type="text" class="form-control"></td>
+            <td><input id="x-title" name="title" type="text" class="form-control"></td>
+          </tr>
+          <tr>
+            <td>유형</td>
+            <td>
+              <select id="x-actcateno" name="actCate.no" class="form-select form-select-sm" aria-label=".form-select-sm example">
+                <option id="selectOp" value="">유형을 선택하세요</option>
+                <option id="selectOp" value="2">회비</option>
+                <option id="selectOp" value="3">모임비</option>
+                <option id="selectOp" value="4">기타</option>
+              </select>
+            </td>
           </tr>
           <tr>
             <td>작성일</td>
@@ -83,11 +90,16 @@
           </tr>
           <tr>
             <td>금액</td>
-            <td><input id="x-amount" type="number" class="form-control"></td>
+            <td><input id="x-amount" name="amount" type="number" class="form-control"></td>
           </tr>
           <tr>
-            <td>상태</td>
-            <td><input id="x-status" type="number" class="form-control"></td>
+            <td>진행상태</td>
+            <td>
+              <select id="x-status" name="status" class="form-select form-select-sm" aria-label=".form-select-sm example">
+                <option id="statusOp" value="0">진행</option>
+                <option id="statusOp" value="1">완료</option>
+              </select>       
+            </td>
           </tr>
         </tbody>
       </table>
@@ -114,70 +126,81 @@
 </body>
 
 <script>
-  //1. URL에서 쿼리스트링 추출
-  let arr = location.href.split("?");
-  // console.log(arr);
+//1. URL에서 쿼리스트링 추출
+let arr = location.href.split("?");
+// console.log(arr);
 
-  if (arr.length == 1) {
-    alert("요청 형식이 올바르지 않습니다.")
-    throw "URL 형식 오류!"
-  }
+if (arr.length == 1) {
+  alert("요청 형식이 올바르지 않습니다.")
+  throw "URL 형식 오류!"
+}
 
-  let qs = arr[1];
-  //console.log(qs);
+let qs = arr[1];
+//console.log(qs);
 
-  //2. 쿼리 스트링에서 no 값 추출
-  let params = new URLSearchParams(qs);
-  let no = params.get("no");
+//2. 쿼리 스트링에서 no 값 추출
+let params = new URLSearchParams(qs);
+let no = params.get("no");
 
-  if (no == null) {
-    alert("게시물 번호가 없습니다.");
-    throw "파라미터 오류!";
-  }
-  //console.log(no);
+if (no == null) {
+  alert("게시물 번호가 없습니다.");
+  throw "파라미터 오류!";
+}
+//console.log(no);
 
-  let xNo = document.querySelector("#x-no");
-  let xGno = document.querySelector("#x-gno");
-  let xActcateno = document.querySelector("#x-actcateno");
-  let xTitle = document.querySelector("#x-title");
-  let xAmount = document.querySelector("#x-amount");
-  let xDate = document.querySelector("#x-registDate");
-  let xStatus = document.querySelector("#x-status");
-  let xMembList = document.querySelector(".x-membList");
-  let xMembListCon = document.querySelector("#x-membList-container");
-  // console.log(xMembListCon);
+let xNo = document.querySelector("#x-no");
+let xGno = document.querySelector("#x-gno");
+let xActcateno = document.querySelector("#x-actcateno");
+let xTitle = document.querySelector("#x-title");
+let xAmount = document.querySelector("#x-amount");
+let xDate = document.querySelector("#x-registDate");
+let xStatus = document.querySelector("#x-status");
+let xMembList = document.querySelector(".x-membList");
+let xMembListCon = document.querySelector("#x-membList-container");
+// console.log(xMembListCon);
 
-  //3. 서버에서 데이터 가져오기
-  fetch(`/accounting/get?no=${no}`)
-    .then(function(response) {
-      return response.json();
-    })
-    .then(function(accounting) {
-      console.log(accounting);
-      //4. 화면에 출력
-      xNo.value = accounting.no;
-      xGno.value = accounting.group.no;
-      xActcateno.value = accounting.actCate.no;
-      xTitle.value = accounting.title;
-      xAmount.value  = accounting.amount;
-      xDate.value = accounting.registDate;
-      xStatus.value = accounting.status;
-    });
+//3. 서버에서 데이터 가져오기
+fetch(`/accounting/get?no=${no}`)
+  .then(function(response) {
+    return response.json();
+  })
+  .then(function(result) {
+    console.log(result);
+    //4. 화면에 출력
+    xNo.value = result.data.no;
+    xGno.value = result.data.group.no;
+    xActcateno.value = result.data.actCate.no;
+    xTitle.value = result.data.title;
+    xAmount.value  = result.data.amount;
+    xDate.value = result.data.registDate;
+    xStatus.value = result.data.status;
+  });
 
 document.querySelector("#x-update-btn").onclick = function() {
-    if(xActcateno.value == "" || xTitle.value == "" || xAmount.value == "") {
-    window.alert("필수 입력 항목이 비어 있습니다.");
-    return;
-    }
+  if(xActcateno.value == "" || xTitle.value == "" || xAmount.value == "") {
+  window.alert("필수 입력 항목이 비어 있습니다.");
+  return;
+  }
+    
+  var fd = new FormData(document.forms.namedItem("accounting-update-form"))
 
-    fetch(`/accounting/update?no=${xNo.value}&group.no=${xGno.value}&actCate.no=${xActcateno.value}&title=${xTitle.value}&amount=${xAmount.value}&status=${xStatus.value}`)
-  .then(function(response) {
-    return response.text();
+  fetch("/accounting/update", {
+  method: "POST",
+  body: new URLSearchParams(fd)
   })
-  .then(function(text) {
-    console.log(text);
-    location.href = "index.html";
-  });
+  .then(function(response) {
+    return response.json();
+  })
+  .then(function(result) {
+    console.log(result);
+    if (result.status == "success") {
+      window.alert("등록되었습니다.");
+      location.href = "index.html";
+    } else {
+      window.alert("게시글 등록 실패!");
+      console.log(result.data);
+    }
+  })
 };
 
 // 뒤로가기
