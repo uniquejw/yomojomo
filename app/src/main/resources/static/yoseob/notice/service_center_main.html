@@ -6,7 +6,6 @@
   <meta name="viewport" content="width=
   , initial-scale=1.0">
   <title>고객센터 메인</title>
-  <link rel="stylesheet" href="/yoseob/css/style.css">
   <script src="../../node_modules/jquery/dist/jquery.min.js"></script>
   <!-- css 초기화 -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
@@ -16,16 +15,17 @@
   <script src="../node_modules/jquery/dist/jquery.min.js"></script>
   <!-- 아이콘 -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="/yoseob/css/style.css">
 </head>
 <body>
   <script type="text/javascript">
     $(document).ready(function () {
         $('#header').load('/junho/mainHeader.html'); //헤더 인클루드
-        $('#footers').load('/junho/mainfooter.html'); //푸터부분 인클루드
+        $('#footer').load('/junho/mainfooter.html'); //푸터부분 인클루드
         // $('#footers').load('../html'); //푸터부분 인클루드
     });
   </script>
-  <div id="header"></div>
+<div id="header"></div>
   
 <div class = "container">
   <div class = "all-notice-explanation">
@@ -38,6 +38,7 @@
                     안내해 드리겠습니다.<br>
               아래 카테고리를 선택해 주세요.</p>   
       </div>
+    </div>
     <div class ="image">
       <img class ="service_center" src="../image/service_center.png" >
     </div>
@@ -79,8 +80,10 @@
       <span class="question_text">문의하기</span>
     </div>
   </div>
-  </div>
+  
   <div id="footer"></div>
+
+  
   
 </body>
 </html>
