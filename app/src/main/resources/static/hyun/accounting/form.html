@@ -62,28 +62,40 @@
   <!--입력 폼 -->
 <div id="form-content" class="table-responsive-lg">
   <div class="inner">
-    <form>
+    <form name="accounting-form">
       <table id="formTable" class="table table-borderless">
         <tbody>
           <tr>
             <td width="150px">모임번호</td>
-            <td><input id="x-gno" type="number" class="form-control"></td>
-          </tr>
-          <tr>
-            <td>유형</td>
-            <td><input id="x-actcateno" type="number" class="form-control"></td>
+            <td><input id="x-gno" name="group.no" type="number" class="form-control"></td>
           </tr>
           <tr>
             <td>제목</td>
-            <td><input id="x-title" type="text" class="form-control"></td>
+            <td><input id="x-title" name="title" type="text" class="form-control"></td>
+          </tr>
+          <tr>
+            <td>유형</td>
+            <td>
+              <select id="x-selectCate" name="actCate.no" class="form-select form-select-sm" aria-label=".form-select-sm example">
+                <option id="selectOp" value="">유형을 선택하세요</option>
+                <option id="selectOp" value="2">회비</option>
+                <option id="selectOp" value="3">모임비</option>
+                <option id="selectOp" value="4">기타</option>
+              </select>
+            </td>
           </tr>
           <tr>
             <td>금액</td>
-            <td><input id="x-amount" type="number" class="form-control"></td>
+            <td><input id="x-amount" name="amount" type="number" class="form-control"></td>
           </tr>
           <tr>
-            <td>상태</td>
-            <td><input id="x-status" type="number" class="form-control"></td>
+            <td>진행상태</td>
+            <td>
+              <select id="x-status" name="status" class="form-select form-select-sm" aria-label=".form-select-sm example">
+                <option id="statusOp" value="0">진행</option>
+                <option id="statusOp" value="1">완료</option>
+              </select>       
+            </td>
           </tr>
         </tbody>
       </table>
@@ -99,6 +111,7 @@
         </div>
         <button id="x-addMemb-btn" type="button" class="btn btn-primary">추가</button><br>
       </div>
+      <!--멤버 추가부분 END-->
       
       <button id="x-add-btn" type="button" class="btn btn-primary">등록</button>
       <button id="x-cancel-btn" type="button" class="btn btn-primary">취소</button><br>
@@ -114,7 +127,6 @@
 
 <script>
 let xGno = document.querySelector("#x-gno");
-let xActcateno = document.querySelector("#x-actcateno");
 let xTitle = document.querySelector("#x-title");
 let xAmount = document.querySelector("#x-amount");
 let xMembList = document.querySelector(".x-membList");
@@ -123,23 +135,41 @@ let xMembListCon = document.querySelector("#x-membList-container");
 
 //등록
 document.querySelector("#x-add-btn").onclick = function() {
-  if(xGno.value == "" ||
-     xActcateno.value == "" || 
+  if(
+    xGno.value == "" ||
+    $("#x-selectCate option:selected").val() == "" || 
      xTitle.value == "" || 
-     xAmount.value == "") {
-    window.alert("필수 입력 항목이 비어 있습니다.");
-    return;
+     xAmount.value == "" ) {
+      window.alert("필수 입력 항목이 비어 있습니다.");
+      return;
   }
 
-  fetch(`/accounting/add?group.no=${xGno.value}&actcate.no=${xActcateno.value}&title=${xTitle.value}&amount=${xAmount.value}`)
-  .then(function(response) {
-    return response.text();
+  var fd = new FormData(document.forms.namedItem("accounting-form"))
+
+  console.log(xGno.value);
+  console.log($("#x-selectCate option:selected").val());
+  console.log(xTitle.value);
+  console.log(xAmount.value);
+  console.log($("#x-status option:selected").val());
+
+  fetch("/accounting/add", {
+    method: "POST",
+    body: new URLSearchParams(fd)
   })
-  .then(function(text) {
-    // console.log(text);
-    // location.href = "index.html";
-  });
-};
+  .then(function(response) {
+    return response.json();
+  })
+  .then(function(result) {
+    console.log(result);
+    if (result.status == "success") {
+      window.alert("등록되었습니다.");
+      location.href = "index.html";
+    } else {
+      window.alert("게시글 등록 실패!");
+      console.log(result.data);
+    }
+  })
+}; //add btn event END
 
 //취소
 document.querySelector("#x-cancel-btn").onclick = function() {

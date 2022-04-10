@@ -38,6 +38,8 @@ table > tbody > tr > td {
       $('#header').load('/junho/mainHeader.html'); //헤더 인클루드
       $('#top').load('/ssang/groupBoard/none-search-top.html'); //상준님헤더
       $('#footer').load('/junho/mainfooter.html'); //푸터부분 인클루드
+      //상태 td
+      $('#selectedStatus').html("<option value='0'>진행</option><option value='1'>완료</option>");
   });
 </script>
 
@@ -49,7 +51,7 @@ table > tbody > tr > td {
 <div id="body-content"> <!--body content 시작-->
   <div class="inner">
     <div> <!--회비 종류 카테고리 시작-->
-      <select name="selectCate" id="selectCate" class="form-select form-select-sm" aria-label=".form-select-sm example" onchange="getOpNo()"> <!---->
+      <select name="selectCate" id="selectCate" class="form-select form-select-sm" aria-label=".form-select-sm example"> <!-- onchange="getOpNo()"-->
       </select>
     </div> <!--회비 종류 카테고리 끝-->
     
@@ -59,6 +61,7 @@ table > tbody > tr > td {
           <tr>
             <th width="50px">번호</th>
             <th width="100px">유형</th>
+            <th width="100px">상태</th>
             <th width="600px">제목</th>
             <th width="100px">작성일</th>
           </tr>
@@ -100,11 +103,7 @@ table > tbody > tr > td {
 <!--카테고리 불러오기-->
 <script>
   let selectList = document.querySelector("#selectCate");
-  // console.log(selectList);
-
   var selectOption = document.querySelector("#option-template");
-  // console.log(selectOption);
-
   var opGernerator = Handlebars.compile(selectOption.innerHTML);
 
   $.ajax({
@@ -124,15 +123,21 @@ table > tbody > tr > td {
   });
 </script>
 
-
-
-
 <!--게시글 목록 생성 핸들바-->
 <script id="tr-template" type="text/x-handlebars-template">
   {{#each this}}
   <tr>
     <td>{{no}}</td>
     <td>{{actCate.cateName}}</td>
+
+    <td>
+      <select id="selectedStatus" >
+      <!--   <option id="statusOp" value="0">진행</option>
+        <option id="statusOp" value="1">완료</option>-->
+        <option value="{{status}}"></option>
+      </select> 
+    </td>
+
     <td><a href="view.html?no={{no}}">{{title}}</a></td>
     <td>{{registDate}}</td>
   </tr>
@@ -152,58 +157,46 @@ table > tbody > tr > td {
     url : "/accounting/list",
     type : "POST",
     async : false,
+    dataType : "json",
     success: function(result) {
-      if (result.status == "fail") {
-        window.alert("서버 요청 오류!");
-        console.log(result);
-        return;
-      } else {
-        // console.log(result);
+      console.log(result.data);
         tbody.innerHTML = htmlGenerator(result.data);
-      }
     }
-  }); //게시글 목록 생성 ajax
+  });
 
-  
   //selectbox 옵션별 목록 불러오기
-  
-  function getOpNo() {
-      $("#selectCate").change(function(){
-          let sno = $("#selectCate option").index($("#selectCate option:selected"));
-          let optionNo = (sno+1);
-          console.log(optionNo);
-
-          $.ajax({
-            url: "/accounting/selectedcate",
-            type: "POST",
-            asyn: false,
-            data: {no : optionNo+1 },
-            success: function(result) {
-              console.log(result);
-            }//success
-          })
-        })
-      }
-      
-
-
-
-  //제이쿼리로 해보려고 시도중
-  // $("#selectCate").change(function() {
-
-  //   var getOpNo = $("#selectOp").val;
-  //   console.log(getOpNo);
-
-  // })
+  $(document).on("change", "#selectCate", function() {
+    let cate = $("#selectCate option:selected").val();
+    if (cate == 1) {
+      $.ajax({
+        url : "/accounting/list",
+        type : "POST",
+        async : false,
+        success: function(result) {
+            tbody.innerHTML = htmlGenerator(result.data);
+        }
+      }); //게시글 목록 생성 ajax
+    } else {
+      $.ajax({
+          url: "/accounting/selectedcate",
+          type: "POST",
+          asyn: false,
+          data: {"actCate.no": $("#selectCate option:selected").val()},
+          success: function(result) {
+            console.log(result);
+            tbody.innerHTML = htmlGenerator(result.data);
+          }//success END
+        })//ajax END
+    }
+  })// selectbox change event END  
 
   
+
   
   //form.html
   document.querySelector("#x-create-btn").onclick = function(){
     location.href="form.html";
   };
 </script>
-
-
 </body>
 </html>

@@ -35,7 +35,6 @@ public class AccountingController {
   @RequestMapping("/accounting/selectedcate")
   public Object selectedCate(Accounting accounting, HttpSession session) {
     log.info("카테고리 선택 리스트 조회");
-
     return new ResultMap().setStatus(SUCCESS).setData(accountingService.findSelectCateList(accounting));
   }
 
