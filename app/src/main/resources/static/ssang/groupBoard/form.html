@@ -13,7 +13,7 @@
   <!--공용css-->
   <link rel="stylesheet" href="../../css/common.css">
   <!--내css-->
-  <link rel="stylesheet" href="../css/groupboard-form.css">
+  <link rel="stylesheet" href="/ssang/css/groupboard-form.css">
   <script src="//code.jquery.com/jquery-1.11.0.min.js">
   </script>
   <!-- 인클루드 -->
@@ -30,23 +30,22 @@
   <div id="top"></div>
   <div id="container">
     <div id="width-fix-div">
-      <div class="write-board">게시글 작성</div>
+      <div class="write-board">New Post</div>
       <div class="written-width-fix">
+        <div id="x-content">
+          <textarea placeholder="입력하세요"></textarea>
+        </div>
         <div class="written-author-div">
           <div class="written-author-img-div">
             <img class="written-author-img" src="../공연.jfif" style="width: 50px; height: 50px;" alt="">   &nbsp;&nbsp;&nbsp;
           </div>
           <div class="written-column-div">
             <div class="written-author-name">이름   &nbsp;&nbsp;&nbsp;</div>
-            <!-- <div class="written-createdTime">몇분전</div> -->
           </div>
         </div>
-        <form name="form1">
-          <textarea >입력하세요</textarea>
-        </form>
         <div class="post-cancel-div">
-        <button id="s-cancel-btn" type="button">취소</button>
-        <button id="s-post-btn" type="button">확인</button>
+          <button id="s-cancel-btn" type="button">취소</button>
+          <button id="s-post-btn" type="button">확인</button>
         </div>
       </div>
     </div>  

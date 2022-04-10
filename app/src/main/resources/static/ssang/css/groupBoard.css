@@ -50,11 +50,16 @@ button {
     float: right;
 }
 .material-icons{
-color: rgb(17, 147, 218);
-background-color: white;
-margin-left: 3px;
-font-size: 34px;
+    color: rgb(17, 147, 218);
+    margin-left: 3px;
+    font-size: 34px;
 }
+.settings-btn .material-icons{
+    color: rgb(231, 76, 60);
+    margin-left: 3px;
+    font-size: 34px;
+}
+
 .material-icons.md-34 { font-size: 32px; }
 .select-orderby{
     height: 30px;
@@ -87,8 +92,8 @@ font-size: 34px;
     position: relative;
     padding: 9px 0 0 10px;
 }
-.new-post-btn{
-    position: absolute;
+.new-post-btn, .settings-btn{
+    position: relative;
     right: 0;
     bottom: 0;
     margin: 0 10px 0 0;
@@ -159,3 +164,13 @@ font-size: 34px;
 #written-comment .comment-content{
     margin: 10px 0 0 6px;
 }
+.a11y-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    clip-path: polygon(0 0, 0 0, 0 0);
+    z-index: -1;
+    opacity: 0;
+  }
