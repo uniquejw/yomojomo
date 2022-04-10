@@ -12,70 +12,18 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
   <!--공용css-->
   <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/node_modules/sweetalert2/dist/sweetalert2.min.css">
   <link rel="stylesheet" href="/css/common.css">
   <!--내css-->
   <link rel="stylesheet" href="/minkyu/css/main.css">
+  <link rel="stylesheet" href="/minkyu/css/index.css">
   <!--인클루드-->
   <script type="text/javascript">
     $(document).ready(function () {
       $('#header').load('/junho/mainHeader.html'); //헤더 인클루드
-      // $('#footers').load('../html'); //푸터부분 인클루드
+      $('#footers').load('/junho/mainfooter.html'); //푸터부분 인클루드
     });
   </script>
-  <style>
-    .my-info {
-      border: 1px solid gray;
-      border-radius: 10px;
-      display: flex;
-      width: 100%;
-      height: 280px;
-      justify-content: center;
-      text-align: center;
-    }
-    .info1 {
-      padding: 40px 20px;
-    }
-    .info1 > p {
-      margin-bottom: 5px;
-    }
-    .info2 {
-      padding: 50px 0px;
-    }
-    .info2 > p {
-      margin-bottom: 7px;
-    }
-    #info-name {
-      font-weight: bold;
-      font-size: 30px;
-    }
-    #info-img {
-      margin: auto;
-      border-radius: 80%;
-      width: auto;
-      height: 100px;
-    }
-    .favor-group {
-     display: flex;
-     flex-wrap: wrap;
-    }
-    .card {
-      margin: 0px 5px;
-    }
-    .card > img {
-      width: auto;
-      height: 180px;
-    }
-    .card-body {
-      width: 180px;
-      height: auto;
-      text-align: center;
-    }
-    .card-body > h5 {
-      overflow: hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-    }
-  </style>
 </head>
 <body>
   <div id="header"></div>
@@ -95,7 +43,7 @@
             <li class="breadcrumb-item active" aria-current="page">마이페이지</li>
           </ol>
         </nav>
-        <div class="content">
+        <div class="content d-flex flex-column">
           <div>
             <h3>마이페이지</h3>
             <br>
@@ -149,8 +97,11 @@
       </div>
     </div>  
   </div>
-  <footer>
-    푸터
-  </footer>
+  <div id="footers"></div>
+  <script>
+   $(".card").click(function(e){
+      location.href = "/ssang/groupBoard/index.html"
+    })
+  </script>
 </body>
 </html>

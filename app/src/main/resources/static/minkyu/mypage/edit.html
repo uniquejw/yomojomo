@@ -12,75 +12,18 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
   <!--공용css-->
   <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/node_modules/sweetalert2/dist/sweetalert2.min.css">
   <link rel="stylesheet" href="/css/common.css">
   <!--내css-->
   <link rel="stylesheet" href="/minkyu/css/main.css">
+  <link rel="stylesheet" href="/minkyu/css/edit.css">
   <!--인클루드-->
   <script type="text/javascript">
     $(document).ready(function () {
       $('#header').load('/junho/mainHeader.html'); //헤더 인클루드
-      // $('#footers').load('../html'); //푸터부분 인클루드
+      $('#footers').load('/junho/mainfooter.html'); //푸터부분 인클루드
     });
   </script>
-  <style>
-    .my-info {
-      position: relative;
-      border: 1px solid gray;
-      border-radius: 10px;
-      width: 700px;
-      height: 830px;
-      margin: auto;
-      justify-content: center;
-      text-align: center;
-    }
-    .edit-img {
-      position: relative;
-      height: 115px;
-      width: auto;
-    }
-    .img-text {
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      margin: 80px 0px 0px 140px;
-      font-size: 14px;
-    }
-    .img-thumbnail {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 80px;
-      height: 80px;
-      margin-left: 180px;
-    }
-    .form-select {
-      margin-bottom: 10px;
-    }
-    .form-select:hover {
-      cursor: pointer;
-    }
-    .my-category {
-      margin-top: 20px;
-      padding: 20px 60px;
-    }
-    .edit-category {
-      display: flex;
-      justify-content: center;
-      text-align: center;
-      flex-wrap: wrap;
-    }
-    .category-wrap {
-      display: flex;
-      justify-content: center;
-      text-align: center;
-      margin: 3px;
-    }
-    #edit-btn {
-      margin-right: 60px;
-    }
-  </style>
 </head>
 <body>
   <div id="header"></div>
@@ -101,7 +44,7 @@
             <li class="breadcrumb-item active" aria-current="page">개인 정보 수정</li>
           </ol>
         </nav>
-        <div class="content">
+        <div class="content d-flex flex-column">
           <div>
             <h3>개인 정보 수정</h3>
             <br>
@@ -112,7 +55,7 @@
               <div class="row">
                 <div class="col-3 p-2 text-center fw-bold">프로필 사진</div>
                 <div class="col input-group mb-3 ">
-                  <input class="form-control form-control-sm" id="formFileSm" type="file">
+                  <input class="form-control form-control-sm" id="formFileSm" type="file" accept=".png, .jpg, .jpeg, .jifi">
                 </div>
                 <div class="col-3 p-2"></div>
               </div>
@@ -205,6 +148,7 @@
             </div>
             <div class="my-category border-top">
               <p>나의 관심카테고리</p>
+              <br>
               <div class="edit-category">
                 <div class="category-wrap">
                   <span class="badge rounded-pill bg-primary category">낚시</span>
@@ -255,8 +199,27 @@
       </div>
     </div>  
   </div>
-  <footer>
-    푸터
-  </footer>
+  <div id="footers"></div>
+  <script>
+    $("#edit-btn").click(function(e){
+      Swal.fire({
+        title: '정보를 수정하시겠습니까?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: '수정',
+        cancelButtonText: '취소'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire(
+            '수정이 완료되었습니다.',
+            '',
+            'success'
+          )
+        }
+      })
+    })
+  </script>
 </body>
 </html>

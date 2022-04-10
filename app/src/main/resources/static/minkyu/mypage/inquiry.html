@@ -4,28 +4,25 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="../css/main.css">
   <title>MyPage</title>
   <!-- 제이쿼리 -->
-  <script src="../../node_modules/sweetalert2/dist/sweetalert2.min.js"></script>
-  <script src="../../node_modules/jquery/dist/jquery.min.js"></script>
+  <script src="/node_modules/sweetalert2/dist/sweetalert2.min.js"></script>
+  <script src="/node_modules/jquery/dist/jquery.min.js"></script>
   <!-- css 초기화 -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
   <!--공용css-->
-  <link rel="stylesheet" href="../../css/common.css">
+  <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/node_modules/sweetalert2/dist/sweetalert2.min.css">
+  <link rel="stylesheet" href="/css/common.css">
   <!--내css-->
-  <link rel="stylesheet" href="../">
+  <link rel="stylesheet" href="/minkyu/css/main.css">
   <!--인클루드-->
   <script type="text/javascript">
     $(document).ready(function () {
-      $('#header').load('../../junho/mainHeader.html'); //헤더 인클루드
-      // $('#footers').load('../html'); //푸터부분 인클루드
+      $('#header').load('/junho/mainHeader.html'); //헤더 인클루드
+      $('#footers').load('/junho/mainfooter.html'); //푸터부분 인클루드
     });
   </script>
-  <style>
-    
-  </style>
 </head>
 <body>
   <div id="header"></div>
@@ -46,7 +43,7 @@
             <li class="breadcrumb-item active" aria-current="page">문의 내역</li>
           </ol>
         </nav>
-        <div class="content">
+        <div class="content d-flex flex-column">
           <div>
             <h3>문의 내역</h3>
             <br>
@@ -79,7 +76,7 @@
                   <th scope="col">
                     <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
                   </th>
-                  <td class="table-title">소모임 개설이 안되요</td>
+                  <td class="table-title">소모임 개설이 안돼요</td>
                   <td>답변 대기중</td>
                   <td>3999.99.99</td>
                 </tr>
@@ -93,7 +90,7 @@
                 </tr>
               </tbody>
           </table>
-          <div class="btns">
+          <div class="btn-wrap">
             <button type="button" class="btn btn-primary">삭제하기</button>
           </div>
           <nav aria-label="Page navigation">
@@ -115,8 +112,36 @@
       </div>
     </div>  
   </div>
-  <footer>
-    푸터
-  </footer>
+  <div id="footers"></div>
+  <script>
+    $(".btn").click(function(e){
+      console.log($(".form-check-input").is("checked"))
+      if ($(".form-check-input").is(":checked") == false) {
+          Swal.fire({
+          icon: 'error',
+          title: '글이 선택되지 않았습니다',
+          text: '삭제할 글을 선택해주세요',
+        })
+      } else {
+        Swal.fire({
+          title: '삭제하시겠습니까?',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: '삭제',
+          cancelButtonText: '취소'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            Swal.fire(
+              '삭제가 완료되었습니다.',
+              '',
+              'success'
+            )
+          }
+        })
+      }
+    })
+  </script>
 </body>
 </html>
