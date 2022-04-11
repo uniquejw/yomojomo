@@ -381,4 +381,6 @@ insert into gms_invite_box (title, content, confirm, reg_dt, memb_no, memb_no2, 
 values("놀러오세요", "동물의 숲으로", 0, "2022-04-11", 1, 2, 2);
 insert into gms_invite_box (title, content, confirm, reg_dt, memb_no, memb_no2, g_no)
 values("같이놀아요", "우리 모임으로", 1, "2022-04-11", 1, 5, 2);
+insert into gms_invite_box (title, content, confirm, reg_dt, memb_no, memb_no2, g_no)
+values("놀러와요", "젤다", 0, "2022-04-11", 5, 1, 1);
 
