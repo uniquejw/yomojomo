@@ -28,6 +28,16 @@ public class DefaultPickmeService implements PickmeService{
   }
 
   @Override
+  public List<Pickme> findSelectSiList(Pickme pickme) {
+    return pickmeDao.selectedSicate(pickme);
+  }
+
+  @Override
+  public List<Pickme> findSelectGuList(Pickme pickme) {
+    return pickmeDao.selectedGucate(pickme);
+  }
+
+  @Override
   public Pickme get(int no) {
     Pickme pickme = pickmeDao.findByNo(no);
 
@@ -48,5 +58,7 @@ public class DefaultPickmeService implements PickmeService{
   public int delete(Pickme pickme) {
     return pickmeDao.delete(pickme);
   }
+
+
 
 }

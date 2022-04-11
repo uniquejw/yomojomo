@@ -15,19 +15,32 @@ public class DefaultActiveLocalService implements ActiveLocalService {
   @Autowired
   ActiveLocalDao activeLocalDao;
 
+  // 기존코드
+  //  @Override
+  //  public List<ActiveLocal> list() {
+  //    return activeLocalDao.findSi();
+  //  }
+  //
+  //  @Override
+  //  public ActiveLocal get(int no) {
+  //    ActiveLocal activeLocal = activeLocalDao.findByNo(no);
+  //    return activeLocal;
+  //  }
+  //  @Override
+  //  public List<ActiveLocal> list(String si) {
+  //    return activeLocalDao.findGungu(si);
+  //  }
+
+
+  // 새로 작성
   @Override
-  public List<ActiveLocal> list() {
-    return activeLocalDao.findSi();
+  public List<ActiveLocal> silistcate() {
+    return activeLocalDao.selectSiList();
   }
 
   @Override
-  public ActiveLocal get(int no) {
-    ActiveLocal activeLocal = activeLocalDao.findByNo(no);
-    return activeLocal;
-  }
-  @Override
-  public List<ActiveLocal> list(String si) {
-    return activeLocalDao.findGungu(si);
+  public List<ActiveLocal> gulistcate(ActiveLocal activeLocal) {
+    return activeLocalDao.selectGuList(activeLocal);
   }
 
 
