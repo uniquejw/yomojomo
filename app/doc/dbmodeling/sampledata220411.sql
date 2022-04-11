@@ -377,10 +377,10 @@ insert into gms_comment(b_no, content, memb_no, g_no) values (1, "13", 1, 1 );
 insert into gms_comment(b_no, content, memb_no, g_no) values (1, "14", 1, 1 );
 insert into gms_comment(b_no, content, memb_no, g_no) values (2, "32", 2, 2);
 insert into gms_comment(b_no, content, memb_no, g_no) values (3, "137", 3, 3);
-insert into gms_invite_box (title, content, confirm, reg_dt, memb_no, memb_no2, g_no)
+insert into gms_invite_box (title, content, reg_dt, memb_no, memb_no2, g_no)
 values("놀러오세요", "동물의 숲으로", "2022-04-11", 1, 2, 2);
 insert into gms_invite_box (title, content, reg_dt, memb_no, memb_no2, g_no)
-values("같이놀아요", "우리 모임으로", 1, "2022-04-11", 1, 5, 2);
+values("같이놀아요", "우리 모임으로", "2022-04-11", 1, 5, 2);
 insert into gms_invite_box (title, content, reg_dt, memb_no, memb_no2, g_no)
 values("놀러와요", "젤다", "2022-04-11", 5, 1, 1);
 insert into gms_invite_box(title, content, memb_no, memb_no2, g_no)
