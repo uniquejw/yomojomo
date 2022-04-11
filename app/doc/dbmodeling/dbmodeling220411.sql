@@ -868,7 +868,7 @@ CREATE TABLE gms_invite_box (
   invite_no INTEGER      NOT NULL COMMENT '초대장번호', -- 초대장번호
   title     VARCHAR(255) NOT NULL COMMENT '제목', -- 제목
   content   LONGTEXT     NOT NULL COMMENT '내용', -- 내용
-  confirm   BOOLEAN      NOT NULL COMMENT '읽음', -- 읽음
+  confirm   BOOLEAN      NULL     COMMENT '읽음', -- 읽음
   reg_dt    DATE         NOT NULL DEFAULT current_timestamp() COMMENT '날짜', -- 날짜
   memb_no   INTEGER      NOT NULL COMMENT '초대받은회원번호', -- 초대받은회원번호
   memb_no2  INTEGER      NOT NULL COMMENT '초대한회원번호', -- 초대한회원번호
