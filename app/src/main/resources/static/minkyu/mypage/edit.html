@@ -24,6 +24,11 @@
       $('#footers').load('/junho/mainfooter.html'); //푸터부분 인클루드
     });
   </script>
+  <style>
+    .www {
+      margin: 5px;
+    }
+  </style>
 </head>
 <body>
   <div id="header"></div>
@@ -34,7 +39,7 @@
         <a href="mypost.html" class="list-group-item list-group-item-action">내가 쓴 글</a>
         <a href="favor.html" class="list-group-item list-group-item-action">즐겨찾기한 글</a>
         <a href="group.html" class="list-group-item list-group-item-action">가입 승인/대기</a>
-        <a href="pickme.html" class="list-group-item list-group-item-action">픽미 게시판 내역</a>
+        <a href="pickme.html" class="list-group-item list-group-item-action">픽미 요청/게시글</a>
         <a href="inquiry.html" class="list-group-item list-group-item-action">문의 내역</a>
       </div>
       <div class="base">
@@ -117,9 +122,9 @@
                 <select class="col form-select"
                   aria-label="Default select example">
                   <option selected>관심 지역</option>
-                  <option value="1">One</option>
-                  <option value="2">Two</option>
-                  <option value="3">Three</option>
+                  <option value="1">서울</option>
+                  <option value="2">경기도</option>
+                  <option value="3">부산</option>
                 </select>
                 <div class="col-3 p-2 text-center fw-bold mb-2"></div>
               </div>
@@ -139,17 +144,16 @@
                 <select class="col form-select"
                   aria-label="Default select example">
                   <option selected>관심 분야</option>
-                  <option value="1">One</option>
-                  <option value="2">Two</option>
-                  <option value="3">Three</option>
+                  <option value="1">낚시</option>
+                  <option value="2">독서</option>
+                  <option value="3">축구</option>
                 </select>
                 <div class="col-3 p-2 text-center fw-bold mb-2"></div>
               </div>
             </div>
             <div class="my-category border-top">
               <p>나의 관심카테고리</p>
-              <br>
-              <div class="edit-category">
+              <div class="edit-category d-flex justify-content-center flex-wrap text-center">
                 <div class="category-wrap">
                   <span class="badge rounded-pill bg-primary category">낚시</span>
                   <button type="button" class="btn-close" aria-label="Close"></button>
@@ -201,25 +205,66 @@
   </div>
   <div id="footers"></div>
   <script>
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: 'btn btn-primary mx-2',
+        cancelButton: 'btn btn-secondary mx-2'
+      },
+      buttonsStyling: false
+    })
+    // $("#edit-btn").click(function(e){
+    //   Swal.fire({
+    //     title: '정보를 수정하시겠습니까?',
+    //     icon: 'question',
+    //     showCancelButton: true,
+    //     confirmButtonColor: '#3085d6',
+    //     cancelButtonColor: '#808080',
+    //     confirmButtonText: '수정',
+    //     cancelButtonText: '취소'
+    //   }).then((result) => {
+    //     if (result.isConfirmed) {
+    //       Swal.fire(
+    //         '수정이 완료되었습니다.',
+    //         '',
+    //         'success'
+    //       )
+    //     }
+    //   })
+    // })
     $("#edit-btn").click(function(e){
-      Swal.fire({
+      swalWithBootstrapButtons.fire({
         title: '정보를 수정하시겠습니까?',
-        icon: 'warning',
+        icon: 'question',
         showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
         confirmButtonText: '수정',
         cancelButtonText: '취소'
       }).then((result) => {
         if (result.isConfirmed) {
-          Swal.fire(
-            '수정이 완료되었습니다.',
+          swalWithBootstrapButtons.fire(
+            '수정이 완료되었습니다',
             '',
             'success'
-          )
-        }
+            )
+          }
+        })
       })
+    $(".btn-close").click(function(e){
+      $($(e.target).parent()).remove();
     })
+
+    // 셀렉트 옵션 찾아내서 append 하기
+
+    // $("select")
+    // .change(function(event) {
+    //   console.log(event.target)
+    //   let str = "";
+    //   $("select option:selected").click(function(e) {
+    //     console.log(e.target)
+    //     str += $(this).text() + "";
+    //   });
+    //   console.log(str)
+    // })
+    // .trigger("change");
   </script>
 </body>
 </html>
