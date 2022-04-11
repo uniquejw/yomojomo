@@ -25,7 +25,7 @@
   <!--공용css-->
   <link rel="stylesheet" href="../../css/common.css">
   <!--내css-->
-  <link rel="stylesheet" href="../css/createGroup.css">
+  <link rel="stylesheet" href="/ssang/group/css/form.css">
   <!-- <link rel="stylesheet" href="../../junho/main.html"> -->
   <!--인클루드-->
   <script type="text/javascript">
@@ -44,7 +44,7 @@
       <div class="table-row-group">
         <div class="table-row">
           <div class="table-cell title">모임이름* :</div>
-          <div class="table-cell"><input id="x-title" type="text" placeholder="모임이름을 적어주세요"></div></div>
+          <div class="table-cell"><input name="GroupName" id="x-title" type="text" placeholder="모임이름을 적어주세요"></div></div>
         <div class="table-row" >
           <div class="table-cell title">이미지</div>
           <div class="table-cell">
@@ -53,7 +53,7 @@
             <div class="filebox">
               <input class="upload-name" value="첨부파일" placeholder="첨부파일">
               <label for="x-file">파일찾기</label> 
-              <input type="file" id="x-file">
+              <input name="logo" type="file" id="x-file">
           </div>
           </div>
         </div>
@@ -62,7 +62,7 @@
         </div> -->
         <div class="table-row">
           <div class="table-cell title">모임 인사말*</div>
-          <div class="table-cell"><textarea name="" id="x-intro" cols="40" rows="3"></textarea></div>
+          <div class="table-cell"><textarea name="intro" id="x-intro" cols="40" rows="3"></textarea></div>
         </div>
         <div class="table-row">
           <div class="table-cell title">멤버목록</div>
@@ -74,7 +74,7 @@
       <div class="table-row-group">
         <div class="table-row">
           <div class="table-cell title"> 주제*</div>
-          <select id="x-purpose">
+          <select name="purposeNo" id="x-purpose">
             <optgroup>
               <option selected >선택하세요</option>
               <option value="22">문화/예술/음악</option>
@@ -114,6 +114,7 @@
             <button type="button" class="cancel-local-btn" ><span class="material-icons md-23">
               highlight_off
               </span></button>
+              <input class="a11y-hidden" type="text" name="activeLocalNo" id="myText" value="">
           </div>
         </div>
       </div>
@@ -160,7 +161,7 @@
 <div id="footers"></div>
 <script src="../../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="../../node_modules/handlebars/dist/handlebars.min.js"></script>
-<script src="/ssang/js/createGroup.js"></script>
+<script src="/ssang/group/js/form.js"></script>
 
 </body>
 </html>

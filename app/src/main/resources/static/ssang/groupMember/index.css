@@ -36,13 +36,12 @@ div{
 .material-icons{
     color: rgb(17, 147, 218);
     margin-left: 3px;
-    font-size: 34px;
 }
-.material-icons.report-btn{
+.report-btn .material-icons{
     color: rgb(231, 76, 60);
     margin-left: 3px;
-    font-size: 34px;
 }
+.material-icons.md-32 { font-size: 32px; }
 .material-icons.md-32 { font-size: 32px; }
 .report-btn, .settings-btn{
     background-color: #fff;
@@ -103,4 +102,7 @@ div{
 }
 .grade{
     display: inline-block;
+}
+.memb-item .material-icons{
+    vertical-align: middle;
 }

@@ -60,8 +60,8 @@
 		pups_no,
 		name,
 		logo,
-		intro
-		values(#{actlocalno}, #{pupsno}, #{name}, #{logo}, #{intro});
+		intro)
+		values(#{activeLocalNo}, #{purposeNo}, #{GroupName}, #{logo}, #{intro});
 	</insert>
 
 	<update id="update" parameterType="Group">

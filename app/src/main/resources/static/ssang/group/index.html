@@ -25,7 +25,7 @@
   <!--공용css-->
   <link rel="stylesheet" href="../../css/common.css">
   <!--내css-->
-  <link rel="stylesheet" href="../css/groupList.css">
+  <link rel="stylesheet" href="/ssang/group/css/index.css">
   <!--인클루드-->
   <script type="text/javascript">
     $(document).ready(function () {
@@ -71,43 +71,10 @@
       </select>
   </div>
   <div class="group-list-container">
-    <ul>
-      <li class="item">
-        <div type="button" class="show">
-        <div class="image">사진</div>
-        <div class="group-name" >모임이름2</div>
-        </div>
-      </li>
-      <li class="item">
-        <div type="button" class="show">
-        <div class="image">사진</div>
-        <div class="group-name" >모임이름</div>
-        </div>
-      </li>
-      <li class="item">
-        <div type="button" class="show">
-        <div class="image">사진</div>
-        <div class="group-name" >모임이름</div>
-        </div>
-      </li>
-      <li class="item">
-        <div type="button" class="show">
-        <div class="image">사진</div>
-        <div class="group-name" >모임이름</div>
-        </div>
-      </li>
-      <li class="item">
-        <div type="button" class="show">
-        <div class="image">사진</div>
-        <div class="group-name" >모임이름</div>
-        </div>
-      </li>
-      <li class="item">
-        <div type="button" class="show">
-        <div class="image">사진</div>
-        <div class="group-name" >모임이름</div>
-        </div>
-      </li>
+    <ul id="handlebars-container">
+      
+      
+      
     </ul>
     <!-- 페이지 부트스트랩 -->
     <nav aria-label="Page navigation example">
@@ -169,8 +136,18 @@
         </div>
       </div>
     </div>
+    <script id="div-template" type="text/x-handlebars-template">
+      {{#each this}}
+        <li class="item">
+          <div type="button" class="show">
+          <div class="image">{{logo}}</div>
+          <div class="group-name" >{{groupName}}</div>
+          </div>
+        </li>
+      {{/each}}
+    </script>
 </div>    
 <div id="footers"></div>
-<script src="/ssang/js/grouplist.js"></script>
+<script src="/ssang/group/js/index.js"></script>
 </body>
 </html>

@@ -1,12 +1,8 @@
 // 모임정보 팝업
-var cols = document.querySelectorAll("div.show");
-[].forEach.call(cols,function(col){
-  col.addEventListener("click",show)
+$(document).on("click","div.show",function(){
+  document.querySelector(".background").className = "background show";
 })
 
-function show() {
-  document.querySelector(".background").className = "background show";
-}
 
 // 가입신청서 팝업
 document.querySelector("#apply-form").addEventListener("click", showReport);
@@ -29,6 +25,75 @@ function close() {
   document.querySelector(".report-background").className = "report-background";
   document.querySelector(".background").className = "background";
 }
+
+    // 핸들바
+      var writtenContainer = document.querySelector("#handlebars-container");
+    
+      var divTemplate = document.querySelector("#div-template");
+    
+      var htmlGenerator = Handlebars.compile(divTemplate.innerHTML);
+      
+fetch("/group/list")
+    .then(function(response) {
+      return response.json();
+    })
+    .then(function(result) {
+      if (result.status == "fail") {
+          window.alert("서버 요청 오류!");
+          console.log(result.data);
+          return;
+      }
+      for (var group of result.data) {
+        if (group.logo == null) {
+        	group.logo = "default.jpg";
+        }
+        writtenContainer.innerHTML = htmlGenerator(result.data);
+      }
+    });
+
+
+
+
+
+      
+    
+      // fetch("/group/list")
+      // .then(function(response) {
+      //   return response.json();
+      // })
+      // .then(function(result){
+      //   console.log(result)
+        // writtenContainer.innerHTML = htmlGenerator(groups);
+      // })
+    
+    // 버튼클릭이벤트 
+      // document.querySelector(".new-post-btn").onclick = function() {
+      //   window.location.href = "form.html";
+      // };
+      // $(document).on("click",".board-edit",function(){
+      //   window.location.href = "view.html";
+      // })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 $('document').ready(function() {
   var area0 = ["시/도 선택","서울특별시","인천광역시","대전광역시","광주광역시","대구광역시","울산광역시","부산광역시","경기도","강원도","충청북도","충청남도","전라북도","전라남도","경상북도","경상남도","제주도"];

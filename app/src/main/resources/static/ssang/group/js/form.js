@@ -45,12 +45,15 @@
       button.innerHTML = htmlGenerator(locals);
     })
   })
+  
+  
   // 지역선택완료
   $(document).on("click",".no-btn",function(){
     document.querySelector(".background-gu").className = "background-gu";
     document.querySelector("#local-btn").className = "local-btn a11y-hidden";
     document.querySelector(".cancel-local-btn").className = "cancel-local-btn show";
     document.querySelector(".correct-local").className = "correct-local";
+    
     var value = $(this).val();
     console.log(value);
     fetch(`/activeLocal/get?no=${value}`)
@@ -60,6 +63,7 @@
     .then(function(locals){
       console.log(locals);
       document.querySelector(".correct-local").innerHTML = `${locals.nameSi},${locals.nameGu}`;
+      document.getElementById("myText").value = `${locals.no}`;
     })
   })
   // 지역 선택 취소 
@@ -85,9 +89,11 @@
   document.querySelector(".background-gu").className = "background-gu";
   }
 
+  var xFile = document.querySelector("x-file")
   var xTitle = document.querySelector("#x-title")
   var xIntro = document.querySelector("#x-intro")
   var xPurpose = document.querySelector("#x-purpose")
+  var xActiveLocalNo = document.querySelector("input[name=activeLocalNo]")
   
 
   $("#x-file").on('change',function(){
@@ -107,15 +113,25 @@ document.querySelector("#create-btn").onclick = function() {
   }
 
   var formData = new FormData(); // new FromData()로 새로운 객체 생성
-    formData.append('name','hyemin');
-    formData.append('item','hi'); // <input name="item" value="hi"> 와 같다.
-    formData.append('item','hello'); // <input name="item" value="hello">
-
-  // fetch("/group/add",{
-  //   method : "POST",
-  //   body : ?
-  // })
-  // .then(function(response){
-
-  // }).then(function(){})
+    formData.append('GroupName',xTitle.value);
+    // formData.append('logo',xFile.value); 
+    formData.append('intro',xIntro.value); 
+    formData.append('purposeNo',xPurpose.value);
+    formData.append('activeLocalNo',xActiveLocalNo.value);
+    
+  fetch("/group/add",{
+    method : "POST",
+    body : formData
+  })
+  .then(function(response){
+    return response.json()
+  })
+  .then(function(result) {
+    console.log(result);
+    if (result.status == "success") {
+      location.href = "/junho/index.html";
+    } else {
+      alert(result.data);
+    }
+  });
 }
