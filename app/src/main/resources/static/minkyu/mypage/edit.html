@@ -12,99 +12,18 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
   <!--공용css-->
   <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/node_modules/sweetalert2/dist/sweetalert2.min.css">
   <link rel="stylesheet" href="/css/common.css">
   <!--내css-->
   <link rel="stylesheet" href="/minkyu/css/main.css">
+  <link rel="stylesheet" href="/minkyu/css/edit.css">
   <!--인클루드-->
   <script type="text/javascript">
     $(document).ready(function () {
       $('#header').load('/junho/mainHeader.html'); //헤더 인클루드
-      // $('#footers').load('../html'); //푸터부분 인클루드
+      $('#footers').load('/junho/mainfooter.html'); //푸터부분 인클루드
     });
   </script>
-  <style>
-    #container {
-      padding: 50px;
-      position: relative;
-      display: flex;
-      height: 930px;
-    }
-    .info-table {
-      border: 1px solid #333;
-      /* display: flex; */
-      width: 820px;
-      height: 830px;
-      position: relative;
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      margin: auto;
-      justify-content: center;
-      text-align: center;
-    }
-    .form-select {
-      margin-bottom: 10px;
-    }
-    .form-select:hover {
-      cursor: pointer;
-    }
-    option:hover {
-      cursor: pointer;
-    }
-    .badge {
-      width: 50px;
-      height: 20px;
-    }
-    .profile {
-      position: relative;
-      height: 115px;
-      width: auto;
-    }
-    .profile-img {
-      position: absolute;
-      top: 0;
-      left: 0;
-    }
-    .img-thumbnail {
-      width: 80px;
-      height: 80px;
-      margin-left: 220px;
-    }
-    .profile-text {
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      margin: 70px 0px 0px 140px;
-    }
-    .my-category {
-      margin: 20px 0px;
-      padding: 20px 100px;
-    }
-    .edit-category {
-      display: flex;
-      justify-content: center;
-      text-align: center;
-      flex-wrap: wrap;
-    }
-    .inner-span {
-      display: flex;
-      justify-content: center;
-      text-align: center;
-    }
-    .complete {
-      position: absolute;
-      bottom: 0;
-      right: 0;
-    }
-    #btn {
-      margin-bottom: 20px;
-      margin-right: 60px;
-    }
-  </style>
 </head>
 <body>
   <div id="header"></div>
@@ -114,179 +33,193 @@
         <a href="edit.html" class="list-group-item list-group-item-action active">개인 정보 수정</a>
         <a href="mypost.html" class="list-group-item list-group-item-action">내가 쓴 글</a>
         <a href="favor.html" class="list-group-item list-group-item-action">즐겨찾기한 글</a>
-        <a href="group.html" class="list-group-item list-group-item-action">모임 리스트</a>
-        <a href="recruit.html" class="list-group-item list-group-item-action">리쿠르팅 내역</a>
+        <a href="group.html" class="list-group-item list-group-item-action">가입 승인/대기</a>
+        <a href="pickme.html" class="list-group-item list-group-item-action">픽미 게시판 내역</a>
         <a href="inquiry.html" class="list-group-item list-group-item-action">문의 내역</a>
       </div>
-      <div id="container">
+      <div class="base">
         <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
           <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="index.html">마이페이지</a></li>
             <li class="breadcrumb-item active" aria-current="page">개인 정보 수정</li>
           </ol>
         </nav>
-        <div class="info-table">
-          <div class="edit-table">
-            <div class="col-3 p-2"></div>
-            <div class="row">
-              <div class="col-3 p-2 text-center fw-bold">프로필 사진</div>
-              <div class="col input-group mb-3 ">
-                <input class="form-control form-control-sm" id="formFileSm" type="file">
-              </div>
+        <div class="content d-flex flex-column">
+          <div>
+            <h3>개인 정보 수정</h3>
+            <br>
+          </div>
+          <div class="my-info">
+            <div>
               <div class="col-3 p-2"></div>
-            </div>
-            <div class="profile">
-              <div class="profile-img">
+              <div class="row">
+                <div class="col-3 p-2 text-center fw-bold">프로필 사진</div>
+                <div class="col input-group mb-3 ">
+                  <input class="form-control form-control-sm" id="formFileSm" type="file" accept=".png, .jpg, .jpeg, .jifi">
+                </div>
+                <div class="col-3 p-2"></div>
+              </div>
+              <div class="edit-img">
                 <img src="../profile.jpg" class="img-thumbnail" alt="...">
-              </div>  
-              <p class="text-muted profile-text">이미지 파일은 80 * 80 크기의 파일만 가능합니다</p>
-            </div>
-            <div class="row">
-              <div class="col-3 p-2 text-center fw-bold">이메일(아이디)</div>
-              <div class="col input-group mb-3 ">
-                <input class="form-control" type="text" value="kingseojun" aria-label="readonly input example" readonly>
+                <p class="text-muted img-text">이미지 파일은 80 * 80 크기의 파일만 가능합니다</p>
               </div>
-              <div class="col-1 p-1 text-center">@</div>
-              <div class="col input-group mb-3 ">
-                <input class="form-control" type="text" value="google.com" aria-label="readonly input example" readonly>
+              <div class="row">
+                <div class="col-3 p-2 text-center fw-bold">이메일(아이디)</div>
+                <div class="col input-group mb-3 ">
+                  <input class="form-control" type="text" value="kingseojun" aria-label="readonly input example" readonly>
+                </div>
+                <div class="col-1 p-1 text-center">@</div>
+                <div class="col input-group mb-3 ">
+                  <input class="form-control" type="text" value="google.com" aria-label="readonly input example" readonly>
+                </div>
+                <div class="col-3 p-2"></div>
               </div>
-              <div class="col-3 p-2"></div>
-            </div>
-            <div class="row">
-              <div class="col-3 p-2 text-center fw-bold">비밀번호</div>
-              <div class="col input-group mb-3 ">
-                <input class="form-control form-control-sm input fs-6"
-                  type="text" placeholder="비밀번호 입력"
-                  aria-label=".form-control-sm example">
+              <div class="row">
+                <div class="col-3 p-2 text-center fw-bold">비밀번호</div>
+                <div class="col input-group mb-3 ">
+                  <input class="form-control form-control-sm input fs-6"
+                    type="text" placeholder="비밀번호 입력"
+                    aria-label=".form-control-sm example">
+                </div>
+                <div class="col-3 p-2"></div>
               </div>
-              <div class="col-3 p-2"></div>
-            </div>
-            <div class="row">
-              <div class="col-3 p-2 text-center fw-bold">비밀번호 확인</div>
-              <div class="col input-group mb-3 ">
-                <input class="form-control form-control-sm input fs-6"
-                  type="text" placeholder="비밀번호를 다시 입력해주세요"
-                  aria-label=".form-control-sm example">
+              <div class="row">
+                <div class="col-3 p-2 text-center fw-bold">비밀번호 확인</div>
+                <div class="col input-group mb-3 ">
+                  <input class="form-control form-control-sm input fs-6"
+                    type="text" placeholder="비밀번호를 다시 입력해주세요"
+                    aria-label=".form-control-sm example">
+                </div>
+                <div class="col-3 p-2"></div>
               </div>
-              <div class="col-3 p-2"></div>
-            </div>
-            <div class="row">
-              <div class="col-3 p-2 text-center fw-bold">이름</div>
-              <div class="col input-group mb-3 ">
-                <input class="form-control" type="text" value="박서준" aria-label="readonly input example" readonly>
+              <div class="row">
+                <div class="col-3 p-2 text-center fw-bold">이름</div>
+                <div class="col input-group mb-3 ">
+                  <input class="form-control" type="text" value="박서준" aria-label="readonly input example" readonly>
+                </div>
+                <div class="col-3 p-2"></div>
               </div>
-              <div class="col-3 p-2"></div>
-            </div>
-            <div class="row">
-              <div class="col-3 p-2 text-center fw-bold">휴대전화 번호</div>
-              <div class="col input-group mb-3 ">
-                <input class="form-control form-control-sm input fs-6"
-                  type="text" placeholder="'-' 없이 입력해주세요"
-                  aria-label=".form-control-sm example">
+              <div class="row">
+                <div class="col-3 p-2 text-center fw-bold">휴대전화 번호</div>
+                <div class="col input-group mb-3 ">
+                  <input class="form-control form-control-sm input fs-6"
+                    type="text" placeholder="'-' 없이 입력해주세요"
+                    aria-label=".form-control-sm example">
+                </div>
+                <div class="col-3 p-2"></div>
               </div>
-              <div class="col-3 p-2"></div>
             </div>
-          </div>
-          <p></p>
-          <div class="edit-table border-top">
-            <div class="col-3 p-2 text-center fw-bold mb-2"></div>
-            <div class="row">
-              <div class="col-3 p-2 text-center fw-bold mb-2">관심 지역</div>
-              <select class="col form-select"
-                aria-label="Default select example">
-                <option selected>관심 지역</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
-              </select>
+            <p></p>
+            <div class="edit-table border-top">
               <div class="col-3 p-2 text-center fw-bold mb-2"></div>
+              <div class="row">
+                <div class="col-3 p-2 text-center fw-bold mb-2">관심 지역</div>
+                <select class="col form-select"
+                  aria-label="Default select example">
+                  <option selected>관심 지역</option>
+                  <option value="1">One</option>
+                  <option value="2">Two</option>
+                  <option value="3">Three</option>
+                </select>
+                <div class="col-3 p-2 text-center fw-bold mb-2"></div>
+              </div>
+              <div class="row">
+                <div class="col-3 p-2 text-center fw-bold mb-2">관심 모임</div>
+                <select class="col form-select"
+                  aria-label="Default select example">
+                  <option selected>관심 모임</option>
+                  <option value="1">One</option>
+                  <option value="2">Two</option>
+                  <option value="3">Three</option>
+                </select>
+                <div class="col-3 p-2 text-center fw-bold mb-2"></div>
+              </div>
+              <div class="row">
+                <div class="col-3 p-2 text-center fw-bold mb-2">관심 분야</div>
+                <select class="col form-select"
+                  aria-label="Default select example">
+                  <option selected>관심 분야</option>
+                  <option value="1">One</option>
+                  <option value="2">Two</option>
+                  <option value="3">Three</option>
+                </select>
+                <div class="col-3 p-2 text-center fw-bold mb-2"></div>
+              </div>
             </div>
-            <div class="row">
-              <div class="col-3 p-2 text-center fw-bold mb-2">관심 모임</div>
-              <select class="col form-select"
-                aria-label="Default select example">
-                <option selected>관심 모임</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
-              </select>
-              <div class="col-3 p-2 text-center fw-bold mb-2"></div>
-            </div>
-            <div class="row">
-              <div class="col-3 p-2 text-center fw-bold mb-2">관심 분야</div>
-              <select class="col form-select"
-                aria-label="Default select example">
-                <option selected>관심 분야</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
-              </select>
-              <div class="col-3 p-2 text-center fw-bold mb-2"></div>
-            </div>
-          </div>
-          <div class="my-category border-top">
-            <p>나의 관심카테고리</p>
-            <div class="edit-category">
-              <div class="inner-span">
-                <span class="badge rounded-pill bg-primary">낚시</span>
-                <button type="button" class="btn-close" aria-label="Close"></button>
-              </div>
-              <div class="inner-span">
-                <span class="badge rounded-pill bg-primary">독서</span>
-                <button type="button" class="btn-close" aria-label="Close"></button>
-              </div>
-              <div class="inner-span">
-                <span class="badge rounded-pill bg-primary">축구</span>
-                <button type="button" class="btn-close" aria-label="Close"></button>
-              </div>
-              <div class="inner-span">
-                <span class="badge rounded-pill bg-primary">한식</span>
-                <button type="button" class="btn-close" aria-label="Close"></button>
-              </div>
-              <div class="inner-span">
-                <span class="badge rounded-pill bg-primary">중식</span>
-                <button type="button" class="btn-close" aria-label="Close"></button>
-              </div>
+            <div class="my-category border-top">
+              <p>나의 관심카테고리</p>
               <br>
-              <div class="inner-span">
-                <span class="badge rounded-pill bg-primary">공부</span>
-                <button type="button" class="btn-close" aria-label="Close"></button>
-              </div>
-              <div class="inner-span">
-                <span class="badge rounded-pill bg-primary">IT</span>
-                <button type="button" class="btn-close" aria-label="Close"></button>
-              </div>
-              <div class="inner-span">
-                <span class="badge rounded-pill bg-primary">문학</span>
-                <button type="button" class="btn-close" aria-label="Close"></button>
-              </div>
-              <div class="inner-span">
-                <span class="badge rounded-pill bg-primary">30대</span>
-                <button type="button" class="btn-close" aria-label="Close"></button>
-              </div>
-              <div class="inner-span">
-                <span class="badge rounded-pill bg-primary">남자</span>
-                <button type="button" class="btn-close" aria-label="Close"></button>
-              </div>
-              <div class="inner-span">
-                <span class="badge rounded-pill bg-primary">미용</span>
-                <button type="button" class="btn-close" aria-label="Close"></button>
-              </div>
-              <div class="inner-span">
-                <span class="badge rounded-pill bg-primary">배우</span>
-                <button type="button" class="btn-close" aria-label="Close"></button>
+              <div class="edit-category">
+                <div class="category-wrap">
+                  <span class="badge rounded-pill bg-primary category">낚시</span>
+                  <button type="button" class="btn-close" aria-label="Close"></button>
+                </div>
+                <div class="category-wrap">
+                  <span class="badge rounded-pill bg-primary category">독서</span>
+                  <button type="button" class="btn-close" aria-label="Close"></button>
+                </div>
+                <div class="category-wrap">
+                  <span class="badge rounded-pill bg-primary category">축구</span>
+                  <button type="button" class="btn-close" aria-label="Close"></button>
+                </div>
+                <div class="category-wrap">
+                  <span class="badge rounded-pill bg-primary category">한식</span>
+                  <button type="button" class="btn-close" aria-label="Close"></button>
+                </div>
+                <div class="category-wrap">
+                  <span class="badge rounded-pill bg-primary category">중식</span>
+                  <button type="button" class="btn-close" aria-label="Close"></button>
+                </div>
+                <br>
+                <div class="category-wrap">
+                  <span class="badge rounded-pill bg-primary category">공부</span>
+                  <button type="button" class="btn-close" aria-label="Close"></button>
+                </div>
+                <div class="category-wrap">
+                  <span class="badge rounded-pill bg-primary category">IT</span>
+                  <button type="button" class="btn-close" aria-label="Close"></button>
+                </div>
+                <div class="category-wrap">
+                  <span class="badge rounded-pill bg-primary category">문학</span>
+                  <button type="button" class="btn-close" aria-label="Close"></button>
+                </div>
+                <div class="category-wrap">
+                  <span class="badge rounded-pill bg-primary category">30대</span>
+                  <button type="button" class="btn-close" aria-label="Close"></button>
+                </div>
+                <div class="category-wrap">
+                  <span class="badge rounded-pill bg-primary category">남자</span>
+                  <button type="button" class="btn-close" aria-label="Close"></button>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="complete">
-            <button type="button" id="btn" class="btn btn-outline-primary">수정하기</button>
+            <button type="button" id="edit-btn" class="btn btn-outline-primary">수정하기</button>
           </div>
         </div>
       </div>
     </div>  
   </div>
-  <footer>
-    푸터
-  </footer>
+  <div id="footers"></div>
+  <script>
+    $("#edit-btn").click(function(e){
+      Swal.fire({
+        title: '정보를 수정하시겠습니까?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: '수정',
+        cancelButtonText: '취소'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire(
+            '수정이 완료되었습니다.',
+            '',
+            'success'
+          )
+        }
+      })
+    })
+  </script>
 </body>
 </html>

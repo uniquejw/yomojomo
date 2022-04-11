@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.bts.yomojomo.dao.AccountingDao;
 import com.bts.yomojomo.domain.Accounting;
+import com.bts.yomojomo.domain.AccountingCate;
 import com.bts.yomojomo.service.AccountingService;
 
 @Service
@@ -36,10 +37,21 @@ public class DefaultAccountingService implements AccountingService{
     return accountingDao.update(accounting);
   }
 
-  @Transactional
   @Override
-  public int delete(int no) {
-    return accountingDao.delete(no);
+  public int delete(Accounting accounting) {
+    return accountingDao.delete(accounting);
   }
+
+  @Override
+  public List<AccountingCate> findCateList() {
+    return accountingDao.cateListAll();
+  }
+
+  @Override
+  public List<Accounting> findSelectCateList(Accounting accounting) {
+    return accountingDao.selectedCate(accounting);
+  }
+
+
 
 }

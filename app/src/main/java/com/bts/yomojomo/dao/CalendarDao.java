@@ -16,5 +16,5 @@ public interface CalendarDao {
 
   int update(Calendar calendar);
 
-  int delete(int no);
+  int delete(Calendar calendar);
 }

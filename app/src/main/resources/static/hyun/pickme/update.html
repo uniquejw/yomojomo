@@ -18,6 +18,10 @@
     form {
       margin: 10px auto;
     }
+    #localSelect{
+      width: 400px;
+      display: flex;
+    }
     textarea { /*사이즈 고정*/
       resize: none;
       height: 300px;
@@ -59,8 +63,10 @@
           </tr>
           <tr>  
             <td>활동지역</td>
-            <td><input id="x-activeLocalName" type="text" class="form-control" readonly></td>
-            <td><input id= "x-activeLocalNo" name="activeLocal.no" type="number" class="form-control"></td>
+            <td>
+            <select id="nameSi" class="form-select form-select-sm" aria-label=".form-select-sm example"></select>
+          </td>
+          <td><select name="activeLocal.no" id="nameGu" class="form-select form-select-sm" aria-label=".form-select-sm example"></select></td>
           </tr>
           <tr>
             <td>관심활동</td>
@@ -79,20 +85,84 @@
     </form>
   </div>    
 </div>
-</body>
-
-<script type="text/javascript">
-  $(document).ready(function () {
-      $('#header').load('/junho/mainHeader.html'); //헤더 인클루드
-      $('#footer').load('/junho/mainfooter.html'); //푸터부분 인클루드
-  });
-</script>
 
 <div id="footer"></div>
 
+
+
+
+<!--공통 헤더-->
+<script type="text/javascript">
+  $(document).ready(function () {
+    $('#header').load('/junho/mainHeader.html'); //헤더 인클루드
+    $('#footer').load('/junho/mainfooter.html'); //푸터부분 인클루드
+  });// document.ready END
+</script>
+
+<!--시,도 카테고리 생성 핸들 바-->
+<script id="optionSi-template" type="text/x-handlebars-template">
+  <option id="allList" value="0">전체</option>
+  {{#each this}}
+  <option id="selectOp" value="{{nameSi}}">{{nameSi}}</option>
+  {{/each}}
+</script>
+<!--시,도 카테고리 생성 핸들 바 END-->
+
+<!--시,도 카테고리 카테고리 불러오기-->
+<script>
+  let selectSiList = document.querySelector("#nameSi");
+  var selectSiOption = document.querySelector("#optionSi-template");
+  var opGernerator = Handlebars.compile(selectSiOption.innerHTML);
+
+  $.ajax({
+    url : "/activeLocal/silistcate",
+    type : "POST",
+    async : false,
+    success: function(result) {
+        // console.log(result.data);
+        selectSiList.innerHTML = opGernerator(result.data);
+    }
+  });
+</script>
+<!--시,도 카테고리 불러오기 END-->
+
+<!--군,구 카테고리 생성 핸들 바-->
+<script id="optionGu-template" type="text/x-handlebars-template">
+  <option>군구 선택</option>
+  {{#each this}}
+  <option id="selectGuOp" value="{{no}}">{{nameGu}}</option>
+  {{/each}}
+</script>
+<!--군, 구 카테고리 생성 핸들 바 END-->
+
+<!--군,구 카테고리 불러오기-->
+<script>
+  let selectGuList = document.querySelector("#nameGu");
+  var selectGuOption = document.querySelector("#optionGu-template");
+  var opGernerator = Handlebars.compile(selectGuOption.innerHTML);
+
+  $(document).on("click", "#nameSi", function() {
+    //console.log("바뀜");
+    $.ajax({
+      url : "/activeLocal/gulistcate",
+      type : "POST",
+      async : false,
+      data: {nameSi: $("#nameSi option:selected").val()},
+      success: function(result) {
+          console.log(result.data);
+          selectGuList.innerHTML = opGernerator(result.data);
+          if (selectedGuNo != 0) {
+            $("#nameGu").val(selectedGuNo).prop("selected", true);
+          }
+      }
+    }); //ajax END
+  }); //nameSi change End
+  //군,구 카테고리 카테고리 불러오기 END
+</script>
+
+
 <script>
 let arr = location.href.split("?");
-  console.log(arr);
 
   if (arr.length == 1) {
     alert("요청 형식이 올바르지 않습니다.")
@@ -100,7 +170,6 @@ let arr = location.href.split("?");
   }
 
   let qs = arr[1];
-  console.log(qs);
 
   let params = new URLSearchParams(qs);
   var no = params.get("no");
@@ -109,15 +178,16 @@ let arr = location.href.split("?");
     alert("게시물 번호가 없습니다.");
     throw "파라미터 오류";
   }
-  console.log(no);
 
+  //화면 출력
   let xTitle = document.querySelector("input[name=title]");
   let xName = document.querySelector("#x-name");
-  let xActiveLocal = document.querySelector("#x-activeLocalNo");
-  let xActiveLocalName = document.querySelector("#x-activeLocalName");
+  // let xGuName = document.querySelector("#x-gu");
+  let xNameGu = document.querySelector("#nameGu");
   let xPurpose = document.querySelector("#x-purposeNo");
   let xPurposeName = document.querySelector("#x-purposeName");
   let xContent = document.querySelector("textarea");
+  let selectedGuNo = 0;
 
   fetch(`/pickme/get?no=${no}`)
     .then(function(response) {
@@ -133,21 +203,28 @@ let arr = location.href.split("?");
      
         xTitle.value = pickmeCont.title;
         xName.value = pickmeCont.member.memberName;
-        xActiveLocal.value = pickmeCont.activeLocal.no;
-        xActiveLocalName.value = (pickmeCont.activeLocal.nameSi) + " " + (pickmeCont.activeLocal.nameGu);
+        $("#nameSi").val(pickmeCont.activeLocal.nameSi).prop("selected", true);
+        
+        selectedGuNo = pickmeCont.activeLocal.no; 
         xPurpose.value = pickmeCont.purpose.no;
         xPurposeName.value = pickmeCont.purpose.purposeName;
         xContent.value = pickmeCont.content;
+        $('#nameSi').click();
+
+        console.log(pickmeCont.activeLocal.nameSi);
+
       }
     });
+   //화면 출력 END
 
-  document.querySelector("#x-update-btn").onclick = function() {
+   //서버로 보내기
+   document.querySelector("#x-update-btn").onclick = function() {
     var fd = new FormData(document.forms.namedItem("pickme-update"))    
     fd.append("no", no);
 
     if(        
       xTitle.value == "" ||
-      xActiveLocal.value == "" ||
+      xNameGu.value.value == "" ||
       xPurpose.value == "" ||
       xContent.value == "") 
       {
@@ -161,7 +238,7 @@ let arr = location.href.split("?");
         })
         .then(function(response) {
         // console.log(response);
-        return response.json();
+          return response.json();
         })
         .then(function(result) {
           console.log(result);
@@ -173,18 +250,21 @@ let arr = location.href.split("?");
             console.log(result.data);
           }
         });
-    }; //("#x-update-btn").onclick END
+      }
   
   // 뒤로가기
   document.querySelector("#x-cancel-btn").onclick = function() {
   window.location.href = "index.html";
   };
 
-  // function enter() {
-  //   var key = window.event.keyCode;
-  //   if (key === 13) {
-  //     document.getElementById('x-content').value = document.getElementById('x-content').value + "<br>";
-  //   }
-  // }
+
+
+
 </script>
+
+
+
+
+
+</body>
 </html>

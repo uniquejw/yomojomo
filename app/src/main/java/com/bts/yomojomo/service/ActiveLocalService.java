@@ -5,10 +5,15 @@ import com.bts.yomojomo.domain.ActiveLocal;
 
 public interface ActiveLocalService {
 
-  List<ActiveLocal> list();
+  // 기존 작성 코드
+  //  List<ActiveLocal> list();
+  //
+  //  ActiveLocal get(int no);
+  //
+  //  List<ActiveLocal> list(String si);
 
-  ActiveLocal get(int no);
+  List<ActiveLocal> silistcate();
 
-  List<ActiveLocal> list(String si);
+  List<ActiveLocal> gulistcate(ActiveLocal activeLocal);
 
 }

@@ -10,6 +10,10 @@ public interface PickmeDao {
 
   List<Pickme> findAll();
 
+  List<Pickme> selectedSicate(Pickme pickme);
+
+  List<Pickme> selectedGucate(Pickme pickme);
+
   Pickme findByNo(int no);
 
   Pickme findByName(int memberName);

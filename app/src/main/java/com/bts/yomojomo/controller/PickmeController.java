@@ -28,6 +28,18 @@ public class PickmeController {
     return pickmeService.list();
   }
 
+  @RequestMapping("/pickme/selectedSicate") 
+  public Object selectedSicate(Pickme pickme, HttpSession session) {
+    log.info("시별 카테고리 리스트 조회");
+    return new ResultMap().setStatus(SUCCESS).setData(pickmeService.findSelectSiList(pickme));
+  }
+
+  @RequestMapping("/pickme/selectedGucate") 
+  public Object selectedGucate(Pickme pickme, HttpSession session) {
+    log.info("구별 카테고리 리스트 조회");
+    return new ResultMap().setStatus(SUCCESS).setData(pickmeService.findSelectGuList(pickme));
+  }
+
   @RequestMapping("/pickme/add")
   public Object add(Pickme pickme, HttpSession session) {
     log.info("게시글 등록!"); // 운영자가 확인하기를 원하는 정보

@@ -18,6 +18,10 @@
     form {
       margin: 10px auto;
     }
+    #localSelect{
+      width: 400px;
+      display: flex;
+    }
     textarea { /*사이즈 고정*/
       resize: none;
     }
@@ -60,7 +64,12 @@
           </tr>
           <tr>
             <td>활동지역</td>
-            <td><input name="activeLocal.no" type="number" class="form-control"></td><!--나중에 이름으로 수정해야함-->
+            <td>
+              <div id="localSelect">
+                <select name="nameSi" id="nameSi" class="form-select form-select-sm" aria-label=".form-select-sm example"></select>
+                <select name="activeLocal.no" id="nameGu" class="form-select form-select-sm" aria-label=".form-select-sm example"></select>
+              </div>
+            </td>
           </tr>
           <tr>
             <td>관심활동</td>
@@ -80,40 +89,101 @@
 
 <div id="footer"></div>
 
+<!--시,도 카테고리 생성 핸들 바-->
+<script id="optionSi-template" type="text/x-handlebars-template">
+  <option id="allList" value="0">전체</option>
+  {{#each this}}
+  <option id="selectOp">{{nameSi}}</option>
+  {{/each}}
+</script>
+<!--시,도 카테고리 생성 핸들 바 END-->
+
+<!--시,도 카테고리 카테고리 불러오기-->
 <script>
+  let selectSiList = document.querySelector("#nameSi");
+  var selectSiOption = document.querySelector("#optionSi-template");
+  var opGernerator = Handlebars.compile(selectSiOption.innerHTML);
+
+  $.ajax({
+    url : "/activeLocal/silistcate",
+    type : "POST",
+    async : false,
+    success: function(result) {
+        // console.log(result.data);
+        selectSiList.innerHTML = opGernerator(result.data);
+    }
+  });
+</script>
+<!--시,도 카테고리 불러오기 END-->
+
+<!--군,구 카테고리 생성 핸들 바-->
+<script id="optionGu-template" type="text/x-handlebars-template">
+  <option>군구 선택</option>
+  {{#each this}}
+  <option id="selectGuOp" value="{{no}}">{{nameGu}}</option>
+  {{/each}}
+</script>
+<!--군, 구 카테고리 생성 핸들 바 END-->
+
+<!--군,구 카테고리 불러오기-->
+<script>
+  let selectGuList = document.querySelector("#nameGu");
+  var selectGuOption = document.querySelector("#optionGu-template");
+  var opGernerator = Handlebars.compile(selectGuOption.innerHTML);
+
+  $(document).on("click", "#nameSi", function() {
+    // console.log("바뀜");
+    $.ajax({
+      url : "/activeLocal/gulistcate",
+      type : "POST",
+      async : false,
+      data: {nameSi: $("#nameSi option:selected").val()},
+      success: function(result) {
+          console.log(result.data);
+          selectGuList.innerHTML = opGernerator(result.data);
+      }
+    }); //ajax END
+  }); //nameSi change End
+  //군,구 카테고리 카테고리 불러오기 END
+</script>
+
+
+<!--서버로 보내기-->
+<script>
+  $("#nameGu").on("change", function() {
+  xActiveLocal = $("#nameGu option:selected").val();
   let xTitle = document.querySelector("input[name=title]");
-  let xActiveLocal = document.querySelector("input[name=activeLocal]");
-  console.log(xActiveLocal);
   let xPurpose = document.querySelector("input[name=purpose]");
   let xContent = document.querySelector("textarea");
 
-  //등록버튼
-  document.querySelector("#x-add-btn").onclick = function() {
-    if (xTitle.value == "" || xContent.value == "") {
-      window.alert("필수 입력 항목이 비어 있습니다.");
-      return;
-    }
+    $("#x-add-btn").on("click", function() {
+      if (xTitle.value == "" || xContent.value == "") {
+        window.alert("필수 입력 항목이 비어 있습니다.");
+        return;
+      }
 
-    var fd = new FormData(document.forms.namedItem("pickme-form"))
+      var fd = new FormData(document.forms.namedItem("pickme-form"))
 
-    fetch("/pickme/add", {
-      method: "POST",
-      body: new URLSearchParams(fd)
-      })
-      .then(function(response){
-        return response.json();
-      })
-      .then(function(result){
-        console.log(result);
-        if (result.status == "success") {
-          window.alert("등록되었습니다.");
-          location.href = "index.html";
-        } else {
-          window.alert("게시글 등록 실패!");
-          console.log(result.data);
-        }
-      });
-  }//("#x-add-btn").onclick END
+      fetch("/pickme/add", {
+        method: "POST",
+        body: new URLSearchParams(fd)
+        })
+        .then(function(response){
+          return response.json();
+        })
+        .then(function(result){
+          console.log(result);
+          if (result.status == "success") {
+            window.alert("등록되었습니다.");
+            location.href = "index.html";
+          } else {
+            window.alert("게시글 등록 실패!");
+            console.log(result.data);
+          }
+        });
+
+    })//("#x-add-btn").onclick END
+  });//시군구 function END
 
   //취소버튼
   document.querySelector("#x-cancel-btn").onclick = function() {

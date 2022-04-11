@@ -14,7 +14,7 @@
   padding-bottom: 10vh;
   position: relative;
 }
-#select{
+#selectCate{
   display: inline-block;
   width: 150px;
 }
@@ -32,13 +32,14 @@ table > tbody > tr > td {
 <script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="/node_modules/handlebars/dist/handlebars.min.js"></script>
   
-
 <!--공통헤더 제이쿼리-->
 <script type="text/javascript">
   $(document).ready(function () {
       $('#header').load('/junho/mainHeader.html'); //헤더 인클루드
       $('#top').load('/ssang/groupBoard/none-search-top.html'); //상준님헤더
       $('#footer').load('/junho/mainfooter.html'); //푸터부분 인클루드
+      //상태 td
+      $('#selectedStatus').html("<option value='0'>진행</option><option value='1'>완료</option>");
   });
 </script>
 
@@ -47,15 +48,10 @@ table > tbody > tr > td {
 <!--모임 헤더-->
 <div id="top"></div>
 
-
 <div id="body-content"> <!--body content 시작-->
   <div class="inner">
-    <div id="select"> <!--회비 종류 카테고리 시작-->
-      <select class="form-select form-select-sm" aria-label=".form-select-sm example">
-        <option selected>유형선택</option>
-        <option value="1">회비</option>
-        <option value="2">모임비</option>
-        <option value="3">기타</option>
+    <div> <!--회비 종류 카테고리 시작-->
+      <select name="selectCate" id="selectCate" class="form-select form-select-sm" aria-label=".form-select-sm example"> <!-- onchange="getOpNo()"-->
       </select>
     </div> <!--회비 종류 카테고리 끝-->
     
@@ -65,6 +61,7 @@ table > tbody > tr > td {
           <tr>
             <th width="50px">번호</th>
             <th width="100px">유형</th>
+            <th width="100px">상태</th>
             <th width="600px">제목</th>
             <th width="100px">작성일</th>
           </tr>
@@ -95,18 +92,60 @@ table > tbody > tr > td {
 <!--공통풋터-->
 <div id="footer"></div>
 
-<!--핸들바-->
+<!--카테고리 생성 핸들 바-->
+<script id="option-template" type="text/x-handlebars-template">
+{{#each this}}
+<option id="selectOp" value="{{no}}">{{cateName}}</option>
+{{/each}}
+</script>
+<!--카테고리 생성 핸들 바 END-->
+
+<!--카테고리 불러오기-->
+<script>
+  let selectList = document.querySelector("#selectCate");
+  var selectOption = document.querySelector("#option-template");
+  var opGernerator = Handlebars.compile(selectOption.innerHTML);
+
+  $.ajax({
+    url : "/accounting/catelist",
+    type : "POST",
+    async : false,
+    success: function(result) {
+      if (result.status == "fail") {
+        window.alert("서버 요청 오류!");
+        console.log(result);
+        return;
+      } else {
+        // console.log(result.data);
+        selectList.innerHTML = opGernerator(result.data);
+      }
+    }
+  });
+</script>
+
+<!--게시글 목록 생성 핸들바-->
 <script id="tr-template" type="text/x-handlebars-template">
   {{#each this}}
   <tr>
     <td>{{no}}</td>
     <td>{{actCate.cateName}}</td>
+
+    <td>
+      <select id="selectedStatus" >
+      <!--   <option id="statusOp" value="0">진행</option>
+        <option id="statusOp" value="1">완료</option>-->
+        <option value="{{status}}"></option>
+      </select> 
+    </td>
+
     <td><a href="view.html?no={{no}}">{{title}}</a></td>
     <td>{{registDate}}</td>
   </tr>
   {{/each}}
 </script>
+<!--게시글 목록 생성 핸들바 END-->
 
+<!--게시글 목록 생성 ajax-->
 <script>
   let tbody = document.querySelector("#x-board-table tbody")
   // console.log(tbody);
@@ -114,20 +153,50 @@ table > tbody > tr > td {
   
   var htmlGenerator = Handlebars.compile(trTemplate.innerHTML);
 
-  fetch("/accounting/list")
-    .then(function(response){
-      return response.json();
-    })
-    .then(function(accountings){
-      console.log(accountings) 
-      tbody.innerHTML = htmlGenerator(accountings);
-    });
+  $.ajax({
+    url : "/accounting/list",
+    type : "POST",
+    async : false,
+    dataType : "json",
+    success: function(result) {
+      console.log(result.data);
+        tbody.innerHTML = htmlGenerator(result.data);
+    }
+  });
 
-    //form.html
+  //selectbox 옵션별 목록 불러오기
+  $(document).on("change", "#selectCate", function() {
+    let cate = $("#selectCate option:selected").val();
+    if (cate == 1) {
+      $.ajax({
+        url : "/accounting/list",
+        type : "POST",
+        async : false,
+        success: function(result) {
+            tbody.innerHTML = htmlGenerator(result.data);
+        }
+      }); //게시글 목록 생성 ajax
+    } else {
+      $.ajax({
+          url: "/accounting/selectedcate",
+          type: "POST",
+          asyn: false,
+          data: {"actCate.no": $("#selectCate option:selected").val()},
+          success: function(result) {
+            console.log(result);
+            tbody.innerHTML = htmlGenerator(result.data);
+          }//success END
+        })//ajax END
+    }
+  })// selectbox change event END  
+
+  
+
+  
+  //form.html
   document.querySelector("#x-create-btn").onclick = function(){
     location.href="form.html";
   };
 </script>
-
 </body>
 </html>

@@ -3,6 +3,7 @@ package com.bts.yomojomo.dao;
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import com.bts.yomojomo.domain.Accounting;
+import com.bts.yomojomo.domain.AccountingCate;
 
 @Mapper 
 public interface AccountingDao {
@@ -10,11 +11,15 @@ public interface AccountingDao {
 
   List<Accounting> findAll();
 
+  List<AccountingCate> cateListAll();
+
+  List<Accounting> selectedCate(Accounting accounting);
+
   int insert(Accounting accounting);
 
   Accounting findByNo(int no);
 
   int update(Accounting accounting);
 
-  int delete(int no);
+  int delete(Accounting accounting);
 }

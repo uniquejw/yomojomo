@@ -11,6 +11,10 @@ public interface PickmeService {
 
   List<Pickme> list();
 
+  List<Pickme> findSelectSiList(Pickme pickme);
+
+  List<Pickme> findSelectGuList(Pickme pickme);
+
   Pickme get(int no);
 
   int update(Pickme pickme);

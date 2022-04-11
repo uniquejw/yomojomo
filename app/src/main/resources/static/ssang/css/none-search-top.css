@@ -2,7 +2,6 @@
     padding-top: 10vh;
 }
 .menu-container{
-    padding-top: 160px;
     text-align: center;
     /* width: 100%; */
 }
@@ -10,7 +9,7 @@
     text-align: center;
     /* width: 100%; */
 }
-.group-title{
+#group-title{
     margin: 10px 0;
     font-size: 24px;
     font-weight: bold;

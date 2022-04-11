@@ -21,6 +21,10 @@
     form {
       margin: 10px auto;
     }
+    #localSelect{
+      width: 400px;
+      display: flex;
+    }
     textarea { /*사이즈 고정*/
       resize: none;
       height: 300px;
@@ -60,6 +64,14 @@
             <td><input id="x-name" type="text" class="form-control" readonly></td>
           </tr>
           <tr>
+            <td>활동지역</td>
+              <td><input id="x-gu" type="text" class="form-control" readonly></td>
+          </tr>
+          <tr>
+            <td>관심활동</td>
+            <td><input name="purpose.no" id="x-purpose" type="text" class="form-control" readonly></td><!--나중에 이름으로 수정해야함-->
+          </tr>
+          <tr>
             <td>등록일</td>
             <td><input id="x-regDate" type="text" class="form-control" readonly></td>
           </tr>
@@ -81,33 +93,33 @@
   </div>
 </div>
 
-  <!--모달 시작-->
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">모임 초대하기</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <form>
-            <div class="mb-3">
-              <label for="recipient-name" class="col-form-label">초대할사람:</label>
-              <input type="text" class="form-control" id="recipient-name" readonly>
-            </div>
-            <div class="mb-3">
-              <label for="message-text" class="col-form-label">내용:</label>
-              <textarea class="form-control" id="message-text"></textarea>
-            </div>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-          <button type="button" class="btn btn-primary">초대하기</button>
-        </div>
+<!--모달 시작-->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">모임 초대하기</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">초대할사람:</label>
+            <input type="text" class="form-control" id="recipient-name" readonly>
+          </div>
+          <div class="mb-3">
+            <label for="message-text" class="col-form-label">내용:</label>
+            <textarea class="form-control" id="message-text"></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+        <button type="button" class="btn btn-primary">초대하기</button>
       </div>
     </div>
   </div>
+</div>
 <!--모달 끝-->
 
 <script src="/node_modules/jquery/dist/jquery.min.js"></script>
@@ -117,10 +129,11 @@
 <div id="footer"></div>
 
 <script>
-  $(document).ready(function () {
-      $('#header').load('/junho/mainHeader.html'); //헤더 인클루드
-      $('#footer').load('/junho/mainfooter.html'); //푸터부분 인클루드
-  });
+//헤더 푸터 불러오기
+$(document).ready(function () {
+  $('#header').load('/junho/mainHeader.html'); //헤더 인클루드
+  $('#footer').load('/junho/mainfooter.html'); //푸터부분 인클루드
+});
 
   let arr = location.href.split("?");
   console.log(arr);
@@ -144,6 +157,8 @@
 
   let xTitle = document.querySelector("#x-title");
   let xName = document.querySelector("#x-name");
+  let xGuName = document.querySelector("#x-gu");
+  let xPurpose = document.querySelector("#x-purpose");
   let xRegDate = document.querySelector("#x-regDate");
   let xViewCnt = document.querySelector("#x-viewCount");
   let xContent = document.querySelector("#x-content");
@@ -154,19 +169,25 @@
       return response.json();
     })
     .then(function(result){
+
+      console.log(result);
+
       if (result.status == "fail") {
         window.alert("서버 요청 오류!");
         console.log(result.data);
       } else {
         let pickmeCont = result.data;
-        // console.log(pickmeCont);      
+        console.log(pickmeCont);
+
         xTitle.value = pickmeCont.title;
         xName.value = pickmeCont.member.memberName;
+        xGuName.value = (pickmeCont.activeLocal.nameSi) + " " +(pickmeCont.activeLocal.nameGu);
+        xPurpose.value = pickmeCont.purpose.purposeName;
         xRegDate.value = pickmeCont.date;
         xViewCnt.value = pickmeCont.viewCnt;
         xContent.value = pickmeCont.content;
-      }
-    });
+      }//else END
+    }); //fetch END
   
   // 뒤로가기
   document.querySelector("#x-cancel-btn").onclick = function() {
@@ -183,7 +204,7 @@
       console.log(result);
       if(result.status == "success") {
         window.alert("삭제되었습니다.");
-        // location.href = "index.html";
+        location.href = "index.html";
       } else {
         window.alert("삭제 실패");
         console.log(result.data);

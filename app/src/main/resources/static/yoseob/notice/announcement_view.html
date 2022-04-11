@@ -25,7 +25,7 @@
   <script type="text/javascript">
     $(document).ready(function () {
         $('#header').load('/junho/mainHeader.html'); //헤더 인클루드
-        $('#footers').load('/junho/mainfooter.html'); //푸터부분 인클루드
+        $('#footer').load('/junho/mainfooter.html'); //푸터부분 인클루드
         // $('#footers').load('../html'); //푸터부분 인클루드
     });
   </script>
@@ -39,19 +39,34 @@
             요모조모가 여러분께 알려드리는<br>
                   안내 내역입니다.</p>  
         </div>
+        </div>
         <div class ="image">
           <img class ="service_center" src="../image/service_center.png" >
         </div>
         <div class ="notice-category">
           <span class="material-icons">question_mark</span>
-          <span class ="faq">자주하는 질문</span>
-          <span class="material-icons">volume_up</span>
-          <span class ="announcement">공지사항</span>
-          <span class="material-icons">search</span>
-          <span class ="announcement">서비스 안내</span>
-          <span class="material-icons">call</span>
-          <span class ="announcement">문의사항</span>
+      <span id ="faq-btn" class ="faq"><a>자주하는 질문</a></span>
+      <span class="material-icons">volume_up</span>
+      <span id ="announcement-btn"class ="announcement"><a>공지사항</a></span>
+      <span class="material-icons">search</span>
+      <span id ="information-btn" class ="announcement"><a>서비스 안내</a></span>
+      <span class="material-icons">call</span>
+      <span id="inquiry-btn" class ="announcement"><a>문의사항</a></span>
         </div>
+        <script>
+        document.querySelector("#faq-btn").onclick = function () {
+          location.href = "/yoseob/notice/faq_view.html";
+        };
+        document.querySelector("#announcement-btn").onclick = function () {
+          location.href = "/yoseob/notice/announcement.html";
+        };
+        document.querySelector("#information-btn").onclick = function () {
+          location.href = "/yoseob/notice/service_information.html";
+        };
+        document.querySelector("#inquiry-btn").onclick = function () {
+          location.href = "/yoseob/notice/inquiry.html";
+        };
+      </script>
         
         <div class = "announcement_title">
           <span class="announcement_head">공지사항</span>
@@ -68,7 +83,9 @@
             </thead>
 
           </table>
+        </div>
       
         </div>
+       <div id="footer"></div>
 </body>
 </html>

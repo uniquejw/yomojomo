@@ -13,8 +13,6 @@ public class Calendar {
   String resulturl;
   Date startDt;
   Date endDt;
-  Member member;
-  Group group;
   JoinMember joinMemb;
-  MembGrade membGrade;
+  Member member;
 }

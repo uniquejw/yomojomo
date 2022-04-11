@@ -25,7 +25,7 @@
     </association>
   </resultMap>
   
-  <select id="findAll" resultMap="PickmeMap"> 
+  <select id="findAll" resultMap="PickmeMap"> <!-- 게시글 전체 조회 -->
      select
       pm.pm_b_no,
       pm.title,
@@ -47,6 +47,56 @@
       pm.pm_b_no desc
   </select>
   
+    <select id="selectedSicate" resultMap="PickmeMap"> <!--시도 카테고리별 리스트 출력-->
+     select
+      pm.pm_b_no,
+      pm.title,
+      pm.content,
+      pm.reg_dt,
+      pm.view_cnt,
+      m.memb_no mno,
+      m.name mname,
+      p.pups_no pno,
+      p.name pname,
+      a.act_local_no ano,
+      a.name_si asi,
+      a.name_gu agu
+    from gms_pickme pm
+      inner join gms_memb m on pm.memb_no=m.memb_no
+      inner join gms_activelocal a on pm.act_local_no=a.act_local_no
+      inner join gms_purpose p on p.pups_no=pm.pups_no
+    where
+      a.name_si like #{activeLocal.nameSi}
+    order by
+      pm.pm_b_no desc
+  </select>
+  
+  
+  <select id="selectedGucate" resultMap="PickmeMap"> <!--구 카테고리별 리스트 출력-->
+     select
+      pm.pm_b_no,
+      pm.title,
+      pm.content,
+      pm.reg_dt,
+      pm.view_cnt,
+      m.memb_no mno,
+      m.name mname,
+      p.pups_no pno,
+      p.name pname,
+      a.act_local_no ano,
+      a.name_si asi,
+      a.name_gu agu
+    from gms_pickme pm
+      inner join gms_memb m on pm.memb_no=m.memb_no
+      inner join gms_activelocal a on pm.act_local_no=a.act_local_no
+      inner join gms_purpose p on p.pups_no=pm.pups_no
+    where
+      a.act_local_no = #{activeLocal.no}
+    order by
+      pm.pm_b_no desc
+  </select>
+
+  
   <select id="findByNo" resultMap="PickmeMap" parameterType="int"> <!--게시글 번호로 조회-->
      select
       pm.pm_b_no,
@@ -57,6 +107,7 @@
       m.memb_no mno,
       m.name mname,
       p.pups_no pno,
+      p.name pname,
       a.act_local_no ano,
       a.name_si asi,
       a.name_gu agu

@@ -1,5 +1,6 @@
 package com.bts.yomojomo.controller;
 
+import static com.bts.yomojomo.controller.ResultMap.FAIL;
 import static com.bts.yomojomo.controller.ResultMap.SUCCESS;
 import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
@@ -14,40 +15,65 @@ import com.bts.yomojomo.service.CalendarSerivce;
 @RestController
 public class CalendarController {
 
-  private static final Logger log = LoggerFactory.getLogger(PickmeController.class);
+  private static final Logger log = LoggerFactory.getLogger(CalendarController.class);
 
   @Autowired
   CalendarSerivce calendarservice;
 
-  @RequestMapping("/calendar/list")
+  @RequestMapping("/calendar/list")//나중에 member 완료되면 group no로 바꾸기 까먹지말기
   public Object list() {
     log.info("캘린더 목록 조회");
     return new ResultMap().setStatus(SUCCESS).setData(calendarservice.list());
   }
 
   @RequestMapping("/calendar/add")
-  public int add(Calendar calendar, HttpSession session) {
+  public Object add(Calendar calendar, HttpSession session) {
+    log.info("일정 등록!"); // 운영자가 확인하기를 원하는 정보
+    log.debug(calendar.toString()); // 개발자가 확인하기를 원하는 정보
+
     Member member = (Member) session.getAttribute("loginUser");
-    //    calendar.set
-    return calendarservice.add(calendar);
+    calendar.setMember(member);
+    calendarservice.add(calendar);
+
+    return new ResultMap().setStatus(SUCCESS);
   }
 
   @RequestMapping("/calendar/get")
-  public Object get(int no) {
+  public Object get(int no, HttpSession session) {
     Calendar calendar = calendarservice.get(no);
     if (calendar == null) {
-      return "";
+      return new ResultMap().setStatus(FAIL).setData("해당 번호의 게시글이 없습니다.");
     }
-    return calendar;
+    return new ResultMap().setStatus(SUCCESS).setData(calendar);
   }
 
   @RequestMapping("/calendar/update")
-  public Object update(Calendar calendar) {
-    return calendarservice.update(calendar);
+  public Object update(Calendar calendar, HttpSession session) {
+    Member member = (Member) session.getAttribute("loginUser");
+    calendar.setMember(member);
+
+    int count = calendarservice.update(calendar);
+
+    if (count == 1) {
+      return new ResultMap().setStatus(SUCCESS);
+    } else {
+      return new ResultMap().setStatus(FAIL).setData("게시글 번호가 유효하지 않거나 게시글 작성자가 아닙니다.");
+    }
   }
 
   @RequestMapping("/calendar/delete")
-  public Object delete(int no) {
-    return calendarservice.delete(no);
+  public Object delete(int no, HttpSession session) {
+    Member member = (Member) session.getAttribute("loginUser");
+    Calendar calendar = new Calendar();
+    calendar.setNo(no);
+    calendar.setMember(member);
+
+    int count = calendarservice.delete(calendar);
+
+    if (count == 1) {
+      return new ResultMap().setStatus(SUCCESS);
+    } else {
+      return new ResultMap().setStatus(FAIL).setData("게시글 번호가 유효하지 않거나 게시글 작성자가 아닙니다.");
+    }
   }
 }
