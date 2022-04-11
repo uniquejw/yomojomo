@@ -40,18 +40,12 @@
   margin-top: 20px;
   padding: 20px 60px;
 }
-.edit-category {
-  display: flex;
-  justify-content: center;
-  text-align: center;
-  flex-wrap: wrap;
-}
 .category-wrap {
   display: flex;
-  justify-content: center;
-  text-align: center;
+  vertical-align: middle;
   margin: 3px;
 }
 #edit-btn {
+  float: right;
   margin-right: 60px;
 }

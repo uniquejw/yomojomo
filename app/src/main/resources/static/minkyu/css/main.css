@@ -31,10 +31,12 @@
 }
 .table-title {
   max-width: 400px;
+  width: 50%;
   text-align: left;
 }
 .table-group {
   max-width: 200px;
+  width: 25%;
 }
 tr > td {
   overflow: hidden;
@@ -51,7 +53,7 @@ tr > .table-title:hover {
 .pagination {
   justify-content: center;
 }
-.btn {
+.btn-delete {
   float: right;
   margin: 0px 5px;
 }
