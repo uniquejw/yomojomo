@@ -235,19 +235,19 @@ $("#nameSi").on("click", function() {
 
 
 // 군, 구 카테고리 선택하면 게시글 리스트 불러오기
-$("#nameGu").on("click", function() {
+$("#nameGu").on("click", function() { //id가 nameGu를 클릭하면 발생되는 이벤트 시작
   console.log("바뀜");
   $.ajax({
-    url : "/pickme/selectedGucate",
+    url : "/pickme/selectedGucate", //url 요청
     type : "POST",
     async : false,
-    data : {"activeLocal.no" : $("#nameGu option:selected").val()},
-    success : function(result) {
+    data : {"activeLocal.no" : $("#nameGu option:selected").val()}, //파라미터로 gms_activelocal의 번호를 보낸다.
+    success : function(result) { //받아온 list로 handlebars를 화면에 나오게 한다.
       // console.log(result.data);
       tbody.innerHTML = htmlGenerator(result.data);
     }
   }) //ajax END
-});//nameGu change End
+});//nameGu change End //id가 nameGu를 클릭하면 발생되는 이벤트 끝
 
 
 document.querySelector("#x-create-btn").onclick = function(){

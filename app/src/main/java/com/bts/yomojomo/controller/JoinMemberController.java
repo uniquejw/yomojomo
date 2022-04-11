@@ -1,6 +1,8 @@
 package com.bts.yomojomo.controller;
 
 
+import static com.bts.yomojomo.controller.ResultMap.SUCCESS;
+import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +26,18 @@ public class JoinMemberController {
     return joinMemberservice.list();
   }
 
-  @RequestMapping("/joinmember/gradenolist") //경현 - 수정시 말해주세요
-  public Object gradenolist(int no) {
-    return joinMemberservice.findByGradeNo(no);
+  @RequestMapping("/joinmember/listbygradeno") //경현 - 수정시 말해주세요
+  //회원 등급으로 모임번호, 모임이름, 회원번호, 회원이름, 모임등급번호, 모임등급이름 검색
+  //test : http://localhost:8080/joinmember/listbygradeno?memberGrade.gradeNo=회원등급번호(1또는2)
+  public Object listbyGradeNo(JoinMember joinMember) {
+    return joinMemberservice.listbyGradeNo(joinMember);
+  }
+
+  @RequestMapping("/joinmember/grouplistbymno") //경현 - 수정시 말해주세요
+  //회원 등급으로 모임번호, 모임이름, 회원번호, 회원이름, 모임등급번호, 모임등급이름 검색
+  //test : http://localhost:8080/joinmember/grouplistbymno?member.no=회원번호
+  public Object grouplistByMno(JoinMember joinMember, HttpSession session) {
+    return new ResultMap().setStatus(SUCCESS).setData(joinMemberservice.grouplistByMno(joinMember));
   }
 
 

@@ -21,8 +21,13 @@ public class DefaultJoinMember implements JoinMemberService{
   }
 
   @Override // 경현 - 수정시 말해주세용
-  public List<JoinMember> findByGradeNo(int no) {
-    return joinMemberDao.findByGradeNoAll(no);
+  public List<JoinMember> listbyGradeNo(JoinMember joinMember) {
+    return joinMemberDao.findByGradeNo(joinMember);
+  }
+
+  @Override
+  public List<JoinMember> grouplistByMno(JoinMember joinMember) {
+    return joinMemberDao.findgrouplistByMno(joinMember);
   }
 
   @Override
@@ -47,6 +52,8 @@ public class DefaultJoinMember implements JoinMemberService{
   public int delete(int no) {
     return joinMemberDao.delete(no);
   }
+
+
 
 
 }

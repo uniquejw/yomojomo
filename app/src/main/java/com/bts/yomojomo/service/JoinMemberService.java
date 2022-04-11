@@ -7,7 +7,9 @@ public interface JoinMemberService {
 
   List<JoinMember> list();
 
-  List<JoinMember> findByGradeNo(int no); //경현 - 수정시 말해주세요
+  List<JoinMember> listbyGradeNo(JoinMember joinMember); //경현 - 수정시 말해주세요
+
+  List<JoinMember> grouplistByMno(JoinMember joinMember); //경현 - 수정시 말해주세요
 
   int add(JoinMember joinMember);
 

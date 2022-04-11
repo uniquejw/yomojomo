@@ -104,8 +104,16 @@
       <div class="modal-body">
         <form>
           <div class="mb-3">
+            <label for="title" class="col-form-label">제목</label>
+            <input type="text" class="form-control" id="">
+          </div>
+          <div class="mb-3">
             <label for="recipient-name" class="col-form-label">초대할사람:</label>
             <input type="text" class="form-control" id="recipient-name" readonly>
+          </div>
+          <div class="mb-3">
+            <label for="mygrouplist" class="col-form-label">내 모임</label>
+            <select></select>
           </div>
           <div class="mb-3">
             <label for="message-text" class="col-form-label">내용:</label>
@@ -217,7 +225,7 @@ $(document).ready(function () {
     location.href = "update.html?no="+no;
   };
 
-  //초대 받을 사람 이름 출력하기 -> 나중에 member controller완성되면 거기랑 붙여야함.
+  //초대 받을 사람 이름 출력하기
   document.querySelector("#x-invitation-btn").onclick = function() {
     var xModalName = document.querySelector("#recipient-name");
     fetch(`/pickme/get?no=${no}`)
@@ -232,9 +240,14 @@ $(document).ready(function () {
       } else {
         let recipientName = result.data;
         console.log(recipientName);
-      // xModalName.value = .member.memberName;
+      xModalName.value = recipientName.member.memberName;
+      console.log(recipientName.member.memberName);
       }
     });
+
+    //내 모임 리스트 가져오기
+    
+
   }
 </script>
 </body>
