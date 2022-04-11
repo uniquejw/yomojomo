@@ -35,19 +35,20 @@
     <div class="inner">
       <div class="midpoint-section">
         <button type="button" class="btn btn-primary add-people">인원추가</button>
+        <button type="button" class="btn btn-primary select-mid-point" onclick="selectMidpoint()">중간지점 찾기</button>
         <div class="content">
           <ul class="midpoint-input">
-            <h5>사용자1</h5>
-            <li>
+            <h5 class="x-cancel-h5-1">사용자1</h5>
+            <li class="x-cancel-li-1">
               <input type="text" class="name-input" placeholder="사용자 입력">
               <div class="destination-input">
-                <button type="button" class="modal-click1 modal-click" style="border: 0; padding: 0;" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="setTimeout(function(){ map.relayout(); clickTest(1)}, 200);">
+                <button type="button" class="modal-click1 modal-click" style="border: 0; padding: 0;" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="setTimeout(function(){ map.relayout();}, 200); modalclick(1)">
                   <input type="text" placeholder="위치 입력" class="destination-item1 destination-item">
                   <span class="material-icons">search</span>
                 </button>
               </div>
               <div class="btn-grouping">
-                <button type="button" class="btn btn-primary">cancel</button>
+                <button type="button" class="btn btn-primary x-btn-cancel x-btn-cancel1" onclick="clicktest(1)">cancel</button>
               </div>
             </li>
           </ul>

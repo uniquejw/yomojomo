@@ -12,11 +12,11 @@ var selectDestinationEl = document.querySelector('.select-destination')
 var keyword = document.getElementById('keyword');
 var modalGroupEl = document.querySelector('.modal-group')
 var clickLiListEls = null;
+var cancelBtnEls = document.querySelectorAll('.x-btn-cancel')
 
 addBtnEl.addEventListener('click', function() {
   var codes = getMidpointList(++addBtnClickCount)
 
-  console.log(codes[1])
   inputListEl.appendChild(codes[0])
   inputListEl.appendChild(codes[1])
   clickLiListEls = document.querySelectorAll('.midpoint li');
@@ -30,25 +30,26 @@ function getMidpointList(j) {
     var inputListEls = document.createElement('li'),
         midpointStr = '<input type="text" class="name-input" placeholder="사용자 입력">' + 
             '<div class="destination-input">' +
-            '<button type="button" class ="modal-click'+j+ ' modal-click" style="border: 0; padding: 0;" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="setTimeout(function(){ map.relayout(); clickTest('+j+')}, 200); clicktest()">'+
+            '<button type="button" class ="modal-click'+j+ ' modal-click" style="border: 0; padding: 0;" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="setTimeout(function(){ map.relayout();}, 200); modalclick('+j+')">'+
             '<input type="text" class ="destination-item'+j+ ' destination-item" placeholder="위치 입력">' + 
             '<span class="material-icons">search</span>'+
             '</button>'+
             '</div>'+
             '<div class="btn-grouping">'+
-            '<button type="button" class="btn btn-primary">cancel</button>'+
+            '<button type="button" class="btn btn-primary x-btn-cancel x-btn-cancel'+j+'" onclick="clicktest('+j+')">cancel</button>'+
             '</div>';
     inputListEls.innerHTML = midpointStr;
+    h5El.className = 'x-cancel-h5-'+j
+    inputListEls.className = 'x-cancel-li-'+j
     return [h5El, inputListEls]
-    
 }
 
 
 // 지도 다루기
 var mapContainer1 = document.getElementById('map1'), // 지도를 표시할 div 
     mapOption1 = {
-        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-        level: 3 // 지도의 확대 레벨
+        center: new kakao.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
+        level: 8 // 지도의 확대 레벨
     };  
 
 // 지도를 생성합니다    
@@ -283,51 +284,148 @@ function removeAllChildNods(el) {
     }
 }
 
-var finalDstination = [];
+var finalDestination = [];
+var finalDestinationLatLng = [];
 var clickSaveBtn = 0;
-function clickTest(i) {
-    console.log('clcick'+i)
+var infowindowtests = [];
+function modalclick(i) {
     var destinationItemEl = document.querySelector(`.destination-item${i}`);
     var saveBtnEl = document.querySelector('.btn-save')
     
     saveBtnEl.addEventListener('click', function() {
         if (selectDestinationEl.innerHTML != '') {
             destinationItemEl.value = selectDestinationEl.innerHTML;
-            finalDstination[clickSaveBtn++] = selectDestinationEl.innerHTML;
+            finalDestination[clickSaveBtn++] = selectDestinationEl.innerHTML;
             selectDestinationEl.innerHTML = "";
             keyword.value = "";
             destinationItemEl = null;
-            console.log(finalDstination)
-            return finalDstination;
+
+
+        for (var i = 0; i < finalDestination.length; i ++) {
+            if (!isDup(finalDestination)) {
+            // 주소로 좌표를 검색합니다
+                geocoder.addressSearch(finalDestination[i], function(result, status) {
+
+                    // 정상적으로 검색이 완료됐으면 
+                    if (status === kakao.maps.services.Status.OK) {
+                
+                        var coords1 = new kakao.maps.LatLng(result[0].y, result[0].x);
+                        finalDestinationLatLng[i-1] = coords1;
+                        // 결과값으로 받은 위치를 마커로 표시합니다
+                        var marker1 = new kakao.maps.Marker({
+                            map1: map1,
+                            position: coords1
+                        });
+                        
+                        
+                
+                        // 인포윈도우로 장소에 대한 설명을 표시합니다
+                        var infowindow = new kakao.maps.InfoWindow({
+                            content: '<div style="width:150px;text-align:center;padding:6px 0;">사용자</div>'
+                        });
+                        infowindow.open(map1, marker1);
+                        infowindowtests.push(infowindow);
+                
+                        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+                        map1.setCenter(coords1);
+                    } 
+                });
+            } else {
+                alert('주소가 중복됩니다.')
+            }
+        }  
+            
         }
         
-        // 주소로 좌표를 검색합니다
-        // geocoder.addressSearch(destinationInputEl.value, function(result, status) {
-
-        //     // 정상적으로 검색이 완료됐으면 
-        //     if (status === kakao.maps.services.Status.OK) {
         
-        //         var coords1 = new kakao.maps.LatLng(result[0].y, result[0].x);
-        
-        //         // 결과값으로 받은 위치를 마커로 표시합니다
-        //         var marker1 = new kakao.maps.Marker({
-        //             map1: map1,
-        //             position: coords1
-        //         });
-        
-        //         // 인포윈도우로 장소에 대한 설명을 표시합니다
-        //         var infowindow = new kakao.maps.InfoWindow({
-        //             content: '<div style="width:150px;text-align:center;padding:6px 0;">우리회사</div>'
-        //         });
-        //         infowindow.open(map1, marker1);
-        
-        //         // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-        //         map1.setCenter(coords1);
-        //     } 
-        // });  
     })
     
 }
+
+
+function clicktest(i) {
+    console.log('click');
+    var test1 = 'h5.x-cancel-h5-'+i
+    var test2 = 'li.x-cancel-li-'+i
+    console.log($(test1));
+    console.log($(test2));
+    $(test1).remove()
+    $(test2).remove()
+    finalDestination.splice(i-1)
+    finalDestinationLatLng.splice(i-1)
+    console.log(finalDestination)
+    console.log(finalDestinationLatLng)
+}
+var lat = 0;
+var lng = 0;
+function selectMidpoint() {
+    for(var i = 0; i< finalDestinationLatLng.length; i++) {
+        lat += Number(finalDestinationLatLng[i].La)
+        lng += Number(finalDestinationLatLng[i].Ma)
+    }
+    lat = lat / finalDestinationLatLng.length
+    lng = lng / finalDestinationLatLng.length
+
+    removeMarkertests();
+    console.log(lat, lng);
+    panTo(lat, lng)
+    midpointMarker(lng, lat)
+}
+function removeMarkertests() {
+    for (var j = 0; j <infowindowtests.length; j++) {
+        infowindowtests[j].close()
+    }
+    console.log('removemarkertest 실행됨')
+}
+
+// function setCenter() {            
+//     // 이동할 위도 경도 위치를 생성합니다 
+//     var moveLatLon = new kakao.maps.LatLng(lat, lng);
+    
+//     // 지도 중심을 이동 시킵니다
+//     map.setCenter(moveLatLon);
+// }
+
+function panTo(lat, lng) {
+    // 이동할 위도 경도 위치를 생성합니다 
+    var moveLatLon = new kakao.maps.LatLng(lng, lat);
+    
+    // 지도 중심을 부드럽게 이동시킵니다
+    // 만약 이동할 거리가 지도 화면보다 크면 부드러운 효과 없이 이동합니다
+    mapOption1 = {
+        center: new kakao.maps.LatLng(lng, lat), // 지도의 중심좌표
+        level: 3 // 지도의 확대 레벨
+    };  
+
+    // 지도를 생성합니다    
+    map1 = new kakao.maps.Map(mapContainer1, mapOption1); 
+    map1.panTo(moveLatLon);            
+}   
+
+function midpointMarker(lng, lat) {
+    var markerPosition  = new kakao.maps.LatLng(lng, lat); 
+    var marker = new kakao.maps.Marker({
+        position: markerPosition
+    });
+    console.log(marker)
+    marker.setMap(map1);
+    console.log('midpointmarker 실향됭')
+}
+
+
+
+// 배열 안에 중복 값 찾기
+function isDup(arr)  {
+  return arr.some(function(x) {
+    return arr.indexOf(x) !== arr.lastIndexOf(x);
+  });  
+}
+
+
+
+
+  
+
 
 
 
