@@ -1,5 +1,6 @@
 package com.bts.yomojomo.controller;
 
+import static com.bts.yomojomo.controller.ResultMap.SUCCESS;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,12 +19,12 @@ public class PurposeController {
   @RequestMapping("/purpose/list")
   public Object list() {
     log.info("purpose 리스트 출력");
-    return purposeService.list();
+    return new ResultMap().setStatus(SUCCESS).setData(purposeService.list());
   }
 
   @RequestMapping("/purpose/get")
   public Object get (int no) {
     log.info("purpose 번호로 검색");
-    return purposeService.get(no);
+    return new ResultMap().setStatus(SUCCESS).setData(purposeService.get(no));
   }
 }
