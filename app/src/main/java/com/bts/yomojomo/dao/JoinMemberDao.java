@@ -10,7 +10,9 @@ public interface JoinMemberDao {
 
   List<JoinMember> findAll();
 
-  List<JoinMember> findByGradeNoAll(int no); //경현 - 수정시 말해주세요
+  List<JoinMember> findByGradeNo(JoinMember joinMember); //경현 - 수정시 말해주세요
+
+  List<JoinMember> findgrouplistByMno(JoinMember joinMember); //경현 - 수정시 말해주세요
 
   int insert(JoinMember joinMember);
 

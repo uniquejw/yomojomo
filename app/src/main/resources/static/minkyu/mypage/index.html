@@ -34,7 +34,7 @@
         <a href="mypost.html" class="list-group-item list-group-item-action">내가 쓴 글</a>
         <a href="favor.html" class="list-group-item list-group-item-action">즐겨찾기한 글</a>
         <a href="group.html" class="list-group-item list-group-item-action">가입 승인/대기</a>
-        <a href="pickme.html" class="list-group-item list-group-item-action">픽미 게시판 내역</a>
+        <a href="pickme.html" class="list-group-item list-group-item-action">픽미 요청/게시글</a>
         <a href="inquiry.html" class="list-group-item list-group-item-action">문의 내역</a>
       </div>
       <div class="base">
@@ -76,7 +76,7 @@
           </div>
           <br>
           <div>
-            <h4 class="title">즐겨찾는 모임</h4>
+            <h4 class="title">나의 관심 모임</h4>
             <br>
           </div>
           <div class="favor-group">
@@ -99,7 +99,7 @@
   </div>
   <div id="footers"></div>
   <script>
-   $(".card").click(function(e){
+   $(".card").children("img").click(function(e){
       location.href = "/ssang/groupBoard/index.html"
     })
   </script>
