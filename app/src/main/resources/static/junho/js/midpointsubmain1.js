@@ -3,8 +3,15 @@ $(document).ready(function () {
   $('#footer').load('/junho/mainfooter.html'); //푸터부분 인클루드
 });
 
+
+// 마커를 클릭했을 때 해당 장소의 상세정보를 보여줄 커스텀오버레이입니다
+var placeOverlay = new kakao.maps.CustomOverlay({zIndex:1})
+// 커스텀 오버레이의 컨텐츠 엘리먼트 입니다 
+var contentNode = document.createElement('div') 
 // 마커를 담을 배열입니다
 var markers = [];
+
+// 지도 중심 좌표 설정
 var latlng = new kakao.maps.LatLng(37.498095, 127.027610);
 
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
@@ -13,9 +20,6 @@ var mapContainer = document.getElementById('map'), // 지도를 표시할 div
         level: 3 // 지도의 확대 레벨
     };  
 
-
-
-  
 // 지도를 생성합니다    
 var map = new kakao.maps.Map(mapContainer, mapOption); 
 
@@ -27,16 +31,36 @@ var marker = new kakao.maps.Marker({
 // 장소 검색 객체를 생성합니다
 var ps = new kakao.maps.services.Places();  
 
-// 검색 결과 목록이나 마커를 클릭했을 때 장소명을 표출할 인포윈도우를 생성합니다
-var infowindow = new kakao.maps.InfoWindow({zIndex:1});
+// 커스텀 오버레이의 컨텐츠 노드에 css class를 추가합니다 
+contentNode.className = 'placeinfo_wrap';
 
-// 키워드로 장소를 검색합니다
-searchPlaces();
+// 커스텀 오버레이의 컨텐츠 노드에 mousedown, touchstart 이벤트가 발생했을때
+// 지도 객체에 이벤트가 전달되지 않도록 이벤트 핸들러로 kakao.maps.event.preventMap 메소드를 등록합니다 
+addEventHandle(contentNode, 'mousedown', kakao.maps.event.preventMap);
+addEventHandle(contentNode, 'touchstart', kakao.maps.event.preventMap);
+
+// 커스텀 오버레이 컨텐츠를 설정합니다
+placeOverlay.setContent(contentNode);  
+
+
+// 엘리먼트에 이벤트 핸들러를 등록하는 함수입니다
+function addEventHandle(target, type, callback) {
+  if (target.addEventListener) {
+      target.addEventListener(type, callback);
+  } else {
+      target.attachEvent('on' + type, callback);
+  }
+}
+
+
 
 // 키워드 검색을 요청하는 함수입니다
 function searchPlaces() {
 
     var keyword = document.getElementById('keyword').value;
+
+    // 커스텀 오버레이를 숨깁니다 
+    placeOverlay.setMap(null);
 
     // 장소검색 객체를 통해 키워드로 장소검색을 요청합니다
     ps.keywordSearch(keyword, placesSearchCB, {location: latlng, radius:5000}); 
@@ -95,23 +119,15 @@ function displayPlaces(places) {
         // 마커와 검색결과 항목에 mouseover 했을때
         // 해당 장소에 인포윈도우에 장소명을 표시합니다
         // mouseout 했을 때는 인포윈도우를 닫습니다
-        (function(marker, title) {
-            kakao.maps.event.addListener(marker, 'mouseover', function() {
-                displayInfowindow(marker, title);
-            });
+        (function(marker, place) {
+          kakao.maps.event.addListener(marker, 'click', function() {
+              displayPlaceInfo(place);
+          });
 
-            kakao.maps.event.addListener(marker, 'mouseout', function() {
-                infowindow.close();
-            });
-
-            itemEl.onmouseover =  function () {
-                displayInfowindow(marker, title);
-            };
-
-            itemEl.onmouseout =  function () {
-                infowindow.close();
-            };
-        })(marker, places[i].place_name);
+          itemEl.onclick = function () {
+            displayPlaceInfo(place);
+          }
+        })(marker, places[i]);
 
         fragment.appendChild(itemEl);
     }
@@ -208,13 +224,28 @@ function displayPagination(pagination) {
     paginationEl.appendChild(fragment);
 }
 
-// 검색결과 목록 또는 마커를 클릭했을 때 호출되는 함수입니다
-// 인포윈도우에 장소명을 표시합니다
-function displayInfowindow(marker, title) {
-    var content = '<div style="padding:5px;z-index:1;">' + title + '</div>';
+// 클릭한 마커에 대한 장소 상세정보를 커스텀 오버레이로 표시하는 함수입니다
+function displayPlaceInfo (place) {
+  var content = '<div class="placeinfo">' +
+                  '   <a class="title" href="' + place.place_url + '" target="_blank" title="' + place.place_name + '">' + place.place_name + '</a>';   
 
-    infowindow.setContent(content);
-    infowindow.open(map, marker);
+  if (place.road_address_name) {
+      content += '    <span title="' + place.road_address_name + '">' + place.road_address_name + '</span>' +
+                  '  <span class="jibun" title="' + place.address_name + '">(지번 : ' + place.address_name + ')</span>';
+  }  else {
+      content += '    <span title="' + place.address_name + '">' + place.address_name + '</span>';
+  }                
+ 
+  content += '    <span class="tel">' + place.phone + '</span>' + 
+              '<div>' + 
+                '<button class="btn btn-primary">최종장소지정</button>' +
+              '</div>' +
+              '</div>' + 
+              '<div class="after"></div>';
+
+  contentNode.innerHTML = content;
+  placeOverlay.setPosition(new kakao.maps.LatLng(place.y, place.x));
+  placeOverlay.setMap(map);  
 }
 
  // 검색결과 목록의 자식 Element를 제거하는 함수입니다
@@ -226,8 +257,6 @@ function removeAllChildNods(el) {
 
 function clickList(str) {
   var keyword = document.getElementById('keyword')
-  console.log(str)
   keyword.value = str
   searchPlaces();
-
 }
