@@ -1,4 +1,4 @@
-<!-- 모임목적 인서트문 -->
+-- 모임목적 인서트문
 insert into gms_purpose(name) values ("문화/예술/음악");
 insert into gms_purpose(name) values ("교육/자기개발");
 insert into gms_purpose(name) values ("육아/가족/반려동물");
@@ -304,18 +304,18 @@ insert into gms_group(act_local_no, pups_no, name, logo, intro, max_cnt, view_cn
 insert into gms_applyform(g_no, memb_no, content ) values(1, 1, "가입하고싶어요1 가입하고 싶어요1");
 insert into gms_applyform(g_no, memb_no, content ) values(2, 2, "가입하고싶어요2 가입하고 싶어요2");
 insert into gms_applyform(g_no, memb_no, content ) values(3, 3, "가입하고싶어요3 가입하고 싶어요3");
-insert into gms_apllyform_question (appl_no, question_name) values(1, "최근에 읽은 책은?");
-insert into gms_apllyform_question (appl_no, question_name) values(1, "가장 재밌게 본 영화는?");
-insert into gms_apllyform_question (appl_no, question_name) values(1, "어떻게 알고 오셨나요?");
-insert into gms_apllyform_question (appl_no, question_name) values(2, "3대 중량 몇인가요?");
-insert into gms_apllyform_question (appl_no, question_name) values(2, "운동 경력");
-insert into gms_apllyform_question (appl_no, question_name) values(3, "좋아하는 코스를 적어주세요");
-insert into gms_apllyform_answer (appl_question_no, answer) values(1, "설레는 봄엔 설렌다");
-insert into gms_apllyform_answer (appl_question_no, answer) values(2, "영화는 안봐요");
-insert into gms_apllyform_anwser (appl_question_no, answer) values(3, "검색");
-insert into gms_apllyform_anwser (appl_question_no, answer) values(4, "50kg....");
-insert into gms_apllyform_anwser (appl_question_no, answer) values(5, "3개월");
-insert into gms_apllyform_anwser (appl_question_no, answer) values(6, "양재천 따라 쭉 타요 ㅎㅎ");
+insert into gms_applyform_question   (appl_no, question_name) values(1, "최근에 읽은 책은?");
+insert into gms_applyform_question  (appl_no, question_name) values(1, "가장 재밌게 본 영화는?");
+insert into gms_applyform_question  (appl_no, question_name) values(1, "어떻게 알고 오셨나요?");
+insert into gms_applyform_question  (appl_no, question_name) values(2, "3대 중량 몇인가요?");
+insert into gms_applyform_question  (appl_no, question_name) values(2, "운동 경력");
+insert into gms_applyform_question  (appl_no, question_name) values(3, "좋아하는 코스를 적어주세요");
+insert into gms_applyform_answer  (appl_question_no, answer) values(1, "설레는 봄엔 설렌다");
+insert into gms_applyform_answer  (appl_question_no, answer) values(2, "영화는 안봐요");
+insert into gms_applyform_answer  (appl_question_no, answer) values(3, "검색");
+insert into gms_applyform_answer  (appl_question_no, answer) values(4, "50kg....");
+insert into gms_applyform_answer  (appl_question_no, answer) values(5, "3개월");
+insert into gms_applyform_answer  (appl_question_no, answer) values(6, "양재천 따라 쭉 타요 ㅎㅎ");
 
 insert into gms_calendar(name, content, result_url, g_no, start_dt, end_dt) values ("정모1", "7시 강남역1번출구", "www.naver.com", 1, "2022-04-03", "2022-04-03");
 insert into gms_calendar(name, content, result_url, g_no, start_dt, end_dt) values ("정모2", "7시 구디 4번 출구", "www.naver.com", 1, "2022-04-05", "2022-04-10");
@@ -391,10 +391,10 @@ insert into gms_comment(b_no, content, memb_no, g_no) values (1, "14", 1, 1 );
 insert into gms_comment(b_no, content, memb_no, g_no) values (2, "32", 2, 2);
 insert into gms_comment(b_no, content, memb_no, g_no) values (3, "137", 3, 3);
 insert into gms_invite_box (title, content, confirm, reg_dt, memb_no, memb_no2, g_no)
-values("놀러오세요", "동물의 숲으로", 0 "2022-04-11", 1, 2, 2);
-insert into gms_invite_box (title, content, confrim, reg_dt, memb_no, memb_no2, g_no)
+values("놀러오세요", "동물의 숲으로", 0, "2022-04-11", 1, 2, 2);
+insert into gms_invite_box (title, content, confirm, reg_dt, memb_no, memb_no2, g_no)
 values("같이놀아요", "우리 모임으로", 0, "2022-04-11", 1, 5, 2);
-insert into gms_invite_box (title, content, confrim, reg_dt, memb_no, memb_no2, g_no)
+insert into gms_invite_box (title, content, confirm, reg_dt, memb_no, memb_no2, g_no)
 values("놀러와요", "젤다", 0, "2022-04-11", 5, 1, 1);
-insert into gms_invite_box(title, content, confrim, memb_no, memb_no2, g_no)
-values("우리 모임 좋음", 0, "같이 놀아용", 1, 2, 2);
+insert into gms_invite_box(title, content, confirm, reg_dt, memb_no, memb_no2, g_no)
+values("우리 모임 좋음","오타시러", 0,"2022-04-11", 1, 2, 2);

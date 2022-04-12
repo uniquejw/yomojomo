@@ -1,6 +1,7 @@
 const PATH = {
   'groupList' : '/group/list',
-  'groupGet' : '/group/get'
+  'groupGet' : '/group/get',
+  'applQuestList' : '/applyQuestion/list'
 }
 // Array.prototype.map ( callbackfn [ , thisArg ] )
 
@@ -24,7 +25,7 @@ $(document).on("click","#apply-form",function(){
   document.querySelector(".background").className = "background";
   document.querySelector(".report-background").className = "report-background show";
   var value = $(this).val();
-  fetch(`/applyform/get?no=${value}`)
+  fetch(PATH.applQuestList)
     .then(function(res){
       return res.json();
     }).then(function(result){

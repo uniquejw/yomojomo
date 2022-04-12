@@ -73,11 +73,11 @@
           </tr>
           <tr>
             <td>관심활동</td>
-            <td><input name="purpose.no" type="number" class="form-control"></td><!--나중에 이름으로 수정해야함-->
+            <td><input name="purpose.no" id="purpose" type="number" class="form-control"></td><!--나중에 이름으로 수정해야함-->
           </tr>
           <tr>
             <td><label for="comment">내용:</label></td>
-            <td><textarea class="form-control" rows="5" name="content"></textarea></td>
+            <td><textarea class="form-control" rows="5" id= "content" name="content"></textarea></td>
           </tr>
         </tbody>
       </table>
@@ -153,13 +153,17 @@
   $("#nameGu").on("change", function() {
   xActiveLocal = $("#nameGu option:selected").val();
   let xTitle = document.querySelector("input[name=title]");
-  let xPurpose = document.querySelector("input[name=purpose]");
-  let xContent = document.querySelector("textarea");
+  let xPurpose = document.querySelector("#purpose");
+  let xContent = document.querySelector("#content");
 
     $("#x-add-btn").on("click", function() {
-      if (xTitle.value == "" || xContent.value == "") {
-        window.alert("필수 입력 항목이 비어 있습니다.");
-        return;
+      if (xTitle.value == "" ||
+          xActiveLocal == "" || 
+          xContent.value == "" ||
+          xPurpose.value == "") 
+          {
+            window.alert("필수 입력 항목이 비어 있습니다.");
+            return;
       }
 
       var fd = new FormData(document.forms.namedItem("pickme-form"))

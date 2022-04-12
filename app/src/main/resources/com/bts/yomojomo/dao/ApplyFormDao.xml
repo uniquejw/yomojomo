@@ -11,8 +11,26 @@
     <result column="memb_no" property="memberNo"/>
     <result column="content" property="content"/>
     <result column="appl_dt" property="date"/>
+    <collection property="question" ofType="ApplyQuestion">
+      <id column = "appl_question_no" property="no"/>
+      <result column="appl_no" property="applyNo"/>
+      <result column="question_name" property="questionName"/>
+    </collection>
   </resultMap>
 
+  <select id="findQuestion" resultMap="ApplyFormMap"> 
+    select
+      appl_no,
+      g_no,
+      memb_no,
+      content,
+      appl_dt
+    from
+      gms_applyform
+    
+    order by
+      appl_no asc
+  </select>
   <select id="findAll" resultMap="ApplyFormMap"> 
     select
       appl_no,

@@ -1,8 +1,10 @@
 package com.bts.yomojomo.service.impl;
 
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.bts.yomojomo.dao.ApplyFormDao;
+import com.bts.yomojomo.domain.ApplyForm;
 import com.bts.yomojomo.service.ApplyFormService;
 
 //서비스객체 -> 업무로직, 트랜잭션 제어 
@@ -13,16 +15,20 @@ public class DefaultApplyFormService implements ApplyFormService {
   @Autowired
   ApplyFormDao applyFormDao;
 
-  //
+
+  @Override
+  public List<ApplyForm> findQuestion() {
+    return applyFormDao.findQuestion();
+  }
   //  @Override
   //  public int add(ApplyForm applyForm) {
   //    return applyFormDao.insert(applyForm);
   //  }
   //
-  //  @Override
-  //  public List<ApplyForm> list() {
-  //    return applyFormDao.findAll();
-  //  }
+  //    @Override
+  //    public List<ApplyForm> list() {
+  //      return applyFormDao.findAll();
+  //    }
   //
   //  @Override
   //  public ApplyForm get(int no) {
