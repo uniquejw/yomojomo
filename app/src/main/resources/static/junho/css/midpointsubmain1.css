@@ -1,0 +1,42 @@
+/* COMMON */
+body {
+  font-family: 'Nanum Gothic', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.4;
+  color: #333;
+  overflow-y: hidden;
+}
+
+img {
+  display: block;
+}
+
+a {
+  text-decoration: none;
+}
+
+/* MIDPOINT-RESULT */
+.midpoint-result {
+  background-color: f6f5f0;
+  padding-top: 10vh;
+}
+
+.midpoint-result>.inner {
+  background-color: f6f5f0;
+  height: 80vh;
+}
+
+.midpoint-result .content {
+  padding-top: 30px;
+  background-color: #f6f5f0;
+}
+
+.midpoint-result .content .midpoint-result-list {
+
+}
+
+.midpoint-result .content #map {
+
+}
+
