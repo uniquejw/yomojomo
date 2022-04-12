@@ -12,7 +12,7 @@ public class InviteBox {
   String content;                   //content
   Boolean confirm;                  //confirm
   Date regDt;                       //reg_dt
-  Member member;                    //Member 테이블(초대받은사람) FK     - memb_no
+  Member member;                    //Member 테이블(초대받는 사람) FK     - memb_no
   JoinMember joinMember;            //JoinMember 테이블(초대하는 사람)   - memb_no2, g_no
   //-> 초대하는 사람이 번호, 모임 번호 
 }

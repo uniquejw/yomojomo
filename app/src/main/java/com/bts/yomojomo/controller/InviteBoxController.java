@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.bts.yomojomo.domain.InviteBox;
+import com.bts.yomojomo.domain.JoinMember;
 import com.bts.yomojomo.domain.Member;
 import com.bts.yomojomo.service.InviteBoxService;
 
@@ -20,6 +21,7 @@ public class InviteBoxController {
 
   @RequestMapping("/invitebox/mnolist")
   public Object invitationList(InviteBox inviteBox, HttpSession session) {
+    //test : http://localhost:8080/invitebox/mnolist?member.no=초대받는사람번호
     log.info("초대받은 회원별 받은 초대 리스트 조회");
 
     return new ResultMap().setStatus(SUCCESS).setData(inviteBoxService.findInvitationList(inviteBox));
@@ -31,7 +33,9 @@ public class InviteBoxController {
     log.debug(inviteBox.toString());
 
     Member member = (Member) session.getAttribute("loginUser");
-    inviteBox.setMember(member);
+    JoinMember joinMember = new JoinMember();
+
+    joinMember.setMember(member);
     inviteBoxService.send(inviteBox);
 
     return new ResultMap().setStatus(SUCCESS);

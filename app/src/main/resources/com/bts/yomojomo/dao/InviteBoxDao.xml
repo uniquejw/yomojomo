@@ -55,7 +55,7 @@
   
   <insert id="createInvitation" parameterType="InviteBox"> <!-- 초대장보내기 -->
     insert into gms_invite_box(title, content, memb_no, memb_no2, g_no)
-    values(#{title}, #{content}, #{member.no}, #{member.no}, #{group.no})
+    values(#{title}, #{content}, #{member.no}, #{joinMember.member.no}, #{joinMember.group.no})
   </insert>
   
   
