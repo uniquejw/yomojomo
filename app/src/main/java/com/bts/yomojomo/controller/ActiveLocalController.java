@@ -25,19 +25,19 @@ public class ActiveLocalController {
   //  @Autowired
   //  ActiveLocalService activeLocalService ;
   //
-  //  @RequestMapping("/activeLocal/list")
-  //  public Object list() {
-  //    return activeLocalService.list(); 
-  //  }
-  //  @RequestMapping("/activeLocal/get")
-  //  public Object get(int no) {
-  //    return activeLocalService.get(no);
-  //  }
-  //
-  //  @RequestMapping("/activeLocal/list-gu")
-  //  public Object list(String nameGu) {
-  //    return activeLocalService.list(nameGu);
-  //  }
+  @RequestMapping("/activeLocal/list")
+  public Object list() {
+    return activeLocalService.list(); 
+  }
+  @RequestMapping("/activeLocal/get")
+  public Object get(int no) {
+    return activeLocalService.get(no);
+  }
+
+  @RequestMapping("/activeLocal/list-gu")
+  public Object list(String nameGu) {
+    return activeLocalService.list(nameGu);
+  }
 
   //로그인 세션 적용
   @RequestMapping("/activeLocal/silistcate")

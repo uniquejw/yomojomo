@@ -92,17 +92,17 @@
     </nav>
   </div>
     <!-- 모임정보 -->
-    <div class="background">
-      <div class="window">
-        <div class="popup">
-          <div class="popup-img">사진</div>
-          <button type="button" class="btn-close" aria-label="Close"></button>
-          <div class="popup-group-name">모임이름</div>
-          <div class="popup-group-content">모임정보</div>
-          <button id="apply-form">가입하기</button>
+      <div class="background">
+        <div class="window">
+          <div class="popup">
+            <div class="popup-img">사진</div>
+            <button type="button" class="btn-close" aria-label="Close"></button>
+            <div class="popup-group-name">{{groupName}}</div>
+            <div class="popup-group-content">{{intro}}</div>
+            <button id="apply-form" value="">가입하기</button>
+          </div>
         </div>
       </div>
-    </div>
     <!-- 가입신청서 -->
     <div class="report-background">
       <div class="report-window">
@@ -112,8 +112,8 @@
           <div class="report-form">
             <div class="report-form-title">가입신청서</div>
             <table>
-              <tbody>
-                <tr>
+              <tbody id="handlebars-container2">
+                <!-- <tr>
                   <td><span class="report-item">이름</span></td>
                   <td><input type="text"></td>
                 </tr>
@@ -124,7 +124,7 @@
                 <tr>
                   <td><span class="report-item">월 2회 참영하실 수 있습니까?</span></td>
                   <td><input type="text"></td>
-                </tr>
+                </tr> -->
                 <tr>
                   <td><span>하고싶은말</span></td>
                 </tr>
@@ -136,13 +136,21 @@
         </div>
       </div>
     </div>
+    <script id="applyList-template" type="text/x-handlebars-template">
+      {{#each this}}
+        <tr>
+          <td><span class="report-item">{{content}}</span></td>
+          <td><input type="text"></td>
+        </tr>
+      {{/each}}
+    </script>
     <script id="div-template" type="text/x-handlebars-template">
       {{#each this}}
         <li class="item">
-          <div type="button" class="show">
+          <button type="button" class="show" value="{{no}}">
           <div class="image">{{logo}}</div>
           <div class="group-name" >{{groupName}}</div>
-          </div>
+          </button>
         </li>
       {{/each}}
     </script>

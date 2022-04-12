@@ -1,15 +1,41 @@
+const PATH = {
+  'groupList' : '/group/list',
+  'groupGet' : '/group/get'
+}
+// Array.prototype.map ( callbackfn [ , thisArg ] )
+
 // 모임정보 팝업
-$(document).on("click","div.show",function(){
+$(document).on("click","button.show",function(){
   document.querySelector(".background").className = "background show";
+  var value = $(this).val();
+  fetch(`${PATH.groupGet}?no=${value}`)
+  .then(function(response){
+    return response.json()
+  }).then(function(result){
+    console.log(result.data)
+    document.querySelector(".popup-group-name").innerText = result.data.groupName;
+    document.querySelector(".popup-group-content").innerText = result.data.intro;
+    $('#apply-form').val(result.data.no);
+  })
 })
 
-
 // 가입신청서 팝업
-document.querySelector("#apply-form").addEventListener("click", showReport);
-function showReport(){
+$(document).on("click","#apply-form",function(){
   document.querySelector(".background").className = "background";
   document.querySelector(".report-background").className = "report-background show";
-}
+  var value = $(this).val();
+  fetch(`/applyform/get?no=${value}`)
+    .then(function(res){
+      return res.json();
+    }).then(function(result){
+      console.log(result.data);
+    // 핸들바
+    var writtenContainer = document.querySelector("#handlebars-container2");
+    var divTemplate = document.querySelector("#applyList-template");
+    var htmlGenerator = Handlebars.compile(divTemplate.innerHTML);
+    writtenContainer.innerHTML = htmlGenerator(result.data);
+    });
+})
 
 //신청하기
 document.querySelector("#apply").addEventListener("click", close);
@@ -33,7 +59,7 @@ function close() {
     
       var htmlGenerator = Handlebars.compile(divTemplate.innerHTML);
       
-fetch("/group/list")
+fetch(PATH.groupList)
     .then(function(response) {
       return response.json();
     })

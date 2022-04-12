@@ -2,19 +2,19 @@ package com.bts.yomojomo.dao;
 
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
-import com.bts.yomojomo.domain.ApplayForm;
+import com.bts.yomojomo.domain.ApplyForm;
 
 @Mapper 
 public interface ApplyFormDao {
   int countAll();
 
-  List<ApplayForm> findAll();
+  List<ApplyForm> findAll();
 
-  int insert(ApplayForm applayForm);
+  int insert(ApplyForm applayForm);
 
-  ApplayForm findByNo(int no);
+  ApplyForm findByNo(int no);
 
-  int update(ApplayForm applayForm);
+  int update(ApplyForm applayForm);
 
   int delete(int no);
 }

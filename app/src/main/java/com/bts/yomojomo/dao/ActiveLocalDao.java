@@ -8,12 +8,11 @@ import com.bts.yomojomo.domain.ActiveLocal;
 
 public interface ActiveLocalDao {
 
-  //기존 코드
-  //  ActiveLocal findByNo(int no);
-  //
-  //  List<ActiveLocal> findSi();
-  //
-  //  List<ActiveLocal> findGungu(String si);
+  ActiveLocal findByNo(int no);
+
+  List<ActiveLocal> findSi();
+
+  List<ActiveLocal> findGungu(String si);
 
 
   // 새로 작성

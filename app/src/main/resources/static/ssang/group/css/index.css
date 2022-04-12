@@ -92,6 +92,15 @@ table{
     height: 33px;
     margin-top: 10px;
 }
+button.show{
+  background-color: #ffffff;
+  width: 240px;  
+  height: 250px; 
+}
+
+
+
+
 
 /* 모달 */
 .background , .report-background{
@@ -110,7 +119,7 @@ table{
   .show {
     opacity: 1;
     z-index: 1000;
-    transition: all 0.5s;
+    /* transition: all 0.1s; */
     border: 4px solid rgb(17, 147, 218);
   }
   
@@ -170,7 +179,7 @@ table{
 
   .show .popup {
     transform: translate(-50%, -50%);
-    transition: all 0.5s;
+    /* transition: all 0.1s; */
   }
 
   .report-popup{

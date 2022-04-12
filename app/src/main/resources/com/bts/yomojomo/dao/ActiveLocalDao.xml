@@ -10,7 +10,6 @@
     <result column="name_gu" property="nameGu"/>
   </resultMap>
 
-<!--  기존 작성
   <select id="findSi" resultMap="ActiveLocalMap"> 
     select distinct name_si from gms_activelocal;
    </select>
@@ -29,7 +28,6 @@
     where 
       act_local_no=#{no}
   </select>
-  -->
   
   <!-- 새로작성 -->
   <!--시,도 list 출력-->
