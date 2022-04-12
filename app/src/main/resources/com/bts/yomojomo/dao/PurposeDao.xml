@@ -3,11 +3,9 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bts.yomojomo.dao.PurposeDao">
-  
-  <!-- 테이블의 컬럼과 객체필드를 연결한다. -->
   <resultMap type="Purpose" id="purposeMap">
     <id column="pups_no" property="no"/>
-    <result column="name" property="name"/>
+    <result column="name" property="purposeName"/>
   </resultMap>
 
   <select id="findAll" resultMap="purposeMap"> 
@@ -30,6 +28,7 @@
       pups_no=#{no}
   </select>
 
+<!--  
   <insert id="insert" parameterType="Purpose">
     insert into gms_purpose(name) 
     values(#{name})
@@ -51,4 +50,5 @@
     where 
       pups_no = #{no}
   </delete>
+-->
 </mapper>
