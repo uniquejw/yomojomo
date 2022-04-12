@@ -5,15 +5,15 @@
 <mapper namespace="com.bts.yomojomo.dao.ApplyFormDao">
   
   <!-- 테이블의 컬럼과 객체필드를 연결한다. -->
-  <resultMap type="ApplayForm" id="ApplayFormMap">
+  <resultMap type="ApplyForm" id="ApplyFormMap">
     <id column="appl_no" property="no"/>
-    <result column="g_no" property="gno"/>
-    <result column="memb_no" property="membno"/>
+    <result column="g_no" property="groupNo"/>
+    <result column="memb_no" property="memberNo"/>
     <result column="content" property="content"/>
     <result column="appl_dt" property="date"/>
   </resultMap>
 
-  <select id="findAll" resultMap="ApplayFormMap"> 
+  <select id="findAll" resultMap="ApplyFormMap"> 
     select
       appl_no,
       g_no,
@@ -26,7 +26,7 @@
       appl_no asc
   </select>
   
-  <select id="findByNo" resultMap="ApplayFormMap" parameterType="int">
+  <select id="findByNo" resultMap="ApplyFormMap" parameterType="int">
     select 
       appl_no,
       g_no,
@@ -36,24 +36,21 @@
     from 
       gms_applyform
     where 
-      appl_no=#{no}
+      g_no=#{no}
   </select>
 
-  <insert id="insert" parameterType="ApplayForm">
+  <insert id="insert" parameterType="ApplyForm">
     insert into gms_applyform(g_no, memb_no, content) 
     values(#{gno}, #{membno}, #{content})
   </insert>
   
-  <update id ="update" parameterType="ApplayForm">
+  <update id ="update" parameterType="ApplyForm">
     update gms_applyform set 
       content = #{content}
     where 
       appl_no=#{no}
   </update>
   
-  <select id ="countAll" parameterType="int">
-    select count(*) from gms_applyform
-  </select>
   
   <delete id="delete" parameterType="int">
     delete from gms_applyform

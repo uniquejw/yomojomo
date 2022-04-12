@@ -28,9 +28,9 @@ public class DefaultGroupService implements GroupService {
   @Override
   public Group get(int no) {
     Group group = groupDao.findByNo(no);
-    if (group != null) {
-      groupDao.increaseViewCount(no);
-    }
+    //    if (group != null) {
+    //      groupDao.increaseViewCount(no);
+    //    }
     return group;
   }
 
