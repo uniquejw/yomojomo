@@ -1,10 +1,12 @@
 package com.bts.yomojomo.service;
 
+import java.util.List;
+
 import com.bts.yomojomo.domain.Member;
 import com.bts.yomojomo.dto.MemberDto;
 
 public interface MemberService {
-
+	
 	  int add(Member member);
 
 	  Member get(String email, String password);

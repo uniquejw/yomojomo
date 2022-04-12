@@ -1,8 +1,12 @@
 package com.bts.yomojomo.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import com.bts.yomojomo.domain.FinalActiveLocal;
+import com.bts.yomojomo.domain.FinalPurpose;
 import com.bts.yomojomo.domain.Member;
 
 @Mapper 
@@ -24,6 +28,10 @@ public interface MemberDao {
 //  
   int insert(Member member);
 
+  int insertLocals(@Param("no") int no, @Param("locals") List<FinalActiveLocal> locals);
+
+  int insertPups(@Param("no") int no, @Param("pups") List<FinalPurpose> pups);
+  
   Member findByEmailAndPassword(@Param("email") String email, @Param("password") String password);
   
   Member findByEmail(String email);

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.bts.yomojomo.dao.MemberDao;
 import com.bts.yomojomo.domain.Member;
@@ -16,16 +17,20 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class DefaultMemberService implements MemberService {
 	private static final String FROM_ADDRESS = "pwdmanager1108@gmail.com";
-	
+
 	@Autowired
 	MemberDao memberDao;
 	JavaMailSender mailSender;
-
-	@Override
-	public int add(Member member) {
-		return memberDao.insert(member);
-	}
-
+	
+	  @Override
+	  @Transactional // 다음 메서드는 트랜잭션 안에서 실행하도록 설정한다.
+	  public int add(Member member) {
+	    memberDao.insert(member);
+	    memberDao.insertLocals(member.getNo(), member.getLocals());	 
+	    System.out.println(memberDao.insertPups(member.getNo(), member.getPups()));	 
+//	    memberDao.insertPups(member.getNo(), member.getPups());	 
+	    return 1;
+	  }
 	@Override
 	public Member get(String email, String password) {
 		return memberDao.findByEmailAndPassword(email, password);
@@ -56,7 +61,7 @@ public class DefaultMemberService implements MemberService {
 	public void updatePassword(String str, String email) {
 
 		memberDao.updatepwd(str, email);
-		
+
 	}
 
 	@Override
