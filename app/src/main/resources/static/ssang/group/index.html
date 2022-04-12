@@ -17,9 +17,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700&display=swap" rel="stylesheet">
   <!-- 아이콘 연결 코드 -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <script src="../../node_modules/jquery/dist/jquery.min.js"></script>
+  <script src="/node_modules/jquery/dist/jquery.min.js"></script>
   <!-- Handlebars -->
-  <script src="../../node_modules/handlebars/dist/handlebars.min.js"></script>
+  <script src="/node_modules/handlebars/dist/handlebars.min.js"></script>
   <!-- 부트스트랩 -->
   <link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap.min.css">
   <!--공용css-->
@@ -40,11 +40,14 @@
 <div id="container">
   <div class="select-cate-div">
       <span class="title">상세정보</span>
-      <select name="sido1"  id="sido1" class="select area"></select>
-      <select name="gungu1"  id="gungu1"class="select area"></select>
-      <select name="" class="select purpose">
-        <optgroup>
-          <option selected >모임목적</option>
+      <div id="select-flex-div">
+        <div id="localSelect"> <!--지역선택-->
+          <select name="nameSi" id="nameSi" class="form-select form-select-sm" aria-label=".form-select-sm example"></select>
+          <select name="nameGu" id="nameGu" class="form-select form-select-sm" aria-label=".form-select-sm example"></select>
+        </div>
+        <select name="" class="select purpose">
+          <optgroup>
+            <option selected >모임목적</option>
           <option value="22">문화/예술/음악</option>
           <option value="1">교육/자기개발</option>
           <option value="2">육아/가족/반려동물</option>
@@ -69,6 +72,7 @@
           <option value="21">창업/경영</option>
         </optgroup>
       </select>
+    </div><!--select-flex-div-->
   </div>
   <div class="group-list-container">
     <ul id="handlebars-container">
@@ -99,7 +103,7 @@
             <button type="button" class="btn-close" aria-label="Close"></button>
             <div class="popup-group-name">{{groupName}}</div>
             <div class="popup-group-content">{{intro}}</div>
-            <button id="apply-form" value="">가입하기</button>
+            <button id="apply-form-btn" value="">가입하기</button>
           </div>
         </div>
       </div>
@@ -113,21 +117,6 @@
             <div class="report-form-title">가입신청서</div>
             <table>
               <tbody id="handlebars-container2">
-                <!-- <tr>
-                  <td><span class="report-item">이름</span></td>
-                  <td><input type="text"></td>
-                </tr>
-                <tr>
-                  <td><span class="report-item">사는지역</span></td>
-                  <td><input type="text"></td>
-                </tr>
-                <tr>
-                  <td><span class="report-item">월 2회 참영하실 수 있습니까?</span></td>
-                  <td><input type="text"></td>
-                </tr> -->
-                <tr>
-                  <td><span>하고싶은말</span></td>
-                </tr>
               </tbody>
             </table>
             <textarea name="" id="" cols="40" rows="6" class="report-comment"></textarea>
@@ -136,22 +125,43 @@
         </div>
       </div>
     </div>
-    <script id="applyList-template" type="text/x-handlebars-template">
-      {{#each this}}
-        <tr>
-          <td><span class="report-item">{{content}}</span></td>
-          <td><input type="text"></td>
-        </tr>
-      {{/each}}
-    </script>
+
+
+    <!-- 모임리스트 -->
     <script id="div-template" type="text/x-handlebars-template">
       {{#each this}}
-        <li class="item">
-          <button type="button" class="show" value="{{no}}">
+      <li class="item">
+        <button type="button" class="show" value="{{no}}">
           <div class="image">{{logo}}</div>
           <div class="group-name" >{{groupName}}</div>
-          </button>
-        </li>
+        </button>
+      </li>
+      {{/each}}
+    </script>
+    <!-- 모임신청서 -->
+    <script id="applyList-template" type="text/x-handlebars-template">
+      {{#each question}}
+        <tr>
+          <td><span class="report-item">{{questionName}}</span></td>
+          <td><input type="text"></td>
+        </tr>
+        {{/each}}
+        <tr>
+          <td><span>하고싶은말</span></td>
+        </tr>
+    </script>
+    <!--시,도 카테고리 생성 핸들 바-->
+    <script id="optionSi-template" type="text/x-handlebars-template">
+      <option id="allList" value="0">전체</option>
+      {{#each this}}
+      <option id="selectOp">{{nameSi}}</option>
+      {{/each}}
+    </script>
+    <!--군,구 카테고리 생성 핸들 바-->
+    <script id="optionGu-template" type="text/x-handlebars-template">
+      <option>군구 선택</option>
+      {{#each this}}
+      <option id="selectGuOp" value="{{no}}">{{nameGu}}</option>
       {{/each}}
     </script>
 </div>    

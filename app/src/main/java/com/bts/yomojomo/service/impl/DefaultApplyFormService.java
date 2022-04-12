@@ -17,8 +17,8 @@ public class DefaultApplyFormService implements ApplyFormService {
 
 
   @Override
-  public List<ApplyForm> findQuestion() {
-    return applyFormDao.findQuestion();
+  public List<ApplyForm> findQuestion(int no) {
+    return applyFormDao.findQuestion(no);
   }
   //  @Override
   //  public int add(ApplyForm applyForm) {

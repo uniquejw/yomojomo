@@ -1,6 +1,7 @@
 package com.bts.yomojomo.domain;
 
 import java.sql.Date;
+import java.util.List;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -12,6 +13,6 @@ public class ApplyForm {
   int memberNo;
   String content;
   Date date;
-  ApplyQuestion question;
-  ApplyAnswer   answer;
+  List<ApplyQuestion> question;
+  List<ApplyAnswer>   answer;
 }

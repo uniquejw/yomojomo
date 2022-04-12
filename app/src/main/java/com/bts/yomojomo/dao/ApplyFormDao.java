@@ -7,7 +7,7 @@ import com.bts.yomojomo.domain.ApplyForm;
 @Mapper 
 public interface ApplyFormDao {
 
-  List<ApplyForm> findQuestion();
+  List<ApplyForm> findQuestion(int no);
   //  int countAll();
   //
   //  List<ApplyForm> findAll();

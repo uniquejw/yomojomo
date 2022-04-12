@@ -53,12 +53,24 @@ table{
 .select-cate-div .title{
   color: white;
 }
+#select-flex-div{
+  display: flex;
+}
 .select{
     font-size: 18px;
-    margin: 0 0 0 56px;
-    /* border: 1px solid #aaa; */
+    margin: 0 0 0 24px;
+    border: 1px solid #aaa;
     border-radius: 3px;
     box-shadow: 0 1px 0 1px rgba(0, 0, 0, 0.04);
+}
+#localSelect{
+  width: 300px;
+  display: flex;
+}
+#search{
+  width: 400px;
+  margin: 0.5px;
+  float: right; /*오른쪽 정렬*/
 }
 /* 모임리스트 */
 .group-list-container{
@@ -130,7 +142,7 @@ button.show{
     height: 100%;
   }
 
-  #apply-form, #apply{
+  #apply-form-btn, #apply{
     position: absolute;
     right:77px;
     bottom: 28px;

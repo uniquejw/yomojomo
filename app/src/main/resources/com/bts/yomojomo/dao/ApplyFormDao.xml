@@ -18,18 +18,17 @@
     </collection>
   </resultMap>
 
-  <select id="findQuestion" resultMap="ApplyFormMap"> 
+  <select id="findQuestion" resultMap="ApplyFormMap" parameterType="int"> 
     select
-      appl_no,
-      g_no,
-      memb_no,
-      content,
-      appl_dt
+      f.*,
+      quest.*
     from
-      gms_applyform
-    
+      gms_applyform f
+	    right outer join
+	    (select q.* from gms_applyform_question q where q.appl_no = (select f.appl_no from gms_applyform f where f.g_no = #{no})) 
+	    as quest on f.appl_no = quest.appl_no
     order by
-      appl_no asc
+      quest.appl_question_no asc;
   </select>
   <select id="findAll" resultMap="ApplyFormMap"> 
     select
