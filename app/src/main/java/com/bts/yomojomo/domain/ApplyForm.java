@@ -12,5 +12,6 @@ public class ApplyForm {
   int memberNo;
   String content;
   Date date;
-
+  ApplyQuestion question;
+  ApplyAnswer   answer;
 }
