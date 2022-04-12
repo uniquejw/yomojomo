@@ -47,9 +47,9 @@
 </head>
 
 <body>
-  <div id="header"></div>
+<div id="header"></div>
 
-  <!--입력 폼 -->
+<!--입력 폼 -->
 <div id="view-content" class="table-responsive-lg">
   <div class="inner">
     <form>
@@ -69,7 +69,7 @@
           </tr>
           <tr>
             <td>관심활동</td>
-            <td><input name="purpose.no" id="x-purpose" type="text" class="form-control" readonly></td><!--나중에 이름으로 수정해야함-->
+            <td><input name="purpose.no" id="x-purpose" type="text" class="form-control" readonly></td>
           </tr>
           <tr>
             <td>등록일</td>
@@ -105,25 +105,25 @@
         <form>
           <div class="mb-3">
             <label for="title" class="col-form-label">제목</label>
-            <input type="text" class="form-control" id="">
+            <input type="text" class="form-control" id="title">
           </div>
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label">초대할사람:</label>
-            <input type="text" class="form-control" id="recipient-name" readonly>
+            <input type="text" class="form-control" name="member.no" id="recipient-name" readonly>
           </div>
           <div class="mb-3">
-            <label for="mygrouplist" class="col-form-label">내 모임</label>
-            <select></select>
+            <label for="groupList" class="col-form-label">내 모임</label>
+            <select name="group.no" id="groupList" class="form-select form-select-sm" aria-label=".form-select-sm example"></select>
           </div>
           <div class="mb-3">
             <label for="message-text" class="col-form-label">내용:</label>
-            <textarea class="form-control" id="message-text"></textarea>
+            <textarea id="content" class="form-control" id="message-text"></textarea>
           </div>
         </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-        <button type="button" class="btn btn-primary">초대하기</button>
+        <button type="button" id="invitationbtn" class="btn btn-primary">초대하기</button>
       </div>
     </div>
   </div>
@@ -136,119 +136,200 @@
 
 <div id="footer"></div>
 
+<!--모임 리스트 불러오는 handlebars-->
+<script id="joinedGroupList-template" type="text/x-handlebars-template">
+  <option value="0">초대할 모임을 선택해주세요</option>
+  {{#each this}}
+  <option value="{{group.no}}">{{group.groupName}}</option>
+  {{/each}}
+</script>
+<!--모임 리스트 불러오는 handlebars END-->
+
+
 <script>
 //헤더 푸터 불러오기
 $(document).ready(function () {
   $('#header').load('/junho/mainHeader.html'); //헤더 인클루드
   $('#footer').load('/junho/mainfooter.html'); //푸터부분 인클루드
-});
 
-  let arr = location.href.split("?");
-  console.log(arr);
+  $.ajax({ //로그인 여부 확인 ajax START
+      url : "/member/getLoginUser",
+      type : "POST",
+      datatype : "json",
+      success : function(result) {
+        if (result.status == "fail") {
+          $("#x-invitation-btn").hide(); 
+          $("#x-delete-btn").hide();
+          $("#x-update-btn").hide();
+        } else if (result.status == "success") {
+          // console.log(result.data);
+          let loginUserNo = result.data.no; //로그인한 회원 번호
+          // console.log(loginUserNo);
+          fetch(`/pickme/get?no=${no}`) //글 작성자 확인 fetch-then-then START
+          .then(function(response) {
+            return response.json();
+          })
+          .then(function(result){
+            // console.log(result.data);
+            let writerNo = result.data.member.no;
+            // console.log(writerNo);
+            // console.log(loginUserNo);
 
-  if (arr.length == 1) {
-    alert("요청 형식이 올바르지 않습니다.")
-    throw "URL 형식 오류";
-  }
+            if (writerNo != loginUserNo) {
+              $("#x-delete-btn").hide();
+              $("#x-update-btn").hide();
+            } else if (writerNo == loginUserNo) {
+              $("#x-invitation-btn").hide();
+            }
+          })//글 작성자 확인 fetch-then-then END
+        }// else if
+      }//success END
+    }); //로그인 여부 확인 ajax END 
+});//document.ready END
 
-  let qs = arr[1];
-  console.log(qs);
+//화면 뿌리기 Start
+let arr = location.href.split("?");
 
-  let params = new URLSearchParams(qs);
-  var no = params.get("no");
+// console.log(arr);
+if (arr.length == 1) {
+  alert("요청 형식이 올바르지 않습니다.")
+  throw "URL 형식 오류";
+}
+let qs = arr[1];
+// console.log(qs);
 
-  if(no == null) {
-    alert("게시물 번호가 없습니다.");
-    throw "파라미터 오류";
-  }
-  //console.log(no);
+let params = new URLSearchParams(qs);
+var no = params.get("no");
 
-  let xTitle = document.querySelector("#x-title");
-  let xName = document.querySelector("#x-name");
-  let xGuName = document.querySelector("#x-gu");
-  let xPurpose = document.querySelector("#x-purpose");
-  let xRegDate = document.querySelector("#x-regDate");
-  let xViewCnt = document.querySelector("#x-viewCount");
-  let xContent = document.querySelector("#x-content");
+if(no == null) {
+  alert("게시물 번호가 없습니다.");
+  throw "파라미터 오류";
+}
+//console.log(no);
 
-  fetch(`/pickme/get?no=${no}`)
-    .then(function(response) {
-      // console.log(response);
-      return response.json();
-    })
-    .then(function(result){
+let xTitle = document.querySelector("#x-title");
+let xName = document.querySelector("#x-name");
+let xGuName = document.querySelector("#x-gu");
+let xPurpose = document.querySelector("#x-purpose");
+let xRegDate = document.querySelector("#x-regDate");
+let xViewCnt = document.querySelector("#x-viewCount");
+let xContent = document.querySelector("#x-content");
 
-      console.log(result);
+fetch(`/pickme/get?no=${no}`)
+  .then(function(response) {
+    // console.log(response);
+    return response.json();
+  })
+  .then(function(result){
+    // console.log(result);
+    if (result.status == "fail") {
+      window.alert("서버 요청 오류!");
+      // console.log(result.data);
+    } else {//화면에 뿌리는 else 시작
+      let pickmeCont = result.data;
+      // console.log(pickmeCont);
+      xTitle.value = pickmeCont.title;
+      xName.value = pickmeCont.member.memberName;
+      xGuName.value = (pickmeCont.activeLocal.nameSi) + " " +(pickmeCont.activeLocal.nameGu);
+      xPurpose.value = pickmeCont.purpose.purposeName;
+      xRegDate.value = pickmeCont.date;
+      xViewCnt.value = pickmeCont.viewCnt;
+      xContent.value = pickmeCont.content;
 
-      if (result.status == "fail") {
-        window.alert("서버 요청 오류!");
-        console.log(result.data);
-      } else {
-        let pickmeCont = result.data;
-        console.log(pickmeCont);
+      //초대하기 버튼 이벤트 시작
+      document.querySelector("#x-invitation-btn").onclick = function() {
+      let xModalName = document.querySelector("#recipient-name");
+      xModalName.value = xName.value;
+      let recipientNameno = pickmeCont.member.no;
+      // console.log(recipientNameno);
+      //로그인한 회원 정보 가져오기
+      $.ajax({
+        url : "/member/getLoginUser",
+        type : "POST",
+        datatype : "json",
+        success : function(result) {
+          console.log(result.data.no);
+          console.log(result);
+          if (result.status == "fail") {
+            $("#invitationbtn").hide(); //초대하기 버튼 숨기기
+            window.alert("로그인 하지 않았습니다.");
+            // console.log(result.status);
+          } else {
+            var inviteeNo = result.data.no; //초대 보내는 사람 회원 번호
+            let selectGroupList = document.querySelector("#groupList");
+            var selectGroupOption = document.querySelector("#joinedGroupList-template");
+            var opGernerator = Handlebars.compile(selectGroupOption.innerHTML);
 
-        xTitle.value = pickmeCont.title;
-        xName.value = pickmeCont.member.memberName;
-        xGuName.value = (pickmeCont.activeLocal.nameSi) + " " +(pickmeCont.activeLocal.nameGu);
-        xPurpose.value = pickmeCont.purpose.purposeName;
-        xRegDate.value = pickmeCont.date;
-        xViewCnt.value = pickmeCont.viewCnt;
-        xContent.value = pickmeCont.content;
-      }//else END
-    }); //fetch END
-  
-  // 뒤로가기
-  document.querySelector("#x-cancel-btn").onclick = function() {
-  window.location.href = "index.html";
-  };
+            $.ajax({ //초대 보내는 사람의 모임 리스트 가져오는 ajax
+              url : "/joinmember/grouplistbymno",
+              type : "POST",
+              datatype : "json",
+              data : {"member.no" : inviteeNo},
+              success : function(result) {
+                console.log(result.data);
+                selectGroupList.innerHTML = opGernerator(result.data);
+                    // 모임리스트 선택한 결과 값 알아내기
+                    $("#groupList").on("change", function() {
+                      // console.log("클릭함");
+                        //초대하기 버튼 클릭 이벤트 시작
+                        $("#invitationbtn").on("click", function() {
+                          //서버 요청
+                          $.ajax({
+                            url : "/invitebox/send",
+                            type : "POST",
+                            async : false,
+                            data : {
+                              "title" : $("#title").val(),
+                              "content" : $("#content").val(),
+                              "member.no" : recipientNameno,
+                              "joinMember.member.no" : inviteeNo,
+                              "joinMember.group.no" : $("#groupList option:selected").val(),
+                            },
+                            success : function(result) {
+                              console.log(result);
+                              window.alert("발송되었습니다");
+                              window.location.href = "index.html";
+                            }
+                          })//초대하기 서버 요청END
+                        })//초대하기 버튼 클릭 이벤트 END
+                      })//초대할 모임 선택확인
+                  }//초대 보내는 사람의 모임 리스트 가져오는 suceess END
+                })//초대 보내는 사람의 모임 리스트 가져오는 ajax END
+              } //else 문(로그인 정보 가져오는) 끝
+            } //로그인한 회원 정보 success END
+          })//로그인한 회원정보 가져오기 ajax END
+      }//초대하기 버튼 이벤트 END
+    }//화면에 뿌리는 else END
+  }); //화면 뿌리는 fetch END
+//화면 뿌리기 END
 
-  // 삭제
-  document.querySelector("#x-delete-btn").onclick = function() {
-    fetch(`/pickme/delete?no=${no}`)
-    .then(function(response) {
-      return response.json();
-    })
-    .then(function(result) {
-      console.log(result);
-      if(result.status == "success") {
-        window.alert("삭제되었습니다.");
-        location.href = "index.html";
-      } else {
-        window.alert("삭제 실패");
-        console.log(result.data);
-      }
-    });
-  };
+//뒤로가기
+document.querySelector("#x-cancel-btn").onclick = function() {
+window.location.href = "index.html";
+};
 
-  // update로 이동
-  document.querySelector("#x-update-btn").onclick = function() {
-    location.href = "update.html?no="+no;
-  };
+//update로 이동
+document.querySelector("#x-update-btn").onclick = function() {
+location.href = "update.html?no="+ no;
+};
 
-  //초대 받을 사람 이름 출력하기
-  document.querySelector("#x-invitation-btn").onclick = function() {
-    var xModalName = document.querySelector("#recipient-name");
-    fetch(`/pickme/get?no=${no}`)
-    .then(function(response) {
-      // console.log(response);
-      return response.json();
-    })
-    .then(function(result){
-      if (result.status == "fail") {
-        window.alert("서버 요청 오류!");
-        console.log(result.data);
-      } else {
-        let recipientName = result.data;
-        console.log(recipientName);
-      xModalName.value = recipientName.member.memberName;
-      console.log(recipientName.member.memberName);
-      }
-    });
-
-    //내 모임 리스트 가져오기
-    
-
-  }
+// 삭제
+document.querySelector("#x-delete-btn").onclick = function() {
+fetch(`/pickme/delete?no=${no}`)
+  .then(function(response) {
+    return response.json();
+  })
+  .then(function(result) {
+    // console.log(result);
+    if(result.status == "success") {
+      window.alert("삭제되었습니다.");
+      location.href = "index.html";
+    } else {
+      window.alert("삭제 실패");
+      console.log(result.data);
+    }
+  });
+};
 </script>
 </body>
 </html>

@@ -37,69 +37,97 @@
 <script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="/node_modules/handlebars/dist/handlebars.min.js"></script>
  
+<!--공통헤더-->
+<div id="header"></div>
+
+<div id="body-content">
+  <div class="inner">
+    <div id="#">
+      <div id="localSelect"> <!--지역선택-->
+        <select name="nameSi" id="nameSi" class="form-select form-select-sm" aria-label=".form-select-sm example"></select>
+        <select name="nameGu" id="nameGu" class="form-select form-select-sm" aria-label=".form-select-sm example"></select>
+      </div>
+
+      <div id="search">
+        <form class="d-flex"> <!--검색창-->
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-primary btn-sm" type="submit">Search</button>
+        </form>
+      </div>
+    </div>
+  
+    <div id="content" class="table-responsive-lg">
+      <table id="x-board-table" class="table table-hover">
+        <thead>
+          <tr>
+            <th width="50px">번호</th>
+            <th width="100px">시,도</th>
+            <th width="100px">군,구</th>
+            <th width="400px">제목</th>
+            <th width="100px">작성자</th>
+            <th width="100px">등록일</th>
+            <th width="80px">조회수</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <button id="x-create-btn" type="button" style="float: right" class="btn btn-primary">등록</button>
+    
+    <!--페이지 네이션-->
+    <nav aria-label="Page navigation example">
+      <ul class="pagination justify-content-center">
+        <li class="page-item disabled">
+          <a class="page-link">Previous</a>
+        </li>
+        <li class="page-item"><a class="page-link" href="#">1</a></li>
+        <li class="page-item"><a class="page-link" href="#">2</a></li>
+        <li class="page-item"><a class="page-link" href="#">3</a></li>
+        <li class="page-item">
+          <a class="page-link" href="#">Next</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>
+
+<div id="footer"></div>
+
 <!--공통헤더 제이쿼리-->
 <script type="text/javascript">
   $(document).ready(function () {
       $('#header').load('/junho/mainHeader.html'); //헤더 인클루드
       $('#footer').load('/junho/mainfooter.html'); //헤더 인클루드
-  });
+
+        //전체 목록 불러오기
+      fetch("/pickme/list")
+        .then(function(response) {
+          return response.json();
+        })
+        .then(function(result) {
+          if (result.status == "fail") {
+            window.alert("서버 요청 오류!");
+            console.log(result.data);
+            return;
+          } else {
+            console.log(result);
+            tbody.innerHTML = htmlGenerator(result);
+          }
+        });
+      //전체 목록 불러오기 END
+
+      $.ajax({ //로그인 여부 확인 ajax START 비회원은 등록버튼 감춘다.
+        url : "/member/getLoginUser",
+        type : "POST",
+        datatype : "json",
+        success : function(result) {
+          if (result.status == "fail") {
+            $("#x-create-btn").hide(); 
+          } 
+        }
+      }); //로그인 여부 확인 ajax END
+  });//document.ready() END
 </script>
-
-<!--공통헤더-->
-<div id="header"></div>
-
-  <div id="body-content">
-    <div class="inner">
-      <div id="#">
-        <div id="localSelect"> <!--지역선택-->
-          <select name="nameSi" id="nameSi" class="form-select form-select-sm" aria-label=".form-select-sm example"></select>
-          <select name="nameGu" id="nameGu" class="form-select form-select-sm" aria-label=".form-select-sm example"></select>
-        </div>
-
-        <div id="search">
-          <form class="d-flex"> <!--검색창-->
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-primary btn-sm" type="submit">Search</button>
-          </form>
-        </div>
-      </div>
-    
-      <div id="content" class="table-responsive-lg">
-        <table id="x-board-table" class="table table-hover">
-          <thead>
-            <tr>
-              <th width="50px">번호</th>
-              <th width="100px">시,도</th>
-              <th width="100px">군,구</th>
-              <th width="400px">제목</th>
-              <th width="100px">작성자</th>
-              <th width="100px">등록일</th>
-              <th width="80px">조회수</th>
-            </tr>
-          </thead>
-          <tbody></tbody>
-        </table>
-      </div>
-      <button id="x-create-btn" type="button" style="float: right" class="btn btn-primary">등록</button>
-      
-      <!--페이지 네이션-->
-      <nav aria-label="Page navigation example">
-        <ul class="pagination justify-content-center">
-          <li class="page-item disabled">
-            <a class="page-link">Previous</a>
-          </li>
-          <li class="page-item"><a class="page-link" href="#">1</a></li>
-          <li class="page-item"><a class="page-link" href="#">2</a></li>
-          <li class="page-item"><a class="page-link" href="#">3</a></li>
-          <li class="page-item">
-            <a class="page-link" href="#">Next</a>
-          </li>
-        </ul>
-      </nav>
-    </div>
-  </div>
-
-  <div id="footer"></div>
 
 <!--시,도 카테고리 생성 핸들 바-->
 <script id="optionSi-template" type="text/x-handlebars-template">
@@ -110,24 +138,6 @@
 </script>
 <!--시,도 카테고리 생성 핸들 바 END-->
 
-<!--시,도 카테고리 카테고리 불러오기-->
-<script>
-  let selectSiList = document.querySelector("#nameSi");
-  var selectSiOption = document.querySelector("#optionSi-template");
-  var opGernerator = Handlebars.compile(selectSiOption.innerHTML);
-
-  $.ajax({
-    url : "/activeLocal/silistcate",
-    type : "POST",
-    async : false,
-    success: function(result) {
-        // console.log(result.data);
-        selectSiList.innerHTML = opGernerator(result.data);
-    }
-  });
-</script>
-<!--시,도 카테고리 불러오기 END-->
-
 <!--군,구 카테고리 생성 핸들 바-->
 <script id="optionGu-template" type="text/x-handlebars-template">
   <option>군구 선택</option>
@@ -137,30 +147,7 @@
 </script>
 <!--군, 구 카테고리 생성 핸들 바 END-->
 
-<!--군,구 카테고리 불러오기-->
-<script>
-  let selectGuList = document.querySelector("#nameGu");
-  var selectGuOption = document.querySelector("#optionGu-template");
-  var opGernerator = Handlebars.compile(selectGuOption.innerHTML);
-
-  $(document).on("click", "#nameSi", function() {
-    // console.log("바뀜");
-    $.ajax({
-      url : "/activeLocal/gulistcate",
-      type : "POST",
-      async : false,
-      data: {nameSi: $("#nameSi option:selected").val()},
-      success: function(result) {
-          console.log(result.data);
-          selectGuList.innerHTML = opGernerator(result.data);
-      }
-    }); //ajax END
-  }); //nameSi change End
-  //군,구 카테고리 카테고리 불러오기 END
-</script>
-
-
-<!--handlebars 게시글 list-->
+<!--지역별 게시글 list-->
 <script id="tr-template" type="text/x-handlebars-template">
   {{#each this}}
   <tr>
@@ -174,30 +161,49 @@
   </tr>
   {{/each}}
 </script>
-<!--handlebars 게시글 list END-->
+<!--지역별 게시글 list END-->
 
-<!--게시글 불러오기-->
 <script>
-var tbody = document.querySelector("#x-board-table tbody");
-var trTemplate = document.querySelector("#tr-template");  
-var htmlGenerator = Handlebars.compile(trTemplate.innerHTML);
+//시,도 카테고리 불러오기
+let selectSiList = document.querySelector("#nameSi");
+let selectSiOption = document.querySelector("#optionSi-template");
+let siopGernerator = Handlebars.compile(selectSiOption.innerHTML);
 
-//전체 목록 불러오기
-fetch("/pickme/list")
-  .then(function(response) {
-    return response.json();
-  })
-  .then(function(result) {
-    if (result.status == "fail") {
-      window.alert("서버 요청 오류!");
-      console.log(result.data);
-      return;
-    } else {
-      console.log(result);
-      tbody.innerHTML = htmlGenerator(result);
+$.ajax({
+  url : "/activeLocal/silistcate",
+  type : "POST",
+  async : false,
+  success: function(result) {
+      // console.log(result.data);
+      selectSiList.innerHTML = siopGernerator(result.data);
+  }
+});
+//시,도 카테고리 불러오기 END
+
+//군,구 카테고리 불러오기
+let selectGuList = document.querySelector("#nameGu");
+let selectGuOption = document.querySelector("#optionGu-template");
+let guopGernerator = Handlebars.compile(selectGuOption.innerHTML);
+
+$(document).on("click", "#nameSi", function() {
+  // console.log("바뀜");
+  $.ajax({
+    url : "/activeLocal/gulistcate",
+    type : "POST",
+    async : false,
+    data: {nameSi: $("#nameSi option:selected").val()},
+    success: function(result) {
+        // console.log(result.data);
+        selectGuList.innerHTML = guopGernerator(result.data);
     }
-  });
-//전체 목록 불러오기 END
+  }); //ajax END
+}); //nameSi change End
+//군,구 카테고리 카테고리 불러오기 END
+
+//카테고리에서 전체를 선택하면 게시글 리스트 불러오기
+let tbody = document.querySelector("#x-board-table tbody");
+let trTemplate = document.querySelector("#tr-template");  
+let htmlGenerator = Handlebars.compile(trTemplate.innerHTML);
 
 $("#nameSi").on("click", function() {  
   if ($("#nameSi option:selected").val() == 0) {
@@ -211,16 +217,16 @@ $("#nameSi").on("click", function() {
         console.log(result.data);
         return;
       } else {
-        console.log(result);
+        // console.log(result);
         tbody.innerHTML = htmlGenerator(result);
       }
     });
   }
-})
+});
+//카테고리에서 전체를 선택하면 게시글 리스트 불러오기 END
 
 // 시, 도 카테고리 선택하면 게시글 리스트 불러오기
 $("#nameSi").on("click", function() {
-  console.log("바뀜");
   $.ajax({
     url : "/pickme/selectedSicate",
     type : "POST",
@@ -232,28 +238,30 @@ $("#nameSi").on("click", function() {
     }
   }) //ajax END
 });//nameSi change End
+// 시, 도 카테고리 선택하면 게시글 리스트 불러오기 END
 
 
 // 군, 구 카테고리 선택하면 게시글 리스트 불러오기
-$("#nameGu").on("click", function() { //id가 nameGu를 클릭하면 발생되는 이벤트 시작
-  console.log("바뀜");
-  $.ajax({
-    url : "/pickme/selectedGucate", //url 요청
-    type : "POST",
-    async : false,
-    data : {"activeLocal.no" : $("#nameGu option:selected").val()}, //파라미터로 gms_activelocal의 번호를 보낸다.
-    success : function(result) { //받아온 list로 handlebars를 화면에 나오게 한다.
-      // console.log(result.data);
-      tbody.innerHTML = htmlGenerator(result.data);
-    }
-  }) //ajax END
-});//nameGu change End //id가 nameGu를 클릭하면 발생되는 이벤트 끝
+$("#nameGu").on("click", function() {
+  if ($("#nameGu option:selected").text() != "군구 선택") {
+    $.ajax({
+      url : "/pickme/selectedGucate", //url 요청
+      type : "POST",
+      async : false,
+      data : {"activeLocal.no" : $("#nameGu option:selected").val()}, 
+      success : function(result) { 
+        // console.log(result.data);
+        tbody.innerHTML = htmlGenerator(result.data);
+      }
+    }) //ajax END
+  } //if END
+});//nameGu change End
+// 군, 구 카테고리 선택하면 게시글 리스트 불러오기 END
 
 
 document.querySelector("#x-create-btn").onclick = function(){
   location.href="form.html";
 };
 </script>
-
 </body>
 </html>

@@ -34,9 +34,10 @@ public class JoinMemberController {
   }
 
   @RequestMapping("/joinmember/grouplistbymno") //경현 - 수정시 말해주세요
-  //회원 등급으로 모임번호, 모임이름, 회원번호, 회원이름, 모임등급번호, 모임등급이름 검색
+  //회원 번호로 모임번호, 모임이름, 회원번호, 회원이름, 모임등급번호, 모임등급이름 검색
   //test : http://localhost:8080/joinmember/grouplistbymno?member.no=회원번호
   public Object grouplistByMno(JoinMember joinMember, HttpSession session) {
+    log.info("회원 번호로 조회!");
     return new ResultMap().setStatus(SUCCESS).setData(joinMemberservice.grouplistByMno(joinMember));
   }
 

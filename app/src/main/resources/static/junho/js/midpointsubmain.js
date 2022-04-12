@@ -366,17 +366,20 @@ function selectMidpoint() {
     lat = lat / finalDestinationLatLng.length
     lng = lng / finalDestinationLatLng.length
 
-    removeMarkertests();
-    console.log(lat, lng);
-    panTo(lat, lng)
-    midpointMarker(lng, lat)
+    // removeMarkertests();
+    
+    // panTo(lat, lng)
+    // midpointMarker(lng, lat)
+    window.location = '/junho/midpoint/index1.html'
 }
-function removeMarkertests() {
-    for (var j = 0; j <infowindowtests.length; j++) {
-        infowindowtests[j].close()
-    }
-    console.log('removemarkertest 실행됨')
-}
+
+
+// function removeMarkertests() {
+//     for (var j = 0; j <infowindowtests.length; j++) {
+//         infowindowtests[j].close()
+//     }
+//     console.log('removemarkertest 실행됨')
+// }
 
 // function setCenter() {            
 //     // 이동할 위도 경도 위치를 생성합니다 
@@ -386,31 +389,31 @@ function removeMarkertests() {
 //     map.setCenter(moveLatLon);
 // }
 
-function panTo(lat, lng) {
-    // 이동할 위도 경도 위치를 생성합니다 
-    var moveLatLon = new kakao.maps.LatLng(lng, lat);
+// function panTo(lat, lng) {
+//     // 이동할 위도 경도 위치를 생성합니다 
+//     var moveLatLon = new kakao.maps.LatLng(lng, lat);
     
-    // 지도 중심을 부드럽게 이동시킵니다
-    // 만약 이동할 거리가 지도 화면보다 크면 부드러운 효과 없이 이동합니다
-    mapOption1 = {
-        center: new kakao.maps.LatLng(lng, lat), // 지도의 중심좌표
-        level: 3 // 지도의 확대 레벨
-    };  
+//     // 지도 중심을 부드럽게 이동시킵니다
+//     // 만약 이동할 거리가 지도 화면보다 크면 부드러운 효과 없이 이동합니다
+//     mapOption1 = {
+//         center: new kakao.maps.LatLng(lng, lat), // 지도의 중심좌표
+//         level: 3 // 지도의 확대 레벨
+//     };  
 
-    // 지도를 생성합니다    
-    map1 = new kakao.maps.Map(mapContainer1, mapOption1); 
-    map1.panTo(moveLatLon);            
-}   
+//     // 지도를 생성합니다    
+//     map1 = new kakao.maps.Map(mapContainer1, mapOption1); 
+//     map1.panTo(moveLatLon);            
+// }   
 
-function midpointMarker(lng, lat) {
-    var markerPosition  = new kakao.maps.LatLng(lng, lat); 
-    var marker = new kakao.maps.Marker({
-        position: markerPosition
-    });
-    console.log(marker)
-    marker.setMap(map1);
-    console.log('midpointmarker 실향됭')
-}
+// function midpointMarker(lng, lat) {
+//     var markerPosition  = new kakao.maps.LatLng(lng, lat); 
+//     var marker = new kakao.maps.Marker({
+//         position: markerPosition
+//     });
+//     console.log(marker)
+//     marker.setMap(map1);
+//     console.log('midpointmarker 실향됭')
+// }
 
 
 

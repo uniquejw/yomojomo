@@ -52,7 +52,7 @@
   </select>
   
   <select id="findgrouplistByMno" resultMap="JoinMemberMap">
-  <!--회원 등급으로 모임번호, 모임이름, 회원번호, 회원이름, 모임등급번호, 모임등급이름 검색-->
+  <!--회원 번호로 모임번호, 모임이름, 회원번호, 회원이름, 모임등급번호, 모임등급이름 검색-->
     select 
       jm.g_no gno, 
       g.name gname,
