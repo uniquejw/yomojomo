@@ -17,7 +17,7 @@
 		<result column="type" property="type" />
 		<result column="unsubscribe" property="unsubscribe" />
 		<result column="status" property="status" />
-		<result column="stop_dt" property="StopDate" />
+		<result column="stop_dt" property="stopDate" />
 		
 		<collection property="locals" ofType="FinalActiveLocal">
       		<id column="memb_no" property="no"/>
