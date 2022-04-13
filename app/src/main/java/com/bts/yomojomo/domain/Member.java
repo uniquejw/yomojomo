@@ -1,6 +1,8 @@
 package com.bts.yomojomo.domain;
 
 import java.sql.Date;
+import java.util.List;
+
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -19,4 +21,7 @@ public class Member {
   int unsubscribe;
   int status;
   Date stopDate;
+ 
+  List<FinalActiveLocal> locals;
+  List<FinalPurpose> pups;
 }
