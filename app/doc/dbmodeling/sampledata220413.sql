@@ -331,10 +331,13 @@ insert into gms_calendar(name, content, result_url, g_no, start_dt, end_dt) valu
 insert into gms_calendar(name, content, result_url, g_no, start_dt, end_dt) values ("정모2", "놀기", "www.google.com", 1, "2022-04-05", "2022-04-05");
 insert into gms_calendar(name, content, result_url, g_no, start_dt, end_dt) values ("정모3", "12시 점심약속", "www.naver.com", 1, "2022-04-30", "2022-04-30");
 insert into gms_join_memb(memb_no,g_no,g_memb_grd_no) values (1,1,1);
+insert into gms_join_memb(memb_no,g_no,g_memb_grd_no) values (2,1,2);
+insert into gms_join_memb(memb_no,g_no,g_memb_grd_no) values (3,1,2);
+insert into gms_join_memb(memb_no,g_no,g_memb_grd_no) values (4,1,2);
+insert into gms_join_memb(memb_no,g_no,g_memb_grd_no) values (5,1,2);
 insert into gms_join_memb(memb_no,g_no,g_memb_grd_no) values (2,2,2);
 insert into gms_join_memb(memb_no,g_no,g_memb_grd_no) values (3,3,1);
 insert into gms_join_memb(memb_no,g_no,g_memb_grd_no) values (5,2,1);
-insert into gms_join_memb(memb_no,g_no,g_memb_grd_no) values (4,1,2);
 insert into gms_join_memb(memb_no,g_no,g_memb_grd_no) values (4,2,2);
 insert into gms_join_memb(memb_no,g_no,g_memb_grd_no) values (4,3,2);
 insert into gms_accounting(g_no, act_cate_no, title, amount, status) values(1, 2, "1월 회비", "20000",  0);

@@ -6,18 +6,23 @@ import com.bts.yomojomo.domain.JoinMember;
 
 @Mapper 
 public interface JoinMemberDao {
-  int countAll();
 
-  List<JoinMember> findAll();
 
   List<JoinMember> findByGradeNo(JoinMember joinMember); //경현 - 수정시 말해주세요
 
   List<JoinMember> findgrouplistByMno(JoinMember joinMember); //경현 - 수정시 말해주세요
 
+  List<JoinMember> findgrouplistByGno(JoinMember joinMember);
+
+
+  //이전코드
+  int countAll();
+
+  List<JoinMember> findAll();
+
   int insert(JoinMember joinMember);
 
   JoinMember findByNo(int no);
-
 
   int update(JoinMember joinMember);
 
