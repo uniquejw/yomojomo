@@ -52,7 +52,9 @@
           </div>
         </div>
         <div class="signup">
-          <button type="button">회원가입하기</button>
+          <button type="button" class="btn btn-secondary">
+            <a href="javascript:void(0)">회원가입하기</a>
+          </button>
         </div>
       </div>
     </div>
@@ -93,18 +95,18 @@
     .signin-check .content {
       position: absolute;
       width: 600px;
-      height: 450px;
+      height: 250px;
       margin: auto auto;
       top: 0;
       bottom: 0;
       left: 0;
       right: 0;
-      border: 1px solid red;
+      border: 1px solid #333;
+      padding-top: 50px;
     }
 
     .signin-check .content .signin-check-box {
-      border: 1px solid blue;
-      padding: 100px 0;
+      padding: 0 0 60px 0;
       position: relative;
     }
 
@@ -135,7 +137,22 @@
 
 
     .signin-check .content .signup {
+      width: 450px;
+      position: absolute;
+      left: 0;
+      right: 0;
+      margin: 0 auto;
+    }
 
+    .signin-check .content .signup .btn {
+      width: 450px;
+      height: 40px;
+    }
+
+    .signin-check .content .signup .btn a {
+      color: #fff;
+      font-size: 20px;
+      font-weight: 700;
     }
   </style>
 </body>

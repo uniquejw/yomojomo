@@ -122,11 +122,18 @@ function displayPlaces(places) {
         (function(marker, place) {
           kakao.maps.event.addListener(marker, 'click', function() {
               displayPlaceInfo(place);
+              document.querySelector('.btn-final-select').onclick = function () {
+                console.log(place.id)
+              }
           });
 
           itemEl.onclick = function () {
             displayPlaceInfo(place);
+            document.querySelector('.btn-final-select').onclick = function () {
+                console.log(place.id)
+            }
           }
+          
         })(marker, places[i]);
 
         fragment.appendChild(itemEl);
@@ -238,7 +245,7 @@ function displayPlaceInfo (place) {
  
   content += '    <span class="tel">' + place.phone + '</span>' + 
               '<div>' + 
-                '<button class="btn btn-primary">최종장소지정</button>' +
+                '<button class="btn btn-primary btn-final-select">최종장소지정</button>' +
               '</div>' +
               '</div>' + 
               '<div class="after"></div>';
