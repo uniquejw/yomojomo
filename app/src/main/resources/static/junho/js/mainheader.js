@@ -29,11 +29,15 @@ document.querySelector("#logout-btn").onclick = function() {
 
 //알림 메세지 
 
-const msgLi = document.querySelector("#alert-msg-li");
+const msgicon = document.querySelector("#msgicon");
 const msgModal = document.querySelector("#msg-modal");
+console.log(msgicon);
+console.log(msgModal);
 
-$("#msg-modal").hide();
+msgicon.addEventListener("mouseover", (event) => {
+	$("#msg-modal").show();
+})
 
-// msgLi.addEventListener("mouseover", (event) => {
-// 	msgModal.show();
-// })
+msgicon.addEventListener("mouseout", (event) => {
+	$("#msg-modal").hide();
+})
