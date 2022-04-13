@@ -26,3 +26,14 @@ document.querySelector("#logout-btn").onclick = function() {
 	  location.reload();
   });
 };
+
+//알림 메세지 
+
+const msgLi = document.querySelector("#alert-msg-li");
+const msgModal = document.querySelector("#msg-modal");
+
+$("#msg-modal").hide();
+
+// msgLi.addEventListener("mouseover", (event) => {
+// 	msgModal.show();
+// })
