@@ -67,24 +67,9 @@
 				<li><a href="javascript:void(0)"> <span class="material-icons">account_circle </span></a></li>
 				<li id="alert-msg-li"> <!--알림-->
 					<div id="alert-msg">
-						<span class="material-icons" id="msgicon">mail_outline </span>
-						<span class="position-absolute top 40 start 100 translate-middle badge rounded-pill bg-danger">3</span>
-						<div class="modal" tabindex="-1">
-						<!--모달시작-->
-						<!-- <div class="modal-dialog modal-sm" id="msg-modal">
-							<div class="modal-content">
-								<div class="modal-header">
-									<h5 class="modal-title">확인 하지 않은 알람</h5>
-								</div>
-								<div class="modal-body">
-									<li>모임 초대장</li>
-									<li>모임 가입 신청</li>
-								</div>
-							</div>
-						</div>
-						</div> -->
-						<!--모달끝-->
-					<!-- </div> -->
+							<span class="material-icons" id="msgicon">mail_outline </span>
+							<span class="position-absolute top 40 start 100 translate-middle badge rounded-pill bg-danger">3</span>
+					</div>
 				</li><!--알림-->
 				
 				<li><a href="javascript:void(0)">
@@ -93,5 +78,21 @@
 			</ul>
 		</div>
 	</div>
+
 </header>
+<!--모달시작-->
+<div class="modal modalalert" tabindex="-1" id="msg-modal">
+	<div class="modal-dialog modalalert modal-sm">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">확인 하지 않은 알람</h5>
+			</div>
+			<div class="modal-body">
+				<li>모임 초대장</li>
+				<li>모임 가입 신청</li>
+			</div>
+		</div>
+	</div>
+</div>
+<!--모달끝-->
 <script src="/junho/js/mainheader.js"></script>

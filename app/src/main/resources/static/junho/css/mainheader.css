@@ -150,3 +150,32 @@ header .main-menu ul.menu li a .material-icons {
   font-size: 50px;
 }
 
+/*알림*/
+header .main-menu ul.menu li:nth-child(5) {
+  padding: 0 10px;
+  padding-top: 5px;
+}
+
+header .main-menu ul.menu li .material-icons {
+  font-size: 40px;
+  color: white;
+}
+
+.modalalert {
+  text-align: center;
+}
+
+@media screen and (min-width: 768px) { 
+  .modalalert:before {
+          display: inline-block;
+          vertical-align: middle;
+          content: " ";
+          height: 100%;
+  }
+}
+
+.modalalert-dialog {
+  display: inline-block;
+  text-align: left;
+  vertical-align: middle;
+}
