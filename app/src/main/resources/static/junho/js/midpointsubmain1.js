@@ -11,6 +11,8 @@ var contentNode = document.createElement('div')
 // 마커를 담을 배열입니다
 var markers = [];
 
+var lat = 0;
+var lng = 0;
 // 지도 중심 좌표 설정
 var latlng = new kakao.maps.LatLng(37.498095, 127.027610);
 
@@ -124,6 +126,10 @@ function displayPlaces(places) {
               displayPlaceInfo(place);
               document.querySelector('.btn-final-select').onclick = function () {
                 console.log(place.id)
+                console.log(place)
+                lng = place.x
+                lat = place.y
+                console.log(lat, lng)
               }
           });
 
@@ -245,7 +251,9 @@ function displayPlaceInfo (place) {
  
   content += '    <span class="tel">' + place.phone + '</span>' + 
               '<div>' + 
-                '<button class="btn btn-primary btn-final-select">최종장소지정</button>' +
+                '<button class="btn btn-primary btn-final-select">'+
+                    '<a href="' + place.place_url + '" target="_blank">최종장소 지정</a>'
+                '</button>' +
               '</div>' +
               '</div>' + 
               '<div class="after"></div>';
