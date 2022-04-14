@@ -115,6 +115,26 @@
         <button id="x-addMemb-btn" type="button" class="btn btn-primary">추가</button><br>
       </div>
       <!--선택 멤버 추가부분 END-->
+
+      <!--멤버 선택 모달창-->
+      <div class="modal fade" id="memberlist-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              ...
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--멤버 선택 모달창-->
       
       <button id="x-add-btn" type="button" class="btn btn-primary">등록</button>
       <button id="x-cancel-btn" type="button" class="btn btn-primary">취소</button><br>
@@ -158,6 +178,12 @@ let xTitle = document.querySelector("#x-title");
 let xAmount = document.querySelector("#x-amount");
 let xMembList = document.querySelector(".x-membList");
 let xMembListCon = document.querySelector("#x-membList-container");
+
+//멤버 선택 버튼 클릭 -> 모달
+$("#selectMemb").on("click", function() {
+  console.log("클릭함");
+  // $("#memberlist-modal").modal("show");
+})
 
 
 //멤버 전체 불러오기
