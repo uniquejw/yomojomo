@@ -3,6 +3,13 @@ $(document).ready(function () {
   $('#footer').load('/junho/mainfooter.html'); //푸터부분 인클루드
 });
 
+// 파마미터 값 얻어오기
+var qs = window.location.search
+console.log(qs)
+var params = new URLSearchParams(qs);
+console.log(params.get('lng'))
+console.log(params.get('lat'))
+
 
 // 마커를 클릭했을 때 해당 장소의 상세정보를 보여줄 커스텀오버레이입니다
 var placeOverlay = new kakao.maps.CustomOverlay({zIndex:1})
@@ -11,10 +18,10 @@ var contentNode = document.createElement('div')
 // 마커를 담을 배열입니다
 var markers = [];
 
-var lat = 0;
-var lng = 0;
+var lat = params.get('lat');
+var lng = params.get('lng');
 // 지도 중심 좌표 설정
-var latlng = new kakao.maps.LatLng(37.498095, 127.027610);
+var latlng = new kakao.maps.LatLng(lng, lat);
 
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
     mapOption = {
@@ -65,7 +72,7 @@ function searchPlaces() {
     placeOverlay.setMap(null);
 
     // 장소검색 객체를 통해 키워드로 장소검색을 요청합니다
-    ps.keywordSearch(keyword, placesSearchCB, {location: latlng, radius:5000}); 
+    ps.keywordSearch(keyword, placesSearchCB, {location: latlng, radius:2000}); 
 }
 
 // 장소검색이 완료됐을 때 호출되는 콜백함수 입니다

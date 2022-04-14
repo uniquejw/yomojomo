@@ -370,7 +370,8 @@ function selectMidpoint() {
     
     // panTo(lat, lng)
     // midpointMarker(lng, lat)
-    window.location = '/junho/midpoint/index1.html'
+    console.log(lng, lat)
+    window.location = `/junho/midpoint/index1.html?lng=${lng}&lat=${lat}`
 }
 
 
