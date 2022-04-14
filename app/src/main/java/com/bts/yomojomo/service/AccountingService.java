@@ -10,6 +10,8 @@ public interface AccountingService {
 
   List<Accounting> list();
 
+  List<Accounting> listByGroup(Accounting accounting);
+
   List<AccountingCate> findCateList();
 
   List<Accounting> findSelectCateList(Accounting accounting);

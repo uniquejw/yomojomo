@@ -26,6 +26,11 @@ public class DefaultCalendarService implements CalendarSerivce{
   }
 
   @Override
+  public List<Calendar> listByGroup(Calendar calendar) {
+    return calendarDao.findListByGroup(calendar);
+  }
+
+  @Override
   public Calendar get(int no) {
     return calendarDao.findByNo(no);
   }
@@ -41,5 +46,7 @@ public class DefaultCalendarService implements CalendarSerivce{
   public int delete(Calendar calendar) {
     return calendarDao.delete(calendar);
   }
+
+
 
 }

@@ -20,10 +20,21 @@ public class AccountingController {
   @Autowired 
   AccountingService accountingService;
 
-  @RequestMapping("/accounting/list") //나중에 member 완료되면 group no로 바꾸기 까먹지말기
+  @RequestMapping("/accounting/list") //일반 회비정산 목록 조회
   public Object list(HttpSession session) {
-    log.info("캘린더 목록 조회");
+    log.info("회비정산 목록 조회");
     return new ResultMap().setStatus(SUCCESS).setData(accountingService.list());
+  }
+
+  @RequestMapping("/accounting/listbygroup") //소모임 번호로 리스트 받기
+  //TEST http://localhost:8080/accounting/listbygroup?group.no=모임번호
+  public Object listByGroup(Accounting accounting, HttpSession session) {
+    log.info("모임별 회비정산 목록 조회");
+
+    Member member = (Member) session.getAttribute("loginUser");
+    accounting.setMember(member);
+
+    return new ResultMap().setStatus(SUCCESS).setData(accountingService.listByGroup(accounting));
   }
 
   @RequestMapping("/accounting/catelist") 

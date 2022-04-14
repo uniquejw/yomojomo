@@ -4,6 +4,9 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="/node_modules/jquery/dist/jquery.min.js"></script>
+  <script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="/node_modules/handlebars/dist/handlebars.min.js"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
   <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
   <title>회비 및 정산관리</title>
@@ -36,20 +39,6 @@
 </head>
 
 <body>
-  <script src="/node_modules/jquery/dist/jquery.min.js"></script>
-  <script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-  <script src="/node_modules/handlebars/dist/handlebars.min.js"></script>
-    
-  
-  <!--공통헤더 제이쿼리-->
-  <script type="text/javascript">
-    $(document).ready(function () {
-        $('#header').load('/junho/mainHeader.html'); //헤더 인클루드
-        $('#top').load('/ssang/groupBoard/none-search-top.html'); //상준님헤더
-        $('#footer').load('/junho/mainfooter.html'); //푸터부분 인클루드
-    });
-  </script>
-  
   <!--공통헤더-->
   <div id="header"></div>
   <!--상준님 헤더-->
@@ -123,7 +112,39 @@
 </div>
 <!--공통풋터-->
 <div id="footer"></div>
-</body>
+
+
+<script type="text/javascript">
+  $(document).ready(function() {
+        $('#header').load('/junho/mainHeader.html'); //헤더 인클루드
+        $('#top').load('/ssang/groupBoard/none-search-top.html'); //상준님헤더
+        $('#footer').load('/junho/mainfooter.html'); //푸터부분 인클루드
+        $(".List-Container").hide();
+        $(".select-List-Container").hide();
+  
+        
+    $.ajax({ //로그인 여부 확인 ajax START 비회원은 main으로 보낸다.
+          url : "/member/getLoginUser",
+          type : "POST",
+          datatype : "json",
+          success : function(result) {
+            let loginUserNo = result.data.no;
+            if (result.status == "fail") {
+              window.alert("회원이 아닙니다.");
+              window.location.replace("/junho/index.html");
+            } 
+          }//로그인 여부 확인 success END
+    }); //로그인 여부 확인 ajax END
+  
+  
+  });
+  </script>
+
+
+
+
+
+
 
 <script>
 //1. URL에서 쿼리스트링 추출
@@ -224,4 +245,6 @@ function deleteDiv(e) {
 	  }
   };
 </script>
+
+</body>
 </html>

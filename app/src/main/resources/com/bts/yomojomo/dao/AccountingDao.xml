@@ -27,8 +27,8 @@
   <select id="findAll" resultMap="AccountingMap"> 
 		select
 		  a.act_no,
-		  gg.g_no gno,
-		  gg.name gname,
+		  g.g_no gno,
+		  g.name gname,
 		  act.act_cate_no actno,
 		  act.name actname,
 		  a.title,
@@ -38,17 +38,16 @@
 		from 
 		  gms_accounting a
 		  inner join gms_accounting_cate act on (a.act_cate_no = act.act_cate_no)
-		  left outer join gms_group gg on (a.g_no = gg.g_no)
+		  left outer join gms_group g on (a.g_no = g.g_no)
 		order by 
 		  a.act_no desc
   </select>
   
-  <!--카테고리별 리스트 불러오기-->
-   <select id="selectedCate" resultMap="AccountingMap" > 
+  <select id="findListByGroup" resultMap="AccountingMap"> <!-- 모임별 accounting 찾기 -->
     select
       a.act_no,
-      gg.g_no gno,
-      gg.name gname,
+      g.g_no gno,
+      g.name gname,
       act.act_cate_no actno,
       act.name actname,
       a.title,
@@ -58,7 +57,29 @@
     from 
       gms_accounting a
       inner join gms_accounting_cate act on (a.act_cate_no = act.act_cate_no)
-      left outer join gms_group gg on (a.g_no = gg.g_no)
+      left outer join gms_group g on (a.g_no = g.g_no)
+    where
+      g.g_no = #{group.no}
+    order by 
+      a.act_no desc
+  </select>
+  
+  <!--카테고리별 리스트 불러오기-->
+   <select id="selectedCate" resultMap="AccountingMap" > 
+    select
+      a.act_no,
+      g.g_no gno,
+      g.name gname,
+      act.act_cate_no actno,
+      act.name actname,
+      a.title,
+      a.amount,
+      a.reg_dt,
+      a.status
+    from 
+      gms_accounting a
+      inner join gms_accounting_cate act on (a.act_cate_no = act.act_cate_no)
+      left outer join gms_group g on (a.g_no = g.g_no)
     where
       act.act_cate_no = #{actCate.no}
     order by 
@@ -68,8 +89,8 @@
     <select id="findByNo" resultMap="AccountingMap" parameterType="int">
     select
       a.act_no,
-      gg.g_no gno,
-      gg.name gname,
+      g.g_no gno,
+      g.name gname,
       act.act_cate_no actno,
       act.name actname,
       a.title,
@@ -79,7 +100,7 @@
     from 
       gms_accounting a
       inner join gms_accounting_cate act on (a.act_cate_no = act.act_cate_no)
-      left outer join gms_group gg on (a.g_no = gg.g_no)
+      left outer join gms_group g on (a.g_no = g.g_no)
     where 
       a.act_no=#{no}
   </select>

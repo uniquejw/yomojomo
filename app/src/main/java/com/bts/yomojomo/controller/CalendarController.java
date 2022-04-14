@@ -20,10 +20,20 @@ public class CalendarController {
   @Autowired
   CalendarSerivce calendarservice;
 
-  @RequestMapping("/calendar/list")//나중에 member 완료되면 group no로 바꾸기 까먹지말기
+  @RequestMapping("/calendar/list")//캘린더 전체 리스트 조회
   public Object list() {
     log.info("캘린더 목록 조회");
     return new ResultMap().setStatus(SUCCESS).setData(calendarservice.list());
+  }
+
+  @RequestMapping("/calendar/listbygroup") //소모임 번호로 리스트 받기
+  public Object listByGroup(Calendar calendar, HttpSession session) {
+    log.info("모임별 캘린더 목록 조회");
+
+    Member member = (Member) session.getAttribute("loginUser");
+    calendar.setMember(member);
+
+    return new ResultMap().setStatus(SUCCESS).setData(calendarservice.listByGroup(calendar));
   }
 
   @RequestMapping("/calendar/add")

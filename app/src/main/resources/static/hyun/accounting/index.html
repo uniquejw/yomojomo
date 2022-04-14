@@ -5,6 +5,9 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <title>회비관리</title>
+<script src="/node_modules/jquery/dist/jquery.min.js"></script>
+<script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/node_modules/handlebars/dist/handlebars.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
 <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.css">
 
@@ -12,7 +15,8 @@
 /*내꺼 css*/
 #body-content{
   padding-top: 10vh;
-  padding-bottom: 10vh;
+  /* height: 85vh; 너무 벌어짐  */
+  height: 70vh;
   position: relative;
 }
 #selectCate{
@@ -29,9 +33,7 @@ table > tbody > tr > td {
 </head>
 
 <body>
-<script src="/node_modules/jquery/dist/jquery.min.js"></script>
-<script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-<script src="/node_modules/handlebars/dist/handlebars.min.js"></script>
+
   
 <!--공통헤더 제이쿼리-->
 <script type="text/javascript">
@@ -39,9 +41,37 @@ table > tbody > tr > td {
       $('#header').load('/junho/mainHeader.html'); //헤더 인클루드
       $('#top').load('/ssang/groupBoard/none-search-top.html'); //상준님헤더
       $('#footer').load('/junho/mainfooter.html'); //푸터부분 인클루드
-      //상태 td
-      $('#selectedStatus').html("<option value='0'>진행</option><option value='1'>완료</option>");
   });
+
+  $.ajax({ //로그인 여부 확인 ajax START 비회원은 main으로 보낸다.
+        url : "/member/getLoginUser",
+        type : "POST",
+        datatype : "json",
+        success : function(result) {
+          let loginUserNo = result.data.no;
+          if (result.status == "fail") {
+            window.alert("회원이 아닙니다.");
+            window.location.replace("/junho/index.html");
+          } else {
+            $.ajax({ //회원 등급 조회 모임장이 아니라면 등록 버튼을 감춘다.
+              url : "/joinmember/grouplistbymno",
+              type : "POST",
+              datatype : "json",
+              data : {"member.no" : loginUserNo },
+              success : function(result) {
+                console.log(result.data);
+                if (result.data[0].memberGrade.gradeNo != 1) {
+                  $("#x-create-btn").hide();  
+                }//회원 등급 조회 if END 
+              
+                // else if () for문 돌려서 모임에 가입한 사람이 맞는지 확인 할 것
+                // 모임 목록에서 타고 들어와야 들어온 모임명과 맞춰볼 수 있음
+              
+              }//회원 등급 조회 success END           
+            })//회원 등급 조회 ajax END 
+          }//로그인 확인 else END
+        }//로그인 여부 확인 success END
+  }); //로그인 여부 확인 ajax END
 </script>
 
 <!--공통 헤더-->
@@ -131,7 +161,7 @@ table > tbody > tr > td {
     <td>{{no}}</td>
     <td>{{actCate}}</td>
     <td>
-      <select id="selectedStatus"> <!--disabled-->
+      <select id="selectedStatus" disabled>
         <option vlaue="{{statusno}}">{{status}}</option>
       </select> 
     </td>
@@ -151,10 +181,11 @@ table > tbody > tr > td {
   var htmlGenerator = Handlebars.compile(trTemplate.innerHTML);
 
   $.ajax({
-    url : "/accounting/list",
+    url : "/accounting/listbygroup", //!!!!!!!!!!!!!!!!!!!!나중에 수정 하기!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     type : "POST",
     async : false,
     dataType : "json",
+    data : {"group.no" : 1}, //!!!!!!!!!!!!!!!!!!!!!!!!!!!임시로 그룹 번호 줌!!!!!!!!!!!!!
     success: function(result) {
       var arr = result.data;
       // console.log(arr);
@@ -171,11 +202,11 @@ table > tbody > tr > td {
           statusno : arr.status,
           status : arr.status == 0 ? ing : end
         })
-        $("#selectedStatus").val(updateData).prop("selected", true);
       })
-      console.log(updateData);
+      // console.log(updateData);
       tbody.innerHTML = htmlGenerator(updateData);
       // console.log(htmlGenerator(updateData));
+
     }//success END
   }); //ajax 페이지 처음 로드
 
@@ -184,9 +215,11 @@ table > tbody > tr > td {
     let cate = $("#selectCate option:selected").val();
     if (cate == 1) {
       $.ajax({
-        url : "/accounting/list",
+        url : "/accounting/listbygroup",
         type : "POST",
         async : false,
+        datatype : "json",
+        data : {"group.no" : 1}, //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!임시 번호 줌!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         success: function(result) {
           var arr = result.data;
           var ing = "진행";

@@ -73,9 +73,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
     events: function(info, successCallback, failureCallback) { //캘린더 화면에 뿌리기
         $.ajax({
-                url: '/calendar/list',
+                url: '/calendar/listbygroup',
                 type: 'POST',
                 async : false, //비동기 off
+                datatype : 'json',
+                data : {"joinMemb.group.no" : 1}, //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!임시로 소모임 번호 줌 나중에 수정!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                 success: function(param) {
                     var events = [];
                     $.each(param.data, function(index, data){
@@ -122,11 +124,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 // console.log(data.membGrade.gradeNo); 
                 // console.log(data.membGrade.gradeNo); 
                 // if (data.membGrade.gradeNO == 1) {
-                //     $("#modal-DeleteBtn").css('display', 'show');
-                //     $("#modal-UpdateBtn").css('display', 'show');
+                //     $("#modal-DeleteBtn").show();
+                //     $("#modal-UpdateBtn").show();
                 // } else {
-                //     $("#modal-DeleteBtn").css('display', 'none');
-                //     $("#modal-UpdateBtn").css('display', 'none');
+                //     $("#modal-DeleteBtn").hide();
+                //     $("#modal-UpdateBtn").hide();
                 // }
             
                 //deletebtn function -> 현 상태 로그인 했을 때만 삭제 됨.

@@ -7,6 +7,8 @@ public interface CalendarSerivce {
 
   List<Calendar> list();
 
+  List<Calendar> listByGroup(Calendar calendar);
+
   int add(Calendar calendar);
 
   Calendar get(int no);

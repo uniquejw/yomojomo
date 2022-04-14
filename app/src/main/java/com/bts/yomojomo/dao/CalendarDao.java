@@ -10,6 +10,8 @@ public interface CalendarDao {
 
   List<Calendar> findAll();
 
+  List<Calendar> findListByGroup(Calendar calendar);
+
   int insert(Calendar calendar);
 
   Calendar findByNo(int no);

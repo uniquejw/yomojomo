@@ -11,6 +11,8 @@ public interface AccountingDao {
 
   List<Accounting> findAll();
 
+  List<Accounting> findListByGroup(Accounting accounting);
+
   List<AccountingCate> cateListAll();
 
   List<Accounting> selectedCate(Accounting accounting);

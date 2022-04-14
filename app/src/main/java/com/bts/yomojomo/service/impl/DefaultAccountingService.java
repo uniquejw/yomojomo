@@ -27,6 +27,11 @@ public class DefaultAccountingService implements AccountingService{
   }
 
   @Override
+  public List<Accounting> listByGroup(Accounting accounting) {
+    return accountingDao.findListByGroup(accounting);
+  }
+
+  @Override
   public Accounting get(int no) {
     return accountingDao.findByNo(no);
   }
@@ -51,6 +56,7 @@ public class DefaultAccountingService implements AccountingService{
   public List<Accounting> findSelectCateList(Accounting accounting) {
     return accountingDao.selectedCate(accounting);
   }
+
 
 
 
