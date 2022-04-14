@@ -270,6 +270,7 @@ function removeAllChildNods(el) {
     }
 }
 
+// 카테고리 클릭하면 작동하는 함수
 function clickList(str) {
   var keyword = document.getElementById('keyword')
   keyword.value = str
