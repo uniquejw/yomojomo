@@ -26,6 +26,21 @@ public class DefaultGroupService implements GroupService {
   }
 
   @Override
+  public List<Group> siList(Group group) {
+    return groupDao.selectedSicate(group);
+  }
+
+  @Override
+  public List<Group> guList(Group group) {
+    return groupDao.selectedGucate(group);
+  }
+
+  @Override
+  public List<Group> selectedPurpcate(Group group) {
+    return groupDao.selectedPurpcate(group);
+  }
+
+  @Override
   public Group get(int no) {
     Group group = groupDao.findByNo(no);
     //    if (group != null) {

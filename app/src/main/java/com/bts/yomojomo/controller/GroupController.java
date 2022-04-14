@@ -50,6 +50,20 @@ public class GroupController {
     return new ResultMap().setStatus(SUCCESS).setData(groupService.list());
   }
 
+  @RequestMapping("/group/selectedSicate")
+  public Object siList(Group group, HttpSession session) {
+    return new ResultMap().setStatus(SUCCESS).setData(groupService.siList(group));
+  }  
+
+  @RequestMapping("/group/selectedGucate")
+  public Object guList(Group group, HttpSession session) {
+    return new ResultMap().setStatus(SUCCESS).setData(groupService.guList(group));
+  }  
+  @RequestMapping("/group/selectedPurpcate")
+  public Object selectedPurpcate(Group group, HttpSession session) {
+    return new ResultMap().setStatus(SUCCESS).setData(groupService.selectedPurpcate(group));
+  }  
+
   @RequestMapping("/group/update")
   public int update(Group group) {
     return groupService.update(group);

@@ -14,12 +14,6 @@ public class DefaultJoinMember implements JoinMemberService{
   @Autowired
   JoinMemberDao joinMemberDao;
 
-  @Transactional
-  @Override
-  public List<JoinMember> list() {
-    return joinMemberDao.findAll();
-  }
-
   @Override // 경현 - 수정시 말해주세용
   public List<JoinMember> listbyGradeNo(JoinMember joinMember) {
     return joinMemberDao.findByGradeNo(joinMember);
@@ -28,6 +22,19 @@ public class DefaultJoinMember implements JoinMemberService{
   @Override
   public List<JoinMember> grouplistByMno(JoinMember joinMember) {
     return joinMemberDao.findgrouplistByMno(joinMember);
+  }
+
+  @Override
+  public List<JoinMember> grouplistByGno(JoinMember joinMember) {
+    // TODO Auto-generated method stub
+    return joinMemberDao.findgrouplistByGno(joinMember);
+  }
+
+
+  //이전코드
+  @Override
+  public List<JoinMember> list() {
+    return joinMemberDao.findAll();
   }
 
   @Override
@@ -52,6 +59,8 @@ public class DefaultJoinMember implements JoinMemberService{
   public int delete(int no) {
     return joinMemberDao.delete(no);
   }
+
+
 
 
 

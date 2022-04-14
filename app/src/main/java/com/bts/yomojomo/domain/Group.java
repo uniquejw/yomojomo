@@ -19,4 +19,5 @@ public class Group {
   int status;       //status
   int stopDate;       //stop_dt
   ActiveLocal activeLocal;
+  Purpose purpose;
 }

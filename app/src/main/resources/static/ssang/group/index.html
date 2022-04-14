@@ -45,7 +45,7 @@
           <select name="nameSi" id="nameSi" class="form-select form-select-sm" aria-label=".form-select-sm example"></select>
           <select name="nameGu" id="nameGu" class="form-select form-select-sm" aria-label=".form-select-sm example"></select>
         </div>
-        <select name="" class="select purpose">
+        <select name="" class="select purpose" id="selectPurpose">
           <optgroup>
             <option selected >모임목적</option>
           <option value="22">문화/예술/음악</option>
@@ -95,6 +95,7 @@
       </ul>
     </nav>
   </div>
+
     <!-- 모임정보 -->
       <div class="background">
         <div class="window">
@@ -107,6 +108,8 @@
           </div>
         </div>
       </div>
+
+
     <!-- 가입신청서 -->
     <div class="report-background">
       <div class="report-window">
@@ -126,7 +129,6 @@
       </div>
     </div>
 
-
     <!-- 모임리스트 -->
     <script id="div-template" type="text/x-handlebars-template">
       {{#each this}}
@@ -140,6 +142,7 @@
     </script>
     <!-- 모임신청서 -->
     <script id="applyList-template" type="text/x-handlebars-template">
+      <!-- {{#each this}} -->
       {{#each question}}
         <tr>
           <td><span class="report-item">{{questionName}}</span></td>
@@ -149,6 +152,7 @@
         <tr>
           <td><span>하고싶은말</span></td>
         </tr>
+      <!-- {{/each}} -->
     </script>
     <!--시,도 카테고리 생성 핸들 바-->
     <script id="optionSi-template" type="text/x-handlebars-template">

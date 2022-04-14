@@ -14,35 +14,45 @@ import com.bts.yomojomo.service.JoinMemberService;
 
 @RestController
 public class JoinMemberController {
-
   private static final Logger log = LoggerFactory.getLogger(JoinMemberController.class);
 
   @Autowired 
   JoinMemberService joinMemberservice;
 
-  @RequestMapping("/joinmember/list")
-  public Object list() {
-
-    return joinMemberservice.list();
-  }
-
   @RequestMapping("/joinmember/listbygradeno") //경현 - 수정시 말해주세요
-  //회원 등급으로 모임번호, 모임이름, 회원번호, 회원이름, 모임등급번호, 모임등급이름 검색
+  //**회원 등급**으로 모임번호, 모임이름, 회원번호, 회원이름, 모임등급번호, 모임등급이름 검색
   //test : http://localhost:8080/joinmember/listbygradeno?memberGrade.gradeNo=회원등급번호(1또는2)
   public Object listbyGradeNo(JoinMember joinMember) {
-    return joinMemberservice.listbyGradeNo(joinMember);
+    log.info("등급 번호로 조회!");
+    return new ResultMap().setStatus(SUCCESS).setData(joinMemberservice.listbyGradeNo(joinMember));
   }
 
   @RequestMapping("/joinmember/grouplistbymno") //경현 - 수정시 말해주세요
-  //회원 번호로 모임번호, 모임이름, 회원번호, 회원이름, 모임등급번호, 모임등급이름 검색
+  //**회원 번호**로 모임번호, 모임이름, 회원번호, 회원이름, 모임등급번호, 모임등급이름 검색
   //test : http://localhost:8080/joinmember/grouplistbymno?member.no=회원번호
   public Object grouplistByMno(JoinMember joinMember, HttpSession session) {
     log.info("회원 번호로 조회!");
     return new ResultMap().setStatus(SUCCESS).setData(joinMemberservice.grouplistByMno(joinMember));
   }
 
+  @RequestMapping("/joinmember/grouplistbygno") //경현 - 수정시 말해주세요
+  //**모임 번호**로 모임번호, 모임이름, 회원번호, 회원이름, 모임등급번호, 모임등급이름 검색
+  //test : http://localhost:8080/joinmember/grouplistbygno?group.no=모임번호
+  public Object grouplistByGno(JoinMember joinMember, HttpSession session) {
+    log.info("모임 번호로 조회!");
+    return new ResultMap().setStatus(SUCCESS).setData(joinMemberservice.grouplistByGno(joinMember));
+  }
 
 
+
+
+
+  //이전 코드
+  @RequestMapping("/joinmember/list")
+  public Object list() {
+
+    return joinMemberservice.list();
+  }
 
   @RequestMapping("/joinmember/get")
   public Object get(int no) {

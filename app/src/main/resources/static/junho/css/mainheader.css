@@ -141,7 +141,7 @@ header .main-menu ul.menu li:last-child {
 }
 
 header .main-menu ul.menu li a {
-  color: #fff;
+  /* color: #fff; */
   font-weight: 700;
   font-size: 20px;
 }
@@ -157,25 +157,17 @@ header .main-menu ul.menu li:nth-child(5) {
 }
 
 header .main-menu ul.menu li .material-icons {
-  font-size: 40px;
+  font-size: 35px;
   color: white;
+  margin-top: 0px;
 }
 
-.modalalert {
-  text-align: center;
+header div .main-menu .menu li .dropdown-toggle::after {
+  display: none;
 }
 
-@media screen and (min-width: 768px) { 
-  .modalalert:before {
-          display: inline-block;
-          vertical-align: middle;
-          content: " ";
-          height: 100%;
-  }
+header div .main-menu .menu li .btn-group ul li a {
+  font-size: medium;
+  font: black;
 }
 
-.modalalert-dialog {
-  display: inline-block;
-  text-align: left;
-  vertical-align: middle;
-}
