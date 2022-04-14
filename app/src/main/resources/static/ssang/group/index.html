@@ -76,11 +76,10 @@
   </div>
   <div class="group-list-container">
     <ul id="handlebars-container">
-      
-      
-      
     </ul>
     <!-- 페이지 부트스트랩 -->
+  </div><!--group-list-container-->
+  <div class="pagination-div">
     <nav aria-label="Page navigation example">
       <ul class="pagination justify-content-center">
         <li class="page-item disabled">
@@ -96,18 +95,18 @@
     </nav>
   </div>
 
-    <!-- 모임정보 -->
-      <div class="background">
-        <div class="window">
-          <div class="popup">
-            <div class="popup-img">사진</div>
-            <button type="button" class="btn-close" aria-label="Close"></button>
-            <div class="popup-group-name">{{groupName}}</div>
-            <div class="popup-group-content">{{intro}}</div>
-            <button id="apply-form-btn" value="">가입하기</button>
-          </div>
+      <!-- 모임정보 -->
+    <div class="background">
+      <div class="window">
+        <div class="popup">
+          <div class="popup-img">사진</div>
+          <button type="button" class="btn-close" aria-label="Close"></button>
+          <div class="popup-group-name">{{groupName}}</div>
+          <div class="popup-group-content">{{intro}}</div>
+          <button id="apply-form-btn" value="">가입하기</button>
         </div>
       </div>
+    </div>
 
 
     <!-- 가입신청서 -->
@@ -126,50 +125,52 @@
           </div>
           <button id="apply">가입하기</button>
         </div>
-      </div>
-    </div>
-
-    <!-- 모임리스트 -->
-    <script id="div-template" type="text/x-handlebars-template">
-      {{#each this}}
-      <li class="item">
-        <button type="button" class="show" value="{{no}}">
-          <div class="image">{{logo}}</div>
-          <div class="group-name" >{{groupName}}</div>
-        </button>
-      </li>
-      {{/each}}
-    </script>
-    <!-- 모임신청서 -->
-    <script id="applyList-template" type="text/x-handlebars-template">
-      <!-- {{#each this}} -->
-      {{#each question}}
-        <tr>
-          <td><span class="report-item">{{questionName}}</span></td>
-          <td><input type="text"></td>
-        </tr>
-        {{/each}}
-        <tr>
-          <td><span>하고싶은말</span></td>
-        </tr>
-      <!-- {{/each}} -->
-    </script>
-    <!--시,도 카테고리 생성 핸들 바-->
-    <script id="optionSi-template" type="text/x-handlebars-template">
-      <option id="allList" value="0">전체</option>
-      {{#each this}}
-      <option id="selectOp">{{nameSi}}</option>
-      {{/each}}
-    </script>
-    <!--군,구 카테고리 생성 핸들 바-->
-    <script id="optionGu-template" type="text/x-handlebars-template">
-      <option>군구 선택</option>
-      {{#each this}}
-      <option id="selectGuOp" value="{{no}}">{{nameGu}}</option>
-      {{/each}}
-    </script>
-</div>    
+      </div> 
+    </div>    <!--report-background-->
+</div><!--container-->
 <div id="footers"></div>
+
+
+
+<!-- 모임리스트 -->
+<script id="div-template" type="text/x-handlebars-template">
+  {{#each this}}
+  <li class="item">
+    <button type="button" class="btn-show" value="{{no}}">
+      <div class="image">{{logo}}</div>
+      <div class="group-name" >{{groupName}}</div>
+    </button>
+  </li>
+  {{/each}}
+</script>
+<!-- 모임신청서 -->
+<script id="applyList-template" type="text/x-handlebars-template">
+  <!-- {{#each this}} -->
+  {{#each question}}
+    <tr>
+      <td><span class="report-item">{{questionName}}</span></td>
+      <td><input type="text"></td>
+    </tr>
+    {{/each}}
+    <tr>
+      <td><span>하고싶은말</span></td>
+    </tr>
+  <!-- {{/each}} -->
+</script>
+<!--시,도 카테고리 생성 핸들 바-->
+<script id="optionSi-template" type="text/x-handlebars-template">
+  <option id="allList" value="0">전체</option>
+  {{#each this}}
+  <option id="selectOp">{{nameSi}}</option>
+  {{/each}}
+</script>
+<!--군,구 카테고리 생성 핸들 바-->
+<script id="optionGu-template" type="text/x-handlebars-template">
+  <option>군구 선택</option>
+  {{#each this}}
+  <option id="selectGuOp" value="{{no}}">{{nameGu}}</option>
+  {{/each}}
+</script>
 <script src="/ssang/group/js/index.js"></script>
 </body>
 </html>

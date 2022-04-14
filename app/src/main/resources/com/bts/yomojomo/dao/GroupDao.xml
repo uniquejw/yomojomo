@@ -48,7 +48,7 @@
             g.view_cnt,
             p.pups_no pno,
             p.name pname,
-            a.act_local_no ano,
+            a.act_local_no,
             a.name_si asi,
             a.name_gu agu
         from gms_group g

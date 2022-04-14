@@ -6,7 +6,7 @@ const PATH = {
 // Array.prototype.map ( callbackfn [ , thisArg ] )
 
 // 모임정보 팝업
-$(document).on("click","button.show",function(){
+$(document).on("click","button.btn-show",function(){
   document.querySelector(".background").className = "background show";
   var value = $(this).val();
   fetch(`${PATH.groupGet}?no=${value}`)
@@ -83,7 +83,7 @@ fetch(PATH.groupList)
     });
 
     
-    // 시,도 불러오기
+    // 시,도 카테고리불러오기
     let selectSiList = document.querySelector("#nameSi");
     var selectSiOption = document.querySelector("#optionSi-template");
     var opGernerator = Handlebars.compile(selectSiOption.innerHTML);

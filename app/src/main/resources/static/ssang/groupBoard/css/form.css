@@ -55,7 +55,7 @@ button {
 }
 .written-width-fix{
     position: relative;
-    width: 760px;
+    width: 800px;
     height: 357px;
     margin: 32px auto;
     /* border: 1px solid #616161; */
@@ -77,16 +77,15 @@ button {
     padding: 10px 0 0 10px;
     border: 1px solid #616161;
 }
+/* ================게시글 ,에디터================ */
 #x-content{
     width: 90%;
     height: 100%;
 }
-textarea{
+textarea, #editor-fix{
     display: inline-block;
-    width: 90%;
-    height: 100%;
-    margin: 35px 0 0 0;
-    min-height: 281px;
+    width: 95%;
+    height: 88%;
     /* border: 1px solid #616161; */
     left: 0px;
     bottom: 0px;
