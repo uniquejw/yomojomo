@@ -16,7 +16,7 @@
 			return response.json();
 		}).then(function(result) {
 			if (result.status == "success") {
-				location.href = "/junho/index.html";
+				history.go(-1);
 			} else {
 				window.alert("로그인 실패!")
 			}
