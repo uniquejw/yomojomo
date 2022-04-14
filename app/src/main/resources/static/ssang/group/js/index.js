@@ -62,11 +62,8 @@ function close() {
 
 // 모임리스트
   var writtenContainer = document.querySelector("#handlebars-container");
-
   var divTemplate = document.querySelector("#div-template");
-
   var htmlGenerator = Handlebars.compile(divTemplate.innerHTML);
-      
 fetch(PATH.groupList)
     .then(function(response) {
       return response.json();
@@ -120,6 +117,7 @@ fetch(PATH.groupList)
       }); //ajax END
     }); //nameSi change End
 
+    // 전체를 선택하면 게시글 리스트 불러오기 
     $("#nameSi").on("click", function() {  
       if ($("#nameSi option:selected").val() == 0) {
         fetch(PATH.groupList)
@@ -140,35 +138,59 @@ fetch(PATH.groupList)
     })
     
     // 시, 도 카테고리 선택하면 게시글 리스트 불러오기
-    // $("#nameSi").on("click", function() {
-    //   console.log("바뀜");
-    //   $.ajax({
-    //     url : "/pickme/selectedSicate",
-    //     type : "POST",
-    //     async : false,
-    //     data : {"activeLocal.nameSi" : $("#nameSi option:selected").val()},
-    //     success : function(result) {
-    //       console.log(result.data);
-    //       tbody.innerHTML = htmlGenerator(result.data);
-    //     }
-    //   }) //ajax END
-    // });//nameSi change End
+    $("#nameSi").on("click", function() {
+      console.log("바뀜");
+      $.ajax({
+        url : "/group/selectedSicate",
+        type : "POST",
+        async : false,
+        data : {"activeLocal.nameSi" : $("#nameSi option:selected").val()},
+        success : function(result) {
+          console.log({"activeLocal.nameSi" : $("#nameSi option:selected").val()})
+          console.log(result.data);
+          writtenContainer.innerHTML = htmlGenerator(result.data);
+        }
+      }) //ajax END
+    });//nameSi change End
     
     
     // 군, 구 카테고리 선택하면 게시글 리스트 불러오기
-    // $("#nameGu").on("click", function() { //id가 nameGu를 클릭하면 발생되는 이벤트 시작
-    //   console.log("바뀜");
-    //   $.ajax({
-    //     url : "/pickme/selectedGucate", //url 요청
-    //     type : "POST",
-    //     async : false,
-    //     data : {"activeLocal.no" : $("#nameGu option:selected").val()}, //파라미터로 gms_activelocal의 번호를 보낸다.
-    //     success : function(result) { //받아온 list로 handlebars를 화면에 나오게 한다.
-    //       // console.log(result.data);
-    //       tbody.innerHTML = htmlGenerator(result.data);
-    //     }
-    //   }) //ajax END
-    // });//nameGu change End //id가 nameGu를 클릭하면 발생되는 이벤트 끝
+    $("#nameGu").on("click", function() { //id가 nameGu를 클릭하면 발생되는 이벤트 시작
+      if ($("#nameGu option:selected").text() != "군구 선택") {
+      console.log("바뀜");
+      $.ajax({
+        url : "/group/selectedGucate", //url 요청
+        type : "POST",
+        async : false,
+        data : {"activeLocal.no" : $("#nameGu option:selected").val()}, //파라미터로 gms_activelocal의 번호를 보낸다.
+        success : function(result) { //받아온 list로 handlebars를 화면에 나오게 한다.
+          console.log(result.data);
+          writtenContainer.innerHTML = htmlGenerator(result.data);
+        }
+      }) //ajax END
+    }
+    });//nameGu change End //id가 nameGu를 클릭하면 발생되는 이벤트 끝
+
+    // 모임목적 카테고리 선택하면 게시글 리스트 불러오기
+    $("#selectPurpose").on("click", function() { //id가 nameGu를 클릭하면 발생되는 이벤트 시작
+      if ($("#selectPurpose option:selected").text() != "모임목적") {
+      console.log("바뀜");
+      // console.log({"activeLocal.no" : $("#nameGu option:selected").val(),
+      // "purpose.no":$("#selectPurpose option:selected").val()})
+      $.ajax({
+        url : "/group/selectedPurpcate", //url 요청
+        type : "POST",
+        async : false,
+        data : {"activeLocal.no" : $("#nameGu option:selected").val(),
+                "purpose.no":$("#selectPurpose option:selected").val()}, //파라미터로 gms_activelocal의 번호를 보낸다.
+        success : function(result) { //받아온 list로 handlebars를 화면에 나오게 한다.
+          console.log(result.data);
+          
+          writtenContainer.innerHTML = htmlGenerator(result.data);
+        }
+      }) //ajax END
+    }
+    });
     
     
     // document.querySelector("#x-create-btn").onclick = function(){

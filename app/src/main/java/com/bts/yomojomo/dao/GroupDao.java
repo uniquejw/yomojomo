@@ -14,6 +14,12 @@ public interface GroupDao {
 
   List<Group> findAll();
 
+  List<Group> selectedSicate(Group group);
+
+  List<Group> selectedGucate(Group group);
+
+  List<Group> selectedPurpcate(Group group);
+
   int insert(Group group);
 
   Group findByNo(int no);

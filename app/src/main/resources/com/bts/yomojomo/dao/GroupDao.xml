@@ -20,19 +20,95 @@
 
 	<select id="findAll" resultMap="GroupMap">
 		select
-		g_no,
-		act_local_no,
-		pups_no,
-		name,
-		reg_dt,
-		logo,
-		intro,
-		max_cnt,
-		view_cnt
-		from
-		gms_group
-		order by
-		g_no desc
+        g_no,
+        act_local_no,
+        pups_no,
+        name,
+        reg_dt,
+        logo,
+        intro,
+        max_cnt,
+        view_cnt
+        from
+        gms_group
+        order by
+        g_no desc
+	</select>
+	
+	<select id="selectedSicate" resultMap="GroupMap">
+		select
+            g.g_no,
+            g.act_local_no,
+            g.pups_no,
+            g.name,
+            g.reg_dt,
+            g.logo,
+            g.intro,
+            g.max_cnt,
+            g.view_cnt,
+            p.pups_no pno,
+            p.name pname,
+            a.act_local_no ano,
+            a.name_si asi,
+            a.name_gu agu
+        from gms_group g
+            inner join gms_purpose p on g.pups_no=p.pups_no
+            inner join gms_activelocal a on g.act_local_no=a.act_local_no
+        where
+           a.name_si like #{activeLocal.nameSi}
+        order by
+            g.g_no desc;
+	</select>
+	
+	<select id="selectedGucate" resultMap="GroupMap">
+		select
+            g.g_no,
+            g.act_local_no,
+            g.pups_no,
+            g.name,
+            g.reg_dt,
+            g.logo,
+            g.intro,
+            g.max_cnt,
+            g.view_cnt,
+            p.pups_no pno,
+            p.name pname,
+            a.act_local_no ano,
+            a.name_si asi,
+            a.name_gu agu
+        from gms_group g
+            inner join gms_purpose p on g.pups_no=p.pups_no
+            inner join gms_activelocal a on g.act_local_no=a.act_local_no
+        where
+           a.act_local_no = #{activeLocal.no}
+        order by
+            g.g_no desc;
+	</select>
+	<select id="selectedPurpcate" resultMap="GroupMap">
+		select * from 
+			 (select
+	            g.g_no,
+	            g.act_local_no,
+	            g.pups_no,
+	            g.name,
+	            g.reg_dt,
+	            g.logo,
+	            g.intro,
+	            g.max_cnt,
+	            g.view_cnt,
+	            p.pups_no pno,
+	            p.name pname,
+	            a.act_local_no ano,
+	            a.name_si asi,
+	            a.name_gu agu
+	        from gms_group g
+	            inner join gms_purpose p on g.pups_no=p.pups_no
+	            inner join gms_activelocal a on g.act_local_no=a.act_local_no
+	        where
+	           a.act_local_no = #{activeLocal.no}
+	        order by
+	            g.g_no desc) g
+		                where g.pups_no = #{purpose.no}
 	</select>
 	
 	

@@ -11,6 +11,12 @@ public interface GroupService {
 
   List<Group> list();
 
+  List<Group> siList(Group group);
+
+  List<Group> guList(Group group);
+
+  List<Group> selectedPurpcate(Group group);
+
   Group get(int no);
 
   int update(Group group);
