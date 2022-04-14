@@ -6,7 +6,7 @@
   
   <!-- 테이블의 컬럼과 객체필드를 연결한다. -->
   <resultMap type="Destination" id="DestinationMap">
-    <id column="destno" property="no"/>
+    <id column="dest_no" property="no"/>
     <result column="flat" property="flat"/>
     <result column="flng" property="flng"/>
     <result column="storename" property="storeName"/>
@@ -32,7 +32,7 @@
   
   <select id="findByNo" resultMap="DestinationMap" parameterType="int">
     select 
-      destno,
+      dest_no,
       flat,
       flng,
       storename,
