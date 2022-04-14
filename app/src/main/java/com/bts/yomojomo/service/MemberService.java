@@ -7,6 +7,8 @@ public interface MemberService {
 	
 	  int add(Member member);
 
+	  Member get(String email);
+	  
 	  Member get(String email, String password);
 
 	  Member find(String name, String tel);
