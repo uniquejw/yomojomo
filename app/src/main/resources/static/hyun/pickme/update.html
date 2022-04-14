@@ -99,7 +99,7 @@
 
 <!-- 시,도 카테고리 생성 핸들 바-->
 <script id="optionSi-template" type="text/x-handlebars-template">
-  <option id="allList" value="0">전체</option>
+  <!-- <option id="allList" value="0">전체</option> -->
   {{#each this}}
   <option id="selectOp" value="{{nameSi}}">{{nameSi}}</option>
   {{/each}}
@@ -134,7 +134,7 @@ $.ajax({
   type : "POST",
   async : false,
   success: function(result) {
-      // console.log(result.data);
+      console.log(result.data);
       selectSiList.innerHTML = opSiGernerator(result.data);
   }
 });
@@ -175,7 +175,7 @@ $.ajax({
     datatype : "json",
     success : function(result) {
       // console.log(result);
-      selectPuposeList.innerHTML = PurposeopGernerator(result.data);
+      selectPuposeList.innerHTML = PurposeopGernerator(result);
     }//success END
   })//ajax END
 // 관심 활동 리스트 불러오기 END
@@ -213,7 +213,7 @@ fetch(`/pickme/get?no=${no}`)
     return response.json();
   })
   .then(function(result){
-    console.log(result);
+    // console.log(result);
     if (result.status == "fail") {
       window.alert("서버 요청 오류!");
     } else {

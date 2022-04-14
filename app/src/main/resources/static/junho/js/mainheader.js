@@ -17,15 +17,14 @@ function css(selector, name, value) {
   }
 }
 
-document.querySelector("#login-btn").onclick = function () {
-	location.href = "/jaewon/login/login/index.html";
-};
 
 document.querySelector("#logout-btn").onclick = function() {
   fetch("/member/signout").then(function(response) {
 	  location.reload();
   });
 };
+
+
 
 
 $.ajax({ //로그인 회원 정보 가져오기
@@ -52,8 +51,13 @@ $.ajax({ //로그인 회원 정보 가져오기
 					
 					
 				}
-			}//받은 초대 메세지 가져오기 success END			
+			}//받은 초대 메세지 가져오기 success END		
 		})// 초대 메세지 가져오기 END
 	}//로그인정보 가져오기 END
 }); //로그인 여부 확인 ajax END
+
+document.querySelector('.btn-group-link').addEventListener('click', function() {
+	window.location.href = '/ssang/group/form.html';
+})
+
 

@@ -1,8 +1,13 @@
 package com.bts.yomojomo.domain;
 
 public class FinalPurpose {
+
 	int no;
 	int membno;
+
+	public FinalPurpose(int pupsArr) {
+		no = pupsArr;
+	}
 
 	@Override
 	public String toString() {

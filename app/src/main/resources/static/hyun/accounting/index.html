@@ -7,6 +7,7 @@
 <title>회비관리</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
 <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.css">
+
 <style>
 /*내꺼 css*/
 #body-content{
@@ -89,7 +90,7 @@ table > tbody > tr > td {
   </div>
 </div><!--body content 끝-->
 
-<!--공통풋터-->
+<!--메인 풋터-->
 <div id="footer"></div>
 
 <!--카테고리 생성 핸들 바-->
@@ -128,16 +129,12 @@ table > tbody > tr > td {
   {{#each this}}
   <tr>
     <td>{{no}}</td>
-    <td>{{actCate.cateName}}</td>
-
+    <td>{{actCate}}</td>
     <td>
-      <select id="selectedStatus" >
-      <!--   <option id="statusOp" value="0">진행</option>
-        <option id="statusOp" value="1">완료</option>-->
-        <option value="{{status}}"></option>
+      <select id="selectedStatus"> <!--disabled-->
+        <option vlaue="{{statusno}}">{{status}}</option>
       </select> 
     </td>
-
     <td><a href="view.html?no={{no}}">{{title}}</a></td>
     <td>{{registDate}}</td>
   </tr>
@@ -159,10 +156,28 @@ table > tbody > tr > td {
     async : false,
     dataType : "json",
     success: function(result) {
-      console.log(result.data);
-        tbody.innerHTML = htmlGenerator(result.data);
-    }
-  });
+      var arr = result.data;
+      // console.log(arr);
+      var ing = "진행";
+      var end = "완료";
+      // console.log(arr.actCate);
+      var updateData = []
+      $.each(arr, function(index, arr) {
+        updateData.push({
+          "actCate" : arr.actCate.cateName,
+          no : arr.no,
+          title : arr.title,
+          registDate : arr.registDate,
+          statusno : arr.status,
+          status : arr.status == 0 ? ing : end
+        })
+        $("#selectedStatus").val(updateData).prop("selected", true);
+      })
+      console.log(updateData);
+      tbody.innerHTML = htmlGenerator(updateData);
+      // console.log(htmlGenerator(updateData));
+    }//success END
+  }); //ajax 페이지 처음 로드
 
   //selectbox 옵션별 목록 불러오기
   $(document).on("change", "#selectCate", function() {
@@ -173,7 +188,22 @@ table > tbody > tr > td {
         type : "POST",
         async : false,
         success: function(result) {
-            tbody.innerHTML = htmlGenerator(result.data);
+          var arr = result.data;
+          var ing = "진행";
+          var end = "완료";
+          var updateData = []
+          $.each(arr, function(index, arr) {
+            updateData.push({
+              "actCate" : arr.actCate.cateName,
+              no : arr.no,
+              title : arr.title,
+              registDate : arr.registDate,
+              statusno : arr.status,
+              status : arr.status == 0 ? ing : end
+              })
+              // console.log(updateData);
+          })  
+            tbody.innerHTML = htmlGenerator(updateData);
         }
       }); //게시글 목록 생성 ajax
     } else {
@@ -183,16 +213,27 @@ table > tbody > tr > td {
           asyn: false,
           data: {"actCate.no": $("#selectCate option:selected").val()},
           success: function(result) {
-            console.log(result);
-            tbody.innerHTML = htmlGenerator(result.data);
+            var arr = result.data;
+            // console.log(arr);
+            var ing = "진행";
+            var end = "완료";
+            var updateData = []
+            $.each(arr, function(index, arr) {
+              updateData.push({
+                "actCate" : arr.actCate.cateName,
+                no : arr.no,
+                title : arr.title,
+                registDate : arr.registDate,
+                statusno : arr.status,
+                status : arr.status == 0 ? ing : end
+                })
+            })  
+              tbody.innerHTML = htmlGenerator(updateData);
           }//success END
         })//ajax END
     }
   })// selectbox change event END  
 
-  
-
-  
   //form.html
   document.querySelector("#x-create-btn").onclick = function(){
     location.href="form.html";

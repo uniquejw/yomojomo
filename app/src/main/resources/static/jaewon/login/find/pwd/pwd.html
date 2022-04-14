@@ -77,23 +77,24 @@
 		}).then(function(text) {
 			if (text != 0) {
 					$('.modal').show();
-					$('.email').append("이메일로 임시비밀번호가 발송되었습니다.");
+					$('.email').append("이메일로 임시비밀번호가 발송되었습니다.");				
 				$('.close').on('click', function() {
 					$('.modal').hide();
-					location.reload();
+					location.href="/junho/index.html";
 				});
 				$('.btn-close').on('click', function() {
 					$('.modal').hide();
-					location.reload();
+					location.href="/junho/index.html";
 				});
 				$(window).on('click', function() {
 					if (event.target == $('.modal').get(0)) {
 						$('.modal').hide();
-						location.reload();
+						location.href="/junho/index.html";
 					}
 				});
 			} else {
 				window.alert("일치하는 정보가 없습니다")
+				location.reload();
 			}
 		});
 		return false;

@@ -19,12 +19,12 @@ public class PurposeController {
   @RequestMapping("/purpose/list")
   public Object list() {
     log.info("purpose 리스트 출력");
-    return new ResultMap().setStatus(SUCCESS).setData(purposeService.list());
+    return purposeService.list();
   }
 
   @RequestMapping("/purpose/get")
   public Object get (int no) {
     log.info("purpose 번호로 검색");
-    return new ResultMap().setStatus(SUCCESS).setData(purposeService.get(no));
+    return purposeService.get(no);
   }
 }

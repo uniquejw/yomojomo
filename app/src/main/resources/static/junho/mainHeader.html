@@ -12,8 +12,9 @@
 	href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700&display=swap"
 	rel="stylesheet">
 <!-- 아이콘 연결 코드 -->
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-	rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<!-- JQUERY -->
+<script src="/node_modules/jquery/dist/jquery.min.js"></script>
 <!-- 부트스트랩 CSS-->
 <link rel="stylesheet"
 	href="/node_modules/bootstrap/dist/css/bootstrap.css">
@@ -21,8 +22,6 @@
 <script src="/node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
 <!-- 내 css 연결하기 -->
 <link rel="stylesheet" href="/junho/css/mainheader.css">
-<!-- JQUERY -->
-<script src="/node_modules/jquery/dist/jquery.min.js"></script>
 
 
 <!-- HEADER -->
@@ -47,7 +46,7 @@
 				<button type="button" class="btn btn-primary dropdown-toggle"
 					data-bs-toggle="dropdown" aria-expanded="false">Category</button>
 				<ul class="dropdown-menu">
-					<li><a class="dropdown-item" href="#">Excercise</a></li>
+					<li><a class="dropdown-item" href="/minkyu/mypage/index.html">Mypage</a></li>
 					<li><hr class="dropdown-divider"></li>
 					<li><a class="dropdown-item" href="#">Music</a></li>
 					<li><hr class="dropdown-divider"></li>
@@ -60,9 +59,11 @@
 		</div>
 		<div class="main-menu">
 			<ul class="menu">
-				<li id="login-btn" class="not-login"><a>로그인</a></li>
+				<li id="login-btn" class="not-login">
+					<a href="/jaewon/login/login/index.html">로그인</a>
+				</li>
 				<li id="logout-btn" class="login"><a>로그아웃</a></li>
-				<li><a href="javascript:void(0)">회원가입</a></li>
+				<li><a href="/jaewon/signup/index.html">회원가입</a></li>
 				<li><a href="javascript:void(0)"> <span class="material-icons">account_circle </span></a></li>
 				<li id="alert-msg-li"> <!--알림-->
 					<div class="btn-group">
@@ -73,17 +74,17 @@
 						<ul class="dropdown-menu">
 							<li><a class="dropdown-item">받은 메세지 <span id="totalmsgCnt"></span></a></li>
 							<li><hr class="dropdown-divider"></li>
-							<li><a class="dropdown-item" href="#">모임 초대 메세지 
+							<li><a class="dropdown-item" href="/minkyu/mypage/pickme.html">모임 초대 메세지 
 								<span class="badge bg-danger" id="invitemsgCnt"></span>							
 							</a></li>
-							<li><a class="dropdown-item" href="#">모임 가입 신청 메세지
+							<li><a class="dropdown-item" href="/minkyu/mypage/group.html">모임 가입 신청 메세지
 								<span class="badge bg-danger" id=""></span>	
 							</a></li>
 						</ul>
 					</div>
 				</li><!--알림-->
 				<li id="createGroupli"><a href="javascript:void(0)">
-						<button type="button" class="btn btn-light">소모임 개설</button>
+						<button type="button" class="btn btn-light btn-group-link">소모임 개설</button>
 				</a></li>
 			</ul>
 		</div>
