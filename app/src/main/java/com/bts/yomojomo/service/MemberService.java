@@ -4,7 +4,7 @@ import com.bts.yomojomo.domain.Member;
 import com.bts.yomojomo.dto.MemberDto;
 
 public interface MemberService {
-
+	
 	  int add(Member member);
 
 	  Member get(String email, String password);
@@ -12,6 +12,8 @@ public interface MemberService {
 	  Member find(String name, String tel);
 	  
 	  Member send(String email, String tel);
+	  
+	  Member send(String email);
 	  
 	  MemberDto createMailandChangePassword(String email);
 
