@@ -21,18 +21,24 @@ public class DefaultMemberService implements MemberService {
 	@Autowired
 	MemberDao memberDao;
 	JavaMailSender mailSender;
-	
-	  @Override
-	  @Transactional // 다음 메서드는 트랜잭션 안에서 실행하도록 설정한다.
-	  public int add(Member member) {
-	    memberDao.insert(member);
-	    memberDao.insertLocals(member.getNo(), member.getLocals());	 
-	    memberDao.insertPups(member.getNo(), member.getPups());	 
-	    return 1;
-	  }
+
+	@Override
+	@Transactional // 다음 메서드는 트랜잭션 안에서 실행하도록 설정한다.
+	public int add(Member member) {
+		memberDao.insert(member);
+		memberDao.insertLocals(member.getNo(), member.getLocals());
+		memberDao.insertPups(member.getNo(), member.getPups());
+		return 1;
+	}
+
 	@Override
 	public Member get(String email, String password) {
 		return memberDao.findByEmailAndPassword(email, password);
+	}
+
+	@Override
+	public Member get(String email) {
+		return memberDao.findByEmail(email);
 	}
 
 	@Override
@@ -44,7 +50,7 @@ public class DefaultMemberService implements MemberService {
 	public Member send(String email, String tel) {
 		return memberDao.findpwdByEmailandTel(email, tel);
 	}
-	
+
 	@Override
 	public Member send(String email) {
 		return memberDao.checkEmail(email);

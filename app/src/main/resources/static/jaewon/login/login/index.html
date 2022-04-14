@@ -22,10 +22,16 @@
 
 	<script src="/node_modules/sweetalert2/dist/sweetalert2.min.js"></script>
 	<script src="/node_modules/jquery/dist/jquery.min.js"></script>
+	<script src="/jaewon/login/login/signin.js"></script>
 	<script>
 		$(".header").load("/junho/mainheader.html")
-		$(".content").load("/jaewon/login/login/login.html");
-		// $(".footer").load("/footer.html")
+		$(".content").load("/jaewon/login/login/login.html", function (){
+			login();
+			fblogin();
+			checkLoginStat();
+			userEmail();
+		})
+		$(".footer").load("/junho/mainfooter.html");	
 	</script>
 	
 </body>

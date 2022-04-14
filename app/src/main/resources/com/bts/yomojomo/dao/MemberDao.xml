@@ -50,7 +50,7 @@
   			gms_memb
   			(name, pwd, email, tel, post_no, roadname_addr, base_addr, addr, memb_level)
 		values
-			(#{memberName}, #{passWord}, #{email}, #{tel}, #{postNo}, #{roadNameAddress}, #{baseAddress}, #{address}, #{membLevel})
+			(#{memberName}, password(#{passWord}), #{email}, #{tel}, #{postNo}, #{roadNameAddress}, #{baseAddress}, #{address}, #{membLevel})
 	</insert>
 
 	<insert id="insertLocals">
@@ -77,7 +77,7 @@
 		select 
 			memb_no, name, email from gms_memb
 		where 
-			email=#{email} and pwd=#{password}
+			email=#{email} and pwd=password(#{password})
 	</select>
 
 	<select id="findidByNameandTel" resultMap="memberMap">
@@ -87,6 +87,15 @@
 			gms_memb
 		where
 			name=#{name} and tel=#{tel}
+	</select>
+
+	<select id="findpwdByEmail" resultMap="memberMap">
+		select 
+			email
+		from
+			gms_memb
+		where 
+			email=#{email}
 	</select>
 
 	<select id="findpwdByEmailandTel" resultMap="memberMap">
