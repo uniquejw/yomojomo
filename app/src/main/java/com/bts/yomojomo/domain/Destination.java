@@ -13,5 +13,4 @@ public class Destination {
   String locationId;
   Date regdt;
   int cnt;
-
 }

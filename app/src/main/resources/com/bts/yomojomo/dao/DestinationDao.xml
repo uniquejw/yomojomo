@@ -9,25 +9,25 @@
     <id column="dest_no" property="no"/>
     <result column="flat" property="flat"/>
     <result column="flng" property="flng"/>
-    <result column="storename" property="storeName"/>
+    <result column="store_name" property="storeName"/>
     <result column="location_id" property="locationId"/>
-    <result column="regdt" property="regdt"/>
-    <result column="cnt" property="cnt"/>
+    <result column="reg_dt" property="regdt"/>
+    <result column="view_cnt" property="cnt"/>
   </resultMap>
 
   <select id="findAll" resultMap="DestinationMap"> 
     select
-      destno,
+      dest_no,
       flat,
       flng,
-      storename,
+      store_name,
       location_id,
-      regdt,
-      cnt
+      reg_dt,
+      view_cnt
     from
       gms_destination
     order by
-      destno desc
+      dest_no desc
   </select>
   
   <select id="findByNo" resultMap="DestinationMap" parameterType="int">
@@ -35,39 +35,34 @@
       dest_no,
       flat,
       flng,
-      storename,
+      store_name,
       location_id,
-      regdt,
-      cnt
+      reg_dt,
+      view_cnt
     from 
       gms_destination
     where 
-      destno=#{no}
+      dest_no=#{no}
   </select>
 
   <insert id="insert" parameterType="Destination">
-    insert into gms_destination
-    (
+    insert into gms_destination(
       flat,
       flng,
-      storename,
-      location_id,
-      regdt,
-      cnt
-      )
-    values(#{flat}, #{flng}, #{storeName}, #{locationId}, #{regdt}, #{cnt})
+      store_name,
+      location_id)
+    values(#{flat}, #{flng}, #{storeName}, #{locationId})
   </insert>
   
   <update id ="update" parameterType="Destination">
     update gms_destination set 
-      destno = #{no},
+      dest_no = #{no},
       flat = #{flat},
       flng = #{flng},
-      storename = #{storeName},
+      store_name = #{storeName},
       location_id = #{locationId},
-      regdt = #{regdt},
-      cnt = #{cnt}
-      
+      reg_dt = #{regdt},
+      viwe_cnt = #{cnt}
     where 
       destno = #{no}
   </update>
@@ -79,6 +74,6 @@
   <delete id="delete" parameterType="int">
     delete from gms_destination
     where 
-      destno = #{no}
+      dest_no = #{no}
   </delete>
 </mapper>
