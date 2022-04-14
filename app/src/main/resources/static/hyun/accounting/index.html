@@ -131,8 +131,8 @@ table > tbody > tr > td {
     <td>{{no}}</td>
     <td>{{actCate}}</td>
     <td>
-      <select id="selectedStatus" disabled>
-        <option>{{status}}</option>
+      <select id="selectedStatus"> <!--disabled-->
+        <option vlaue="{{statusno}}">{{status}}</option>
       </select> 
     </td>
     <td><a href="view.html?no={{no}}">{{title}}</a></td>
@@ -170,9 +170,12 @@ table > tbody > tr > td {
           registDate : arr.registDate,
           statusno : arr.status,
           status : arr.status == 0 ? ing : end
-          })
-      })  
-        tbody.innerHTML = htmlGenerator(updateData);
+        })
+        $("#selectedStatus").val(updateData).prop("selected", true);
+      })
+      console.log(updateData);
+      tbody.innerHTML = htmlGenerator(updateData);
+      // console.log(htmlGenerator(updateData));
     }//success END
   }); //ajax 페이지 처음 로드
 

@@ -103,6 +103,7 @@ document.addEventListener('DOMContentLoaded', function () {
             success: function(param) {
                 console.log(param);
                     let data = param.data;
+                console.log($("#view-Modal"));
                 $("#view-Modal").modal("show"); //상세보기 모달창 나타냄
                 //값 출력
                 // console.log(data.joinMemb.group.no);
@@ -192,6 +193,7 @@ document.addEventListener('DOMContentLoaded', function () {
             text : "일정 추가",  // 버튼 내용
             click : function(){ // 버튼 클릭 시 이벤트 추가
                 $("#calendarModal").modal("show"); // modal 나타내기
+                console.log($("#calendarModal"));
                 $("#x-addCalendar").on("click",function(){  // modal 추가 버튼 클릭 시
 
 
