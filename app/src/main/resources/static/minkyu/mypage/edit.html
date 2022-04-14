@@ -25,9 +25,7 @@
     });
   </script>
   <style>
-    .www {
-      margin: 5px;
-    }
+   
   </style>
 </head>
 <body>
@@ -119,7 +117,7 @@
               <div class="col-3 p-2 text-center fw-bold mb-2"></div>
               <div class="row">
                 <div class="col-3 p-2 text-center fw-bold mb-2">관심 지역</div>
-                <select class="col form-select"
+                <select class="col form-select www"
                   aria-label="Default select example">
                   <option selected>관심 지역</option>
                   <option value="1">서울</option>
@@ -212,25 +210,6 @@
       },
       buttonsStyling: false
     })
-    // $("#edit-btn").click(function(e){
-    //   Swal.fire({
-    //     title: '정보를 수정하시겠습니까?',
-    //     icon: 'question',
-    //     showCancelButton: true,
-    //     confirmButtonColor: '#3085d6',
-    //     cancelButtonColor: '#808080',
-    //     confirmButtonText: '수정',
-    //     cancelButtonText: '취소'
-    //   }).then((result) => {
-    //     if (result.isConfirmed) {
-    //       Swal.fire(
-    //         '수정이 완료되었습니다.',
-    //         '',
-    //         'success'
-    //       )
-    //     }
-    //   })
-    // })
     $("#edit-btn").click(function(e){
       swalWithBootstrapButtons.fire({
         title: '정보를 수정하시겠습니까?',
@@ -253,18 +232,19 @@
     })
 
     // 셀렉트 옵션 찾아내서 append 하기
+    
+  //   $( "select" )
+  //   .change(function(e) {
+  //     let str = "";
+  //     $( "select option:selected" ).each(function() {
+  //       console.log(this)
+  //     str += $( this ).text() 
+  //   });
+  //   let selectText = str.split(" ")
+  //   console.log( selectText )
+  // })
+  // .trigger( "change" );
 
-    // $("select")
-    // .change(function(event) {
-    //   console.log(event.target)
-    //   let str = "";
-    //   $("select option:selected").click(function(e) {
-    //     console.log(e.target)
-    //     str += $(this).text() + "";
-    //   });
-    //   console.log(str)
-    // })
-    // .trigger("change");
   </script>
 </body>
 </html>
