@@ -129,7 +129,7 @@ document.querySelector("#create-btn").onclick = function() {
   .then(function(result) {
     console.log(result);
     if (result.status == "success") {
-      location.href = "/junho/index.html";
+      location.href = "/ssang/group/index.html";
     } else {
       alert(result.data);
     }

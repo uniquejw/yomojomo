@@ -277,6 +277,8 @@ insert into gms_memb(name,pwd,email,tel,post_no, roadname_addr ,base_addr,addr, 
 values('최땡땡','1111','12323@naver.com','11112222','1234','도로명4길','봉만동 어딘가','112호','1',false);
 insert into gms_memb(name,pwd,email,tel,post_no, roadname_addr ,base_addr,addr, memb_level,unsubscribe) 
 values('정땡땡','1111','12233@naver.com','11112222','1234','도로명5길','봉백동 어딘가','112호','1',false);
+insert into gms_memb(name,pwd,email,tel,post_no, roadname_addr ,base_addr,addr, memb_level,unsubscribe) 
+values('명준호','1111','wnsgh9166@naver.com','11112222','1234','도로명5길','봉백동 어딘가','112호','1',false);
 insert into gms_memb_grade(name) values('모임장');
 insert into gms_memb_grade(name) values('일반회원');
 insert into gms_SNS(name) values('카카오톡');
