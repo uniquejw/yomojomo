@@ -29,6 +29,23 @@
       		<result column="memb_no" property="no"/>
     	</collection>
 	</resultMap>
+	
+	<resultMap type="Member" id="memberMap2">
+		<id column="memb_no" property="no" />
+		<result column="name" property="memberName" />
+		<result column="pwd" property="passWord" />
+		<result column="email" property="email" />
+		<result column="tel" property="tel" />
+		<result column="post_no" property="postNo" />
+		<result column="roadname_addr" property="roadNameAddress" />
+		<result column="base_addr" property="baseAddress" />
+		<result column="addr" property="address" />
+		<result column="memb_level" property="membLevel" />
+		<result column="unsubscribe" property="unsubscribe" />
+		<result column="status" property="status" />
+		<result column="stop_dt" property="stopDate" />
+	</resultMap>
+
 
 	<!-- <select id="findAll" resultMap="MemberMap"> select memb_no, name, pwd, 
 		email, tel, post_no, base_addr, addr, type, unsubscribe from gms_memb order 
@@ -80,7 +97,7 @@
 			email=#{email} and pwd=password(#{password})
 	</select>
 
-	<select id="findidByNameandTel" resultMap="memberMap">
+	<select id="findidByNameandTel" resultMap="memberMap2">
 		select 
 			email
 		from
@@ -89,7 +106,7 @@
 			name=#{name} and tel=#{tel}
 	</select>
 
-	<select id="findpwdByEmail" resultMap="memberMap">
+	<select id="findpwdByEmail" resultMap="memberMap2">
 		select 
 			email
 		from
@@ -98,18 +115,18 @@
 			email=#{email}
 	</select>
 
-	<select id="findpwdByEmailandTel" resultMap="memberMap">
+	<select id="findpwdByEmailandTel" resultMap="memberMap2">
 		select 
-			email
+			email		
 		from
 			gms_memb
 		where 
 			email=#{email} and tel=#{tel}
 	</select>
 	
-	<select id="checkEmail" resultMap="memberMap">
+	<select id="checkEmail" resultMap="memberMap2">
 		select 
-			*
+			email
 		from 
 			gms_memb 
 		where 
@@ -121,7 +138,7 @@
 		update 
 			gms_memb
 		set
-			pwd=#{password}
+			pwd=password(#{password})
 		where
 			email=#{email}
 	</update>
