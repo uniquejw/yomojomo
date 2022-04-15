@@ -23,7 +23,7 @@ function signForm() {
 		var xSelectPups = $("#pupslist").children().length;
 		e.preventDefault();
 		// !xEmail.value
-		
+
 		var isValid = true;
 
 		validTargets.forEach(target => {
@@ -57,13 +57,13 @@ function signForm() {
 			return false;
 		}
 
-		if (regEmail.test(emailTest) !== true) {
-			alert('올바른 이메일 형식으로 입력해주세요');
+		if (strongRegex.test(pwdCheckTest) !== true) {
+			alert("최소 하나의 문자, 숫자, 특수문자를 조합해주세요.\n8자 이상 12자 이하의 비밀번호로 작성해주세요")
 			return false;
 		}
 
-		if (strongRegex.test(pwdCheckTest) !== true) {
-			alert("최소 하나의 문자, 숫자, 특수문자를 조합해주세요.\n8자 이상 12자 이하의 비밀번호로 작성해주세요")
+		if (pwdCheckTest !== pwdTest) {
+			alert("비밀번호가 일치하지 않습니다.")
 			return false;
 		}
 
@@ -88,11 +88,11 @@ function signForm() {
 		}
 
 
-		if (xSelectLocal < 1 ) {
+		if (xSelectLocal < 1) {
 			alert("활동 지역 항목을 기입하세요");
 			return false;
 		}
-		
+
 		if (xSelectPups < 1) {
 			alert("활동 목적 항목을 기입하세요");
 			return false;
