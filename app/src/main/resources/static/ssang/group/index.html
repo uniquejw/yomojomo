@@ -29,8 +29,8 @@
   <!--인클루드-->
   <script type="text/javascript">
     $(document).ready(function () {
-        $('#headers').load('../../junho/mainHeader.html'); //헤더 인클루드
-        $('#footers').load('../../junho/mainfooter.html'); //푸터부분 인클루드
+        $('#headers').load('/junho/mainHeader.html'); //헤더 인클루드
+        $('#footers').load('/junho/mainfooter.html'); //푸터부분 인클루드
     });
   </script>
  
@@ -119,13 +119,16 @@
             <div class="report-form-title">가입신청서</div>
             <table>
               <tbody id="handlebars-container2">
+                <tr>
+                  <td><span>하고싶은말</span></td>
+                </tr>
               </tbody>
             </table>
-            <textarea name="" id="" cols="40" rows="6" class="report-comment"></textarea>
-          </div>
+            <textarea name="" id="" cols="40" rows="6" class="report-comment" placeholder="하고싶은 말"></textarea>
+          </div><!--report-form-->
           <button id="apply">가입하기</button>
-        </div>
-      </div> 
+        </div><!--report-popup-->
+      </div> <!--report-window-->
     </div>    <!--report-background-->
 </div><!--container-->
 <div id="footers"></div>
@@ -152,9 +155,6 @@
       <td><input type="text"></td>
     </tr>
     {{/each}}
-    <tr>
-      <td><span>하고싶은말</span></td>
-    </tr>
   <!-- {{/each}} -->
 </script>
 <!--시,도 카테고리 생성 핸들 바-->

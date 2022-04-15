@@ -1,8 +1,10 @@
 package com.bts.yomojomo.controller;
 
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import com.bts.yomojomo.domain.Board;
 import com.bts.yomojomo.service.BoardService;
 
@@ -16,7 +18,8 @@ public class BoardController {
   BoardService boardService ;
 
   @RequestMapping("/board/add")
-  public Object add(Board board) {
+  public Object add(Board board, MultipartFile file,HttpSession session ) {
+
     return boardService.add(board);
   }
 

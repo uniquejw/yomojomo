@@ -89,7 +89,7 @@
   document.querySelector(".background-gu").className = "background-gu";
   }
 
-  var xFile = document.querySelector("x-file")
+  var xFile = document.querySelector(".upload-name")
   var xTitle = document.querySelector("#x-title")
   var xIntro = document.querySelector("#x-intro")
   var xPurpose = document.querySelector("#x-purpose")
@@ -114,7 +114,7 @@ document.querySelector("#create-btn").onclick = function() {
 
   var formData = new FormData(); // new FromData()로 새로운 객체 생성
     formData.append('GroupName',xTitle.value);
-    // formData.append('logo',xFile.value); 
+    formData.append('logo',xFile.value); 
     formData.append('intro',xIntro.value); 
     formData.append('purposeNo',xPurpose.value);
     formData.append('activeLocalNo',xActiveLocalNo.value);
@@ -134,4 +134,6 @@ document.querySelector("#create-btn").onclick = function() {
       alert(result.data);
     }
   });
+  
+  fetch("/groupTag/add").then(function(res){}).then(function(){})
 }
