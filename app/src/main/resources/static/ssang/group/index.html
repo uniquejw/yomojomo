@@ -45,9 +45,9 @@
           <select name="nameSi" id="nameSi" class="form-select form-select-sm" aria-label=".form-select-sm example"></select>
           <select name="nameGu" id="nameGu" class="form-select form-select-sm" aria-label=".form-select-sm example"></select>
         </div>
-        <select name="" class="select purpose" id="selectPurpose">
+        <select class="select purpose" id="selectPurpose">
           <optgroup>
-            <option selected >모임목적</option>
+            <!-- <option selected >모임목적</option>
           <option value="22">문화/예술/음악</option>
           <option value="1">교육/자기개발</option>
           <option value="2">육아/가족/반려동물</option>
@@ -69,7 +69,7 @@
           <option value="18">IT/컴퓨터</option>
           <option value="19">쇼핑/생활/푸드</option>
           <option value="20">기부/봉사</option>
-          <option value="21">창업/경영</option>
+          <option value="21">창업/경영</option> -->
         </optgroup>
       </select>
     </div><!--select-flex-div-->
@@ -95,7 +95,8 @@
     </nav>
   </div>
 
-      <!-- 모임정보 -->
+
+      <!--================= 모임정보 ========================-->
     <div class="background">
       <div class="window">
         <div class="popup">
@@ -103,13 +104,13 @@
           <button type="button" class="btn-close" aria-label="Close"></button>
           <div class="popup-group-name">{{groupName}}</div>
           <div class="popup-group-content">{{intro}}</div>
-          <button id="apply-form-btn" value="">가입하기</button>
+          <div><button id="apply-form-btn" value="">가입하기</button></div>
         </div>
       </div>
     </div>
 
 
-    <!-- 가입신청서 -->
+    <!--======================= 가입신청서 ====================-->
     <div class="report-background">
       <div class="report-window">
         <div class="report-popup">
@@ -124,9 +125,9 @@
                 </tr>
               </tbody>
             </table>
-            <textarea name="" id="" cols="40" rows="6" class="report-comment" placeholder="하고싶은 말"></textarea>
+            <textarea name="content" id="" cols="40" rows="6" class="report-comment" placeholder="하고싶은 말"></textarea>
           </div><!--report-form-->
-          <button id="apply">가입하기</button>
+          <div><button id="apply">가입하기</button></div>
         </div><!--report-popup-->
       </div> <!--report-window-->
     </div>    <!--report-background-->
@@ -146,15 +147,17 @@
   </li>
   {{/each}}
 </script>
-<!-- 모임신청서 -->
+<!-- =====================모임신청서 ============================-->
 <script id="applyList-template" type="text/x-handlebars-template">
   <!-- {{#each this}} -->
+  <form action="">
   {{#each question}}
     <tr>
       <td><span class="report-item">{{questionName}}</span></td>
-      <td><input type="text"></td>
+      <td><input type="text" name="answer"></td>
     </tr>
     {{/each}}
+  </form>
   <!-- {{/each}} -->
 </script>
 <!--시,도 카테고리 생성 핸들 바-->
@@ -171,6 +174,14 @@
   <option id="selectGuOp" value="{{no}}">{{nameGu}}</option>
   {{/each}}
 </script>
+<!-- 목적카테고리 핸들바 -->
+<script id="optionPurpose-template" type="text/x-handlebars-template">
+  <option>모임 분류</option>
+  {{#each this}}
+  <option id="selectGuOp" value="{{no}}">{{purposeName}}</option>
+  {{/each}}
+</script>
+
 <script src="/ssang/group/js/index.js"></script>
 </body>
 </html>

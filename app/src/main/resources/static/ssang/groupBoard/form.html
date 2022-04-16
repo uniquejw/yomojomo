@@ -9,9 +9,8 @@
   <!-- css 초기화 -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
   <link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap.min.css">
-  <!-- Quill 텍스트 에디터 스타일 시트 인클루드 -->
-  <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
-  <link rel="stylesheet" href="//cdn.quilljs.com/1.3.6/quill.bubble.css">
+  <!-- 클래식 에디터 -->
+	<script src="https://cdn.ckeditor.com/ckeditor5/29.1.0/classic/ckeditor.js"></script>
   <!--공용css-->
   <link rel="stylesheet" href="/css/common.css">
   <!--내css-->
@@ -20,9 +19,9 @@
   <!-- 인클루드 -->
   <script type="text/javascript">
     $(document).ready(function () {
-        $('#headers').load('../../junho/mainHeader.html'); //헤더 인클루드
-        $('#top').load('../groupBoard/top.html'); //모임 윗부분 인클루드
-        $('#footers').load('../../junho/mainfooter.html'); //푸터부분 인클루드
+        $('#headers').load('/junho/mainHeader.html'); //헤더 인클루드
+        $('#top').load('/ssang/groupBoard/top.html'); //모임 윗부분 인클루드
+        $('#footers').load('/junho/mainfooter.html'); //푸터부분 인클루드
     });
   </script>
 </head>
@@ -34,13 +33,7 @@
       <div class="write-board">New Post</div>
       <div class="written-width-fix" >
         <div id="x-content" >
-          <!-- Create the editor container -->
-          <form >
-          <div id="editor">
-            <input type="hidden" name="quill-html" id="quill-html">
-          </div><!--editor-->
-         </form>
-          <!-- <textarea placeholder="입력하세요"></textarea> -->
+          <textarea placeholder="입력하세요"></textarea>
         </div><!--x-content-->
         <div class="written-author-div">
           <div class="written-author-img-div">

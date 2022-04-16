@@ -2,6 +2,7 @@ package com.bts.yomojomo.dao;
 
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
+import com.bts.yomojomo.domain.ApplyAnswer;
 import com.bts.yomojomo.domain.ApplyForm;
 
 @Mapper 
@@ -12,7 +13,7 @@ public interface ApplyFormDao {
   //
   //  List<ApplyForm> findAll();
   //
-  //  int insert(ApplyForm applayForm);
+  int insert(ApplyForm applayForm, ApplyAnswer applyAnswer);
   //
   //  ApplyForm findByNo(int no);
   //

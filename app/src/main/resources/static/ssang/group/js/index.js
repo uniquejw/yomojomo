@@ -26,7 +26,6 @@ fetch(PATH.groupList)
     }
   });
 
-  
   // 시,도 카테고리불러오기
   let selectSiList = document.querySelector("#nameSi");
   var selectSiOption = document.querySelector("#optionSi-template");
@@ -60,6 +59,23 @@ fetch(PATH.groupList)
       }
     }); //ajax END
   }); //nameSi change End
+
+  //목적 카테고리  불러오기 
+  let selectPurposeList = document.querySelector("#selectPurpose");
+  var selectPurOption = document.querySelector("#optionPurpose-template");
+  var purOpGernerator = Handlebars.compile(selectPurOption.innerHTML);
+  $(document).on("click", "#nameGu", function() {
+    // console.log("바뀜");
+    $.ajax({
+      url : "/purpose/list",
+      type : "POST",
+      async : false,
+      success: function(result) {
+        console.log(result)
+        selectPurposeList.innerHTML = purOpGernerator(result);
+      }
+    }); 
+  }); 
 
   // 전체를 선택하면 게시글 리스트 불러오기 
   $("#nameSi").on("click", function() {  
@@ -100,8 +116,20 @@ fetch(PATH.groupList)
   
   // 군, 구 카테고리 선택하면 게시글 리스트 불러오기
   $("#nameGu").on("click", function() { //id가 nameGu를 클릭하면 발생되는 이벤트 시작
-    if ($("#nameGu option:selected").text() != "군구 선택") {
+    if ($("#nameGu option:selected").text() == "군구 선택") {
     console.log("바뀜");
+    $.ajax({
+      url : "/group/selectedSicate",
+      type : "POST",
+      async : false,
+      data : {"activeLocal.nameSi" : $("#nameSi option:selected").val()},
+      success : function(result) {
+        console.log({"activeLocal.nameSi" : $("#nameSi option:selected").val()})
+        console.log(result.data);
+        writtenContainer.innerHTML = htmlGenerator(result.data);
+      }
+    }) //ajax END
+  } 
     $.ajax({
       url : "/group/selectedGucate", //url 요청
       type : "POST",
@@ -112,15 +140,14 @@ fetch(PATH.groupList)
         writtenContainer.innerHTML = htmlGenerator(result.data);
       }
     }) //ajax END
-  }
   });//nameGu change End //id가 nameGu를 클릭하면 발생되는 이벤트 끝
 
   // 모임목적 카테고리 선택하면 게시글 리스트 불러오기
-  $("#selectPurpose").on("click", function() { //id가 nameGu를 클릭하면 발생되는 이벤트 시작
-    if ($("#selectPurpose option:selected").text() != "모임목적") {
+  $(document).on("click", "#selectPurpose", function() { //id가 nameGu를 클릭하면 발생되는 이벤트 시작
+    if ($("#nameGu option:selected").text() == "군구 선택") {
+      alert("지역을 입력하세요")
+    } else if ($("#selectPurpose option:selected").text() != "모임목적") {
     console.log("바뀜");
-    // console.log({"activeLocal.no" : $("#nameGu option:selected").val(),
-    // "purpose.no":$("#selectPurpose option:selected").val()})
     $.ajax({
       url : "/group/selectedPurpcate", //url 요청
       type : "POST",
@@ -129,7 +156,6 @@ fetch(PATH.groupList)
               "purpose.no":$("#selectPurpose option:selected").val()}, //파라미터로 gms_activelocal의 번호를 보낸다.
       success : function(result) { //받아온 list로 handlebars를 화면에 나오게 한다.
         console.log(result.data);
-        
         writtenContainer.innerHTML = htmlGenerator(result.data);
       }
     }) //ajax END
@@ -173,12 +199,36 @@ $(document).on("click","#apply-form-btn",function(){
     var divTemplate = document.querySelector("#applyList-template");
     var htmlGenerator = Handlebars.compile(divTemplate.innerHTML);
     writtenContainer.innerHTML = htmlGenerator(result.data);
+    $('#apply').val(result.data.no);
     // console.log(htmlGenerator(result.data));
     });
 })
 
 //신청하기
-document.querySelector("#apply").addEventListener("click", close);
+$(document).on("click","#apply",function(){
+  // var value = $(this).val();
+  var fd = new FormData();
+  var answerLength = $("input[name=answer]").length;//값들의 갯수 -> 배열 길이를 지정
+  var answers = new Array(answerLength);//배열 생성
+  //배열에 값 주입
+  for(var i=0; i<answerLength; i++){                          
+    answers[i] = $("input[name=answer]").eq(i).val();
+    }
+  for (answer of answers){
+      fd.append('answer',answer)
+    }
+   fd.append('content',document.querySelector("textarea[name=content]").value)
+   
+   fetch("/applyform/add",{
+     method:"POST",
+     body: fd
+   })
+   .then(function(res){
+     return res.json()
+   }).then(function(result){
+ 
+   })
+})
 
 
 //닫기

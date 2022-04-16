@@ -15,4 +15,5 @@ public class Board {
   boolean status;
   Member writer;
   List<Comment> comments;
+  String photo;
 }

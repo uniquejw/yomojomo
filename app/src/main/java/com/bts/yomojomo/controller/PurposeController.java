@@ -1,6 +1,5 @@
 package com.bts.yomojomo.controller;
 
-import static com.bts.yomojomo.controller.ResultMap.SUCCESS;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

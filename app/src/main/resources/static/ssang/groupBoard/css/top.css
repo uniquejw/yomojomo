@@ -66,3 +66,10 @@ div.search-container{
     color: white;
     background-color: rgb(17, 147, 218);
 }
+.group-cate-btn:hover{
+    color: white;
+    background-color: rgb(17, 147, 218);
+}
+.menu1 .group-board,.menu2 .group-photo,.menu3 .group-calendar,.menu4 .group-file,.menu5 .group-member,.menu6 .group-accounting,.menu7 .group-view
+    {color: white;
+    background-color: rgb(17, 147, 218);};

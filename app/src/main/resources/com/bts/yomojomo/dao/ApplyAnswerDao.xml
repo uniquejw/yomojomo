@@ -7,7 +7,7 @@
   <!-- 테이블의 컬럼과 객체필드를 연결한다. -->
   <resultMap type="ApplyAnswer" id="ApplyAnswerMap">
     <id column="appl_answer_no" property="no"/>
-    <result column="appl_question_no" property="applyQuestionNo"/>
+    <result column="appl_question_no" property="ApplyAnswer"/>
     <result column="answer" property="answer"/>
   </resultMap>
 
@@ -35,7 +35,8 @@
 
   <insert id="insert" parameterType="ApplyAnswer">
     insert into gms_applyform_answer(appl_question_no, answer) 
-    values(#{applyQuestionNo}, #{answer})
+    values
+        (#{applyQuestionNo}, #{answer})
   </insert>
   
   <update id ="update" parameterType="ApplyAnswer">
