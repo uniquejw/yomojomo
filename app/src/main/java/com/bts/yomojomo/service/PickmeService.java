@@ -9,7 +9,7 @@ public interface PickmeService {
 
   int add(Pickme pickme);
 
-  List<Pickme> list();
+  List<Pickme> list(int pageNo, int pageSize);
 
   List<Pickme> findSelectSiList(Pickme pickme);
 
@@ -20,5 +20,7 @@ public interface PickmeService {
   int update(Pickme pickme);
 
   int delete(Pickme pickme);
+
+  int size();
 
 }

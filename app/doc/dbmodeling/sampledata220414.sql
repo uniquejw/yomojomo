@@ -392,6 +392,7 @@ insert into gms_select_midpoint(lat,lng,memb_no,g_no) values(1234.4,122.4,3,3);
 insert into gms_pickme(title, content,  view_cnt, act_local_no, pups_no, memb_no) values ("축구 같이해요", "축구 같이해요축구 같이해요축구 같이해요축구 같이해요",  1, 1, 1, 1);
 insert into gms_pickme(title, content,  view_cnt, act_local_no, pups_no, memb_no) values ("공부 해요", "공부 해요공부 해요공부 해요공부 해요공부 해요공부 해요",  1, 2, 2, 2);
 insert into gms_pickme(title, content,  view_cnt, act_local_no, pups_no, memb_no) values ("술먹어요", "술먹어요술먹어요술먹어요술먹어요술먹어요술먹어요술먹어요",  1, 2, 2, 2);
+insert into gms_pickme(title, content,  view_cnt, act_local_no, pups_no, memb_no) values ("술먹어요", "술먹어요술먹어요술먹어요술먹어요술먹어요술먹어요술먹어요",  1, 15, 2, 2);
 insert into gms_comment(b_no, content, memb_no, g_no) values (1, "12", 1, 1 );
 insert into gms_comment(b_no, content, memb_no, g_no) values (1, "13", 1, 1 );
 insert into gms_comment(b_no, content, memb_no, g_no) values (1, "14", 1, 1 );

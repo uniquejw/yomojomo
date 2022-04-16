@@ -12,4 +12,5 @@ public class ResultMap {
 
   private String status;
   private Object data;
+  private int pageNo;
 }
