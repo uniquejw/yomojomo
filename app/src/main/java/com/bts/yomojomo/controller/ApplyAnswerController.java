@@ -1,5 +1,5 @@
 package com.bts.yomojomo.controller;
-
+import static com.bts.yomojomo.controller.ResultMap.SUCCESS;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -11,10 +11,28 @@ public class ApplyAnswerController {
   @Autowired
   ApplyAnswerService applyAnswerService;
 
-  @RequestMapping("/applayAnswer/add")
+  @RequestMapping("/applyAnswer/add")
   public Object add(ApplyAnswer applyAnswer) {
-    return applyAnswerService.add(applyAnswer);
+    //    List<String> list = new ArrayList<String>();
+    //    String[] answers = applyAnswer.getAnswer().split(",");
+    //    for (int i = 0; i < answers.length; i++) {
+    //      list.add(answers[i]);
+    //    };// asList??
+    //    int no = applyAnswer.getApplyNo();
+    //    System.out.println(list);
+    //    System.out.println(no);
+    System.out.println(applyAnswer);
+    return new ResultMap().setStatus(SUCCESS).setData(applyAnswerService.add(applyAnswer));
   }
+
+  //  public static List<String> getStringListValue(Object obj) throws Exception {
+  //    if(obj == null){
+  //    return null;
+  //    }
+  //    ObjectMapper objectMapper = new ObjectMapper();
+  //    return objectMapper.readValue((String) obj, List.class);
+  //    }
+
   //
   //  @RequestMapping("/applayAnswer/get")
   //  public Object get(int no) {

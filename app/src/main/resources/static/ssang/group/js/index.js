@@ -182,31 +182,27 @@ $(document).on("click","button.btn-show",function(){
 $(document).on("click","#apply-form-btn",function(){
   document.querySelector(".background").className = "background";
   document.querySelector(".report-background").className = "report-background show";
-  var value = $(this).val();
-  console.log(value)
+  var value = $(this).val();//모임번호
   fetch(`/applyform/findQuestion?no=${value}`)
     .then(function(res){
       return res.json();
     }).then(function(result){
       if (result.status == "fail") {
         window.alert("서버 요청 오류!");
-        console.log(result.data);
         return;
-    }
-      console.log(result.data);
+      }
     // 핸들바
     var writtenContainer = document.querySelector("#handlebars-container2");
     var divTemplate = document.querySelector("#applyList-template");
     var htmlGenerator = Handlebars.compile(divTemplate.innerHTML);
     writtenContainer.innerHTML = htmlGenerator(result.data);
-    $('#apply').val(result.data.no);
-    // console.log(htmlGenerator(result.data));
+    $('#apply').val(result.data[0].no);
     });
 })
 
 //신청하기
 $(document).on("click","#apply",function(){
-  // var value = $(this).val();
+  var value = $(this).val();//appl_no
   var fd = new FormData();
   var answerLength = $("input[name=answer]").length;//값들의 갯수 -> 배열 길이를 지정
   var answers = new Array(answerLength);//배열 생성
@@ -214,19 +210,18 @@ $(document).on("click","#apply",function(){
   for(var i=0; i<answerLength; i++){                          
     answers[i] = $("input[name=answer]").eq(i).val();
     }
-  for (answer of answers){
-      fd.append('answer',answer)
-    }
-   fd.append('content',document.querySelector("textarea[name=content]").value)
-   
-   fetch("/applyform/add",{
+   fd.append('answer',answers)
+   fd.append('answer',document.querySelector("textarea[name=answer]").value)
+   fd.append('applyNo',value)
+    
+   fetch('/applyAnswer/add',{
      method:"POST",
      body: fd
    })
    .then(function(res){
      return res.json()
    }).then(function(result){
- 
+    location.href="/minkyu/mypage/index.html"
    })
 })
 

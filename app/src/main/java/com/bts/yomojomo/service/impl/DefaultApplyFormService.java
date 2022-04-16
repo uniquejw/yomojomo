@@ -4,7 +4,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.bts.yomojomo.dao.ApplyFormDao;
-import com.bts.yomojomo.domain.ApplyAnswer;
 import com.bts.yomojomo.domain.ApplyForm;
 import com.bts.yomojomo.service.ApplyFormService;
 
@@ -22,8 +21,8 @@ public class DefaultApplyFormService implements ApplyFormService {
     return applyFormDao.findQuestion(no);
   }
   @Override
-  public int add(ApplyForm applyForm,ApplyAnswer applyAnswer) {
-    return applyFormDao.insert(applyForm, applyAnswer);
+  public int add(ApplyForm applyForm) {
+    return applyFormDao.insert(applyForm);
   }
   //
   //    @Override

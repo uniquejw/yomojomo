@@ -1,13 +1,12 @@
 package com.bts.yomojomo.service;
 
 import java.util.List;
-import com.bts.yomojomo.domain.ApplyAnswer;
 import com.bts.yomojomo.domain.ApplyForm;
 
 public interface ApplyFormService {
 
   List<ApplyForm> findQuestion(int no);
-  int add(ApplyForm applyForm, ApplyAnswer applyAnswer);
+  int add(ApplyForm applyForm);
   //
   //  List<ApplyForm> list();
   //

@@ -7,14 +7,14 @@
   <!-- 테이블의 컬럼과 객체필드를 연결한다. -->
   <resultMap type="ApplyAnswer" id="ApplyAnswerMap">
     <id column="appl_answer_no" property="no"/>
-    <result column="appl_question_no" property="ApplyAnswer"/>
+    <result column="appl_no" property="applyNo"/>
     <result column="answer" property="answer"/>
   </resultMap>
 
   <select id="findAll" resultMap="ApplyAnswerMap"> 
     select
       appl_answer_no,
-      appl_question_no,
+      appl_no,
       answer
     from
       gms_applyform_answer
@@ -22,10 +22,15 @@
       appl_answer asc
   </select>
   
+  <insert id="insert" >
+    insert into gms_applyform_answer(appl_no, answer)
+    values (#{applyNo}, #{answer}) 
+ </insert>
+  
   <select id="findByNo" resultMap="ApplyAnswerMap" parameterType="int">
     select 
       appl_answer_no,
-      appl_question_no,
+      appl_no,
       answer
     from 
       gms_applyform_answer
@@ -33,11 +38,6 @@
       appl_answer_no=#{no}
   </select>
 
-  <insert id="insert" parameterType="ApplyAnswer">
-    insert into gms_applyform_answer(appl_question_no, answer) 
-    values
-        (#{applyQuestionNo}, #{answer})
-  </insert>
   
   <update id ="update" parameterType="ApplyAnswer">
     update gms_applyform_answer set 

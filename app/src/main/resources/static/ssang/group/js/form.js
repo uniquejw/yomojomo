@@ -114,7 +114,7 @@ document.querySelector("#create-btn").onclick = function() {
 
   var formData = new FormData(); // new FromData()로 새로운 객체 생성
     formData.append('GroupName',xTitle.value);
-    formData.append('logo',xFile.files[0]); 
+    formData.append('file',xFile.files[0]); 
     formData.append('intro',xIntro.value); 
     formData.append('purposeNo',xPurpose.value);
     formData.append('activeLocalNo',xActiveLocalNo.value);

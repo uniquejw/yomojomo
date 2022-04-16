@@ -7,23 +7,17 @@
   <title>모임리스트</title>
   <!-- 제이쿼리 -->
   <script src="../../node_modules/sweetalert2/dist/sweetalert2.min.js"></script>
-  <!-- 파비콘생성 -->
-  <link rel="icon" href="/junho/img/favicon.png">
+  <script src="/node_modules/jquery/dist/jquery.min.js"></script>
   <!-- css 초기화 -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
-  <!-- 폰트 -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700&display=swap" rel="stylesheet">
   <!-- 아이콘 연결 코드 -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <script src="/node_modules/jquery/dist/jquery.min.js"></script>
   <!-- Handlebars -->
   <script src="/node_modules/handlebars/dist/handlebars.min.js"></script>
   <!-- 부트스트랩 -->
   <link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap.min.css">
   <!--공용css-->
-  <link rel="stylesheet" href="../../css/common.css">
+  <link rel="stylesheet" href="/css/common.css">
   <!--내css-->
   <link rel="stylesheet" href="/ssang/group/css/index.css">
   <!--인클루드-->
@@ -125,9 +119,9 @@
                 </tr>
               </tbody>
             </table>
-            <textarea name="content" id="" cols="40" rows="6" class="report-comment" placeholder="하고싶은 말"></textarea>
+            <textarea name="answer" id="" cols="40" rows="6" class="report-comment" placeholder="하고싶은 말"></textarea>
           </div><!--report-form-->
-          <div><button id="apply">가입하기</button></div>
+          <div><button id="apply" value="">가입하기</button></div>
         </div><!--report-popup-->
       </div> <!--report-window-->
     </div>    <!--report-background-->
@@ -150,14 +144,12 @@
 <!-- =====================모임신청서 ============================-->
 <script id="applyList-template" type="text/x-handlebars-template">
   <!-- {{#each this}} -->
-  <form action="">
   {{#each question}}
     <tr>
       <td><span class="report-item">{{questionName}}</span></td>
       <td><input type="text" name="answer"></td>
     </tr>
     {{/each}}
-  </form>
   <!-- {{/each}} -->
 </script>
 <!--시,도 카테고리 생성 핸들 바-->
