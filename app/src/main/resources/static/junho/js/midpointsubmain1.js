@@ -287,7 +287,7 @@ function clickList(str) {
 
 function saveData(lng,lat,storeName,locationId) {
     var data = {"flat" : `${lat}`, "flng": `${lng}`, "storeName": `${storeName}`, "locationId": `${locationId}`}
-    $.ajax({ //회원 등급 조회 모임장이 아니라면 등록 버튼을 감춘다.
+    $.ajax({ 
         url : "/junho/midpoint/add",
         type : "POST",
         datatype : "json",
