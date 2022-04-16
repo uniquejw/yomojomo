@@ -137,6 +137,7 @@ function displayPlaces(places) {
                 lng = place.x
                 lat = place.y
                 console.log(lat, lng)
+                saveData(place.x, place.y, place.place_name, place.id)
               }
           });
 
@@ -283,3 +284,19 @@ function clickList(str) {
   keyword.value = str
   searchPlaces();
 }
+
+function saveData(lng,lat,storeName,locationId) {
+    var data = {"flat" : `${lat}`, "flng": `${lng}`, "storeName": `${storeName}`, "locationId": `${locationId}`}
+    $.ajax({ //회원 등급 조회 모임장이 아니라면 등록 버튼을 감춘다.
+        url : "/junho/midpoint/add",
+        type : "POST",
+        datatype : "json",
+        data : data,
+        success : function(result) {
+          console.log(result);
+        }        
+      })
+}
+
+
+    

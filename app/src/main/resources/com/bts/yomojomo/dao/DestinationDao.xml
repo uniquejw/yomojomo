@@ -52,6 +52,7 @@
       store_name,
       location_id)
     values(#{flat}, #{flng}, #{storeName}, #{locationId})
+    ON DUPLICATE KEY UPDATE view_cnt = view_cnt + 1;
   </insert>
   
   <update id ="update" parameterType="Destination">

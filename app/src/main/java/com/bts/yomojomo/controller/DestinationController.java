@@ -14,6 +14,7 @@ public class DestinationController {
 
   @RequestMapping("/junho/midpoint/add")
   public Object add(Destination destination) {
+    System.out.println("test" +destination);
     return destnationService.add(destination);
   }
 
