@@ -25,6 +25,7 @@
     </association>
   </resultMap>
   
+  
   <select id="findAll" resultMap="PickmeMap"> <!-- 게시글 전체 조회 -->
      select
       pm.pm_b_no,
@@ -45,6 +46,7 @@
       inner join gms_purpose p on p.pups_no=pm.pups_no
     order by
       pm.pm_b_no desc
+      limit #{offset}, #{rowCount}
   </select>
   
     <select id="selectedSicate" resultMap="PickmeMap"> <!--시도 카테고리별 리스트 출력-->
@@ -166,10 +168,10 @@
       pm_b_no = #{no}
   </update>
   
-  <select id ="countAll" parameterType="int">
+
+  <select id ="countAll" resultType="int">
     select count(*) from gms_pickme
   </select>
-  
 
     
 </mapper>

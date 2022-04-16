@@ -2,13 +2,14 @@ package com.bts.yomojomo.dao;
 
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import com.bts.yomojomo.domain.Pickme;
 
 @Mapper 
 public interface PickmeDao {
   int countAll();
 
-  List<Pickme> findAll();
+  List<Pickme> findAll(@Param("rowCount") int rowCount, @Param("offset") int offset);
 
   List<Pickme> selectedSicate(Pickme pickme);
 

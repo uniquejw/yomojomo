@@ -23,9 +23,41 @@ public class PickmeController {
   PickmeService pickmeService;
 
   @RequestMapping("/pickme/list")
-  public Object list() {
+  public Object list(int pageNo, int pageSize, HttpSession session) {
+
     log.info("게시물 목록 조회");
-    return pickmeService.list();
+
+    try { // pageSize 파라미터 값이 있다면 기본 값을 변경한다.
+      if (pageSize < 10 || pageSize > 100) {
+        pageSize = 10;
+      }
+    } catch (Exception e) {}
+
+    //    //게시글 전체 개수를 알아내서 페이지 개수를 계산한다.
+    int pickmeSize = pickmeService.size(); 
+
+    int totalPageSize = pickmeSize / pageSize; // 예: 게시글개수 / 페이지당개수 = 16 / 5 = 3 
+    System.out.println(totalPageSize);
+    //    
+    if ((pickmeSize % pageSize) > 0) {
+      totalPageSize++;
+    }
+
+    try { // pageNo 파라미터 값이 있다면 기본 값을 변경한다.
+      if (pageNo < 1 || pageNo > totalPageSize) {// pageNo 유효성 검증
+        pageNo = 1;
+      }
+    } catch (Exception e) {}
+
+    return 
+        new ResultMap().setStatus(SUCCESS).setPageNo(pageNo).setData(pickmeService.list(pageNo, pageSize));
+
+  }
+
+  @RequestMapping("/pickme/count")
+  public Object countList(HttpSession session) {
+    log.info("게시물 총 개수 조회");
+    return new ResultMap().setStatus(SUCCESS).setData(pickmeService.size());
   }
 
   @RequestMapping("/pickme/selectedSicate") 
