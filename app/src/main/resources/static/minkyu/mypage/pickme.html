@@ -16,6 +16,7 @@
   <link rel="stylesheet" href="/css/common.css">
   <!--내css-->
   <link rel="stylesheet" href="/minkyu/css/main.css">
+  <link rel="stylesheet" href="/minkyu/css/pickme.css">
   <!--인클루드-->
   <script type="text/javascript">
     $(document).ready(function () {
@@ -23,29 +24,6 @@
       $('#footers').load('/junho/mainfooter.html'); //푸터부분 인클루드
     });
   </script>
-  <style>
-    .card {
-  margin: 10px;
-}
-.card > img {
-  width: auto;
-  height: 180px;
-}
-.card-body {
-  width: 180px;
-  height: auto;
-  text-align: center;
-  justify-content: center;
-}
-.card-title {
- overflow: hidden;
- white-space: nowrap;
- text-overflow: ellipsis;
-}
-.table-request-none {
-  display: none;
-}
-  </style>
 </head>
 <body>
   <div id="header"></div>
@@ -67,105 +45,102 @@
           </ol>
         </nav>
         <div class="content d-flex flex-column">
+          <h3>초대가 온 픽미</h3>
+          <br>
+          <div class="group-wrap d-flex flex-wrap">
+            <div class="card border-secondary w-30 h-25">
+              <img src="../profile.jpg" class="card-img-top" alt="...">
+              <div class="card-body d-flex flex-column">
+                <h5 class="card-title">피구왕통키</h5>
+                <div class="card-btn d-flex justify-content-center">
+                  <button type="button" class="btn btn-sm btn-secondary btn-invite w-60">초대장 보기</button>
+                </div>
+              </div>
+            </div>
+            <div class="card border-secondary w-30 h-25">
+              <img src="../profile.jpg" class="card-img-top" alt="...">
+              <div class="card-body d-flex flex-column">
+                <h5 class="card-title">달리기왕하니</h5>
+                <div class="card-btn d-flex justify-content-center">
+                  <button type="button" class="btn btn-sm btn-secondary btn-invite w-60">초대장 보기</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <br>
           <div>
-            <div>
-              <h3>초대가 온 픽미</h3>
-            </div>
-            <div class="group-wrap d-flex flex-wrap">
-              <div class="card border-secondary w-30 h-25">
-                <img src="../profile.jpg" class="card-img-top" alt="...">
-                <div class="card-body d-flex flex-column">
-                  <h5 class="card-title">피구왕통키</h5>
-                  <div class="card-btn d-flex justify-content-center">
-                    <button type="button" class="btn btn-sm btn-secondary btn-readmore w-60">초대장 보기</button>
-                  </div>
-                </div>
-              </div>
-              <div class="card border-secondary w-30 h-25">
-                <img src="../profile.jpg" class="card-img-top" alt="...">
-                <div class="card-body d-flex flex-column">
-                  <h5 class="card-title">달리기왕하니</h5>
-                  <div class="card-btn d-flex justify-content-center">
-                    <button type="button" class="btn btn-sm btn-secondary btn-readmore w-60">초대장 보기</button>
-                  </div>
-                </div>
-              </div>
-            </div>
+          <br>
+          <div class="request-show">
+            <h3>요청중인 픽미</h3>
             <br>
-            <div>
-            <br>
-            <div class="table-request-none">
-              <h3>요청중인 픽미</h3>
-              <br>
-              <div class="table-wrap d-flex flex-column">
-                <table class="table table-hover">
-                  <thead>
-                    <tr>
-                      <th scope="col">선택</th>
-                      <th scope="col">제목</th>
-                      <th scope="col">상태</th>
-                      <th scope="col">작성일</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <th scope="col">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                      </th>
-                      <td class="table-title">야구 한판 하시죠</td>
-                      <td>구직중</td>
-                      <td>2999.99.99</td>
-                    </tr>
-                    <tr>
-                      <th scope="col">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                      </th>
-                      <td class="table-title">야구말고 축구하시죠</td>
-                      <td class="text-primary">완료</td>
-                      <td>3999.99.99</td>
-                    </tr>
-                    <tr>
-                      <th scope="col">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                      </th>
-                      <td class="table-title">축구말고 농구하시죠</td>
-                      <td>구직중</td>
-                      <td>4999.99.99</td>
-                    </tr>
-                    <tr>
-                      <th scope="col">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                      </th>
-                      <td class="table-title">비트캠프에서 공부할 인재를 찾습니다</td>
-                      <td class="text-primary">완료</td>
-                      <td>4999.99.99</td>
-                    </tr>
-                  </tbody>
-                </table>
-                <div class="btn-wrap">
-                  <button type="button" class="btn btn-primary">삭제하기</button>
-                </div>
-                <nav aria-label="Page navigation" >
-                  <ul class="pagination">
-                    <li class="page-item">
-                      <a class="page-link" href="#" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                      </a>
-                    </li>
-                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item">
-                      <a class="page-link" href="#" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                      </a>
-                    </li>
-                  </ul>
-                </nav>
+            <div class="table-wrap d-flex flex-column">
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th scope="col">선택</th>
+                    <th scope="col">제목</th>
+                    <th scope="col">상태</th>
+                    <th scope="col">요청일</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="col">
+                      <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    </th>
+                    <td class="table-title">야구 한판 하시죠</td>
+                    <td class="status">요청중</td>
+                    <td>2999.99.99</td>
+                  </tr>
+                  <tr>
+                    <th scope="col">
+                      <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" disabled>
+                    </th>
+                    <td class="table-title">야구말고 축구하시죠</td>
+                    <td class="status text-primary">확인</td>
+                    <td>3999.99.99</td>
+                  </tr>
+                  <tr>
+                    <th scope="col">
+                      <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    </th>
+                    <td class="table-title">축구말고 농구하시죠</td>
+                    <td class="status">요청중</td>
+                    <td>4999.99.99</td>
+                  </tr>
+                  <tr>
+                    <th scope="col">
+                      <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" disabled>
+                    </th>
+                    <td class="table-title">비트캠프에서 공부할 인재를 찾습니다</td>
+                    <td class="status text-primary">확인</td>
+                    <td>4999.99.99</td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="btn-wrap">
+                <button type="button" class="btn btn-danger btn-delete">요청취소</button>
               </div>
-              <br>
+              <nav aria-label="Page navigation" >
+                <ul class="pagination">
+                  <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Previous">
+                      <span aria-hidden="true">&laquo;</span>
+                    </a>
+                  </li>
+                  <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                  <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Next">
+                      <span aria-hidden="true">&raquo;</span>
+                    </a>
+                  </li>
+                </ul>
+              </nav>
             </div>
-            <h3>픽미 게시글</h3>
             <br>
           </div>
+          <h3>픽미 게시글</h3>
+          <br>
           <div class="table-wrap d-flex flex-column">
             <table class="table table-hover">
               <thead>
@@ -230,78 +205,209 @@
               </ul>
             </nav>
           </div>
+          <!-- 모달창 -->
+          <div class="modal fade modal-invite" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title fs-5 fw-bold" id="exampleModalLabel">모임 초대장</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <form>
+                    <div class="mb-3">
+                      <label for="recipient-name" class="col-form-label">제목:</label>
+                      <input type="text" class="form-control" id="recipient-name" readonly>
+                    </div>
+                    <div class="mb-3">
+                      <label for="message-text" class="col-form-label">모임장:</label>
+                      <input type="text" class="form-control" readonly>
+                    </div>
+                    <div class="mb-3">
+                      <label for="message-text" class="col-form-label www">모임이름:</label>
+                      <input type="text" class="form-control" readonly>
+                    </div>
+                    <div class="mb-1">
+                      <label for="message-text" class="col-form-label">내용:</label>
+                      <textarea class="form-control h-25" rows="10" id="message-text" readonly></textarea>
+                    </div>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-primary btn-accept">수락</button>
+                  <button type="button" class="btn btn-danger btn-reject">거절</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal fade modal-request" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title fs-5 fw-bold" id="exampleModalLabel">모임 초대장</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <form>
+                    <div class="mb-3">
+                      <label for="recipient-name" class="col-form-label">제목:</label>
+                      <input type="text" class="form-control request-title" id="recipient-name">
+                    </div>
+                    <div class="mb-3">
+                      <label for="message-text" class="col-form-label">초대 할 사람:</label>
+                      <input type="text" class="form-control" readonly>
+                    </div>
+                    <div class="mb-3">
+                      <label for="message-text" class="col-form-label www">내 모임:</label>
+                      <input type="text" class="form-control" readonly>
+                    </div>
+                    <div class="mb-1">
+                      <label for="message-text" class="col-form-label">내용:</label>
+                      <textarea class="form-control h-25 request-content" rows="10" id="message-text"></textarea>
+                    </div>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-primary btn-modify">수정</button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>  
   </div>
   <div id="footers"></div>
   <script>
-    const swalWithBootstrapButtons = Swal.mixin({
+    const swa = Swal.mixin({
       customClass: {
         confirmButton: 'btn btn-primary mx-2',
         cancelButton: 'btn btn-secondary mx-2'
       },
       buttonsStyling: false
     })
+    const swadanger = Swal.mixin({
+      customClass: {
+        confirmButton: 'btn btn-danger mx-2',
+        cancelButton: 'btn btn-secondary mx-2'
+      },
+      buttonsStyling: false
+    })
+
     $(".card").children("img").click(function(e){
       location.href = "/ssang/groupBoard/index.html"
     })
-    // 초대장 모달창에서 처리 
 
-    // $(".btn-accept").click(function(e){
-    //   e.stopPropagation();
-    //   Swal.fire({
-    //     title: '초대를 수락하시겠습니까?',
-    //     icon: 'question',
-    //     showCancelButton: true,
-    //     confirmButtonColor: '#3085d6',
-    //     cancelButtonColor: '#d33',
-    //     confirmButtonText: '수락',
-    //     cancelButtonText: '취소'
-    //   }).then((result) => {
-    //     if (result.isConfirmed) {
-    //       $($(e.target).closest(".card")).remove()
-    //       // append 모임
-    //       Swal.fire(
-    //         '수락이 완료되었습니다.',
-    //         '',
-    //         'success'
-    //         )
-    //       }
-    //     })
-    //   })
-    // $(".btn-cancel").click(function(e){
-    //   e.stopPropagation();
-    //   Swal.fire({
-    //     title: '초대를 거절하시겠습니까?',
-    //     icon: 'warning',
-    //     showCancelButton: true,
-    //     confirmButtonColor: '#3085d6',
-    //     cancelButtonColor: '#d33',
-    //     confirmButtonText: '거절',
-    //     cancelButtonText: '취소'
-    //   }).then((result) => {
-    //     if (result.isConfirmed) {
-    //       $($(e.target).closest(".card")).remove()
-    //       Swal.fire(
-    //         '삭제가 완료되었습니다.',
-    //         '',
-    //         'success'
-    //         )
-    //       }
-    //     })
-    //   })
+    $(".btn-invite").click(function(e){
+      $(".card").removeClass("lately")
+      $(e.target.closest(".card")).addClass("lately")
+      $(".modal-invite").modal("show")
+    })
+
     $(".table-title").click(function(e){
+      if ($(e.target.closest(".request-show")).hasClass("request-show") === true) {
+        if ($(e.target).siblings(".status").text() === "확인") {
+          $(".request-title").attr("readonly",true)
+          $(".request-content").attr("readonly",true)
+          $(".btn-modify").attr("hidden",true)
+        } else {
+          $(".request-title").attr("readonly",false)
+          $(".request-content").attr("readonly",false)
+          $(".btn-modify").attr("hidden",false)
+        }
+        $(".modal-request").modal("show")
+        return
+      }
       location.href = "/hyun/pickme/index.html"
     })
+    // 초대장 모달창에서 처리 
+    $(".btn-accept").click(function(e){
+      e.stopPropagation();
+      swa.fire({
+        title: '초대를 수락하시겠습니까?',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: '수락',
+        cancelButtonText: '취소'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          $(".lately").remove()
+          $(".modal").modal("hide")
+          swa.fire(
+            '수락이 완료되었습니다.',
+            '',
+            'success'
+            )
+          }
+        })
+      })
+    $(".btn-reject").click(function(e){
+      e.stopPropagation();
+      swadanger.fire({
+        title: '초대를 거절하시겠습니까?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: '거절',
+        cancelButtonText: '취소'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          $(".lately").remove()
+          $(".modal").modal("hide")
+          swa.fire(
+            '초대를 거절하였습니다.',
+            '',
+            'success'
+            )
+          }
+        })
+      })
+      $(".btn-modify").click(function(e){
+      e.stopPropagation();
+      swa.fire({
+        title: '내용을 수정하시겠습니까?',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: '수정',
+        cancelButtonText: '취소'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          $(".modal").modal("hide")
+          swa.fire(
+            '수정이 완료되었습니다.',
+            '',
+            'success'
+            )
+          }
+        })
+      })
+    // 글 삭제
     $(".btn-delete").click(function(e){
-      if ($(".form-check-input").is(":checked") == false) {
-      swalWithBootstrapButtons.fire(
+      if ($(".form-check-input").is(":checked") === false) {
+      swa.fire(
         '글이 선택되지 않았습니다',
         '삭제할 글을 선택해주세요',
         'error'
-        )} else {
-        swalWithBootstrapButtons.fire({
+        )} else if($(e.target.closest(".request-show")).hasClass("request-show") === true){
+          swadanger.fire({
+          title: '정말 요청을 취소 하시겠습니까?',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonText: '요청취소',
+          cancelButtonText: '취소',
+        }).then((result) => {
+          if (result.isConfirmed) {
+            $("input:checkbox:checked").each(function(){
+              this.closest("tr").remove()
+            })
+            swa.fire(
+              '요청이 취소되었습니다',
+              '',
+              'success'
+            )
+          }
+        })
+        } else {
+        swa.fire({
           title: '글을 삭제 하시겠습니까?',
           icon: 'warning',
           showCancelButton: true,
@@ -309,7 +415,10 @@
           cancelButtonText: '취소',
         }).then((result) => {
           if (result.isConfirmed) {
-            swalWithBootstrapButtons.fire(
+            $("input:checkbox:checked").each(function(){
+              this.closest("tr").remove()
+            })
+            swa.fire(
               '삭제가 완료되었습니다',
               '',
               'success'

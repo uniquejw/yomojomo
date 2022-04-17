@@ -44,10 +44,8 @@
           </ol>
         </nav>
         <div class="content d-flex flex-column">
-          <div>
-            <h3>내가 쓴 글</h3>
-            <br>
-          </div>
+          <h3>내가 쓴 글</h3>
+          <br>
           <table class="table table-hover">
             <thead>
               <tr>
@@ -133,6 +131,9 @@
           cancelButtonText: '취소',
         }).then((result) => {
           if (result.isConfirmed) {
+            $("input:checkbox:checked").each(function(){
+              this.closest("tr").remove()
+            })
             swalWithBootstrapButtons.fire(
               '삭제가 완료되었습니다',
               '',

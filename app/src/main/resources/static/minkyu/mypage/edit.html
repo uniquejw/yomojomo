@@ -48,23 +48,21 @@
           </ol>
         </nav>
         <div class="content d-flex flex-column">
-          <div>
-            <h3>개인 정보 수정</h3>
-            <br>
-          </div>
+          <h3>개인 정보 수정</h3>
+          <br>
           <div class="my-info">
             <div>
               <div class="col-3 p-2"></div>
               <div class="row">
                 <div class="col-3 p-2 text-center fw-bold">프로필 사진</div>
-                <div class="col input-group mb-3 ">
-                  <input class="form-control form-control-sm" id="formFileSm" type="file" accept=".png, .jpg, .jpeg, .jifi">
+                <div class="col input-group mb-3">
+                  <input class="form-control form-control-sm edit-img" id="formFileSm" type="file" accept=".png, .jpg, .jpeg, .jifi">
                 </div>
                 <div class="col-3 p-2"></div>
               </div>
-              <div class="edit-img">
-                <img src="../profile.jpg" class="img-thumbnail" alt="...">
-                <p class="text-muted img-text">이미지 파일은 80 * 80 크기의 파일만 가능합니다</p>
+              <div class="profile-img">
+                <img src="../profile.jpg" class="img-thumbnail" alt="profile">
+                <p class="text-muted img-text">80 * 110 크기 이상의 파일은 자동 조정됩니다</p>
               </div>
               <div class="row">
                 <div class="col-3 p-2 text-center fw-bold">이메일(아이디)</div>
@@ -119,7 +117,7 @@
                 <div class="col-3 p-2 text-center fw-bold mb-2">관심 지역</div>
                 <select class="col form-select www"
                   aria-label="Default select example">
-                  <option selected>관심 지역</option>
+                  <option hidden selected disabled value="0">관심 지역</option>
                   <option value="1">서울</option>
                   <option value="2">경기도</option>
                   <option value="3">부산</option>
@@ -130,7 +128,7 @@
                 <div class="col-3 p-2 text-center fw-bold mb-2">관심 모임</div>
                 <select class="col form-select"
                   aria-label="Default select example">
-                  <option selected>관심 모임</option>
+                  <option hidden selected disabled value="0">관심 모임</option>
                   <option value="1">One</option>
                   <option value="2">Two</option>
                   <option value="3">Three</option>
@@ -139,9 +137,9 @@
               </div>
               <div class="row">
                 <div class="col-3 p-2 text-center fw-bold mb-2">관심 분야</div>
-                <select class="col form-select"
+                <select class="col form-select add-category"
                   aria-label="Default select example">
-                  <option selected>관심 분야</option>
+                  <option hidden selected disabled value="0">관심 분야</option>
                   <option value="1">낚시</option>
                   <option value="2">독서</option>
                   <option value="3">축구</option>
@@ -203,6 +201,7 @@
   </div>
   <div id="footers"></div>
   <script>
+    // 수정버튼 이벤트
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
         confirmButton: 'btn btn-primary mx-2',
@@ -227,23 +226,34 @@
           }
         })
       })
-    $(".btn-close").click(function(e){
-      $($(e.target).parent()).remove();
-    })
 
-    // 셀렉트 옵션 찾아내서 append 하기
-    
-  //   $( "select" )
-  //   .change(function(e) {
-  //     let str = "";
-  //     $( "select option:selected" ).each(function() {
-  //       console.log(this)
-  //     str += $( this ).text() 
-  //   });
-  //   let selectText = str.split(" ")
-  //   console.log( selectText )
-  // })
-  // .trigger( "change" );
+    // 프로필 사진 변경
+    // $(".edit-img").change(function(e){
+    //   console.log($(".img-thumbnail").files[0])
+    // })
+
+    // 카테고리 추가
+    $( ".add-category" )
+    .change(function(e) {
+      let str = "";
+      $( ".add-category option:selected" ).each(function() {
+        str += $( this ).text() 
+      });
+      if (str === "관심 분야") {
+        return
+      }
+      $(`<div class="category-wrap">
+        <span class="badge rounded-pill bg-primary category">${str}</span>
+        <button type="button" class="btn-close" aria-label="Close"></button>
+        </div>`).appendTo(".edit-category")
+      })
+      .trigger( "change" );
+      
+      // 카테고리 삭제
+      $(document).on("click",".btn-close",function(e){
+        $($(e.target).parent()).remove();
+      })
+            
 
   </script>
 </body>

@@ -45,9 +45,7 @@
           </ol>
         </nav>
         <div class="content d-flex flex-column">
-          <div>
-            <h3>승인 대기중인 모임</h3>
-          </div>
+          <h3>승인 대기중인 모임</h3>
           <div class="group-wrap d-flex flex-wrap">
             <div class="card border-secondary w-30 h-25">
               <img src="../profile.jpg" class="card-img-top" alt="...">
@@ -69,69 +67,103 @@
             </div>
           </div>
           <br>
-          <div>
+          <div class="request-show">
             <h3>가입 신청목록</h3>
             <br>
-          </div>
-          <div class="table-wrap d-flex flex-column">
-            <table class="table table-hover">
-              <thead>
-                <tr>
-                  <th>선택</th>
-                  <th>신청자</th>
-                  <th>제목</th>
-                  <th>소모임</th>
-                  <th>신청일</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <th scope="col">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                  </th>
-                  <td>곽민규</td>
-                  <td class="g-title">가입신청합니다</td>
-                  <td class="g-group">축구왕슛돌이</td>
-                  <td>2999.99.99</td>
-                </tr>
-                <tr>
-                  <th scope="col">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                  </th>
-                  <td>엄진영</td>
-                  <td class="g-title">날씨가 좋네요!!</td>
-                  <td class="g-group">피구왕통키</td>
-                  <td>3999.99.99</td>
-                </tr>
-                <tr>
-                  <th scope="col">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                  </th>
-                  <td>강요천</td>
-                  <td class="g-title">가입신청합니다</td>
-                  <td class="g-group">달리기왕하니</td>
-                  <td>4999.99.99</td>
-                </tr>
-              </tbody>
-            </table>
-            <div class="btn-wrap">
-              <button type="button" class="btn btn-primary btn-delete">삭제하기</button>
+            <div class="table-wrap d-flex flex-column">
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th>선택</th>
+                    <th>신청자</th>
+                    <th>제목</th>
+                    <th>소모임</th>
+                    <th>신청일</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="col">
+                      <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    </th>
+                    <td>곽민규</td>
+                    <td class="g-title">가입신청합니다</td>
+                    <td class="g-group">축구왕슛돌이</td>
+                    <td>2999.99.99</td>
+                  </tr>
+                  <tr>
+                    <th scope="col">
+                      <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    </th>
+                    <td>엄진영</td>
+                    <td class="g-title">날씨가 좋네요!!</td>
+                    <td class="g-group">피구왕통키</td>
+                    <td>3999.99.99</td>
+                  </tr>
+                  <tr>
+                    <th scope="col">
+                      <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    </th>
+                    <td>강요천</td>
+                    <td class="g-title">가입신청합니다</td>
+                    <td class="g-group">달리기왕하니</td>
+                    <td>4999.99.99</td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="btn-wrap">
+                <button type="button" class="btn btn-danger btn-delete">삭제하기</button>
+              </div>
+              <nav aria-label="Page navigation">
+                <ul class="pagination" id="page-num">
+                  <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Previous">
+                      <span aria-hidden="true">&laquo;</span>
+                    </a>
+                  </li>
+                  <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                  <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Next">
+                      <span aria-hidden="true">&raquo;</span>
+                    </a>
+                  </li>
+                </ul>
+              </nav>
             </div>
-            <nav aria-label="Page navigation">
-              <ul class="pagination" id="page-num">
-                <li class="page-item">
-                  <a class="page-link" href="#" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                  </a>
-                </li>
-                <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                <li class="page-item">
-                  <a class="page-link" href="#" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
+          </div>
+        </div>
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title fs-5 fw-bold" id="exampleModalLabel">모임 초대장</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <form>
+                  <div class="mb-3">
+                    <label for="recipient-name" class="col-form-label">제목:</label>
+                    <input type="text" class="form-control" id="recipient-name" readonly>
+                  </div>
+                  <div class="mb-3">
+                    <label for="message-text" class="col-form-label">이름:</label>
+                    <input type="text" class="form-control" readonly>
+                  </div>
+                  <div class="mb-3">
+                    <label for="message-text" class="col-form-label www">신청모임:</label>
+                    <input type="text" class="form-control" readonly>
+                  </div>
+                  <div class="mb-1">
+                    <label for="message-text" class="col-form-label">내용:</label>
+                    <textarea class="form-control h-25" rows="10" id="message-text" readonly></textarea>
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-accept">수락</button>
+                <button type="button" class="btn btn-danger btn-reject">거절</button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -139,19 +171,32 @@
   </div>
   <div id="footers"></div>
   <script>
-    const swalWithBootstrapButtons = Swal.mixin({
+    const swa = Swal.mixin({
       customClass: {
         confirmButton: 'btn btn-primary mx-2',
         cancelButton: 'btn btn-secondary mx-2'
       },
       buttonsStyling: false
     })
+    const swadanger = Swal.mixin({
+      customClass: {
+        confirmButton: 'btn btn-danger mx-2',
+        cancelButton: 'btn btn-secondary mx-2'
+      },
+      buttonsStyling: false
+    })
+
     $(".card").children("img").click(function(e){
       location.href = "/ssang/groupBoard/index.html"
     })
+    $(".g-title").click(function(e){
+      $("tr").removeClass("lately")
+      $(e.target.closest("tr")).addClass("lately")
+      $(".modal").modal("show")
+    })
     $(".btn-cancel").click(function(e){
       e.stopPropagation();
-      swalWithBootstrapButtons.fire({
+      swa.fire({
         title: '신청을 취소하시겠습니까?',
         icon: 'warning',
         showCancelButton: true,
@@ -159,8 +204,8 @@
         cancelButtonText: '취소',
       }).then((result) => {
         if (result.isConfirmed) {
-          $($(e.target).closest(".card")).remove()
-          swalWithBootstrapButtons.fire(
+          $(e.target).closest(".card").remove()
+          swa.fire(
             '신청이 취소되었습니다',
             '',
             'success'
@@ -168,26 +213,70 @@
         }
       })
     })
+    $(".btn-accept").click(function(e){
+      e.stopPropagation();
+      swa.fire({
+        title: '가입을 수락하시겠습니까?',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: '수락',
+        cancelButtonText: '취소'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          $(".lately").remove()
+          $(".modal").modal("hide")
+          swa.fire(
+            '가입을 수락하였습니다.',
+            '',
+            'success'
+            )
+          }
+        })
+      })
+    $(".btn-reject").click(function(e){
+      e.stopPropagation();
+      swadanger.fire({
+        title: '가입을 거절하시겠습니까?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: '거절',
+        cancelButtonText: '취소'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          $(".lately").remove()
+          $(".modal").modal("hide")
+          swadanger.fire(
+            '가입을 거절하였습니다.',
+            '',
+            'success'
+            )
+          }
+        })
+      })
     $(".btn-delete").click(function(e){
       if ($(".form-check-input").is(":checked") == false) {
-      swalWithBootstrapButtons.fire(
+        swa.fire(
         '글이 선택되지 않았습니다',
         '삭제할 글을 선택해주세요',
         'error'
         )} else {
-        swalWithBootstrapButtons.fire({
+          swadanger.fire({
           title: '글을 삭제 하시겠습니까?',
+          text: '삭제하면 가입이 자동 거절됩니다',
           icon: 'warning',
           showCancelButton: true,
           confirmButtonText: '삭제',
           cancelButtonText: '취소',
         }).then((result) => {
           if (result.isConfirmed) {
-            swalWithBootstrapButtons.fire(
+            $("input:checkbox:checked").each(function(){
+              this.closest("tr").remove()
+            })
+            swa.fire(
               '삭제가 완료되었습니다',
               '',
               'success'
-            )
+              )
           }
         })
       }
