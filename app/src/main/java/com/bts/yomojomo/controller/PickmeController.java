@@ -23,7 +23,7 @@ public class PickmeController {
   PickmeService pickmeService;
 
   @RequestMapping("/pickme/list")
-  public Object list(int pageNo, int pageSize, HttpSession session) {
+  public Object list(int pageSize, int pageNo, HttpSession session) {
 
     log.info("게시물 목록 조회");
 
@@ -37,8 +37,7 @@ public class PickmeController {
     int pickmeSize = pickmeService.size(); 
 
     int totalPageSize = pickmeSize / pageSize; // 예: 게시글개수 / 페이지당개수 = 16 / 5 = 3 
-    System.out.println(totalPageSize);
-    //    
+
     if ((pickmeSize % pageSize) > 0) {
       totalPageSize++;
     }
@@ -50,8 +49,7 @@ public class PickmeController {
     } catch (Exception e) {}
 
     return 
-        new ResultMap().setStatus(SUCCESS).setPageNo(pageNo).setData(pickmeService.list(pageNo, pageSize));
-
+        new ResultMap().setStatus(SUCCESS).setPageNo(pageNo).setData(pickmeService.list(pageSize, pageNo));
   }
 
   @RequestMapping("/pickme/count")
@@ -61,9 +59,32 @@ public class PickmeController {
   }
 
   @RequestMapping("/pickme/selectedSicate") 
-  public Object selectedSicate(Pickme pickme, HttpSession session) {
+  public Object selectedSicate(int pageNo, int pageSize, String nameSi, HttpSession session) {
     log.info("시별 카테고리 리스트 조회");
-    return new ResultMap().setStatus(SUCCESS).setData(pickmeService.findSelectSiList(pickme));
+
+    try { // pageSize 파라미터 값이 있다면 기본 값을 변경한다.
+      if (pageSize < 10 || pageSize > 100) {
+        pageSize = 10;
+      }
+    } catch (Exception e) {}
+
+    int siCateSize = pickmeService.siCateSize(nameSi);
+    System.out.println("시 카테고리 전체 글 개수 " + siCateSize);
+
+    int totalSiCatePageSize = siCateSize / pageSize;
+    System.out.println("시 카테고리 전체 페이지 개수 " + totalSiCatePageSize);
+
+    if((siCateSize % pageSize) > 0) {
+      totalSiCatePageSize++;
+    }
+
+    try {
+      if (pageNo < 1  || pageNo > totalSiCatePageSize) {
+        pageNo = 1;
+      }
+    } catch (Exception e) {}
+
+    return new ResultMap().setStatus(SUCCESS).setPageNo(pageNo).setData(pickmeService.findSelectSiList(nameSi, pageNo, pageSize));
   }
 
   @RequestMapping("/pickme/selectedGucate") 

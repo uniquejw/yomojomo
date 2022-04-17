@@ -46,7 +46,7 @@ $.ajax({ //로그인 회원 정보 가져오기
 			success: function (result) {
 				if (result.data.length > 0) {
 					$("#invitemsgCnt").text(result.data.length);
-					$("#totalMsgCnt").text(result.data.length); //나중에 가입신청서 숫자랑 더해야함
+					$("#totalMsgCnt").text(result.data.length); //!!!!!!!!!!!!!!!!!!!나중에 모임 가입신청서 숫자랑 더해야함!!!!!!!!!!!!!!!!!!!!!!!
 						//상준님 여기에 서버에 메세지 달라고 요청하세요
 					
 					
