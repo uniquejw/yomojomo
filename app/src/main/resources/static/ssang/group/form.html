@@ -34,7 +34,7 @@
   <div id="headers"></div>
   <div id="container">
     <div id="width-fix-div">
-      <div class="sector">모임기본정보</div>
+      <div class="sector">기본정보</div>
       <div class="table-row-group">
         <div class="table-row">
           <div class="table-cell title">모임이름* :</div>
@@ -43,7 +43,7 @@
           <div class="table-cell title">이미지</div>
           <div class="table-cell">
             <!-- <label className="input-file-button" for="x-file">업로드</label>
-            <input type="file" id="x-file" > -->
+            <input type="file" id="x-file" name="file"> -->
             <div class="filebox">
               <input class="upload-name" value="첨부파일" placeholder="첨부파일">
               <label for="x-file">파일찾기</label> 
@@ -64,7 +64,7 @@
         </div>
       </div>
         <hr>
-        <div class="sector">모임성격</div>
+        <div class="sector">상세정보</div>
       <div class="table-row-group">
         <div class="table-row">
           <div class="table-cell title"> 주제*</div>
@@ -98,8 +98,10 @@
         </div>
         <div class="table-row">
           <div class="table-cell title">모임태그</div>
-          <div class="table-cell"><textarea name="" id="x-tag" cols="30" rows="5"></textarea></div>
+          <div class="table-cell"><input name="" id="x-tag" ></div>
+          <!-- <button class="table-cell" id="tag-post-btn" value="">등록</button> -->
         </div>
+        <!-- <div class="posted-tags"></div> -->
         <div class="table-row">
           <div class="table-cell title">활동지역</div>
           <div class="table-cell">
@@ -141,16 +143,23 @@
   </div>
   <!-- 시 버튼 -->
   <script id="tr-template" type="text/x-handlebars-template">
-    {{#each this}}
-      <button class="gungu-btn" value="{{nameSi}}">{{nameSi}}</button>
-    {{/each}}
-    </script>
-    <!-- 군구버튼 -->
-    <script id="tr-template2" type="text/x-handlebars-template">
-      {{#each this}}
-        <button class="no-btn" value="{{no}}">{{nameGu}}</button>
-      {{/each}}
-      </script>
+  {{#each this}}
+    <button class="gungu-btn" value="{{nameSi}}">{{nameSi}}</button>
+  {{/each}}
+  </script>
+  <!-- 군구버튼 -->
+  <script id="tr-template2" type="text/x-handlebars-template">
+  {{#each this}}
+    <button class="no-btn" value="{{no}}">{{nameGu}}</button>
+  {{/each}}
+  </script>
+  <!-- 태그 -->
+  <!-- <script id="tag-template" type="text/x-hanalerbars-template">
+    <div class="table-row">
+      <div class="table-cell"></div>
+      <button class="btn btn-outline-success table-cell" id="tag-canel-btn" value="">퉤스트 </button>
+    </div>
+  </script> -->
 
 <div id="footers"></div>
 <script src="/ssang/group/js/form.js"></script>

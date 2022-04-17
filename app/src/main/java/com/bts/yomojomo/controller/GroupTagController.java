@@ -14,26 +14,27 @@ public class GroupTagController {
 
   @RequestMapping("/grouptag/add")
   public int add(GroupTag groupTag) {
+
     return groupTagDao.insert(groupTag);
   }
 
-  @RequestMapping("/grouptag/get")
-  public Object get(int no) {
-    return groupTagDao.findByNo(no);
-  }
-
-  @RequestMapping("/grouptag/list")
-  public Object list() {
-    return groupTagDao.findAll(); 
-  }
-
-  @RequestMapping("/grouptag/update")
-  public int update(GroupTag groupTag) {
-    return groupTagDao.update(groupTag);
-  }
-
-  @RequestMapping("/grouptag/delete")
-  public Object delete(int no) {
-    return groupTagDao.delete(no);
-  }
+  //  @RequestMapping("/grouptag/get")
+  //  public Object get(int no) {
+  //    return groupTagDao.findByNo(no);
+  //  }
+  //
+  //  @RequestMapping("/grouptag/list")
+  //  public Object list() {
+  //    return groupTagDao.findAll(); 
+  //  }
+  //
+  //  @RequestMapping("/grouptag/update")
+  //  public int update(GroupTag groupTag) {
+  //    return groupTagDao.update(groupTag);
+  //  }
+  //
+  //  @RequestMapping("/grouptag/delete")
+  //  public Object delete(int no) {
+  //    return groupTagDao.delete(no);
+  //  }
 }

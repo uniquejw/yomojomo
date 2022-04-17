@@ -32,7 +32,6 @@
     
   </resultMap>
   
-
   <select id="findAll" resultMap="BoardMap"> 
 	select
 		b.b_no,
@@ -54,19 +53,28 @@
       b_no desc
   </select>
   
+  <!--모임별 게시판 조회-->
   <select id="findByNo" resultMap="BoardMap" parameterType="int">
     select 
-      b_no,
-      g_no,
-      memb_no,
-      reg_dt,
-      content,
-      view_cnt,
-      status
+        b.b_no,
+        b.content,
+        b.reg_dt,
+        m.memb_no writer_no,
+        m.name writer_name,
+        c.cmt_no,
+        c.content cmt_content,
+        c.reg_dt cmt_reg_dt,
+        m2.memb_no cmt_writer_no,
+        m2.name cmt_writer_name
     from 
-      gms_board
+      gms_board b
+        left outer join gms_comment c on b.b_no = c.b_no
+        left outer join gms_memb m on b.memb_no = m.memb_no
+        left outer join gms_memb m2 on c.memb_no = m2.memb_no
     where 
-      b_no=#{no}
+      b.b_no=#{no}
+    order by
+      b_no desc
   </select>
     
     <!-- 자동 증가된 PK 값을 받고 싶을 때! -->

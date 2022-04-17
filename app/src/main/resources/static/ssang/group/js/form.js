@@ -1,18 +1,25 @@
 
+  // //태그 
+  // $(document).on("click","#tag-post-btn",function(){
+  //   var tag = document.querySelector(".posted-tags")
+  //   var trTemplate = document.querySelector("#tag-template");
+  //   var tagGenerator = Handlebars.compile(trTemplate.innerHTML);
+
+  //   fetch("/groupTag/add")
+  //   .then(function(res){
+  //     return res.json()
+  //   }).then(function(result){
+  //     tag.innerHTML = tagGenerator(result);
+  //   })    
+  // })
   // 시 팝업
   document.querySelector("#local-btn").addEventListener("click", show);
-  
   function show() {
     document.querySelector(".background-si").className = "background-si show";
   }
 
-  // 시정보 삽입
     var button = document.querySelector(".local-btn-div")
-  
-    // 템플릿 엔진에서 사용할 HTML 조각을 가져오기
     var trTemplate = document.querySelector("#tr-template");
-    
-    //템플릿 엔진 준비
     var htmlGenerator = Handlebars.compile(trTemplate.innerHTML);
   
     fetch("/activeLocal/list").then(function(response){
@@ -31,20 +38,17 @@
   console.log(value);
   var button = document.querySelector(".local-btn-div2")
 
-    // 템플릿 엔진에서 사용할 HTML 조각을 가져오기
     var trTemplate = document.querySelector("#tr-template2");
-    
-    //템플릿 엔진 준비, 구 버튼 삽입
     var htmlGenerator = Handlebars.compile(trTemplate.innerHTML);
-  fetch(`/activeLocal/list-gu?nameGu=${value}`)
-  .then(function(response){
-      return response.json();
+    fetch(`/activeLocal/list-gu?nameGu=${value}`)
+    .then(function(response){
+        return response.json();
+      })
+      .then(function(locals){
+        console.log(locals)
+        button.innerHTML = htmlGenerator(locals);
+      })
     })
-    .then(function(locals){
-      console.log(locals)
-      button.innerHTML = htmlGenerator(locals);
-    })
-  })
   
   
   // 지역선택완료
@@ -129,7 +133,7 @@ document.querySelector("#create-btn").onclick = function() {
   .then(function(result) {
     console.log(result);
     if (result.status == "success") {
-      // location.href = "/ssang/group/index.html";
+      location.href = "/ssang/group/index.html";
     } else {
       alert(result.data);
     }
