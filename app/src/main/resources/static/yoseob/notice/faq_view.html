@@ -20,7 +20,6 @@
    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700&display=swap" rel="stylesheet">
    <!-- 아이콘 연결 코드 -->
    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-   <script src="/node_modules/jquery/dist/jquery.min.js"></script>
    <!-- Handlebars -->
    <script src="/node_modules/handlebars/dist/handlebars.min.js"></script>
    <!-- 부트스트랩 -->
@@ -28,7 +27,7 @@
  
   
 </head>
-<body>
+<body onload="allList()">
   <script type="text/javascript">
     $(document).ready(function () {
         $('#header').load('/junho/mainHeader.html'); //헤더 인클루드
@@ -63,20 +62,7 @@
       <span class="material-icons">call</span>
       <span id="inquiry-btn" class ="announcement"><a>문의사항</a></span>
     </div>
-    <script>
-      document.querySelector("#faq-btn").onclick = function () {
-        location.href = "/yoseob/notice/faq_view.html";
-      };
-      document.querySelector("#announcement-btn").onclick = function () {
-        location.href = "/yoseob/notice/announcement.html";
-      };
-      document.querySelector("#information-btn").onclick = function () {
-        location.href = "/yoseob/notice/service_information.html";
-      };
-      document.querySelector("#inquiry-btn").onclick = function () {
-        location.href = "/yoseob/notice/inquiry.html";
-      };
-    </script>
+    <script src="../js/location.js"></script>
         <div class = "faq_search">
           <span>자주하는 질문</span>
           <div class = "search_window">
@@ -100,38 +86,9 @@
             <thead>
               <tr>
                 <th>유형</th><th>제목</th>
-
               </tr>
-              <tr>
-                <td>회원</td><td>아이디를 찾고싶어요.
-                  <div class="modal" tabindex="-1">
-                    <div class="modal-dialog">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                        <div class="modal-body">
-                          아이디 찾기를 통해 이름과 전화번호를 입력하시면 찾으실 수 있습니다.
-                        </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>모임찾기</td><td>모임은 어디서 찾나요?</td>
-              </tr>
-              <tr>
-                <td>모임관리</td><td>정산서 관리는 어떻게 하나요?</td>
-              </tr>
-              <tr>
-                <td>회원</td><td>비밀번호를 잊어버렸어요.</td>
-              </tr>
-              <tr>
-                <td>기타</td><td>마이페이지가 작동이 안되요.</td>
-              </tr>
-              <tr>
-                <td>모임약속</td><td>중간 지점 위치는 어떻게 보내나요?</td>
-              </tr>
+              <tbody class="faq_tr">
+              </tbody>
             </thead>
           </table>
           <nav aria-label="Page navigation example">
@@ -151,6 +108,7 @@
        </div>
     </div>
    <div id="footer"></div>
-  
 </body>
 </html>
+<script src="../js/faq.js"></script>
+<script src="../js/location.js"></script>

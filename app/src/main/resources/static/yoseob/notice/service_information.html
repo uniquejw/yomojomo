@@ -6,14 +6,13 @@
   <meta name="viewport" content="width=
   , initial-scale=1.0">
   <title>서비스 안내</title>
+  <!-- JQUERY -->
   <script src="../../node_modules/jquery/dist/jquery.min.js"></script>
   <!-- css 초기화 -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
   <link rel="stylesheet" href="../css/style.css">
   <!-- 부트스트랩 -->
   <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.css">
-  <!-- JQUERY -->
-  <script src="../node_modules/jquery/dist/jquery.min.js"></script>
   <!-- 아이콘 -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
@@ -52,20 +51,7 @@
       <span class="material-icons">call</span>
       <span id="inquiry-btn" class ="announcement"><a>문의사항</a></span>
     </div>
-    <script>
-      document.querySelector("#faq-btn").onclick = function () {
-        location.href = "/yoseob/notice/faq_view.html";
-      };
-      document.querySelector("#announcement-btn").onclick = function () {
-        location.href = "/yoseob/notice/announcement.html";
-      };
-      document.querySelector("#information-btn").onclick = function () {
-        location.href = "/yoseob/notice/service_information.html";
-      };
-      document.querySelector("#inquiry-btn").onclick = function () {
-        location.href = "/yoseob/notice/inquiry.html";
-      };
-    </script>
+    <script src="../js/location.js"></script>
     
     <div class="sidebar">
       <div><h3>회원</h3></div>
@@ -93,3 +79,4 @@
   <div id="footer"></div>
 </body>
 </html>
+<script src="../js/location.js"></script>

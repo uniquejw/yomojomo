@@ -5,18 +5,20 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>공지사항</title>
+  <!-- JQUERY -->
   <script src="../../node_modules/jquery/dist/jquery.min.js"></script>
   <!-- css 초기화 -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
   <link rel="stylesheet" href="/yoseob/css/style.css">
   <!-- 부트스트랩 -->
   <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.css">
-  <!-- JQUERY -->
-  <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+  
+
   <!-- 아이콘 -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
 </head>
-<body>
+<body onload="allList()" >
   <script type="text/javascript">
     $(document).ready(function () {
         $('#header').load('/junho/mainHeader.html'); //헤더 인클루드
@@ -50,44 +52,18 @@
       <span class="material-icons">call</span>
       <span id="inquiry-btn" class ="announcement"><a>문의사항</a></span>
     </div>
-    <script>
-      document.querySelector("#faq-btn").onclick = function () {
-        location.href = "/yoseob/notice/faq_view.html";
-      };
-      document.querySelector("#announcement-btn").onclick = function () {
-        location.href = "/yoseob/notice/announcement.html";
-      };
-      document.querySelector("#information-btn").onclick = function () {
-        location.href = "/yoseob/notice/service_information.html";
-      };
-      document.querySelector("#inquiry-btn").onclick = function () {
-        location.href = "/yoseob/notice/inquiry.html";
-      };
-    </script>
         
         <div class = "announcement_title">
           <span>공지사항</span>
           </div>
+        
         <table class = "announcement_table">
           <thead>
             <tr>
               <th>번호</th><th>분류</th><th>제목</th><th>작성일</th>
             </tr>
-            <tr>
-              <td>1</td><td>휴무</td><td>[공지] 대통령 선거일 휴무 안내</td><td>2022년02월22일</td>
-            </tr>
-            <tr>
-              <td>2</td><td>업데이트</td><td>[공지] 모임 카테고리 내용 추가</td><td>2022년02월22일</td>
-            </tr>
-            <tr>
-              <td>3</td><td>공지</td><td>[공지] 비트캠프 모집 마감</td><td>2022년02월22일</td>
-            </tr>
-            <tr>
-              <td>4</td><td>업데이트</td><td>[공지] 엄진영 강사님 수업내용 업데이트 안내</td><td>2022년02월22일</td>
-            </tr>
-            <tr>
-              <td>5</td><td>휴무</td><td>[공지] 일하기 귀찮아서 휴무 안내</td><td>2022년02월22일</td>
-            </tr>
+            <tbody class="announcement_tr">
+            </tbody>
           </thead>
         </table>
         <nav aria-label="Page navigation example">
@@ -108,6 +84,8 @@
       <div id="footer"></div>
        
        
-  
+
 </body>
 </html>
+<script src="../js/announcement.js"></script>
+<script src="../js/location.js"></script>
