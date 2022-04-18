@@ -2,8 +2,10 @@ package com.bts.yomojomo.domain;
 
 import java.sql.Date;
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 @Data
+@Accessors(chain = true)
 public class NoticeQuestion {
   int no;
   int mainCategoryNo;
