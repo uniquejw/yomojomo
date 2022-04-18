@@ -221,7 +221,7 @@ $(document).on("click","#apply",function(){
    .then(function(res){
      return res.json()
    }).then(function(result){
-    location.href="/minkyu/mypage/index.html"
+    // location.href="/minkyu/mypage/index.html"
    })
 })
 

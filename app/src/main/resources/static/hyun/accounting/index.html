@@ -60,9 +60,9 @@ table > tbody > tr > td {
               data : {"member.no" : loginUserNo },
               success : function(result) {
                 console.log(result.data);
-                if (result.data[0].memberGrade.gradeNo != 1) {
-                  $("#x-create-btn").hide();  
-                }//회원 등급 조회 if END 
+                // if (result.data[0].memberGrade.gradeNo != 1) {
+                //   $("#x-create-btn").hide();  
+                // }//회원 등급 조회 if END 
               
                 // else if () for문 돌려서 모임에 가입한 사람이 맞는지 확인 할 것
                 // 모임 목록에서 타고 들어와야 들어온 모임명과 맞춰볼 수 있음

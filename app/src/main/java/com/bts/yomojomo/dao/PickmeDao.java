@@ -9,9 +9,11 @@ import com.bts.yomojomo.domain.Pickme;
 public interface PickmeDao {
   int countAll();
 
+  int countSiList(@Param("nameSi") String nameSi);
+
   List<Pickme> findAll(@Param("rowCount") int rowCount, @Param("offset") int offset);
 
-  List<Pickme> selectedSicate(Pickme pickme);
+  List<Pickme> selectedSicate(@Param("nameSi") String nameSi, @Param("rowCount") int rowCount, @Param("offset") int offset);
 
   List<Pickme> selectedGucate(Pickme pickme);
 

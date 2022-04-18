@@ -44,10 +44,8 @@
           </ol>
         </nav>
         <div class="content d-flex flex-column">
-          <div>
-            <h3>마이페이지</h3>
-            <br>
-          </div>
+          <h3>마이페이지</h3>
+          <br>
           <div class="my-info">
             <div class="info1">
               <img id="info-img" src="../profile.jpg">
@@ -75,10 +73,8 @@
             </div>
           </div>
           <br>
-          <div>
-            <h4 class="title">나의 관심 모임</h4>
-            <br>
-          </div>
+          <h4 class="title">나의 관심 모임</h4>
+          <br>
           <div class="favor-group">
             <div class="card border-secondary w-30 h-25">
               <img src="../profile.jpg" class="card-img-top" alt="...">
@@ -99,9 +95,14 @@
   </div>
   <div id="footers"></div>
   <script>
-   $(".card").children("img").click(function(e){
-      location.href = "/ssang/groupBoard/index.html"
-    })
+  // $.ajax({
+  //   type:"POST"
+  //   url:"/mypage/"
+  // })
+
+  $(".card").children("img").click(function(e){
+    location.href = "/ssang/groupBoard/index.html"
+  })
   </script>
 </body>
 </html>

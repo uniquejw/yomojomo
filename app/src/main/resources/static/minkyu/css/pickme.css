@@ -16,20 +16,6 @@
  white-space: nowrap;
  text-overflow: ellipsis;
 }
- tbody:first-child {
- border-top: 1px solid black;
- }
- .g-title {
-   max-width: 200px;
-   width: 25%;
- }
- .g-group {
-   max-width: 200px;
-   width: 25%;
- }
- tr > .g-title:hover {
-  cursor: pointer;
-}
 .request-hide {
   display: none;
 }

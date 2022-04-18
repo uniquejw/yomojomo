@@ -88,7 +88,7 @@ public class GroupController {
       }
 
       // 파일을 지정된 폴더에 저장한다.
-      File photoFile = new File("c:/upload/" + filename); // App 클래스를 실행하는 프로젝트 폴더
+      File photoFile = new File("./upload/groupLogo/" + filename); // App 클래스를 실행하는 프로젝트 폴더
       file.transferTo(photoFile.getCanonicalFile()); // 프로젝트 폴더의 전체 경로를 전달한다.
 
       // 썸네일 이미지 파일 생성
@@ -96,7 +96,7 @@ public class GroupController {
       .size(50, 50)
       .crop(Positions.CENTER)
       .outputFormat("jpg")
-      .toFile(new File("c:/upload/" + "50x50_" + filename));
+      .toFile(new File("./upload/groupLogo/" + "50x50_" + filename));
 
       return filename;
 

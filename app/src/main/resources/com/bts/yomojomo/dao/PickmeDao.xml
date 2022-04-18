@@ -68,9 +68,10 @@
       inner join gms_activelocal a on pm.act_local_no=a.act_local_no
       inner join gms_purpose p on p.pups_no=pm.pups_no
     where
-      a.name_si like #{activeLocal.nameSi}
-    order by
+      a.name_si like #{nameSi}
+   order by
       pm.pm_b_no desc
+      limit #{offset}, #{rowCount}  
   </select>
   
   
@@ -171,6 +172,30 @@
 
   <select id ="countAll" resultType="int">
     select count(*) from gms_pickme
+  </select>
+  
+  <select id = "countSiList" resultType="int"> <!-- 시, 도 별 count -->
+       select
+      count(*)
+    from gms_pickme pm
+      inner join gms_memb m on pm.memb_no=m.memb_no
+      inner join gms_activelocal a on pm.act_local_no=a.act_local_no
+      inner join gms_purpose p on p.pups_no=pm.pups_no
+    where
+      a.name_si like #{nameSi}
+    order by
+      pm.pm_b_no desc
+  </select>
+  
+  <select id = "" resultType="int"> <!-- 군, 구 별 count -->
+     select
+  count(*)
+    from gms_pickme pm
+      inner join gms_memb m on pm.memb_no=m.memb_no
+      inner join gms_activelocal a on pm.act_local_no=a.act_local_no
+      inner join gms_purpose p on p.pups_no=pm.pups_no
+    where
+      a.act_local_no = #{activeLocal.no}
   </select>
 
     

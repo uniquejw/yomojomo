@@ -8,7 +8,7 @@
   justify-content: center;
   text-align: center;
 }
-.edit-img {
+.profile-img {
   position: relative;
   height: 115px;
   width: auto;
@@ -26,8 +26,8 @@
   position: absolute;
   top: 0;
   left: 0;
-  width: 80px;
-  height: 80px;
+  max-width: 80px;
+  max-height: 110px;
   margin-left: 180px;
 }
 .form-select {

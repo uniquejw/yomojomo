@@ -9,8 +9,6 @@
   <script src="/node_modules/jquery/dist/jquery.min.js"></script>
   <!-- 부트스트랩 CSS-->
   <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.css">
-  <!-- 내 css 연결하기 -->
-  <link rel="stylesheet" href="/junho/css/midpointsubmain.css">
   <!-- 부트스트랩 JS-->
   <script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
   <!--핸들바-->
@@ -80,18 +78,11 @@
     
     <!--페이지 네이션-->
     <nav aria-label="Page navigation example">
-      <ul class="pagination justify-content-center">
-        <li class="page-item disabled">
-          <a class="page-link">Previous</a>
-        </li>
-        <li class="page-item"><a class="page-link" href="#">1</a></li>
-        <li class="page-item"><a class="page-link" href="#">2</a></li>
-        <li class="page-item"><a class="page-link" href="#">3</a></li>
-        <li class="page-item">
-          <a class="page-link" href="#">Next</a>
-        </li>
+      <ul class="pagination justify-content-center" id="pagination-ul">
+
       </ul>
-    </nav>
+    </nav><!--페이지 네이션-->
+
   </div>
 </div>
 
@@ -103,23 +94,6 @@
       $('#header').load('/junho/mainHeader.html'); //헤더 인클루드
       $('#footer').load('/junho/mainfooter.html'); //헤더 인클루드
 
-        //전체 목록 불러오기
-      fetch("/pickme/list")
-        .then(function(response) {
-          return response.json();
-        })
-        .then(function(result) {
-          if (result.status == "fail") {
-            window.alert("서버 요청 오류!");
-            console.log(result.data);
-            return;
-          } else {
-            console.log(result);
-            tbody.innerHTML = htmlGenerator(result);
-          }
-        });
-      //전체 목록 불러오기 END
-
       $.ajax({ //로그인 여부 확인 ajax START 비회원은 등록버튼 감춘다.
         url : "/member/getLoginUser",
         type : "POST",
@@ -130,8 +104,123 @@
           } 
         }
       }); //로그인 여부 확인 ajax END
+
+  //전체 목록 불러오기 START
+  $.ajax({
+    url : "/pickme/list",
+    type : "POST",
+    datatype : "json",
+    data : {"pageSize" : 10,
+            "pageNo" : 1},
+    success : function(result) {
+      // console.log(result.data);
+      tbody.innerHTML = htmlGenerator(result.data);                
+    }
+  })
+  //전체 목록 불러오기 END
+
+  //페이지 네이션 만들기
+  let pagenationUl = document.querySelector("#pagination-ul");
+  let pagetemplate = document.querySelector("#pageli-template");
+  let pageGernerator = Handlebars.compile(pagetemplate.innerHTML);
+
+  $.ajax({ //전체 리스트 불러왔을 때 페이지네이션
+    url : "/pickme/count",
+    type : "POST",
+    success : function(result) {
+      let boardCnt = result.data;
+      // parseInt(boardCnt)
+      var clickpage = result.pageNo;
+
+      if (clickpage == 0) {
+        clickpage += 1;
+      }
+    
+      let totalpage = parseInt(boardCnt / 10);
+
+      if ((boardCnt % totalpage) > 0) {
+        parseInt(totalpage++);
+      }
+
+      //2차원 배열 생성
+      let totalpageArr = [];
+      for (i = 1; i <= totalpage; i++) {
+        totalpageArr.push({"no" : i, "pageNo" : `${i}`})            
+      }
+
+    // console.log(totalpageArr);          
+      pagenationUl.innerHTML = pageGernerator(totalpageArr);
+
+    //페이지네이션 숫자 값으로 목록 불러오기 
+      $(document).on("click", "#pageNoBtn", function() {
+        // console.log("클릭");        
+        $.ajax({
+          url : "/pickme/list",
+          type : "POST",
+          datatype : "json",
+          data : {"pageSize" : 10,
+                  "pageNo" : $(this).attr('value')},
+          success : function(result) {
+            tbody.innerHTML = htmlGenerator(result.data);
+            clickpage = result.pageNo;
+          }
+        })//페이지네이션 ajax 값
+      })//페이지네이션 숫자 클릭이벤트 END
+    
+      //페이지네이션 처음 끝 클릭 event
+      $(document).on("click", "#pageStr", function() {
+        // console.log($(this).attr('value'));
+
+        if ($(this).attr('value') == "startpage") {
+          $.ajax({
+            url : "/pickme/list",
+            type : "POST",
+            datatype : "json",
+            data : {"pageSize" : 10,
+                    "pageNo" : 1},
+            success : function(result) {
+              // console.log(result.data);
+              tbody.innerHTML = htmlGenerator(result.data);                
+            }
+          })
+          
+        } else {
+          $.ajax({
+            url : "/pickme/list",
+            type : "POST",
+            datatype : "json",
+            data : {"pageSize" : 10,
+                    "pageNo" : totalpage},
+            success : function(result) {
+              // console.log(result.data);
+              tbody.innerHTML = htmlGenerator(result.data);                
+            }
+          })
+        }
+      }) //페이지네이션 처음 끝 클릭 event END
+
+
+
+    }//페이지네이션 success END
+  })//페이지네이션 ajax END
+
   });//document.ready() END
 </script>
+
+<!--페이지네이션 생성 핸들 바-->
+<script id="pageli-template" type="text/x-handlebars-template">
+  <li class="page-item" id="startpageli">
+    <button class="page-link" type="button" id="pageStr" value="startpage">처음</button>
+  </li>
+  {{#each this}}
+  <li class="page-item" id="pageli"><button type="button" class="page-link" id="pageNoBtn" value="{{no}}">{{pageNo}}</button></li>
+  {{/each}}
+  
+  <li class="page-item" id="endpageli">
+    <button class="page-link" type="button" id="pageStr" value="endpage">끝</button>
+  </li>
+</script>
+<!--페이지네이션 생성 핸들 바-->
 
 <!--시,도 카테고리 생성 핸들 바-->
 <script id="optionSi-template" type="text/x-handlebars-template">
@@ -166,6 +255,8 @@
   {{/each}}
 </script>
 <!--지역별 게시글 list END-->
+
+
 
 <script>
 //시,도 카테고리 불러오기
@@ -211,20 +302,17 @@ let htmlGenerator = Handlebars.compile(trTemplate.innerHTML);
 
 $("#nameSi").on("click", function() {  
   if ($("#nameSi option:selected").val() == 0) {
-    fetch("/pickme/list")
-    .then(function(response) {
-      return response.json();
-    })
-    .then(function(result) {
-      if (result.status == "fail") {
-        window.alert("서버 요청 오류!");
+    $.ajax({
+      url : "/pickme/list",
+      type : "POST",
+      datatype : "json",
+      data : {"pageSize" : 10,
+              "pageNo" : 1},
+      success : function(result) {
         console.log(result.data);
-        return;
-      } else {
-        // console.log(result);
-        tbody.innerHTML = htmlGenerator(result);
+        tbody.innerHTML = htmlGenerator(result.data);
       }
-    });
+    })
   }
 });
 //카테고리에서 전체를 선택하면 게시글 리스트 불러오기 END
@@ -235,7 +323,10 @@ $("#nameSi").on("click", function() {
     url : "/pickme/selectedSicate",
     type : "POST",
     async : false,
-    data : {"activeLocal.nameSi" : $("#nameSi option:selected").val()},
+    data : {
+      "pageNo" : 1,
+      "pageSize" : 10,
+      "nameSi" : $("#nameSi option:selected").val()},
     success : function(result) {
       console.log(result.data);
       tbody.innerHTML = htmlGenerator(result.data);
@@ -266,6 +357,9 @@ $("#nameGu").on("click", function() {
 document.querySelector("#x-create-btn").onclick = function(){
   location.href="form.html";
 };
+
+
+
 </script>
 </body>
 </html>
