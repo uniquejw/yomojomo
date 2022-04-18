@@ -40,6 +40,7 @@ public class DefaultMemberService implements MemberService {
 	public Member get(String email) {
 		return memberDao.findByEmail(email);
 	}
+	
 
 	@Override
 	public Member find(String name, String tel) {
