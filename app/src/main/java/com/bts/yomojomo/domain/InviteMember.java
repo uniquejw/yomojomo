@@ -8,5 +8,4 @@ import lombok.experimental.Accessors;
 public class InviteMember {
   Group group;
   Member member;
-  MembGrade memberGrade;
 }
