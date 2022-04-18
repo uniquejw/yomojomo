@@ -120,34 +120,8 @@
 </script>
 <script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="/node_modules/handlebars/dist/handlebars.min.js"></script>
+<script src="/ssang/groupBoard/js/index.js"></script>
 
-<!-- 핸들바 -->
-<script>
-  var writtenContainer = document.querySelector("#handlebars-container");
-
-  var divTemplate = document.querySelector("#div-template");
-
-  var htmlGenerator = Handlebars.compile(divTemplate.innerHTML);
-
-  fetch("/board/list")
-  .then(function(response) {
-    return response.json();
-  })
-  .then(function(boards){
-    console.log(boards)
-    writtenContainer.innerHTML = htmlGenerator(boards);
-  })
-</script>
-
-<!--버튼클릭이벤트 -->
-<script>
-  document.querySelector(".new-post-btn").onclick = function() {
-    window.location.href = "form.html";
-  };
-  $(document).on("click",".board-edit",function(){
-    window.location.href = "view.html";
-  })
-</script>
 
 </body>
 </html>

@@ -56,82 +56,57 @@ $(document).ready(function () {
                 </div>
             </tr>
             <tr>
-                <div class="accordion" id="accordionExample">
-                    <div class="accordion-item">
-                      <h2 class="accordion-header" id="headingOne">
-                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                          신청서 등록 사항
-                        </button>
-                      </h2>
-                      <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                        <div class="accordion-body" >
-                          이름 <br>
-                          사는 지역 <br>
-                          주간 참여 가능 횟수 <br>
-                        </div>
-                      </div>
+              <!-- 신청서 생성하기 -->
+              <div class="input-group mb-3" id="create-applyForm-div">
+                <input type="text" class="form-control" placeholder="가입신청서 생성" aria-label="Recipient's username" aria-describedby="button-addon2">
+                <button class="btn btn-outline-secondary " type="button" id="create-applyForom">생성</button>
+              </div>
+              <!-- 현황 아코디언 -->
+              <div class="accordion" id="applyForm">
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="headingOne">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                      신청서 등록 사항
+                    </button>
+                  </h2>
+                  <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                    <div class="accordion-body" >
+                      이름 <br>
+                      사는 지역 <br>
+                      주간 참여 가능 횟수 <br>
                     </div>
-                    <div class="accordion-item">
-                      <h2 class="accordion-header" id="headingTwo">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                          신청서 관리
-                        </button>
-                      </h2>
-                      <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-                        <div class="accordion-body">
-                          <!--멤버 추가부분-->
-                            <div class="List-Container">
-                                <div id="x-membList-container">
-                                    <div class="x-membList">
-                                        항목 : <input id="listmembName" type="text">
-                                        <button id="x-deleteMemb-btn" type="button" class="btn btn-primary" onclick="deleteDiv(event)">삭제</button><br>
-                                    </div>
-                                </div>
-                                <button id="x-addMemb-btn" type="button" class="btn btn-primary">추가</button>
-                                <button id="x-aplly-form" type="button" class="btn btn-primary">등록</button>
-                                <button id="x-reform" type="button" class="btn btn-primary">초기화</button><br>
-                            </div>
-                        </div>
-                      </div>
-                    </div>
+                  </div>
                 </div>
-            
+              <div class="accordion-item" >
+                <h2 class="accordion-header" id="headingTwo">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    신청서 관리
+                  </button>
+                </h2>
+                <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                  <div class="accordion-body">
+                    <!--멤버 추가부분-->
+                      <div class="List-Container">
+                          <div id="x-question-container">
+                              <div class="x-question">
+                                  항목 : <input id="listmembName" type="text">
+                                  <button id="x-deleteMemb-btn" type="button" class="btn btn-primary" onclick="deleteDiv(event)">삭제</button><br>
+                              </div>
+                          </div>
+                          <button id="x-addQuestion-btn" type="button" class="btn btn-primary">추가</button>
+                          <button id="x-aplly-form" type="button" class="btn btn-primary">등록</button>
+                          <button id="x-reform" type="button" class="btn btn-primary">초기화</button><br>
+                      </div>
+                  </div>
+                </div>
+              </div>  <!-- 추가 아코디언 -->
             </tr>
         </table>
     </div>
 </div>
 <div id="footers"></div>
-    
 </body>
+<script src="/ssang/groupEdit/index.js"></script>
 <script>
-    let xMembList = document.querySelector(".x-membList");
-    let xMembListCon = document.querySelector("#x-membList-container");
-    // 추가 이벤트
-    document.querySelector("#x-addMemb-btn").onclick = function() {
-    // console.log("클릭함");
-    var membList = xMembList.cloneNode(true);
-    membList.querySelector("#listmembName").value = "";
-    xMembListCon.append(membList);
-    };
-
-    // 삭제 이벤트
-    function deleteDiv(e) {
-        if (xMembListCon.childElementCount > 1) {
-            xMembListCon.removeChild(e.target.parentNode);
-        }
-    };
-    // 신청서 등록
-    document.querySelector("#x-aplly-form").onclick = function() {
-        window.Swal.fire({
-        position: 'top-end',
-        icon: 'success',
-        title: 'Your work has been saved',
-        showConfirmButton: false,
-        timer: 1500
-        })
-    }
-    document.querySelector("#x-reform").onclick = function() {
-    window.location.href = "index.html";
-  };
 </script>
 </html>

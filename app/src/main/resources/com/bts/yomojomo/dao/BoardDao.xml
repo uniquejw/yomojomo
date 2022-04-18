@@ -24,13 +24,75 @@
       <id column = "cmt_no" property="no"/>
       <result column="cmt_content" property="content"/>
       <result column="cmt_reg_dt" property="registDate"/>
-      <association property="writer" javaType="member">
-      <id column="cmt_writer_no" property="no"/>
-      <result column="cmt_writer_name" property="memberName"/>
-      </association>
+	      <association property="writer" javaType="member">
+	      <id column="cmt_writer_no" property="no"/>
+	      <result column="cmt_writer_name" property="memberName"/>
+	      </association>
     </collection>
     
   </resultMap>
+  
+  <!--모임별 게시판 조회-->
+  <select id="findByGroupNo" resultMap="BoardMap" parameterType="int">
+    select
+       distinct
+       j.g_no,
+       b.b_no,
+       b.content,
+       b.reg_dt,
+       m.name writer_name,
+       c.content cmt_content,
+       c.reg_dt cmt_reg_dt,
+       m2.name cmt_writer_name
+       from
+       gms_board b
+       inner join gms_join_memb j on b.g_no = j.g_no
+         left outer join gms_comment c on b.b_no = c.cmt_no
+         left outer join gms_memb m on b.memb_no = m.memb_no
+         left outer join gms_memb m2 on c.memb_no = m.memb_no
+     where
+       j.g_no = #{no}
+    order by
+      b_no desc
+  </select>
+  <!--모임별 게시판을 번호로 조회 -->
+  <select id="findByBoardNo" resultMap="BoardMap">
+    select
+       distinct
+       g_no,
+       b_no,
+       content,
+       reg_dt,
+       board_writer,
+       content cmt_content,
+       reg_dt cmt_reg_dt,
+       cmt_writer
+	       from
+	       (
+		       select
+			       distinct
+			       j.g_no,
+			       b.b_no,
+			       b.content,
+			       b.reg_dt,
+			       m.name writer_name,
+			       c.content cmt_content,
+			       c.reg_dt cmt_reg_dt,
+			       m2.name cmt_writer_name
+			       from
+			       gms_board b
+			       inner join gms_join_memb j on b.g_no = j.g_no
+			         left outer join gms_comment c on b.b_no = c.cmt_no
+			         left outer join gms_memb m on b.memb_no = m.memb_no
+			         left outer join gms_memb m2 on c.memb_no = m.memb_no
+			     where
+			       j.g_no = #{no}
+			    order by
+			      b_no desc
+	       ) b
+	     where
+	       b.b_no = #{board.no}
+  </select>
   
   <select id="findAll" resultMap="BoardMap"> 
 	select
@@ -53,29 +115,7 @@
       b_no desc
   </select>
   
-  <!--모임별 게시판 조회-->
-  <select id="findByNo" resultMap="BoardMap" parameterType="int">
-    select 
-        b.b_no,
-        b.content,
-        b.reg_dt,
-        m.memb_no writer_no,
-        m.name writer_name,
-        c.cmt_no,
-        c.content cmt_content,
-        c.reg_dt cmt_reg_dt,
-        m2.memb_no cmt_writer_no,
-        m2.name cmt_writer_name
-    from 
-      gms_board b
-        left outer join gms_comment c on b.b_no = c.b_no
-        left outer join gms_memb m on b.memb_no = m.memb_no
-        left outer join gms_memb m2 on c.memb_no = m2.memb_no
-    where 
-      b.b_no=#{no}
-    order by
-      b_no desc
-  </select>
+  
     
     <!-- 자동 증가된 PK 값을 받고 싶을 때! -->
   <insert id="insert" parameterType="Board" keyProperty="no" keyColumn="b_no" useGeneratedKeys="true">

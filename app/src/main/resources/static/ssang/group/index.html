@@ -27,7 +27,6 @@
         $('#footers').load('/junho/mainfooter.html'); //푸터부분 인클루드
     });
   </script>
- 
 </head>
 <body>  
 <div id="headers"></div>
@@ -67,19 +66,32 @@
   </div>
 
 
-      <!--================= 모임정보 ========================-->
-    <div class="background">
-      <div class="window">
-        <div class="popup">
-          <div class="popup-img">사진</div>
-          <button type="button" class="btn-close" aria-label="Close"></button>
-          <div class="popup-group-name">{{groupName}}</div>
-          <div class="popup-group-content">{{intro}}</div>
-          <div><button id="apply-form-btn" value="">가입하기</button></div>
-        </div>
+  <!--======================== 모임리스트======================== -->
+  <script id="div-template" type="text/x-handlebars-template">
+    {{#each this}}
+    <li class="item">
+      <div class="item-div">
+        <button type="button" class="btn-show" value="{{no}}">
+          <img src="/group/photo?filename={{logo}}" class="sub-logo">
+        </button>
+        <div class="group-name" >{{groupName}}</div>
+      </div>  
+    </li>
+    {{/each}}
+  </script>
+
+  <!--========================== 모임정보 ========================-->
+  <div class="background">
+    <div class="window">
+      <div class="popup">
+        <div class="popup-img-div"><img alt="이리오너라" class="main-logo"></div>
+        <button type="button" class="btn-close" aria-label="Close"></button>
+        <div class="popup-group-name"></div>
+        <div class="popup-group-content"></div>
+        <div><button id="apply-form-btn" value="">가입하기</button></div>
       </div>
     </div>
-
+  </div>
 
     <!--======================= 가입신청서 ====================-->
     <div class="report-background">
@@ -102,22 +114,11 @@
         </div><!--report-popup-->
       </div> <!--report-window-->
     </div>    <!--report-background-->
+
 </div><!--container-->
 <div id="footers"></div>
 
 
-
-<!-- 모임리스트 -->
-<script id="div-template" type="text/x-handlebars-template">
-  {{#each this}}
-  <li class="item">
-    <button type="button" class="btn-show" value="{{no}}">
-      <div class="image">{{logo}}</div>
-      <div class="group-name" >{{groupName}}</div>
-    </button>
-  </li>
-  {{/each}}
-</script>
 <!-- =====================모임신청서 ============================-->
 <script id="applyList-template" type="text/x-handlebars-template">
   <!-- {{#each this}} -->
@@ -129,21 +130,21 @@
     {{/each}}
   <!-- {{/each}} -->
 </script>
-<!--시,도 카테고리 생성 핸들 바-->
+<!--=============시,도 카테고리 생성 핸들 바==================-->
 <script id="optionSi-template" type="text/x-handlebars-template">
   <option id="allList" value="0">전체</option>
   {{#each this}}
   <option id="selectOp">{{nameSi}}</option>
   {{/each}}
 </script>
-<!--군,구 카테고리 생성 핸들 바-->
+<!--=============군,구 카테고리 생성 핸들 바==================-->
 <script id="optionGu-template" type="text/x-handlebars-template">
   <option>군구 선택</option>
   {{#each this}}
   <option id="selectGuOp" value="{{no}}">{{nameGu}}</option>
   {{/each}}
 </script>
-<!-- 목적카테고리 핸들바 -->
+<!--===================목적카테고리 핸들바=====================-->
 <script id="optionPurpose-template" type="text/x-handlebars-template">
   <option>모임 분류</option>
   {{#each this}}

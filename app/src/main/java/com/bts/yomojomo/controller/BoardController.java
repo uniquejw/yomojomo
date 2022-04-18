@@ -38,10 +38,24 @@ public class BoardController {
       return "error!";
     }
   }
+  //  모임별 게시글 리스트
+  @RequestMapping("/board/findByGroupNo")
+  public Object findByGroupNo(int no) {
+    return boardService.findByGroupNo(no);
+  }
+
+  //  모임별 게시글 리스트
+  @RequestMapping("/board/findBoardNo")
+  public Object findBoardNo(Board board) {
+    return boardService.findBoardNo(board);
+  }
+
+
   @RequestMapping("/board/get")
   public Object get(int no) {
     return boardService.get(no);
   }
+
 
   @RequestMapping("/board/list")
   public Object list() {

@@ -11,6 +11,10 @@ public interface BoardDao {
 
   List<Board> findAll();
 
+  List<Board> findByGroupNo(int no);
+
+  List<Board> findBoardNo(Board board);
+
   int insert(Board board);
 
   Board findByNo(int no);

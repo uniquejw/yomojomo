@@ -83,7 +83,7 @@
     document.querySelector(".correct-local").className = "correct-local a11y-hidden";
   }
 
-  //닫기 버튼 이벤트
+  //=========================닫기 버튼 이벤트=========================
   var cols = document.querySelectorAll(".btn-close");
   [].forEach.call(cols,function(col){
   col.addEventListener("click",close)
@@ -104,7 +104,9 @@
     var fileName = $("#x-file").val();
     $(".upload-name").val(fileName);
   });
-//   모임 생성 
+
+
+//=======================모임 생성 =========================
 document.querySelector("#create-btn").onclick = function() {
   if (xTitle.value == "" || xIntro.value == "" || xPurpose.value == "") {
     Swal.fire({
@@ -133,7 +135,7 @@ document.querySelector("#create-btn").onclick = function() {
   .then(function(result) {
     console.log(result);
     if (result.status == "success") {
-      location.href = "/ssang/group/index.html";
+      location.href = "/junho/index.html";
     } else {
       alert(result.data);
     }

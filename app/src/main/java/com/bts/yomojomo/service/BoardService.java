@@ -9,6 +9,10 @@ public interface BoardService {
 
   List<Board> list();
 
+  List<Board> findByGroupNo(int no);
+
+  List<Board> findBoardNo(Board board);
+
   Board get(int no);
 
   int update(Board board);

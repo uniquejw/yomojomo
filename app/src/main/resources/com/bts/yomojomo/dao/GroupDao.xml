@@ -130,7 +130,7 @@
 		g_no=#{no}
 	</select>
 
-	<insert id="insert" parameterType="Group">
+	<insert id="insert" parameterType="Group" keyProperty="no"  keyColumn="g_no" useGeneratedKeys="true">
 		insert into gms_group (
 		act_local_no,
 		pups_no,

@@ -20,7 +20,7 @@ fetch(PATH.groupList)
     }
     for (var group of result.data) {
       if (group.logo == null) {
-        group.logo = "default.jpg";
+        group.logo = "default.png";
       }
       writtenContainer.innerHTML = htmlGenerator(result.data);
     }
@@ -171,9 +171,19 @@ $(document).on("click","button.btn-show",function(){
   .then(function(response){
     return response.json()
   }).then(function(result){
-    console.log(result.data)
+    if (result.status == "fail") {
+      window.alert("서버 요청 오류!");
+      console.log(result.data);
+      return;
+    }
+    if(result.data.logo == null){
+      result.data.logo = "default.png";
+    }
+    
     document.querySelector(".popup-group-name").innerText = result.data.groupName;
     document.querySelector(".popup-group-content").innerText = result.data.intro;
+    var path = "/group/photo?filename=" + result.data.logo
+    document.querySelector('.main-logo').setAttribute("src", path)
     $('#apply-form-btn').val(result.data.no);
   })
 })
@@ -187,6 +197,7 @@ $(document).on("click","#apply-form-btn",function(){
     .then(function(res){
       return res.json();
     }).then(function(result){
+      console.log(result.data[0])
       if (result.status == "fail") {
         window.alert("서버 요청 오류!");
         return;
@@ -209,19 +220,19 @@ $(document).on("click","#apply",function(){
   //배열에 값 주입
   for(var i=0; i<answerLength; i++){                          
     answers[i] = $("input[name=answer]").eq(i).val();
-    }
-   fd.append('answer',answers)
-   fd.append('answer',document.querySelector("textarea[name=answer]").value)
-   fd.append('applyNo',value)
-    
-   fetch('/applyAnswer/add',{
-     method:"POST",
-     body: fd
-   })
-   .then(function(res){
-     return res.json()
-   }).then(function(result){
-    // location.href="/minkyu/mypage/index.html"
+  }
+  fd.append('answer',answers)
+  fd.append('answer',document.querySelector("textarea[name=answer]").value)
+  fd.append('applyNo',value)
+  
+  fetch('/applyAnswer/add',{
+    method:"POST",
+    body: fd
+  })
+  .then(function(res){
+    return res.json()
+  }).then(function(result){
+    location.href="/minkyu/mypage/index.html"
    })
 })
 

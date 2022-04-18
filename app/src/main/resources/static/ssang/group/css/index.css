@@ -41,10 +41,10 @@ table{
   border-spacing:10px 17px;
 }
 .select-cate-div{
-    width: 1130px;
+    width: 1100px;
     font-size: 32px;
     margin: 40px auto;
-    padding: 7px 27px;
+    padding: 7px 40px;
     /* border: 1px solid #616161; */
     border-radius: 3px;
     background-color: rgb(17, 147, 218);
@@ -76,40 +76,49 @@ table{
 .group-list-container{
     position: relative;
     margin: 10px auto;
-    width: 1130px;
+    width: 1100px;
     min-height: 800px;
     overflow: hidden;
 }
 .group-list-container .item{
-    width: 182px;
-    height: 200px;
+    width: 115px;
+    height: 225px;
     float: left;
     /* display: inline-block; */
     box-shadow: 0 1px 0 1px rgba(0, 0, 0, 0.04);
-    margin: 50px;
+    margin: 45px;
     text-align: center;
+}
+.item-div{
+  width: 190px;
+  min-height: 240px;
+  border: 1px solid rgb(17, 147, 218);
 }
 .group-list-container ul{
   margin: 0 0 40px 0;
 }
-.group-list-container .item .image, .popup-img{
+.group-list-container .item .image-div, .popup-img-div{
     width: 100%;
     height: 200px;
-    background-image: url(../교육.jfif);
+    /* background-image: url(../교육.jfif);
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: cover; */
+}
+img{
+  width: 100%;
+  height: 100%;
 }
 .group-list-container .item .group-name{
-    font-size: 24px;
-    height: 33px;
+    font-size: 20px;
+    min-height: 33px;
     margin: 10px 0;
+    width: 100%;
 }
 button.btn-show{
   background-color: #ffffff;
-  width: 206px;  
-  height: 208px; 
-  border: 2px solid rgb(17, 147, 218);
-  border-radius: 31px;
+  width: 100%;  
+  height: 200px; 
+  border: none;
 }
 
 
@@ -182,24 +191,29 @@ button.btn-show{
     background-color: #ffffff;
     box-shadow: 34px 30px 6px rgba(0, 0, 0, 0.3);
     width: 500px;
-    min-height: 565px;
+    min-height: 600px;
     text-align: center;
+    border-radius: 20px;
+    padding: 1px;
 
     /* 초기에 약간 아래에 배치 */
     transform: translate(-50%, -40%);
-    border: 2px solid rgb(17, 147, 218);
+    border: 1px solid rgb(17, 147, 218);
   }
   .popup-group-name{
     font-size: 24px;
     margin: 21px 0 0 0;
 }
-  .popup-group-content{
+  .popup-group-content ,.report-form{
       margin: 14px auto;
       width: 440px;
       min-height: 265px;
-      border: 2px solid rgb(17, 147, 218);
+      border: 1px solid rgb(17, 147, 218);
+      border-radius: 20px;
   }
-  
+  .popup-group-content{
+    padding: 20px;
+  }
 
   .show .popup {
     transform: translate(-50%, -50%);
@@ -220,12 +234,6 @@ button.btn-show{
     margin: 43px auto;
     text-align: center;
   }
-  .report-form{
-    margin: 14px auto;
-    width: 440px;
-    min-height: 265px;
-    border: 2px solid rgb(17, 147, 218);
-  }
   .report-form-title{
     margin: 11px 0 0 0;
     font-size: 28px;
@@ -244,7 +252,7 @@ button.btn-show{
   }
   
   .report-comment{
-    margin: 10px 30px;
+    margin: 18px 41px;
   }
 
 
