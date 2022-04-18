@@ -14,8 +14,6 @@ import com.bts.yomojomo.service.PickmeService;
 
 @RestController
 public class PickmeController {
-
-  //log를 출력하는 도구 준비
   private static final Logger log = LoggerFactory.getLogger(PickmeController.class);
 
 
@@ -23,74 +21,39 @@ public class PickmeController {
   PickmeService pickmeService;
 
   @RequestMapping("/pickme/list")
-  public Object list(int pageSize, int pageNo, HttpSession session) {
-
+  public Object list(int pageSize, int pageNo, String nameSi, String nameGu, HttpSession session) {
     log.info("게시물 목록 조회");
 
-    try { // pageSize 파라미터 값이 있다면 기본 값을 변경한다.
+    try {
       if (pageSize < 10 || pageSize > 100) {
         pageSize = 10;
       }
     } catch (Exception e) {}
 
-    //    //게시글 전체 개수를 알아내서 페이지 개수를 계산한다.
-    int pickmeSize = pickmeService.size(); 
+    int pickmeSize = pickmeService.size(nameSi, nameGu);
+    System.out.println("게시글 총 개수 count : " + pickmeSize);
 
-    int totalPageSize = pickmeSize / pageSize; // 예: 게시글개수 / 페이지당개수 = 16 / 5 = 3 
+    int totalPageSize = pickmeSize / pageSize; 
 
     if ((pickmeSize % pageSize) > 0) {
       totalPageSize++;
     }
 
-    try { // pageNo 파라미터 값이 있다면 기본 값을 변경한다.
-      if (pageNo < 1 || pageNo > totalPageSize) {// pageNo 유효성 검증
+    try { 
+      if (pageNo < 1 || pageNo > totalPageSize) {
         pageNo = 1;
       }
     } catch (Exception e) {}
+
+    System.out.println("totalpageSize 는 " +totalPageSize );
 
     return 
-        new ResultMap().setStatus(SUCCESS).setPageNo(pageNo).setData(pickmeService.list(pageSize, pageNo));
-  }
-
-  @RequestMapping("/pickme/count")
-  public Object countList(HttpSession session) {
-    log.info("게시물 총 개수 조회");
-    return new ResultMap().setStatus(SUCCESS).setData(pickmeService.size());
-  }
-
-  @RequestMapping("/pickme/selectedSicate") 
-  public Object selectedSicate(int pageNo, int pageSize, String nameSi, HttpSession session) {
-    log.info("시별 카테고리 리스트 조회");
-
-    try { // pageSize 파라미터 값이 있다면 기본 값을 변경한다.
-      if (pageSize < 10 || pageSize > 100) {
-        pageSize = 10;
-      }
-    } catch (Exception e) {}
-
-    int siCateSize = pickmeService.siCateSize(nameSi);
-    System.out.println("시 카테고리 전체 글 개수 " + siCateSize);
-
-    int totalSiCatePageSize = siCateSize / pageSize;
-    System.out.println("시 카테고리 전체 페이지 개수 " + totalSiCatePageSize);
-
-    if((siCateSize % pageSize) > 0) {
-      totalSiCatePageSize++;
-    }
-
-    try {
-      if (pageNo < 1  || pageNo > totalSiCatePageSize) {
-        pageNo = 1;
-      }
-    } catch (Exception e) {}
-
-    return new ResultMap().setStatus(SUCCESS).setPageNo(pageNo).setData(pickmeService.findSelectSiList(nameSi, pageNo, pageSize));
-  }
-
-  @RequestMapping("/pickme/selectedGucate") 
-  public Object selectedGucate(Pickme pickme, HttpSession session) {
-    log.info("구별 카테고리 리스트 조회");
-    return new ResultMap().setStatus(SUCCESS).setData(pickmeService.findSelectGuList(pickme));
+        new ResultMap()
+        .setStatus(SUCCESS)
+        .setTotalListCount(pickmeSize)
+        .setPageNo(pageNo)
+        .setTotalPageSize(totalPageSize)
+        .setData(pickmeService.list(pageSize, pageNo, nameSi, nameGu));
   }
 
   @RequestMapping("/pickme/add")
@@ -111,7 +74,7 @@ public class PickmeController {
     if (pickme == null) {
       return new ResultMap().setStatus(FAIL).setData("해당 번호의 게시글이 없습니다.");
     }
-    return new ResultMap().setStatus(SUCCESS).setData(pickme);
+    return new ResultMap().setStatus(SUCCESS).setData(pickme).setNo(no);
   }
 
   @RequestMapping("/pickme/update")

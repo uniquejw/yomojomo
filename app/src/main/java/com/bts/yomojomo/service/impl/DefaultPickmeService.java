@@ -23,18 +23,8 @@ public class DefaultPickmeService implements PickmeService{
   }
 
   @Override
-  public List<Pickme> list(int pageSize, int pageNo) {
-    return pickmeDao.findAll(pageSize, ((pageNo - 1) * pageSize));
-  }
-
-  @Override
-  public List<Pickme> findSelectSiList(String nameSi, int pageSize, int pageNo) {
-    return pickmeDao.selectedSicate(nameSi, pageSize, ((pageNo-1) * pageSize));
-  }
-
-  @Override
-  public List<Pickme> findSelectGuList(Pickme pickme) {
-    return pickmeDao.selectedGucate(pickme);
+  public List<Pickme> list(int pageSize, int pageNo, String nameSi, String nameGu) {
+    return pickmeDao.findAll(pageSize, ((pageNo - 1) * pageSize), nameSi, nameGu);
   }
 
   @Override
@@ -60,15 +50,8 @@ public class DefaultPickmeService implements PickmeService{
   }
 
   @Override
-  public int size() {
-    return pickmeDao.countAll();
+  public int size(String nameSi, String nameGu) {
+    return pickmeDao.countAll(nameSi, nameGu);
   }
-
-  @Override
-  public int siCateSize(String nameSi) {
-    return pickmeDao.countSiList(nameSi);
-  }
-
-
 
 }

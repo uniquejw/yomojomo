@@ -9,11 +9,7 @@ public interface PickmeService {
 
   int add(Pickme pickme);
 
-  List<Pickme> list(int pageSize, int pageNo);
-
-  List<Pickme> findSelectSiList(String nameSi, int pageNo, int pageSize);
-
-  List<Pickme> findSelectGuList(Pickme pickme);
+  List<Pickme> list(int pageSize, int pageNo, String nameSi, String nameGu);
 
   Pickme get(int no);
 
@@ -21,8 +17,6 @@ public interface PickmeService {
 
   int delete(Pickme pickme);
 
-  int size();
-
-  int siCateSize(String nameSi);
+  int size(String nameSi, String nameGu);
 
 }
