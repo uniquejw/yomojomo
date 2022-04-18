@@ -7,7 +7,6 @@
   <title>공지사항 상세</title>
   <link rel="stylesheet" href="../css/style.css">
   <link rel="stylesheet" href="/yoseob/css/style.css">
-  <script src="../../node_modules/jquery/dist/jquery.min.js"></script>
   <!-- css 초기화 -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
   <!-- 부트스트랩 -->
@@ -53,20 +52,6 @@
       <span class="material-icons">call</span>
       <span id="inquiry-btn" class ="announcement"><a>문의사항</a></span>
         </div>
-        <script>
-        document.querySelector("#faq-btn").onclick = function () {
-          location.href = "/yoseob/notice/faq_view.html";
-        };
-        document.querySelector("#announcement-btn").onclick = function () {
-          location.href = "/yoseob/notice/announcement.html";
-        };
-        document.querySelector("#information-btn").onclick = function () {
-          location.href = "/yoseob/notice/service_information.html";
-        };
-        document.querySelector("#inquiry-btn").onclick = function () {
-          location.href = "/yoseob/notice/inquiry.html";
-        };
-      </script>
         
         <div class = "announcement_title">
           <span class="announcement_head">공지사항</span>
@@ -89,3 +74,4 @@
        <div id="footer"></div>
 </body>
 </html>
+<script src="../js/location.js"></script>
