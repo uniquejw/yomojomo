@@ -4,8 +4,13 @@
 	display: block;
 	margin: 0px auto;
 }
+
 img {
-	display:inline-block;
+	display: inline-block;
+}
+
+.snsbtn{
+	margin-right:10px;
 }
 
 .button {
@@ -41,7 +46,7 @@ img {
 	margin-top: 50px;
 }
 
-.modal{
-	position:absolute;
-	top:50%;
+.modal {
+	position: absolute;
+	top: 50%;
 }
