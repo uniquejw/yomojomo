@@ -3,6 +3,9 @@ $(document).ready(function () {
   $('#footer').load('/junho/mainfooter.html'); //푸터부분 인클루드
 });
 
+// Member 정보 담을 배열
+var memberList = [];
+selesctData();
 // 전체선택 함수
 function selectAll(selectAll)  {
   const checkboxes 
@@ -35,8 +38,18 @@ function searchMember() {
     }
   }
 }
+var ulEL = document.querySelector(".list-group")
+    
+// 템플릿 엔진에서 사용할 HTML 조각을 가져오기
+var liTemplate = document.querySelector("#li-template");
+console.log(liTemplate)
+//템플릿 엔진 준비
+var htmlGenerator = Handlebars.compile(liTemplate.innerHTML);
 
-
+var listFirstStr = `<li class="list-group-item">
+<input class="form-check-input me-1" type="checkbox" value="selectAll" aria-label="..." name="member" onclick="selectAll(this)">
+<span style="padding: 5px;">전체선택</span>
+</li>`
 function selesctData() {
   var data = {"group.no" : 1};
   
@@ -46,10 +59,33 @@ function selesctData() {
     type: "POST",
     dataType: "json",
     success : function(result) {
-      console.log(result);
+      for(var i = 0; i < result.length; i++) {
+        memberList.push(result[i].member)
+      }
+      listFirstStr += htmlGenerator(memberList)
+      ulEL.innerHTML =listFirstStr;
     }      
   })
+  
 }
+
+function sendLinkCustom() {
+  Kakao.init("2b7fdb2b98c4e61592bd51f09cac1ca8");
+  Kakao.Link.sendCustom({
+      templateId: 75255 
+  });
+}
+
+
+
+
+
+
+
+
+
+
+
 
 
 
