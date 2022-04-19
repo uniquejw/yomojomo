@@ -70,78 +70,76 @@
           <br>
           <div>
           <br>
-          <div class="request-show">
-            <h3>요청중인 픽미</h3>
-            <br>
-            <div class="table-wrap d-flex flex-column">
-              <table class="table table-hover">
-                <thead>
-                  <tr>
-                    <th scope="col">선택</th>
-                    <th scope="col">제목</th>
-                    <th scope="col">상태</th>
-                    <th scope="col">요청일</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <th scope="col">
-                      <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                    </th>
-                    <td class="table-title">야구 한판 하시죠</td>
-                    <td class="status">요청중</td>
-                    <td>2999.99.99</td>
-                  </tr>
-                  <tr>
-                    <th scope="col">
-                      <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" disabled>
-                    </th>
-                    <td class="table-title">야구말고 축구하시죠</td>
-                    <td class="status text-primary">확인</td>
-                    <td>3999.99.99</td>
-                  </tr>
-                  <tr>
-                    <th scope="col">
-                      <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                    </th>
-                    <td class="table-title">축구말고 농구하시죠</td>
-                    <td class="status">요청중</td>
-                    <td>4999.99.99</td>
-                  </tr>
-                  <tr>
-                    <th scope="col">
-                      <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" disabled>
-                    </th>
-                    <td class="table-title">비트캠프에서 공부할 인재를 찾습니다</td>
-                    <td class="status text-primary">확인</td>
-                    <td>4999.99.99</td>
-                  </tr>
-                </tbody>
-              </table>
-              <div class="btn-wrap">
-                <button type="button" class="btn btn-danger btn-delete">요청취소</button>
-              </div>
-              <nav aria-label="Page navigation" >
-                <ul class="pagination">
-                  <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Previous">
-                      <span aria-hidden="true">&laquo;</span>
-                    </a>
-                  </li>
-                  <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                  <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Next">
-                      <span aria-hidden="true">&raquo;</span>
-                    </a>
-                  </li>
-                </ul>
-              </nav>
+          <h3>요청중인 픽미</h3>
+          <br>
+          <div class="request-table table-wrap d-flex flex-column">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th scope="col">선택</th>
+                  <th scope="col">제목</th>
+                  <th scope="col">상태</th>
+                  <th scope="col">요청일</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="col">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                  </th>
+                  <td class="table-title">야구 한판 하시죠</td>
+                  <td class="status">요청중</td>
+                  <td>2999.99.99</td>
+                </tr>
+                <tr>
+                  <th scope="col">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" disabled>
+                  </th>
+                  <td class="table-title">야구말고 축구하시죠</td>
+                  <td class="status text-primary">확인</td>
+                  <td>3999.99.99</td>
+                </tr>
+                <tr>
+                  <th scope="col">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                  </th>
+                  <td class="table-title">축구말고 농구하시죠</td>
+                  <td class="status">요청중</td>
+                  <td>4999.99.99</td>
+                </tr>
+                <tr>
+                  <th scope="col">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" disabled>
+                  </th>
+                  <td class="table-title">비트캠프에서 공부할 인재를 찾습니다</td>
+                  <td class="status text-primary">확인</td>
+                  <td>4999.99.99</td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="btn-wrap">
+              <button type="button" class="btn btn-primary btn-delete">요청취소</button>
             </div>
-            <br>
+            <nav aria-label="Page navigation" >
+              <ul class="pagination">
+                <li class="page-item">
+                  <a class="page-link" href="#" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                  </a>
+                </li>
+                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                <li class="page-item">
+                  <a class="page-link" href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                  </a>
+                </li>
+              </ul>
+            </nav>
           </div>
+          <br>
           <h3>픽미 게시글</h3>
           <br>
-          <div class="table-wrap d-flex flex-column">
+          <div class="pickme-table table-wrap d-flex flex-column">
             <table class="table table-hover">
               <thead>
                 <tr>
@@ -286,13 +284,6 @@
       },
       buttonsStyling: false
     })
-    const swadanger = Swal.mixin({
-      customClass: {
-        confirmButton: 'btn btn-danger mx-2',
-        cancelButton: 'btn btn-secondary mx-2'
-      },
-      buttonsStyling: false
-    })
 
     $(".card").children("img").click(function(e){
       location.href = "/ssang/groupBoard/index.html"
@@ -305,7 +296,7 @@
     })
 
     $(".table-title").click(function(e){
-      if ($(e.target.closest(".request-show")).hasClass("request-show") === true) {
+      if ($(e.target.closest(".request-table")).hasClass("request-table") === true) {
         if ($(e.target).siblings(".status").text() === "확인") {
           $(".request-title").attr("readonly",true)
           $(".request-content").attr("readonly",true)
@@ -343,7 +334,7 @@
       })
     $(".btn-reject").click(function(e){
       e.stopPropagation();
-      swadanger.fire({
+      swa.fire({
         title: '초대를 거절하시겠습니까?',
         icon: 'warning',
         showCancelButton: true,
@@ -387,44 +378,49 @@
         '글이 선택되지 않았습니다',
         '삭제할 글을 선택해주세요',
         'error'
-        )} else if($(e.target.closest(".request-show")).hasClass("request-show") === true){
-          swadanger.fire({
-          title: '정말 요청을 취소 하시겠습니까?',
-          icon: 'warning',
-          showCancelButton: true,
-          confirmButtonText: '요청취소',
-          cancelButtonText: '취소',
-        }).then((result) => {
-          if (result.isConfirmed) {
-            $("input:checkbox:checked").each(function(){
-              this.closest("tr").remove()
+        )} else {
+          if($(e.target.closest(".request-table")).hasClass("request-table") === true){
+            swa.fire({
+              title: '정말 요청을 취소 하시겠습니까?',
+              icon: 'warning',
+              showCancelButton: true,
+              confirmButtonText: '요청취소',
+              cancelButtonText: '취소',
+            }).then((result) => {
+              if (result.isConfirmed) {
+                $(".pickme-table").find("input").prop("checked", false)
+                $("input:checkbox:checked").each(function(){
+                  this.closest("tr").remove()
+                })
+                swa.fire(
+                  '요청이 취소되었습니다',
+                  '',
+                  'success'
+                )
+              }
             })
-            swa.fire(
-              '요청이 취소되었습니다',
-              '',
-              'success'
-            )
-          }
-        })
-        } else {
-        swa.fire({
-          title: '글을 삭제 하시겠습니까?',
-          icon: 'warning',
-          showCancelButton: true,
-          confirmButtonText: '삭제',
-          cancelButtonText: '취소',
-        }).then((result) => {
-          if (result.isConfirmed) {
-            $("input:checkbox:checked").each(function(){
-              this.closest("tr").remove()
-            })
-            swa.fire(
-              '삭제가 완료되었습니다',
-              '',
-              'success'
-            )
-          }
-        })
+          } 
+          if ($(e.target.closest(".pickme-table")).hasClass("pickme-table") === true) {
+          swa.fire({
+            title: '글을 삭제 하시겠습니까?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: '삭제',
+            cancelButtonText: '취소',
+          }).then((result) => {
+            if (result.isConfirmed) {
+              $(".request-table").find("input").prop("checked", false)
+              $("input:checkbox:checked").each(function(){
+                this.closest("tr").remove()
+              })
+              swa.fire(
+                '삭제가 완료되었습니다',
+                '',
+                'success'
+              )
+            }
+          })
+        }
       }
     })
   </script>
