@@ -7,19 +7,28 @@
   <!-- 테이블의 컬럼과 객체필드를 연결한다. -->
   <resultMap type="ApplyQuestion" id="ApplyQuestionMap">
     <id column="appl_question_no" property="no"/>
-    <result column="appl_no" property="applyNo"/>
+    <result column="g_no" property="groupNo"/>
     <result column="question_name" property="questionName"/>
   </resultMap>
 
   <select id="findAll" resultMap="ApplyQuestionMap"> 
     select
       appl_question_no,
-      appl_no,
+      g_no,
       question_name
     from
       gms_applyform_question
     order by
-      appl_no asc
+      g_no asc
+  </select>
+  
+  <select id="findQuestion" resultMap="ApplyQuestionMap" parameterType="int"> 
+     select
+      * 
+     from 
+      gms_applyform_question 
+     where 
+      g_no=#{no};
   </select>
   
   <select id="findByNo" resultMap="ApplyQuestionMap" parameterType="int">

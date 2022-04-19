@@ -5,7 +5,7 @@ import com.bts.yomojomo.domain.ApplyAnswer;
 
 public interface ApplyAnswerService {
 
-  int add(ApplyAnswer applyAnswer);
+  //  int add(ApplyAnswer applyAnswer);
 
   List<ApplyAnswer> list();
 

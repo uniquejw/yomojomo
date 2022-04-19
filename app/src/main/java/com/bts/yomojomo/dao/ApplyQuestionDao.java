@@ -10,6 +10,8 @@ public interface ApplyQuestionDao {
 
   List<ApplyQuestion> findAll();
 
+  List<ApplyQuestion> findQuestion(int no);
+
   int insert(ApplyQuestion applyQuestion);
 
   ApplyQuestion findByNo(int no);

@@ -8,6 +8,8 @@ public interface ApplyQuestionService {
   int add(ApplyQuestion applyQuestion);
 
   List<ApplyQuestion> list();
+
+  List<ApplyQuestion> findQuestion(int no);
   //
   //  ApplyQuestion get(int no);
   //

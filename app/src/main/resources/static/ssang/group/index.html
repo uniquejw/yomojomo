@@ -101,14 +101,12 @@
           <div class="report-img-div"><img alt="이리오너라" class="main-logo2"></div>
           <div class="report-form">
             <div class="report-form-title">가입신청서</div>
+            <form name="applyForm">
             <table>
-              <tbody id="handlebars-container2">
-                <tr>
-                  <td><span>하고싶은말</span></td>
-                </tr>
-              </tbody>
+              <tbody id="handlebars-container2"></tbody>
             </table>
             <textarea name="answer" id="" cols="40" rows="6" class="report-comment" placeholder="하고싶은 말"></textarea>
+            </form>
           </div><!--report-form-->
           <div><button id="apply" value="">가입하기</button></div>
         </div><!--report-popup-->
@@ -121,14 +119,12 @@
 
 <!-- =====================모임신청서 ============================-->
 <script id="applyList-template" type="text/x-handlebars-template">
-  <!-- {{#each this}} -->
-  {{#each question}}
+  {{#each this}}
     <tr>
       <td><span class="report-item">{{questionName}}</span></td>
-      <td><input type="text" name="answer"></td>
+      <td><input type="text" name="answer" data-qno="{{no}}"></td>
     </tr>
     {{/each}}
-  <!-- {{/each}} -->
 </script>
 <!--=============시,도 카테고리 생성 핸들 바==================-->
 <script id="optionSi-template" type="text/x-handlebars-template">

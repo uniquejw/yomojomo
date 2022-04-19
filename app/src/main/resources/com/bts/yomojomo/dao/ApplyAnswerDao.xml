@@ -21,7 +21,7 @@
     order by
       appl_answer asc
   </select>
-  
+  <!--
   <insert id="insert" >
     insert into gms_applyform_answer(appl_no, memb_no, answer)
     values 
@@ -29,7 +29,7 @@
     (#{answers.applyNo}, #{answers.writer.no} ,#{answers.answer}) 
     </foreach>
  </insert>
-  
+  -->
   <select id="findByNo" resultMap="ApplyAnswerMap" parameterType="int">
     select 
       appl_answer_no,

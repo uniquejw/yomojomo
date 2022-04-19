@@ -16,10 +16,10 @@ public class DefaultApplyAnswerService implements ApplyAnswerService {
   ApplyAnswerDao applyAnswerDao;
 
 
-  @Override
-  public int add(ApplyAnswer applyAnswer) {
-    return applyAnswerDao.insert(applyAnswer);
-  }
+  //  @Override
+  //  public int add(ApplyAnswer applyAnswer) {
+  //    return applyAnswerDao.insert(applyAnswer);
+  //  }
 
   @Override
   public List<ApplyAnswer> list() {

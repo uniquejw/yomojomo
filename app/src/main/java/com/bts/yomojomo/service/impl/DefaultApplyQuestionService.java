@@ -25,6 +25,11 @@ public class DefaultApplyQuestionService implements ApplyQuestionService {
   public List<ApplyQuestion> list() {
     return applyQuestionDao.findAll();
   }
+  @Override
+  public List<ApplyQuestion> findQuestion(int no) {
+
+    return applyQuestionDao.findQuestion(no);
+  }
   //
   //  @Override
   //  public ApplyQuestion get(int no) {
@@ -40,5 +45,6 @@ public class DefaultApplyQuestionService implements ApplyQuestionService {
   //  public int delete(int no) {
   //    return applyQuestionDao.delete(no);
   //  }
+
 
 }

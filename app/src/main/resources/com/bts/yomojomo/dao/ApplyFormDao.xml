@@ -29,18 +29,6 @@
     values(#{questionName},#{applyNo})
   </insert>
   
-  <select id="findQuestion" resultMap="ApplyFormMap" parameterType="int"> 
-    select
-      f.*,
-      quest.*
-    from
-      gms_applyform f
-	    right outer join
-	    (select q.* from gms_applyform_question q where q.appl_no = (select f.appl_no from gms_applyform f where f.g_no = #{no})) 
-	    as quest on f.appl_no = quest.appl_no
-    order by
-      quest.appl_question_no asc;
-  </select>
   
   
   <select id="findAll" resultMap="ApplyFormMap"> 

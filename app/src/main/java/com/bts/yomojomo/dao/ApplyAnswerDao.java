@@ -10,7 +10,7 @@ public interface ApplyAnswerDao {
 
   List<ApplyAnswer> findAll();
 
-  int insert(ApplyAnswer applyAnswer);
+  //  int insert(ApplyAnswer applyAnswer);
 
   ApplyAnswer findByNo(int no);
 

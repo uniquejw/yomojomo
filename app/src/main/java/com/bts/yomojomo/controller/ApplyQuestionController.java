@@ -1,5 +1,8 @@
 package com.bts.yomojomo.controller;
 
+import static com.bts.yomojomo.controller.ResultMap.FAIL;
+import static com.bts.yomojomo.controller.ResultMap.SUCCESS;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -11,9 +14,18 @@ public class ApplyQuestionController {
   @Autowired
   ApplyQuestionService applyQuestionService;
 
-  @RequestMapping("/applayQuestion/add")
+  @RequestMapping("/applyQuestion/add")
   public Object add(ApplyQuestion applayForm) {
     return applyQuestionService.add(applayForm);
+  }
+  //신청서의 질문 목록을 조회
+  @RequestMapping("/applyQuestion/findQuestion")
+  public Object findQuestion(int no) {
+    List<ApplyQuestion> applyquestion= applyQuestionService.findQuestion(no);
+    if (applyquestion == null) {
+      return new ResultMap().setStatus(FAIL).setData("해당되는 신청서가 없습니다.");
+    }
+    return new ResultMap().setStatus(SUCCESS).setData(applyquestion); 
   }
   //
   //  @RequestMapping("/applayQuestion/get")

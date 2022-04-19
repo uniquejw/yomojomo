@@ -211,14 +211,14 @@ $(document).on("click","#apply-form-btn",function(){
       var path2 = "/group/photo?filename=" + result.data.logo
       document.querySelector('.main-logo2').setAttribute("src", path2)
     });
-    
+
   // 질문목록
-  fetch(`/applyform/findQuestion?no=${value}`)
+  fetch(`/applyQuestion/findQuestion?no=${value}`)
     .then(function(res) {
       return res.json();
     })
     .then(function(result) {
-      console.log(result.data[0])
+      console.log(result.data)
       if (result.status == "fail") {
         window.alert("서버 요청 오류!");
         return;
@@ -229,36 +229,39 @@ $(document).on("click","#apply-form-btn",function(){
       var divTemplate = document.querySelector("#applyList-template");
       var htmlGenerator = Handlebars.compile(divTemplate.innerHTML);
       writtenContainer.innerHTML = htmlGenerator(result.data);
-      $('#apply').val(result.data[0].no);
+      // console.log(htmlGenerator(result.data))
     });
 
 //신청하기
 $(document).on("click","#apply",function(){
-  var value = $(this).val();//appl_no
-  // var fd = new FormData();
-  var answerLength = $("input[name=answer]").length;//값들의 갯수 -> 배열 길이를 지정
-  var answers = new Array(answerLength);//배열 생성
-  //배열에 값 주입
-  for(var i=0; i<answerLength; i++){                          
-    answers[i] = $("input[name=answer]").eq(i).val();
-  }
-  // fd.append('answer',answers)
-  // fd.append('answer',document.querySelector("textarea[name=answer]").value)
-  // fd.append('applyNo',value)
-  answers.push(document.querySelector("textarea[name=answer]").value)
-  console.log(answers)
-  fetch('/applyAnswer/add',{
-    method:"POST",
-    body: {
-      'answers':`${answers}`,
-      'applyNo':`${value}`
-    }
-  })
-  .then(function(res){
-    return res.json()
-  }).then(function(result){
-    location.href="/minkyu/mypage/index.html"
-   })
+ var fd = new FormData(document.forms.namedItem("applyForm"))
+ console.log(new URLSearchParams(fd).toString())
+ console.log
+  // var value = $(this).val();//appl_no
+  // // var fd = new FormData();
+  // var answerLength = $("input[name=answer]").length;//값들의 갯수 -> 배열 길이를 지정
+  // var answers = new Array(answerLength);//배열 생성
+  // //배열에 값 주입
+  // for(var i=0; i<answerLength; i++){                          
+  //   answers[i] = $("input[name=answer]").eq(i).val();
+  // }
+  // // fd.append('answer',answers)
+  // // fd.append('answer',document.querySelector("textarea[name=answer]").value)
+  // // fd.append('applyNo',value)
+  // answers.push(document.querySelector("textarea[name=answer]").value)
+  // console.log(answers)
+  // fetch('/applyAnswer/add',{
+  //   method:"POST",
+  //   body: {
+  //     'answers':`${answers}`,
+  //     'applyNo':`${value}`
+  //   }
+  // })
+  // .then(function(res){
+  //   return res.json()
+  // }).then(function(result){
+  //   location.href="/minkyu/mypage/index.html"
+  //  })
 })
 
 
@@ -298,4 +301,4 @@ function close() {
       // $(document).on("click",".board-edit",function(){
       //   window.location.href = "view.html";
       // })
-
+})
