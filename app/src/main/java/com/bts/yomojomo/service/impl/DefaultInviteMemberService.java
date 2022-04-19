@@ -14,8 +14,8 @@ public class DefaultInviteMemberService implements InviteMemberService{
   InviteMemberDao inviteMemberDao;
 
   @Override
-  public List<InviteMember> memberlistByGroup() {
-    return inviteMemberDao.findAll();
+  public List<InviteMember> memberlistByGroup(InviteMember invitemember) {
+    return inviteMemberDao.findAll(invitemember);
   }
 
 

@@ -6,5 +6,5 @@ import com.bts.yomojomo.domain.InviteMember;
 
 @Mapper
 public interface InviteMemberDao {
-  List<InviteMember> findAll();
+  List<InviteMember> findAll(InviteMember invitemember);
 }
