@@ -12,7 +12,9 @@
     <thead>
       <tr>
         <th>번호</th>
-        <th>관심 직군명</th>
+        <th>제목</th>
+        <th>내용</th>
+        <!-- <th>유형</th> -->
       </tr>
     </thead>
     <tbody class="tbodyEl">
@@ -20,22 +22,28 @@
   </table>
   <button type="button"><a href="form.html">등록하기</a></button>
   <script>
-    var xname = document.querySelector('.name')
+    var xno = document.querySelector('.no')
+    // var xcate = document.querySelector('.cate')
+    var xtitle = document.querySelector('.title')
+    var xcontent = document.querySelector('.content')
     var tbody = document.querySelector('.tbodyEl')
     
-      fetch("/itrjobgroup/list")
+      fetch("/notice/list")
       .then(function(response) {
         return response.json();
       })
-      .then(function(itrjobgroups) {
-        for(var itrjobgroup of itrjobgroups){
-          console.log(itrjobgroup.name)
+      .then(function(notices) {
+        for(var i = 0; i < notices.length; i++){
+          
 
           var tr = document.createElement('tr')
           tr.innerHTML = 
-            `<td>${itrjobgroup.no}</td>
-            <td><a href="view.html?no=${itrjobgroup.no}">${itrjobgroup.name}</a>
-            </td>`
+            `<td>${notices[i].no}</td>
+            <td><a href="view.html?no=${notices[i].no}">
+            ${notices[i].title}</a>
+            <td>${notices[i].content}</td>
+            </td>
+            `
             tbody.appendChild(tr)
         }
       })

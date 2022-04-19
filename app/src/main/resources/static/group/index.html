@@ -39,7 +39,7 @@
 			return response.json();
 		})
 		.then(function(groups){
-			for (var group of groups){
+			for (var i =0; i < groups.length; i++){
 				console.log(group.name)
 			var tr = document.createElement("tr");
 			tr.innerHTML = `<td>${group.no}</td>

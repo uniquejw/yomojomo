@@ -53,10 +53,15 @@
       <span id="inquiry-btn" class ="announcement"><a>문의사항</a></span>
     </div>
         
-        <div class = "announcement_title">
-          <span>공지사항</span>
+          <div class = "announcement_title">
+            <span style="vertical-align: middle;">공지사항</span>
+            <span><button id="x-create-btn" type="button" style="float: right; margin-bottom: 20px;" class="btn btn-primary">등록</button></span>
           </div>
-        
+          <script>
+            document.querySelector("#x-create-btn").onclick = function(){
+            location.href="announcement_form.html";
+              };
+          </script>
         <table class = "announcement_table">
           <thead>
             <tr>

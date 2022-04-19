@@ -12,6 +12,7 @@
     <association property="member" javaType="Member"> <!-- gms_member -->
       <id column = "mno" property="no"/>
       <result column="mname" property="memberName"/>
+      <result column="mtel" property="tel"/>
     </association>
   </resultMap>
 

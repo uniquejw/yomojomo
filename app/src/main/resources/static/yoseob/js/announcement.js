@@ -10,11 +10,16 @@ function allList() {
       for (var i = 0; i < boards.length; i++) {
         var tr = document.createElement("tr")
         // div.classList.add("card-body")
-        tr.innerHTML = `
-        <td>${boards[i].no}</td><td>${boards[i].cate}</td><td>${boards[i].title}</td><td>${boards[i].regDate}</td>
+        tr.innerHTML = 
+        `
+        <td>${boards[i].no}</td><td>${boards[i].cate}</td>
+        <td><a href="announcement_view.html?no=${boards[i].no}">${boards[i].title}</td></a>
+        <td>${boards[i].regDate}</td>
         `
         boardCardDiv.appendChild(tr)
       }
     })
 }
+
+
 

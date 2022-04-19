@@ -10,8 +10,12 @@
   <h1>관심직군 상세</h1>
   <span>번호</span>
   <input type="text" class ="no"><br>
-  <span>관심 직군명</span>
-  <input type="text" class ="name"><br>
+  <span>유형</span>
+  <input type="text" class ="cate"><br>
+  <span>제목</span>
+  <input type="text" class ="title"><br>
+  <span>내용</span>
+  <input type="text" class="content">
   <button type = "button"  class="update-btn">수정하기</button>
   <button type = "button"  class="delete-btn">삭제하기</button>
   <button type = "button"  class="cancel-btn">취소하기</button>
@@ -30,7 +34,9 @@
   var params = new URLSearchParams(qs)
   var no = params.get('no')
   var xNo = document.querySelector('.no')
-  var xName = document.querySelector('.name')
+  var xCate = document.querySelector('.cate')
+  var xTitle = document.querySelector('.title')
+  var xContent = document.querySelector('.content')
   console.log(no)
   
   if (no == null) {
@@ -38,17 +44,18 @@
     throw  "오류!"
   }
 
-  fetch(`/itrjobgroup/get?no=${no}`)
+  fetch(`/notice/get?no=${no}`)
   .then(function(response) {
     return response.json()
   })
-  .then(function(itrJobGroup){
-    xNo.value = itrJobGroup.no
-    xName.value = itrJobGroup.name
+  .then(function(notice){
+    xNo.value = notice.no
+    xTitle.value = notice.title
+    xContent.value = notice.content
 
   }) 
   document.querySelector('.update-btn').addEventListener('click', function() {
-    fetch(`/itrjobgroup/update?name=${xName.value}&no=${xNo.value}`)
+    fetch(`/notice/update?no=${xNo.value}&cate=${xCate.value}&title=${xTitle.value}&content=${xContent.value}`)
     .then(function(response){
       return response.text()
     })
@@ -59,7 +66,7 @@
     })
   })
   document.querySelector('.delete-btn').addEventListener('click', function() {
-    fetch(`/itrjobgroup/delete?no=${xNo.value}`)
+    fetch(`/notice/delete?no=${xNo.value}`)
     .then(function(response){
       return response.text()
     })
