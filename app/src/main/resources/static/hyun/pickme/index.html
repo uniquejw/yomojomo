@@ -16,7 +16,7 @@
 
   <style>
     #body-content{ 
-      padding-top: 10vh;
+      padding-top: 15vh;
       height: 85vh;
       position: relative;
     }
@@ -35,6 +35,10 @@
     table > tbody > tr > td {
       text-align: center;
     }
+    #listnone {
+      font-size: x-large;
+      text-align: center;
+    }
   </style>   
 </head>
 
@@ -45,17 +49,17 @@
 <div id="body-content">
   <div class="inner">
     <div id="#">
-      <div id="localSelect"> <!--지역선택-->
+      <div id="localSelect">
         <select name="nameSi" id="nameSi" class="form-select form-select-sm" aria-label=".form-select-sm example"></select>
         <select name="nameGu" id="nameGu" class="form-select form-select-sm" aria-label=".form-select-sm example"></select>
       </div>
 
-      <div id="search">
-        <form class="d-flex"> <!--검색창-->
+      <!-- <div id="search">
+        <form class="d-flex"> 
           <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
           <button class="btn btn-primary btn-sm" type="submit">Search</button>
         </form>
-      </div>
+      </div> -->
     </div>
   
     <div id="content" class="table-responsive-lg">
@@ -74,12 +78,14 @@
         <tbody></tbody>
       </table>
     </div>
+    <div id="listnone">
+      <h1>작성된 글이 없습니다.<br></h1>
+    </div>
     <button id="x-create-btn" type="button" style="float: right" class="btn btn-primary">등록</button>
     
     <!--페이지 네이션-->
     <nav aria-label="Page navigation example">
       <ul class="pagination justify-content-center" id="pagination-ul">
-
       </ul>
     </nav><!--페이지 네이션-->
 
@@ -88,139 +94,20 @@
 
 <div id="footer"></div>
 
-<!--공통헤더 제이쿼리-->
-<script type="text/javascript">
-  $(document).ready(function () {
-      $('#header').load('/junho/mainHeader.html'); //헤더 인클루드
-      $('#footer').load('/junho/mainfooter.html'); //헤더 인클루드
-
-      $.ajax({ //로그인 여부 확인 ajax START 비회원은 등록버튼 감춘다.
-        url : "/member/getLoginUser",
-        type : "POST",
-        datatype : "json",
-        success : function(result) {
-          if (result.status == "fail") {
-            $("#x-create-btn").hide(); 
-          } 
-        }
-      }); //로그인 여부 확인 ajax END
-
-  //전체 목록 불러오기 START
-  $.ajax({
-    url : "/pickme/list",
-    type : "POST",
-    datatype : "json",
-    data : {"pageSize" : 10,
-            "pageNo" : 1},
-    success : function(result) {
-      // console.log(result.data);
-      tbody.innerHTML = htmlGenerator(result.data);                
-    }
-  })
-  //전체 목록 불러오기 END
-
-  //페이지 네이션 만들기
-  let pagenationUl = document.querySelector("#pagination-ul");
-  let pagetemplate = document.querySelector("#pageli-template");
-  let pageGernerator = Handlebars.compile(pagetemplate.innerHTML);
-
-  $.ajax({ //전체 리스트 불러왔을 때 페이지네이션
-    url : "/pickme/count",
-    type : "POST",
-    success : function(result) {
-      let boardCnt = result.data;
-      // parseInt(boardCnt)
-      var clickpage = result.pageNo;
-
-      if (clickpage == 0) {
-        clickpage += 1;
-      }
-    
-      let totalpage = parseInt(boardCnt / 10);
-
-      if ((boardCnt % totalpage) > 0) {
-        parseInt(totalpage++);
-      }
-
-      //2차원 배열 생성
-      let totalpageArr = [];
-      for (i = 1; i <= totalpage; i++) {
-        totalpageArr.push({"no" : i, "pageNo" : `${i}`})            
-      }
-
-    // console.log(totalpageArr);          
-      pagenationUl.innerHTML = pageGernerator(totalpageArr);
-
-    //페이지네이션 숫자 값으로 목록 불러오기 
-      $(document).on("click", "#pageNoBtn", function() {
-        // console.log("클릭");        
-        $.ajax({
-          url : "/pickme/list",
-          type : "POST",
-          datatype : "json",
-          data : {"pageSize" : 10,
-                  "pageNo" : $(this).attr('value')},
-          success : function(result) {
-            tbody.innerHTML = htmlGenerator(result.data);
-            clickpage = result.pageNo;
-          }
-        })//페이지네이션 ajax 값
-      })//페이지네이션 숫자 클릭이벤트 END
-    
-      //페이지네이션 처음 끝 클릭 event
-      $(document).on("click", "#pageStr", function() {
-        // console.log($(this).attr('value'));
-
-        if ($(this).attr('value') == "startpage") {
-          $.ajax({
-            url : "/pickme/list",
-            type : "POST",
-            datatype : "json",
-            data : {"pageSize" : 10,
-                    "pageNo" : 1},
-            success : function(result) {
-              // console.log(result.data);
-              tbody.innerHTML = htmlGenerator(result.data);                
-            }
-          })
-          
-        } else {
-          $.ajax({
-            url : "/pickme/list",
-            type : "POST",
-            datatype : "json",
-            data : {"pageSize" : 10,
-                    "pageNo" : totalpage},
-            success : function(result) {
-              // console.log(result.data);
-              tbody.innerHTML = htmlGenerator(result.data);                
-            }
-          })
-        }
-      }) //페이지네이션 처음 끝 클릭 event END
-
-
-
-    }//페이지네이션 success END
-  })//페이지네이션 ajax END
-
-  });//document.ready() END
-</script>
-
-<!--페이지네이션 생성 핸들 바-->
+<!--전체 페이지네이션 생성 핸들 바-->
 <script id="pageli-template" type="text/x-handlebars-template">
-  <li class="page-item" id="startpageli">
-    <button class="page-link" type="button" id="pageStr" value="startpage">처음</button>
+  <li class="page-item" id="startpageli" >
+    <button class="page-link page-first-link" type="button" id="page-Btn" value="1"><<</button>
   </li>
   {{#each this}}
-  <li class="page-item" id="pageli"><button type="button" class="page-link" id="pageNoBtn" value="{{no}}">{{pageNo}}</button></li>
+  <li class="page-item" id="pageli"><button type="button" id="page-Btn" class="page-link" value="{{no}}">{{totalPageSize}}</button></li>
   {{/each}}
   
   <li class="page-item" id="endpageli">
-    <button class="page-link" type="button" id="pageStr" value="endpage">끝</button>
+    <button class="page-link page-end-link" type="button" id="page-Btn" value="">>></button>
   </li>
 </script>
-<!--페이지네이션 생성 핸들 바-->
+<!--전체 페이지네이션 생성 핸들 바-->
 
 <!--시,도 카테고리 생성 핸들 바-->
 <script id="optionSi-template" type="text/x-handlebars-template">
@@ -240,7 +127,7 @@
 </script>
 <!--군, 구 카테고리 생성 핸들 바 END-->
 
-<!--지역별 게시글 list-->
+<!--게시글 list-->
 <script id="tr-template" type="text/x-handlebars-template">
   {{#each this}}
   <tr>
@@ -254,16 +141,36 @@
   </tr>
   {{/each}}
 </script>
-<!--지역별 게시글 list END-->
-
-
+<!--게시글 list END-->
 
 <script>
+let pagenationUl = document.querySelector("#pagination-ul");
+let pagetemplate = document.querySelector("#pageli-template");
+let pageGernerator = Handlebars.compile(pagetemplate.innerHTML);
+
+$(document).ready(function () {
+  $('#header').load('/junho/mainHeader.html'); //헤더 인클루드
+  $('#footer').load('/junho/mainfooter.html'); //푸터 인클루드
+
+  $.ajax({ //로그인 여부 확인 ajax START 비회원은 등록버튼 감춘다.
+    url : "/member/getLoginUser",
+    type : "POST",
+    datatype : "json",
+    success : function(result) {
+      if (result.status == "fail") {
+        $("#x-create-btn").hide(); 
+      } 
+    }
+  }); //로그인 여부 확인 ajax END
+
+  $("#listnone").hide();
+});//document.ready() END
+
+
 //시,도 카테고리 불러오기
 let selectSiList = document.querySelector("#nameSi");
 let selectSiOption = document.querySelector("#optionSi-template");
 let siopGernerator = Handlebars.compile(selectSiOption.innerHTML);
-
 $.ajax({
   url : "/activeLocal/silistcate",
   type : "POST",
@@ -279,7 +186,6 @@ $.ajax({
 let selectGuList = document.querySelector("#nameGu");
 let selectGuOption = document.querySelector("#optionGu-template");
 let guopGernerator = Handlebars.compile(selectGuOption.innerHTML);
-
 $(document).on("click", "#nameSi", function() {
   // console.log("바뀜");
   $.ajax({
@@ -295,13 +201,98 @@ $(document).on("click", "#nameSi", function() {
 }); //nameSi change End
 //군,구 카테고리 카테고리 불러오기 END
 
-//카테고리에서 전체를 선택하면 게시글 리스트 불러오기
+//카테고리에서 시 선택하면 게시글 리스트 불러오기 - 전체이거나 시를 선택하거나
 let tbody = document.querySelector("#x-board-table tbody");
 let trTemplate = document.querySelector("#tr-template");  
 let htmlGenerator = Handlebars.compile(trTemplate.innerHTML);
 
-$("#nameSi").on("click", function() {  
-  if ($("#nameSi option:selected").val() == 0) {
+//전체 리스트 불러오기 START
+$.ajax({
+  url : "/pickme/list",
+  type : "POST",
+  datatype : "json",
+  data : {"pageSize" : 10,
+          "pageNo" : 1},
+  success : function(result) {
+    // console.log(result);
+    tbody.innerHTML = htmlGenerator(result.data);    
+    totalListCount = result.totalListCount;
+    totalPageSize = result.totalPageSize;
+    requestPageNo = result.pageNo;
+
+    if(totalListCount == 0) {
+      $("#listnone").show();
+    }
+
+    if (totalPageSize <= 1) {
+      $("#pagination-ul li").hide();
+    } else { //페이지가 하나 이상이라면
+      $("#pagination-ul li").show();
+
+      //페이지네이션 번호 만들 2차원 배열 생성
+      let totalpageArr = [];
+      for (i = 1; i <= totalPageSize; i++) {
+        totalpageArr.push({"no" : i, "totalPageSize" : `${i}`})            
+      }
+      // console.log(totalpageArr);
+
+      //페이지네이션 생성됨
+      pagenationUl.innerHTML = pageGernerator(totalpageArr);
+      
+      //페이지네이션 ul 밑에 있는 버튼들 모두 찾음
+      var pagenationBtn = document.querySelectorAll("#pagination-ul .page-item #page-Btn");
+      var pagenationFirstBtn = document.querySelector("#pagination-ul .page-item .page-first-link")
+      var pagenationLastBtn = document.querySelector("#pagination-ul .page-item .page-end-link")
+
+      $(pagenationLastBtn).val(totalPageSize); //마지막 버튼에 값 넣기
+
+      $(pagenationBtn).on("click", function() { //pagenationBtn click event START
+        // console.log("클릭");
+        requestPageNo = $(this).attr("value");
+        
+        // console.log(requestPageNo);
+        // console.log(totalPageSize);
+
+        //요청 페이지 번호가 1번이라면 첫번째 버튼을 disabled or hide 설정한다. 
+        if( requestPageNo == 1) {
+          // $("#pagination-ul .page-item .page-first-link").prop("disabled", true);
+          $("#pagination-ul .page-item .page-first-link").hide();
+        } else {
+          // $("#pagination-ul .page-item .page-first-link").prop("disabled", false);
+          $("#pagination-ul .page-item .page-first-link").show();
+        }
+
+        //요청 페이지 번호가 마지막이라면 마지막 버튼을 disabled or hide 설정한다. 
+        if ( requestPageNo == totalPageSize ) {
+          // $("#pagination-ul .page-item .page-end-link").prop("disabled", true);
+          $("#pagination-ul .page-item .page-end-link").hide();
+        } else {
+          // $("#pagination-ul .page-item .page-end-link").prop("disabled", false);
+          $("#pagination-ul .page-item .page-end-link").show();
+        }
+
+        $.ajax({
+          url : "/pickme/list",
+          type : "POST",
+          datatype : "json",
+          data : {"pageSize" : 10,
+                  "pageNo" : requestPageNo},
+          success : function(result) {
+            console.log(result);
+            tbody.innerHTML = htmlGenerator(result.data);
+          }//success END
+        })//list요청 ajax END
+      })//pagenationBtn click event END
+    }
+  } //전체 목록 불러오기 success END
+})//전체 리스트 불러오기 END
+//전체 리스트 불러오기 END
+
+//시별 리스트 불러오기 START
+$("#nameSi").on("change", function() {
+  $("#listnone").hide();
+  if ($("#nameSi option:selected").val() == 0) { //if 시 카테고리가 전체 일 때 
+    console.log("시 전체 클릭");
     $.ajax({
       url : "/pickme/list",
       type : "POST",
@@ -309,57 +300,265 @@ $("#nameSi").on("click", function() {
       data : {"pageSize" : 10,
               "pageNo" : 1},
       success : function(result) {
-        console.log(result.data);
+        // console.log(result);
         tbody.innerHTML = htmlGenerator(result.data);
-      }
-    })
-  }
-});
-//카테고리에서 전체를 선택하면 게시글 리스트 불러오기 END
 
-// 시, 도 카테고리 선택하면 게시글 리스트 불러오기
-$("#nameSi").on("click", function() {
-  $.ajax({
-    url : "/pickme/selectedSicate",
-    type : "POST",
-    async : false,
-    data : {
-      "pageNo" : 1,
-      "pageSize" : 10,
-      "nameSi" : $("#nameSi option:selected").val()},
-    success : function(result) {
-      console.log(result.data);
-      tbody.innerHTML = htmlGenerator(result.data);
-    }
-  }) //ajax END
-});//nameSi change End
-// 시, 도 카테고리 선택하면 게시글 리스트 불러오기 END
+        totalListCount = result.totalListCount;
+        totalPageSize = result.totalPageSize;
+        requestPageNo = result.pageNo;
 
+        if(totalListCount == 0) {
+          $("#listnone").show();
+        }
 
-// 군, 구 카테고리 선택하면 게시글 리스트 불러오기
-$("#nameGu").on("click", function() {
-  if ($("#nameGu option:selected").text() != "군구 선택") {
+        if (totalPageSize < 1) {
+          $("#pagination-ul li").hide();      
+        } else {
+          $("#pagination-ul li").show();
+
+          //페이지네이션 번호 만들 2차원 배열 생성
+          let totalpageArr = [];
+          for (i = 1; i <= totalPageSize; i++) {
+            totalpageArr.push({"no" : i, "totalPageSize" : `${i}`})            
+          }
+          // console.log(totalpageArr);
+
+          //페이지네이션 생성됨
+          pagenationUl.innerHTML = pageGernerator(totalpageArr);
+          
+          //페이지네이션 ul 밑에 있는 버튼들 모두 찾음
+          var pagenationBtn = document.querySelectorAll("#pagination-ul .page-item #page-Btn");
+          var pagenationFirstBtn = document.querySelector("#pagination-ul .page-item .page-first-link")
+          var pagenationLastBtn = document.querySelector("#pagination-ul .page-item .page-end-link")
+
+          $(pagenationLastBtn).val(totalPageSize); //마지막 버튼에 값 넣기
+
+          $(pagenationBtn).on("click", function() { //pagenationBtn click event START
+            // console.log("클릭");
+            requestPageNo = $(this).attr("value");
+            // console.log(requestPageNo);
+            // console.log(totalPageSize);
+
+          //요청 페이지 번호가 1번이라면 첫번째 버튼을 disabled or hide 설정한다. 
+          if( requestPageNo == 1) {
+            // $("#pagination-ul .page-item .page-first-link").prop("disabled", true);
+            $("#pagination-ul .page-item .page-first-link").hide();
+          } else {
+            // $("#pagination-ul .page-item .page-first-link").prop("disabled", false);
+            $("#pagination-ul .page-item .page-first-link").show();
+          }
+
+          //요청 페이지 번호가 마지막이라면 마지막 버튼을 disabled or hide 설정한다. 
+          if ( requestPageNo == totalPageSize ) {
+            // $("#pagination-ul .page-item .page-end-link").prop("disabled", true);
+            $("#pagination-ul .page-item .page-end-link").hide();
+          } else {
+            // $("#pagination-ul .page-item .page-end-link").prop("disabled", false);
+            $("#pagination-ul .page-item .page-end-link").show();
+          }
+
+            $.ajax({
+              url : "/pickme/list",
+              type : "POST",
+              datatype : "json",
+              data : {"pageSize" : 10,
+                      "pageNo" : requestPageNo},
+              success : function(result) {
+                console.log(result);
+                tbody.innerHTML = htmlGenerator(result.data);
+              }//success END
+            })//list요청 ajax END
+          })//pagenationBtn click event END
+        }
+      } //전체 목록 불러오기 success END
+    })//전체 리스트 불러오기 END  
+  
+  } else {
+    // console.log("시 카테고리 : " + $("#nameSi option:selected").val());
+    $("#listnone").hide();
     $.ajax({
-      url : "/pickme/selectedGucate", //url 요청
-      type : "POST",
-      async : false,
-      data : {"activeLocal.no" : $("#nameGu option:selected").val()}, 
-      success : function(result) { 
-        // console.log(result.data);
-        tbody.innerHTML = htmlGenerator(result.data);
-      }
-    }) //ajax END
-  } //if END
-});//nameGu change End
-// 군, 구 카테고리 선택하면 게시글 리스트 불러오기 END
+    url : "/pickme/list",
+    type : "POST",
+    datatype : "json",
+    data : {"pageSize" : 10,
+            "pageNo" : 1,
+            "nameSi" : $("#nameSi option:selected").val()},
+    success : function(result) {
+      // console.log(result);
+      tbody.innerHTML = htmlGenerator(result.data);      
+      totalListCount = result.totalListCount;
+      totalPageSize = result.totalPageSize;
+      requestPageNo = result.pageNo;
 
+      if(totalListCount == 0) {
+        $("#listnone").show();
+      }
+
+      // console.log("시 카테고리 페이지 개수" + totalPageSize);
+      if (totalPageSize <= 1) {
+        $("#pagination-ul li").hide();
+      } else {
+        $("#pagination-ul li").show();
+        
+        //페이지네이션 번호 만들 2차원 배열 생성
+        let totalpageArr = [];
+        for (i = 1; i <= totalPageSize; i++) {
+          totalpageArr.push({"no" : i, "totalPageSize" : `${i}`})            
+        }
+        // console.log(totalpageArr);
+
+        //페이지네이션 생성됨
+        pagenationUl.innerHTML = pageGernerator(totalpageArr);
+        
+        //페이지네이션 ul 밑에 있는 버튼들 모두 찾음
+        var pagenationBtn = document.querySelectorAll("#pagination-ul .page-item #page-Btn");
+        var pagenationFirstBtn = document.querySelector("#pagination-ul .page-item .page-first-link")
+        var pagenationLastBtn = document.querySelector("#pagination-ul .page-item .page-end-link")
+
+        $(pagenationLastBtn).val(totalPageSize); //마지막 버튼에 값 넣기
+
+        $(pagenationBtn).on("click", function() { //pagenationBtn click event START
+          // console.log("클릭");
+
+          requestPageNo = $(this).attr("value");
+          // console.log(requestPageNo);
+          // console.log(totalPageSize);
+
+        //요청 페이지 번호가 1번이라면 첫번째 버튼을 disabled or hide 설정한다. 
+        if( requestPageNo == 1) {
+          // $("#pagination-ul .page-item .page-first-link").prop("disabled", true);
+          $("#pagination-ul .page-item .page-first-link").hide();
+        } else {
+          // $("#pagination-ul .page-item .page-first-link").prop("disabled", false);
+          $("#pagination-ul .page-item .page-first-link").show();
+        }
+
+        //요청 페이지 번호가 마지막이라면 마지막 버튼을 disabled or hide 설정한다. 
+        if ( requestPageNo == totalPageSize ) {
+          // $("#pagination-ul .page-item .page-end-link").prop("disabled", true);
+          $("#pagination-ul .page-item .page-end-link").hide();
+        } else {
+          // $("#pagination-ul .page-item .page-end-link").prop("disabled", false);
+          $("#pagination-ul .page-item .page-end-link").show();
+        }
+
+          $.ajax({
+            url : "/pickme/list",
+            type : "POST",
+            datatype : "json",
+            data : {"pageSize" : 10,
+                    "pageNo" : requestPageNo,
+                    "nameSi" : $("#nameSi option:selected").val()},
+            success : function(result) {
+              console.log(result);
+              tbody.innerHTML = htmlGenerator(result.data);
+            }//success END
+          })//list요청 ajax END
+        })//pagenationBtn click event END
+      } //페이지수가 1개 이하 else END
+    } //시별 목록 불러오기 success END
+  })//시별 목록 불러오기 END
+  } //시 카테고리에서 특정 시를 클릭 했을 때 END
+}); //시 카테고리 클릭 이벤트 END
+//시별 리스트 불러오기 END
+
+//구별 리스트 불러오기 START
+$("#nameGu").on("click", function() {
+  $("#listnone").hide();
+  // console.log("클릭함");
+  // console.log("시 카테고리 : " + $("#nameGu option:selected").val());
+  $.ajax({
+    url : "/pickme/list",
+    type : "POST",
+    datatype : "json",
+    data : {"pageSize" : 10,
+            "pageNo" : 1,
+            "nameSi" : $("#nameSi option:selected").val(),
+            "nameGu" : $("#nameGu option:selected").val()},
+    success : function(result) {
+      // console.log(result);
+      tbody.innerHTML = htmlGenerator(result.data);
+      
+      totalListCount = result.totalListCount;
+      totalPageSize = result.totalPageSize;
+      requestPageNo = result.pageNo;
+
+      if(totalListCount == 0) {
+        $("#listnone").show();
+      }
+
+      // console.log("시 카테고리 페이지 개수" + totalPageSize);
+      if (totalPageSize <= 1) {
+        $("#pagination-ul li").hide();
+      
+      } else {
+        // $("#pagination-ul li").show();
+        
+        //페이지네이션 번호 만들 2차원 배열 생성
+        let totalpageArr = [];
+        for (i = 1; i <= totalPageSize; i++) {
+          totalpageArr.push({"no" : i, "totalPageSize" : `${i}`})            
+        }
+        // console.log(totalpageArr);
+
+        //페이지네이션 생성됨
+        pagenationUl.innerHTML = pageGernerator(totalpageArr);
+        
+        //페이지네이션 ul 밑에 있는 버튼들 모두 찾음
+        var pagenationBtn = document.querySelectorAll("#pagination-ul .page-item #page-Btn");
+        var pagenationFirstBtn = document.querySelector("#pagination-ul .page-item .page-first-link")
+        var pagenationLastBtn = document.querySelector("#pagination-ul .page-item .page-end-link")
+
+        $(pagenationLastBtn).val(totalPageSize); //마지막 버튼에 값 넣기
+
+        $(pagenationBtn).on("click", function() { //pagenationBtn click event START
+          // console.log("클릭");
+
+          requestPageNo = $(this).attr("value");
+          // console.log(requestPageNo);
+          // console.log(totalPageSize);
+
+        //요청 페이지 번호가 1번이라면 첫번째 버튼을 disabled or hide 설정한다. 
+        if( requestPageNo == 1) {
+          // $("#pagination-ul .page-item .page-first-link").prop("disabled", true);
+          $("#pagination-ul .page-item .page-first-link").hide();
+        } else {
+          // $("#pagination-ul .page-item .page-first-link").prop("disabled", false);
+          $("#pagination-ul .page-item .page-first-link").show();
+        }
+
+        //요청 페이지 번호가 마지막이라면 마지막 버튼을 disabled or hide 설정한다. 
+        if ( requestPageNo == totalPageSize ) {
+          // $("#pagination-ul .page-item .page-end-link").prop("disabled", true);
+          $("#pagination-ul .page-item .page-end-link").hide();
+        } else {
+          // $("#pagination-ul .page-item .page-end-link").prop("disabled", false);
+          $("#pagination-ul .page-item .page-end-link").show();
+        }
+
+          $.ajax({
+            url : "/pickme/list",
+            type : "POST",
+            datatype : "json",
+            data : {"pageSize" : 10,
+                    "pageNo" : requestPageNo,
+                    "nameSi" : $("#nameSi option:selected").val(),
+                    "nameGu" : $("#nameGu option:selected").val()},
+            success : function(result) {
+              console.log(result);
+              tbody.innerHTML = htmlGenerator(result.data);
+            }//success END
+          })//list요청 ajax END
+        })//pagenationBtn click event END
+      } //페이지수가 1개 이하 else END
+    } //전체 목록 불러오기 success END
+  })//전체 리스트 불러오기 END
+})//구 카테고리 클릭 event END
+//구별 리스트 불러오기 END
 
 document.querySelector("#x-create-btn").onclick = function(){
   location.href="form.html";
 };
-
-
-
 </script>
 </body>
 </html>

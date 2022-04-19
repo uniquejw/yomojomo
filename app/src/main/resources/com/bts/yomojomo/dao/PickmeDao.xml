@@ -44,60 +44,47 @@
       inner join gms_memb m on pm.memb_no=m.memb_no
       inner join gms_activelocal a on pm.act_local_no=a.act_local_no
       inner join gms_purpose p on p.pups_no=pm.pups_no
-    order by
-      pm.pm_b_no desc
-      limit #{offset}, #{rowCount}
+      <choose>
+        <when test="nameSi == null and nameGu == null">
+          order by
+          pm.pm_b_no desc
+          limit #{offset}, #{rowCount}
+        </when>
+        <when test="nameSi != null and nameGu == null">
+            where
+            a.name_si like #{nameSi}
+				    order by
+				      pm.pm_b_no desc
+				      limit #{offset}, #{rowCount}
+        </when>
+        <when test="nameSi != null and nameGu != null">
+            where
+            a.act_local_no = #{nameGu}
+            order by
+              pm.pm_b_no desc
+              limit #{offset}, #{rowCount}
+        </when>
+      </choose>
   </select>
   
-    <select id="selectedSicate" resultMap="PickmeMap"> <!--시도 카테고리별 리스트 출력-->
-     select
-      pm.pm_b_no,
-      pm.title,
-      pm.content,
-      pm.reg_dt,
-      pm.view_cnt,
-      m.memb_no mno,
-      m.name mname,
-      p.pups_no pno,
-      p.name pname,
-      a.act_local_no ano,
-      a.name_si asi,
-      a.name_gu agu
+  <select id ="countAll" resultType="int">
+    select count(*) 
     from gms_pickme pm
       inner join gms_memb m on pm.memb_no=m.memb_no
       inner join gms_activelocal a on pm.act_local_no=a.act_local_no
       inner join gms_purpose p on p.pups_no=pm.pups_no
-    where
-      a.name_si like #{nameSi}
-   order by
-      pm.pm_b_no desc
-      limit #{offset}, #{rowCount}  
+    <choose>
+      <when test="nameSi != null and nameGu == null">
+          where
+            a.name_si like #{nameSi}
+      </when>
+      <when test="nameSi != null and nameGu != null">
+          where
+            a.act_local_no = #{nameGu}
+      </when>
+    </choose>
   </select>
   
-  
-  <select id="selectedGucate" resultMap="PickmeMap"> <!--구 카테고리별 리스트 출력-->
-     select
-      pm.pm_b_no,
-      pm.title,
-      pm.content,
-      pm.reg_dt,
-      pm.view_cnt,
-      m.memb_no mno,
-      m.name mname,
-      p.pups_no pno,
-      p.name pname,
-      a.act_local_no ano,
-      a.name_si asi,
-      a.name_gu agu
-    from gms_pickme pm
-      inner join gms_memb m on pm.memb_no=m.memb_no
-      inner join gms_activelocal a on pm.act_local_no=a.act_local_no
-      inner join gms_purpose p on p.pups_no=pm.pups_no
-    where
-      a.act_local_no = #{activeLocal.no}
-    order by
-      pm.pm_b_no desc
-  </select>
 
   
   <select id="findByNo" resultMap="PickmeMap" parameterType="int"> <!--게시글 번호로 조회-->
@@ -170,33 +157,11 @@
   </update>
   
 
-  <select id ="countAll" resultType="int">
-    select count(*) from gms_pickme
-  </select>
+
   
-  <select id = "countSiList" resultType="int"> <!-- 시, 도 별 count -->
-       select
-      count(*)
-    from gms_pickme pm
-      inner join gms_memb m on pm.memb_no=m.memb_no
-      inner join gms_activelocal a on pm.act_local_no=a.act_local_no
-      inner join gms_purpose p on p.pups_no=pm.pups_no
-    where
-      a.name_si like #{nameSi}
-    order by
-      pm.pm_b_no desc
-  </select>
+
   
-  <select id = "" resultType="int"> <!-- 군, 구 별 count -->
-     select
-  count(*)
-    from gms_pickme pm
-      inner join gms_memb m on pm.memb_no=m.memb_no
-      inner join gms_activelocal a on pm.act_local_no=a.act_local_no
-      inner join gms_purpose p on p.pups_no=pm.pups_no
-    where
-      a.act_local_no = #{activeLocal.no}
-  </select>
+
 
     
 </mapper>

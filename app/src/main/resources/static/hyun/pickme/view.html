@@ -221,7 +221,7 @@ fetch(`/pickme/get?no=${no}`)
     return response.json();
   })
   .then(function(result){
-    // console.log(result);
+    console.log(result);
     if (result.status == "fail") {
       window.alert("서버 요청 오류!");
       // console.log(result.data);

@@ -9,9 +9,15 @@ public interface BoardService {
 
   List<Board> list();
 
+  List<Board> findByGroupNo(int no);
+
+  List<Board> findByBoardNo(Board board);
+
   Board get(int no);
 
   int update(Board board);
 
   int delete(Board board);
+
+  int increaseViewCount();
 }

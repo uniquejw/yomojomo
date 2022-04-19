@@ -11,6 +11,10 @@ public interface BoardDao {
 
   List<Board> findAll();
 
+  List<Board> findByGroupNo(int no);
+
+  List<Board> findByBoardNo(Board board);
+
   int insert(Board board);
 
   Board findByNo(int no);
@@ -20,4 +24,6 @@ public interface BoardDao {
   int delete(Board board);
 
   int increaseViewCount(int no);
+
+  int increaseViewCount();
 }

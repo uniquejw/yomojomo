@@ -26,6 +26,16 @@ public class DefaultBoardService implements BoardService {
   }
 
   @Override
+  public List<Board> findByGroupNo(int no) {
+    return boardDao.findByGroupNo(no);
+  }
+
+  @Override
+  public List<Board> findByBoardNo(Board board) {
+    return boardDao.findByBoardNo(board);
+  }
+
+  @Override
   public Board get(int no) {
     Board board = boardDao.findByNo(no);
     if (board != null) {
@@ -42,6 +52,11 @@ public class DefaultBoardService implements BoardService {
   @Override
   public int delete(Board board) {
     return boardDao.delete(board);
+  }
+
+  @Override
+  public int increaseViewCount() {
+    return boardDao.increaseViewCount();
   }
 
 

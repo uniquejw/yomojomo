@@ -30,6 +30,12 @@
     order by
       quest.appl_question_no asc;
   </select>
+  
+  <insert id="insert" parameterType="ApplyForm">
+    insert into gms_applyform(g_no, memb_no) 
+    values(#{gno}, #{membno})
+  </insert>
+  
   <select id="findAll" resultMap="ApplyFormMap"> 
     select
       appl_no,
@@ -56,10 +62,6 @@
       g_no=#{no}
   </select>
 
-  <insert id="insert" parameterType="ApplyForm">
-    insert into gms_applyform(g_no, memb_no, content) 
-    values(#{gno}, #{membno}, #{content})
-  </insert>
   
   <update id ="update" parameterType="ApplyForm">
     update gms_applyform set 
