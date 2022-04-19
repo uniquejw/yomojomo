@@ -1,7 +1,7 @@
 package com.bts.yomojomo.service;
 
 import java.util.List;
-import com.bts.yomojomo.domain.Board;
+
 import com.bts.yomojomo.domain.Notice;
 
 public interface NoticeService {

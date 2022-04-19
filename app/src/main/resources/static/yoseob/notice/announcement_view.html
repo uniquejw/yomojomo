@@ -4,23 +4,20 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>공지사항 상세</title>
-  <link rel="stylesheet" href="../css/style.css">
-  <link rel="stylesheet" href="/yoseob/css/style.css">
+  <title>공지사항</title>
+  <!-- JQUERY -->
+  <script src="../../node_modules/jquery/dist/jquery.min.js"></script>
   <!-- css 초기화 -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
+  <link rel="stylesheet" href="/yoseob/css/style.css">
   <!-- 부트스트랩 -->
   <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.css">
-  <!-- JQUERY -->
-  <script src="../node_modules/jquery/dist/jquery.min.js"></script>
   <!-- 아이콘 -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  
-  
- 
 
 </head>
 <body>
+  
   <script type="text/javascript">
     $(document).ready(function () {
         $('#header').load('/junho/mainHeader.html'); //헤더 인클루드
@@ -28,50 +25,87 @@
         // $('#footers').load('../html'); //푸터부분 인클루드
     });
   </script>
+  <!-- 공통헤더 -->
   <div id="header"></div>
-  <div class = "container">
-    <div class = "all-notice-explanation">
-      <div class ="notice-explanation">
-       <img class = "exclamation-mark"src="../image/announcement.png" >
-        <h1 class ="notice-head" style="margin-left:60px;">공지사항</h1>
-          <p class ="notice-explanation-text">
-            요모조모가 여러분께 알려드리는<br>
-                  안내 내역입니다.</p>  
-        </div>
-        </div>
-        <div class ="image">
-          <img class ="service_center" src="../image/service_center.png" >
-        </div>
-        <div class ="notice-category">
-          <span class="material-icons">question_mark</span>
-      <span id ="faq-btn" class ="faq"><a>자주하는 질문</a></span>
-      <span class="material-icons">volume_up</span>
-      <span id ="announcement-btn"class ="announcement"><a>공지사항</a></span>
-      <span class="material-icons">search</span>
-      <span id ="information-btn" class ="announcement"><a>서비스 안내</a></span>
-      <span class="material-icons">call</span>
-      <span id="inquiry-btn" class ="announcement"><a>문의사항</a></span>
-        </div>
-        
-        <div class = "announcement_title">
-          <span class="announcement_head">공지사항</span>
-          <span>목록으로></span>
-          <table class="announcement_detail">
-            <thead>
-              <th class = "title_th">
-                <span>[공지] 엄진영 강사님 수업내용 업데이트 안내</span>
-                <span class="announcement_date">2022.1.1</span>
-              </th>
-              <tr>
-                <td>강사님이 수업내용 커밋함</td>
-              </tr>
-            </thead>
+  <!-- 컨테이너시작 -->
+  <div class="container">
+    <h1>공지사항</h1>
+    <span>공지 번호</span><br>
+    <input type="text" class="no"><br>
+    <span>분류</span><br>
+    <input type="text" class="cate"><br>
+    <span>제목</span><br>
+    <input type="text" class ="title"><br>
+    <span>내용</span><br>
+    <input type="text" class ="content"><br>
+    <button type = "button"  class="update-btn">수정하기</button>
+    <button type = "button"  class="delete-btn">삭제하기</button>
+    <button type = "button"  class="cancel-btn">취소하기</button>
+   
+  <script>
+    var arr = location.href.split("?")
+      console.log(arr)
 
-          </table>
-        </div>
-      
-        </div>
-       <div id="footer"></div>
+      if(arr.length == 1) {
+        alert("올바르지 않은 요청입니다")
+        throw "URL 오류!"
+      }
+      var qs = arr[1];
+      console.log(qs)
+
+      var params = new URLSearchParams(qs)
+      var no = params.get('no')
+      var xNo = document.querySelector('.no')
+      var xCate = document.querySelector('.cate')
+      var xTitle = document.querySelector('.title')
+      var xContent = document.querySelector('.content')
+      console.log(no)
+  
+  if (no == null) {
+    alert("해당 번호가 없습니다")
+    throw  "오류!"
+  }
+ 
+    fetch(`/notice/get?no=${no}`)
+    .then(function(response) {
+      return response.json()
+    })
+    .then(function(notice){
+      xNo.value = notice.no
+      xContent.value = notice.content
+      xTitle.value = notice.title
+      xCate.value = notice.cate
+  
+    }) 
+    document.querySelector('.update-btn').addEventListener('click', function() {
+    fetch(`/notice/update?no=${xNo.value}&cate=${xCate.value}&title=${xTitle.value}&content=${xContent.value}`)
+    .then(function(response){
+      return response.text()
+    })
+    .then(function(text){
+    console.log(text)
+    window.location.href="announcement.html"
+    
+    })
+  })
+  document.querySelector('.delete-btn').addEventListener('click', function() {
+    fetch(`/notice/delete?no=${xNo.value}`)
+    .then(function(response){
+      return response.text()
+    })
+    .then(function(text){
+    console.log(text)
+    window.location.href="announcement.html"
+    
+    })
+  })
+  document.querySelector('.cancel-btn').addEventListener('click', function() {
+    window.location.href = "announcement.html"
+  })
+  </script>
+
+   <!-- 컨테이너끝 -->
+  </div> 
+  
+
 </body>
-</html>
-<script src="../js/location.js"></script>
