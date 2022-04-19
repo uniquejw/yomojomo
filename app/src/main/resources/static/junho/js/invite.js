@@ -37,4 +37,32 @@ function searchMember() {
 }
 
 
+function selesctData() {
+  var data = {"group.no" : 1};
+  
+  $.ajax({
+    url: "/junho/midpoint/member/list",
+    data: data,
+    type: "POST",
+    dataType: "json",
+    success : function(result) {
+      console.log(result);
+    }      
+  })
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

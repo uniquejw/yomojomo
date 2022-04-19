@@ -28,7 +28,7 @@
       inner join gms_memb m on jm.memb_no = m.memb_no
       inner join gms_memb gm on jm.memb_no = gm.memb_no
     where
-      g.g_no = 1
+      g.g_no = #{group.no}
     order by
       g.g_no asc
     

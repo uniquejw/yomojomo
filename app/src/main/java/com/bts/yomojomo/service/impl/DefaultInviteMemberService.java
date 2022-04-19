@@ -8,7 +8,7 @@ import com.bts.yomojomo.domain.InviteMember;
 import com.bts.yomojomo.service.InviteMemberService;
 
 @Service
-public class DefaultInviteMember implements InviteMemberService{
+public class DefaultInviteMemberService implements InviteMemberService{
 
   @Autowired
   InviteMemberDao inviteMemberDao;
