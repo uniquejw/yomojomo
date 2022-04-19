@@ -2,20 +2,17 @@ package com.bts.yomojomo.dao;
 
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import com.bts.yomojomo.domain.Accounting;
 import com.bts.yomojomo.domain.AccountingCate;
 
 @Mapper 
 public interface AccountingDao {
-  int countAll();
+  int countAll(@Param("groupNo") int groupNo, @Param("actCate") String actCate);
 
-  List<Accounting> findAll();
-
-  List<Accounting> findListByGroup(Accounting accounting);
+  List<Accounting> findListByGroup(@Param("rowCount") int rowCount, @Param("offset") int offset, @Param("groupNo") int groupNo, @Param("actCate") String actCate);
 
   List<AccountingCate> cateListAll();
-
-  List<Accounting> selectedCate(Accounting accounting);
 
   int insert(Accounting accounting);
 

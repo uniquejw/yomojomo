@@ -22,13 +22,8 @@ public class DefaultAccountingService implements AccountingService{
   }
 
   @Override
-  public List<Accounting> list() {
-    return accountingDao.findAll(); 
-  }
-
-  @Override
-  public List<Accounting> listByGroup(Accounting accounting) {
-    return accountingDao.findListByGroup(accounting);
+  public List<Accounting> listByGroup(int pageSize, int pageNo, int groupNo, String actCate) {
+    return accountingDao.findListByGroup(pageSize, ((pageNo - 1) * pageSize), groupNo, actCate);
   }
 
   @Override
@@ -53,11 +48,7 @@ public class DefaultAccountingService implements AccountingService{
   }
 
   @Override
-  public List<Accounting> findSelectCateList(Accounting accounting) {
-    return accountingDao.selectedCate(accounting);
+  public int size(int groupNo, String actCate) {
+    return accountingDao.countAll(groupNo, actCate);
   }
-
-
-
-
 }

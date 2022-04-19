@@ -8,18 +8,16 @@ public interface AccountingService {
 
   int add(Accounting accounting);
 
-  List<Accounting> list();
-
-  List<Accounting> listByGroup(Accounting accounting);
+  List<Accounting> listByGroup(int pageSize, int pageNo, int groupNo, String actCate);
 
   List<AccountingCate> findCateList();
-
-  List<Accounting> findSelectCateList(Accounting accounting);
 
   Accounting get(int no);
 
   int update(Accounting accounting);
 
   int delete(Accounting accounting);
+
+  int size(int groupNo, String actCate);
 
 }

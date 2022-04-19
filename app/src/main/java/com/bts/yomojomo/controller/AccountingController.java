@@ -20,33 +20,50 @@ public class AccountingController {
   @Autowired 
   AccountingService accountingService;
 
-  @RequestMapping("/accounting/list") //일반 회비정산 목록 조회
-  public Object list(HttpSession session) {
-    log.info("회비정산 목록 조회");
-    return new ResultMap().setStatus(SUCCESS).setData(accountingService.list());
-  }
-
   @RequestMapping("/accounting/listbygroup") //소모임 번호로 리스트 받기
-  //TEST http://localhost:8080/accounting/listbygroup?group.no=모임번호
-  public Object listByGroup(Accounting accounting, HttpSession session) {
+  public Object listByGroup(int pageSize, int pageNo, int groupNo, String actCate, HttpSession session) {
     log.info("모임별 회비정산 목록 조회");
 
     Member member = (Member) session.getAttribute("loginUser");
+    Accounting accounting = new Accounting();
     accounting.setMember(member);
 
-    return new ResultMap().setStatus(SUCCESS).setData(accountingService.listByGroup(accounting));
+    try {
+      if (pageSize < 10 || pageSize > 100) {
+        pageSize = 10;
+      }
+    } catch (Exception e) {}
+
+    int accountingSize = accountingService.size(groupNo, actCate);
+    System.out.println("게시글 개수 count :  "+ accountingSize);
+
+    int totalPageSize = accountingSize / pageSize;
+
+    try {
+      if ((accountingSize % pageSize) > 0) {
+        totalPageSize++;
+      }
+    } catch (Exception e) {}
+
+    try { 
+      if (pageNo < 1 || pageNo > totalPageSize) {
+        pageNo = 1;
+      }
+    } catch (Exception e) {}
+    System.out.println("totalpageSize 는 " +totalPageSize );
+
+    return new ResultMap()
+        .setStatus(SUCCESS)
+        .setTotalListCount(accountingSize)
+        .setPageNo(pageNo)
+        .setTotalPageSize(totalPageSize)
+        .setData(accountingService.listByGroup(pageSize, pageNo, groupNo, actCate));
   }
 
   @RequestMapping("/accounting/catelist") 
   public Object catelist(HttpSession session) {
     log.info("카테고리 리스트 조회");
     return new ResultMap().setStatus(SUCCESS).setData(accountingService.findCateList());
-  }
-
-  @RequestMapping("/accounting/selectedcate")
-  public Object selectedCate(Accounting accounting, HttpSession session) {
-    log.info("카테고리 선택 리스트 조회");
-    return new ResultMap().setStatus(SUCCESS).setData(accountingService.findSelectCateList(accounting));
   }
 
   @RequestMapping("/accounting/add")

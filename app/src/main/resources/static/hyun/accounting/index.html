@@ -29,13 +29,14 @@ table > thead {
 table > tbody > tr > td {
   text-align: center;
 }
+#listnone {
+      font-size: x-large;
+      text-align: center;
+}
 </style>
 </head>
 
-<body>
-
-  
-<!--공통헤더 제이쿼리-->
+<body class="menu6">  
 <script type="text/javascript">
   $(document).ready(function () {
       $('#header').load('/junho/mainHeader.html'); //헤더 인클루드
@@ -99,28 +100,22 @@ table > tbody > tr > td {
         </thead>
         <tbody></tbody>
       </table>
+      <div id="listnone">
+        <h1>작성된 글이 없습니다.<br></h1>
+      </div>
       <button id="x-create-btn" type="button" style="float: right" class="btn btn-primary">등록</button>
     </div> <!--table div 끝-->
 
     <!--페이지 네이션 시작-->
     <nav aria-label="Page navigation example">
-      <ul class="pagination justify-content-center">
-        <li class="page-item disabled">
-          <a class="page-link">Previous</a>
-        </li>
-        <li class="page-item"><a class="page-link" href="#">1</a></li>
-        <li class="page-item"><a class="page-link" href="#">2</a></li>
-        <li class="page-item"><a class="page-link" href="#">3</a></li>
-        <li class="page-item">
-          <a class="page-link" href="#">Next</a>
-        </li>
+      <ul class="pagination justify-content-center" id="pagination-ul">        
       </ul>
     </nav>
     <!--페이지 네이션 끝-->
   </div>
 </div><!--body content 끝-->
 
-<!--메인 풋터-->
+<!--메인 푸터-->
 <div id="footer"></div>
 
 <!--카테고리 생성 핸들 바-->
@@ -153,6 +148,7 @@ table > tbody > tr > td {
     }
   });
 </script>
+<!--카테고리 불러오기-->
 
 <!--게시글 목록 생성 핸들바-->
 <script id="tr-template" type="text/x-handlebars-template">
@@ -172,20 +168,151 @@ table > tbody > tr > td {
 </script>
 <!--게시글 목록 생성 핸들바 END-->
 
+<!--페이지네이션 생성 핸들 바-->
+<script id="pageli-template" type="text/x-handlebars-template">
+<li class="page-item" value="1">
+  <a class="page-link" href="#"><<</a>
+</li>
+
+{{#each this}}
+<li class="page-item" value="{{no}}"><a class="page-link" href="#">{{totalPageSize}}</a></li>
+{{/each}}
+
+<li class="page-item" value="">
+  <a class="page-link" href="#" >>></a>
+</li>
+</script>
+<!--페이지네이션 생성 핸들 바-->
+
 <!--게시글 목록 생성 ajax-->
 <script>
-  let tbody = document.querySelector("#x-board-table tbody")
-  // console.log(tbody);
-  var trTemplate = document.querySelector("#tr-template");
-  
-  var htmlGenerator = Handlebars.compile(trTemplate.innerHTML);
+$("#listnone").hide();
+let tbody = document.querySelector("#x-board-table tbody")
+var trTemplate = document.querySelector("#tr-template");
+var htmlGenerator = Handlebars.compile(trTemplate.innerHTML);
 
-  $.ajax({
+let pagenationUl = document.querySelector("#pagination-ul");
+let pagetemplate = document.querySelector("#pageli-template");
+let pageGernerator = Handlebars.compile(pagetemplate.innerHTML);
+
+
+//전체 리스트 불러오기 START
+$.ajax({
+  url : "/accounting/listbygroup", 
+  type : "POST",
+  async : false,
+  dataType : "json",
+  data : {
+    "pageSize" : 10,
+    "pageNo" : 1,
+    "groupNo" : 1}, //!!!!!!!!!!!!!!!!!!!!!!!!!!!임시로 그룹 번호 줌!!!!!!!!!!!!!
+  success: function(result) {
+    var arr = result.data;
+    // console.log(arr);
+    var ing = "진행";
+    var end = "완료";
+    // console.log(arr.actCate);
+    var updateData = []
+    $.each(arr, function(index, arr) {
+      updateData.push({
+        "actCate" : arr.actCate.cateName,
+        no : arr.no,
+        title : arr.title,
+        registDate : arr.registDate,
+        statusno : arr.status,
+        status : arr.status == 0 ? ing : end
+      })
+    })
+    tbody.innerHTML = htmlGenerator(updateData);
+    let totalListCount = result.totalListCount;
+    let totalPageSize = result.totalPageSize;
+    let requestPageNo = result.pageNo;
+
+    if(totalListCount == 0) {
+      $("#listnone").show();
+    }
+
+    if (totalPageSize <= 1) {
+      $("#pagination-ul li").hide();
+    } else { //페이지가 하나 이상이라면
+      $("#pagination-ul li").show();
+
+    //페이지네이션 번호 만들 2차원 배열 생성
+    let totalpageArr = [];
+    for (i = 1; i <= totalPageSize; i++) {
+      totalpageArr.push({"no" : i, "totalPageSize" : `${i}`})            
+    }
+
+    //페이지네이션 생성됨
+    pagenationUl.innerHTML = pageGernerator(totalpageArr);
+    
+    //마지막 버튼에 값 넣기
+    $(".pagination li:last").val(totalPageSize);
+
+    //페이지네이션 클릭 이벤트
+    $(".pagination li").on("click", function() {
+      let clickli = $(this).attr('value');
+
+      if (clickli == 1) {
+      $(".pagination li:first").hide();
+      } else {
+        $(".pagination li:first").show();
+      }
+
+      if ( clickli == totalPageSize ) {
+        $(".pagination li:last").hide();
+      } else {
+        $(".pagination li:last").show();
+      }
+
+      $.ajax({
+        url : "/accounting/listbygroup",
+        type : "POST",
+        async : false,
+        dataType : "json",
+        data : {
+          "pageSize" : 10,
+          "pageNo" : clickli,
+          "groupNo" : 1}, //!!!!!!!!!!!!!!!!!!!!!!!!!!!임시로 그룹 번호 줌!!!!!!!!!!!!!
+        success: function(result) {
+          var arr = result.data;
+          // console.log(arr);
+          var ing = "진행";
+          var end = "완료";
+          // console.log(arr.actCate);
+          var updateData = []
+          $.each(arr, function(index, arr) {
+            updateData.push({
+              "actCate" : arr.actCate.cateName,
+              no : arr.no,
+              title : arr.title,
+              registDate : arr.registDate,
+              statusno : arr.status,
+              status : arr.status == 0 ? ing : end
+            })
+          })
+          tbody.innerHTML = htmlGenerator(updateData);
+        } //페이지네이션 클릭 후 list 요청 success END
+      }) //페이지네이션 클릭 후 list 요청 ajax END
+    }) //페이지네이션 클릭 Event END
+    } //페이지가 하나 이상이라면 else END
+  }//전체 리스트 불러오기 success END
+}); //전체 리스트 불러오기 END
+
+//selectbox 옵션별 목록 불러오기
+$(document).on("change", "#selectCate", function() {
+  let cate = $("#selectCate option:selected").val();
+  console.log(cate);
+  if (cate == 1) {
+    $.ajax({
     url : "/accounting/listbygroup", //!!!!!!!!!!!!!!!!!!!!나중에 수정 하기!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     type : "POST",
     async : false,
     dataType : "json",
-    data : {"group.no" : 1}, //!!!!!!!!!!!!!!!!!!!!!!!!!!!임시로 그룹 번호 줌!!!!!!!!!!!!!
+    data : {
+      "pageSize" : 10,
+      "pageNo" : 1,
+      "groupNo" : 1}, //!!!!!!!!!!!!!!!!!!!!!!!!!!!임시로 그룹 번호 줌!!!!!!!!!!!!!
     success: function(result) {
       var arr = result.data;
       // console.log(arr);
@@ -203,48 +330,161 @@ table > tbody > tr > td {
           status : arr.status == 0 ? ing : end
         })
       })
-      // console.log(updateData);
       tbody.innerHTML = htmlGenerator(updateData);
-      // console.log(htmlGenerator(updateData));
+      let totalListCount = result.totalListCount;
+      let totalPageSize = result.totalPageSize;
+      let requestPageNo = result.pageNo;
 
-    }//success END
-  }); //ajax 페이지 처음 로드
+      if(totalListCount == 0) {
+        $("#listnone").show();
+      }
 
-  //selectbox 옵션별 목록 불러오기
-  $(document).on("change", "#selectCate", function() {
-    let cate = $("#selectCate option:selected").val();
-    if (cate == 1) {
-      $.ajax({
-        url : "/accounting/listbygroup",
-        type : "POST",
-        async : false,
-        datatype : "json",
-        data : {"group.no" : 1}, //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!임시 번호 줌!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        success: function(result) {
-          var arr = result.data;
-          var ing = "진행";
-          var end = "완료";
-          var updateData = []
-          $.each(arr, function(index, arr) {
-            updateData.push({
-              "actCate" : arr.actCate.cateName,
-              no : arr.no,
-              title : arr.title,
-              registDate : arr.registDate,
-              statusno : arr.status,
-              status : arr.status == 0 ? ing : end
-              })
-              // console.log(updateData);
-          })  
-            tbody.innerHTML = htmlGenerator(updateData);
+      if (totalPageSize <= 1) {
+        $("#pagination-ul li").hide();
+      } else { //페이지가 하나 이상이라면
+        $("#pagination-ul li").show();
+
+      //페이지네이션 번호 만들 2차원 배열 생성
+      let totalpageArr = [];
+      for (i = 1; i <= totalPageSize; i++) {
+        totalpageArr.push({"no" : i, "totalPageSize" : `${i}`})            
+      }
+
+      //페이지네이션 생성됨
+      pagenationUl.innerHTML = pageGernerator(totalpageArr);
+      
+      //마지막 버튼에 값 넣기
+      $(".pagination li:last").val(totalPageSize);
+
+      //페이지네이션 클릭 이벤트
+      $(".pagination li").on("click", function() {
+        let clickli = $(this).attr('value');
+
+        if (clickli == 1) {
+        $(".pagination li:first").hide();
+        } else {
+          $(".pagination li:first").show();
         }
-      }); //게시글 목록 생성 ajax
-    } else {
-      $.ajax({
-          url: "/accounting/selectedcate",
-          type: "POST",
-          asyn: false,
-          data: {"actCate.no": $("#selectCate option:selected").val()},
+
+        if ( clickli == totalPageSize ) {
+          $(".pagination li:last").hide();
+        } else {
+          $(".pagination li:last").show();
+        }
+
+        $.ajax({
+          url : "/accounting/listbygroup",
+          type : "POST",
+          async : false,
+          dataType : "json",
+          data : {
+            "pageSize" : 10,
+            "pageNo" : clickli,
+            "groupNo" : 1}, //!!!!!!!!!!!!!!!!!!!!!!!!!!!임시로 그룹 번호 줌!!!!!!!!!!!!!
+          success: function(result) {
+            var arr = result.data;
+            // console.log(arr);
+            var ing = "진행";
+            var end = "완료";
+            // console.log(arr.actCate);
+            var updateData = []
+            $.each(arr, function(index, arr) {
+              updateData.push({
+                "actCate" : arr.actCate.cateName,
+                no : arr.no,
+                title : arr.title,
+                registDate : arr.registDate,
+                statusno : arr.status,
+                status : arr.status == 0 ? ing : end
+              })
+            })
+            tbody.innerHTML = htmlGenerator(updateData);
+          } //페이지네이션 클릭 후 list 요청 success END
+        }) //페이지네이션 클릭 후 list 요청 ajax END
+      }) //페이지네이션 클릭 Event END
+      } //페이지가 하나 이상이라면 else END
+    }//전체 리스트 불러오기 success END
+  }); //전체 리스트 불러오기 END
+  } else {
+    $.ajax({
+    url : "/accounting/listbygroup",
+    type : "POST",
+    async : false,
+    dataType : "json",
+    data : {
+      "pageSize" : 10,
+      "pageNo" : 1,
+      "actCate" : cate,
+      "groupNo" : 1}, //!!!!!!!!!!!!!!!!!!!!!!!!!!!임시로 그룹 번호 줌!!!!!!!!!!!!!
+    success: function(result) {
+      var arr = result.data;
+      // console.log(arr);
+      var ing = "진행";
+      var end = "완료";
+      // console.log(arr.actCate);
+      var updateData = []
+      $.each(arr, function(index, arr) {
+        updateData.push({
+          "actCate" : arr.actCate.cateName,
+          no : arr.no,
+          title : arr.title,
+          registDate : arr.registDate,
+          statusno : arr.status,
+          status : arr.status == 0 ? ing : end
+        })
+      });
+      tbody.innerHTML = htmlGenerator(updateData);
+      let totalListCount = result.totalListCount;
+      let totalPageSize = result.totalPageSize;
+      let requestPageNo = result.pageNo;
+
+      if(totalListCount == 0) {
+        $("#listnone").show();
+      }
+
+      if (totalPageSize <= 1) {
+        $("#pagination-ul li").hide();
+      } else { //페이지가 하나 이상이라면
+        $("#pagination-ul li").show();
+
+      //페이지네이션 번호 만들 2차원 배열 생성
+      let totalpageArr = [];
+      for (i = 1; i <= totalPageSize; i++) {
+        totalpageArr.push({"no" : i, "totalPageSize" : `${i}`})            
+      }
+
+      //페이지네이션 생성됨
+      pagenationUl.innerHTML = pageGernerator(totalpageArr);
+      
+      //마지막 버튼에 값 넣기
+      $(".pagination li:last").val(totalPageSize);
+
+      //페이지네이션 클릭 이벤트
+      $(".pagination li").on("click", function() {
+        let clickli = $(this).attr('value');
+
+        if (clickli == 1) {
+        $(".pagination li:first").hide();
+        } else {
+          $(".pagination li:first").show();
+        }
+
+        if ( clickli == totalPageSize ) {
+          $(".pagination li:last").hide();
+        } else {
+          $(".pagination li:last").show();
+        }
+
+        $.ajax({
+          url : "/accounting/listbygroup",
+          type : "POST",
+          async : false,
+          dataType : "json",
+          data : {
+            "pageSize" : 10,
+            "pageNo" : clickli,
+            "actCate" : cate,
+            "groupNo" : 1}, //!!!!!!!!!!!!!!!!!!!!!!!!!!!임시로 그룹 번호 줌!!!!!!!!!!!!!
           success: function(result) {
             var arr = result.data;
             // console.log(arr);
@@ -259,18 +499,22 @@ table > tbody > tr > td {
                 registDate : arr.registDate,
                 statusno : arr.status,
                 status : arr.status == 0 ? ing : end
-                })
-            })  
-              tbody.innerHTML = htmlGenerator(updateData);
-          }//success END
-        })//ajax END
-    }
-  })// selectbox change event END  
+              })
+            })
+            tbody.innerHTML = htmlGenerator(updateData);
+          } //페이지네이션 클릭 후 list 요청 success END
+        }) //페이지네이션 클릭 후 list 요청 ajax END
+      }) //페이지네이션 클릭 Event END
+      } //페이지가 하나 이상이라면 else END
+    }//전체 리스트 불러오기 success END
+  }); //전체 리스트 불러오기 END
+  } //else 카테고리 선택 끝
+})// selectbox change event END  
 
-  //form.html
-  document.querySelector("#x-create-btn").onclick = function(){
-    location.href="form.html";
-  };
+//form.html
+document.querySelector("#x-create-btn").onclick = function(){
+  location.href="form.html";
+};
 </script>
 </body>
 </html>
