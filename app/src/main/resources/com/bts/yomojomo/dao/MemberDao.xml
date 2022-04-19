@@ -133,6 +133,16 @@
 			email=#{email};
 	
 	</select>
+	
+	<select id="findByEmail" resultMap="memberMap2">
+		select 
+			email
+		from 
+			gms_memb 
+		where 
+			email=#{email};
+	
+	</select>
 
 	<update id="updatepwd" parameterType="Member">
 		update 

@@ -3,15 +3,23 @@ package com.bts.yomojomo.controller;
 import static com.bts.yomojomo.controller.ResultMap.FAIL;
 import static com.bts.yomojomo.controller.ResultMap.SUCCESS;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.Map;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
@@ -59,7 +67,7 @@ public class MemberController {
 
 			return new ResultMap().setStatus(FAIL);
 		}
-		
+
 		// 로그인이 성공하면,
 		// 다른 요청을 처리할 때 로그인 회원의 정보를 사용할 있도록 세션에 보관한다.
 		session.setAttribute("loginUser", loginUser);
@@ -144,24 +152,66 @@ public class MemberController {
 				accessToken, // URL의 첫 번째 자리에 들어갈 값
 				"id,name,email,gender" // 페이스북 측에 요청하는 로그인 사용자 정보
 		);
-
+		System.out.println("value" + restTemplate);
+		System.out.println("value" + result);
 		// 2) 사용자 이름과 이메일을 알아낸다.
 		String name = result.get("name");
 		String email = result.get("email");
 
 		// 3) 현재 등록된 사용자 중에서 해당 이메일의 사용자가 있는지 찾아본다.
 		Member member = memberService.get(email);
+		System.out.println("value" + member);
 
 		if (member != null) {
 			// 4-1) 등록된 사용자가 있다면 그 사용자로 자동 로그인 처리한다.
 			session.setAttribute("loginUser", member);
-			return new ResultMap().setStatus(SUCCESS).setData("기존 회원 로그인");
+			return new ResultMap().setStatus(SUCCESS).setData("Y");
 
 		} else {
 			// 4-2) 등록된 사용자가 아니라면 회원 등록 후 자동 로그인 처리한다.
-			memberService.add(new Member().setEmail(email).setMemberName(name).setPassWord("1111"));
-			session.setAttribute("loginUser", memberService.get(email));
-			return new ResultMap().setStatus(SUCCESS).setData("새 회원 로그인");
+//			memberService.add(new Member().setEmail(email).setMemberName(name).setPassWord("1111"));
+//			session.setAttribute("loginUser", memberService.get(email));
+			return new ResultMap().setStatus(SUCCESS).setData(email + "____" + name);
+		}
+	}
+
+	// 카카오 이메일 중복체크
+	@RequestMapping(value = "/member/kakaoLogin")
+	public Object kakaoLogin(String email, HttpSession session) {
+		// 3) 현재 등록된 사용자 중에서 해당 이메일의 사용자가 있는지 찾아본다.
+		Member member = memberService.get(email);
+		System.out.println("value" + member);
+
+		if (member != null) {
+			// 4-1) 등록된 사용자가 있다면 그 사용자로 자동 로그인 처리한다.
+			session.setAttribute("loginUser", member);
+			return new ResultMap().setStatus(SUCCESS).setData("Y");
+
+		} else {
+			// 4-2) 등록된 사용자가 아니라면 회원 등록 후 자동 로그인 처리한다.
+//					memberService.add(new Member().setEmail(email).setMemberName(name).setPassWord("1111"));
+//					session.setAttribute("loginUser", memberService.get(email));
+			return new ResultMap().setStatus(SUCCESS).setData("N");
+		}
+	}
+	
+	// 구글 이메일 중복체크
+	@RequestMapping(value = "/member/googleLogin")
+	public Object googleLogin(String email, HttpSession session) {
+		// 3) 현재 등록된 사용자 중에서 해당 이메일의 사용자가 있는지 찾아본다.
+		Member member = memberService.get(email);
+		System.out.println("value" + member);
+
+		if (member != null) {
+			// 4-1) 등록된 사용자가 있다면 그 사용자로 자동 로그인 처리한다.
+			session.setAttribute("loginUser", member);
+			return new ResultMap().setStatus(SUCCESS).setData("Y");
+
+		} else {
+			// 4-2) 등록된 사용자가 아니라면 회원 등록 후 자동 로그인 처리한다.
+//					memberService.add(new Member().setEmail(email).setMemberName(name).setPassWord("1111"));
+//					session.setAttribute("loginUser", memberService.get(email));
+			return new ResultMap().setStatus(SUCCESS).setData("N");
 		}
 	}
 }

@@ -46,37 +46,27 @@
 					</form>
 				</div>
 				<div class="btn center">
-					<!-- <div id="fb-root">
-						<div class="fb-login-button btn" data-width="300" data-size="large"
-							data-button-type="continue_with" data-layout="default"
-							data-auto-logout-link="true" data-use-continue-as="false"></div>
+					<div class="btn" id="snsLoginButtons">
+						<button type="button" class="btn btn-outline-secondary button"
+							onclick="snsKakaoLogin()">
+							<img class="snsbtn" src="/jaewon/kakao_small-1.png"
+								style="vertical-align: middle;"> <span> 카카오톡으로 로그인</span>
+						</button>
+						<button type="button" class="btn btn-outline-secondary button"
+							onclick="snsFacebookLogin()">
+							<img class="snsbtn" src="/jaewon/facebook-small-1.png"
+								style="vertical-align: middle;"><span>페이스북으로 로그인</span>
+						</button>
+						<button type="button" class="btn btn-outline-secondary button"
+							onclick="snsGoogleLogin()" style="vertical-align: middle;">
+							<img class="snsbtn" src="/jaewon/google-small-1.png"
+								style="vertical-align: middle;"><span>구글로 로그인</span>
+						</button>
 					</div>
-					<a class="btn center" id="custom-login-btn"
-						href="javascript:loginWithKakao()"> <img
-						src="/jaewon/kakao_login_medium_wide.png" width="300"
-						alt="카카오 로그인 버튼" />
-					</a>
-					<button type="button" class="btn btn-outline-secondary button">구글로로그인</button> -->
-
 				</div>
 			</div>
 		</div>
 
 	</div>
 </div>
-<script async defer crossorigin="anonymous"
-	src="https://connect.facebook.net/ko_KR/sdk.js#xfbml=1&version=v13.0&appId=1646718509011068&autoLogAppEvents=1"
-	nonce="kW6IKHzJ"></script>
 
-<script>
-	function loginWithKakao() {
-		Kakao.Auth.login({
-			success : function(authObj) {
-				alert(JSON.stringify(authObj))
-			},
-			fail : function(err) {
-				alert(JSON.stringify(err))
-			},
-		})
-	}
-</script>

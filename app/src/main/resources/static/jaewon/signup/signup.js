@@ -1,4 +1,24 @@
+function snsLoginDataCheck() {
+	var cookieData = Cookies.get("snsLoginData")
+	if (cookieData !== undefined) {
+		var cookieJson = JSON.parse(cookieData)
+		console.log(cookieJson.name)
+		console.log(cookieJson.email)
+		console.log(cookieJson.type)
+		var xEmail = document.querySelector("input[name=email]")
+		var xName = document.querySelector("input[name=memberName]");
+		xEmail.value = cookieJson.email;
+		xName.value = cookieJson.name;
+		xEmail.readOnly = true;
+		/*if (cookieJson.type !== "kakao") {
+			xName.readOnly = true;	
+		}*/
+		xName.readOnly = cookieJson.type !== 'kakao';
+		var sLB = document.querySelector("#snsLoginButtons");
+		sLB.parentNode.removeChild(sLB);
 
+	}
+}
 
 
 //document.querySelector("form[name=signup]").onsubmit = function() {
