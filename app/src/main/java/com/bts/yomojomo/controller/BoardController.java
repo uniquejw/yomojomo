@@ -10,6 +10,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -26,6 +27,7 @@ public class BoardController {
 
   @Autowired
   BoardService boardService ;
+  @PostMapping("http://localhost:8080//ssang/groupboard/index.html")
 
   @RequestMapping("/board/add")
   public Object add(Board board, MultipartFile file,HttpSession session ) {
@@ -38,18 +40,29 @@ public class BoardController {
       return "error!";
     }
   }
+
   //  모임별 게시글 리스트
   @RequestMapping("/board/findByGroupNo")
   public Object findByGroupNo(int no) {
     return boardService.findByGroupNo(no);
   }
 
-  //  모임별 게시글 리스트
-  @RequestMapping("/board/findBoardNo")
+  //  모임별 게시글 조회
+  @RequestMapping("/board/findByBoardNo")
   public Object findBoardNo(Board board) {
-    return boardService.findBoardNo(board);
+    boardService.increaseViewCount();
+    return boardService.findByBoardNo(board);
   }
 
+  @RequestMapping("/board/update")
+  public Object update(Board board) {
+    return boardService.update(board);
+  }
+
+  @RequestMapping("/board/delete")
+  public Object delete(Board board) {
+    return boardService.delete(board);
+  }
 
   @RequestMapping("/board/get")
   public Object get(int no) {
@@ -62,15 +75,8 @@ public class BoardController {
     return boardService.list(); 
   }
 
-  @RequestMapping("/board/update")
-  public Object update(Board board) {
-    return boardService.update(board);
-  }
 
-  @RequestMapping("/board/delete")
-  public Object delete(Board board) {
-    return boardService.delete(board);
-  }
+
   @RequestMapping("/book/photo")
   public ResponseEntity<Resource> photo(String filename) {
 

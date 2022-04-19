@@ -17,6 +17,8 @@
     width: 700px;
     margin: 20px auto;
     border-radius: 9px;
+    border: 1px solid rgb(227, 227, 227);
+    padding: 15px;
 }
 hr{
     z-index: 99999;

@@ -32,7 +32,7 @@
     
   </resultMap>
   
-  <!--모임별 게시판 조회-->
+  <!-- 모임별 게시판 조회 -->
   <select id="findByGroupNo" resultMap="BoardMap" parameterType="int">
     select
        distinct
@@ -55,7 +55,7 @@
     order by
       b_no desc
   </select>
-  <!--모임별 게시판을 번호로 조회 -->
+  <!-- 모임별 게시판을 번호로 조회 -->
   <select id="findByBoardNo" resultMap="BoardMap">
     select
        distinct
@@ -93,6 +93,37 @@
 	     where
 	       b.b_no = #{board.no}
   </select>
+  <!-- 조회시 조회수 증가 -->
+  <update id="increaseViewCount" parameterType="int">
+    update gms_board set 
+      view_count=view_count + 1 
+    where b_no=#{no}
+  </update>
+  
+    <!-- 자동 증가된 PK 값을 받고 싶을 때! -->
+  <insert id="insert" parameterType="Board" keyProperty="no" keyColumn="b_no" useGeneratedKeys="true">
+    insert into gms_board(g_no, memb_no, content) 
+    values(#{groupNo}, #{memberNo}, #{content})
+  </insert>
+  
+  <update id ="update" parameterType="Board">
+    update gms_board set 
+      content = #{content}
+    where 
+      b_no = #{no}
+  </update>
+  
+  <delete id="delete" parameterType="int">
+    delete from gms_board
+    where 
+      b_no = #{no}
+  </delete>
+  
+  
+  <select id ="countAll" parameterType="int">
+    select count(*) from gms_board
+  </select>
+  
   
   <select id="findAll" resultMap="BoardMap"> 
 	select
@@ -117,28 +148,5 @@
   
   
     
-    <!-- 자동 증가된 PK 값을 받고 싶을 때! -->
-  <insert id="insert" parameterType="Board" keyProperty="no" keyColumn="b_no" useGeneratedKeys="true">
-    insert into gms_board(g_no, memb_no, content) 
-    values(#{groupNo}, #{memberNo}, #{content})
-  </insert>
   
-  <update id ="update" parameterType="Board">
-    update gms_board set 
-      g_no = g_no,
-      memb_no = memb_no,
-      content = #{content}
-    where 
-      b_no = #{no}
-  </update>
-  
-  <select id ="countAll" parameterType="int">
-    select count(*) from gms_board
-  </select>
-  
-  <delete id="delete" parameterType="int">
-    delete from gms_board
-    where 
-      b_no = #{no}
-  </delete>
 </mapper>

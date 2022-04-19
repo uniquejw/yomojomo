@@ -23,10 +23,10 @@ public class ApplyFormController {
     return new ResultMap().setStatus(SUCCESS).setData(applyForm); 
   }
 
-  //  @RequestMapping("/applayform/add")
-  //  public Object add(ApplyForm applayForm) {
-  //    return applyFormService.add(applayForm);
-  //  }
+  @RequestMapping("/applayform/add")
+  public Object add(ApplyForm applayForm) {
+    return applyFormService.add(applayForm);
+  }
 
   //  @RequestMapping("/applyform/get")
   //  public Object get(int no) {

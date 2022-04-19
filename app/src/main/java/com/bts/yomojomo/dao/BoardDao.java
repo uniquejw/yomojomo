@@ -13,7 +13,7 @@ public interface BoardDao {
 
   List<Board> findByGroupNo(int no);
 
-  List<Board> findBoardNo(Board board);
+  List<Board> findByBoardNo(Board board);
 
   int insert(Board board);
 
@@ -24,4 +24,6 @@ public interface BoardDao {
   int delete(Board board);
 
   int increaseViewCount(int no);
+
+  int increaseViewCount();
 }
