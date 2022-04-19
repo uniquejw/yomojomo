@@ -7,17 +7,11 @@
 <title>Document</title>
 <!-- 제이쿼리 -->
 <script src="/node_modules/sweetalert2/dist/sweetalert2.all.min.js"></script>
-<!-- 파비콘생성 -->
-<link rel="icon" href="/junho/img/favicon.png">
+<script src="/node_modules/jquery/dist/jquery.min.js"></script>
 <!-- css 초기화 -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
-<!-- 폰트 -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">>
 <!-- 아이콘 연결 코드 -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-<script src="/node_modules/jquery/dist/jquery.min.js"></script>
 <!-- Handlebars -->
 <script src="/node_modules/handlebars/dist/handlebars.min.js"></script>
 <!-- 부트스트랩 -->
@@ -85,16 +79,16 @@ $(document).ready(function () {
                 </h2>
                 <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
                   <div class="accordion-body">
-                    <!--멤버 추가부분-->
+                    <!--질문 추가부분-->
                       <div class="List-Container">
                           <div id="x-question-container">
                               <div class="x-question">
-                                  항목 : <input id="listmembName" type="text">
+                                  항목 : <input id="listQuestionName" type="text">
                                   <button id="x-deleteMemb-btn" type="button" class="btn btn-primary" onclick="deleteDiv(event)">삭제</button><br>
                               </div>
                           </div>
                           <button id="x-addQuestion-btn" type="button" class="btn btn-primary">추가</button>
-                          <button id="x-aplly-form" type="button" class="btn btn-primary">등록</button>
+                          <button id="x-apply-form" type="button" class="btn btn-primary">등록</button>
                           <button id="x-reform" type="button" class="btn btn-primary">초기화</button><br>
                       </div>
                   </div>

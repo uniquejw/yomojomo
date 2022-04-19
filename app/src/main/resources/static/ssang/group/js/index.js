@@ -193,59 +193,66 @@ $(document).on("click","#apply-form-btn",function(){
   document.querySelector(".background").className = "background";
   document.querySelector(".report-background").className = "report-background show";
   var value = $(this).val();//모임번호
+  // 사진
   fetch(`${PATH.groupGet}?no=${value}`)
-  .then(function(response){
+    .then(function(response){
     return response.json()
-  }).then(function(result){
-    console.log(result.data)
-    if (result.status == "fail") {
-      window.alert("서버 요청 오류!");
-      console.log(result.data);
-      return;
-    }
-    if(result.data.logo == null){
-      result.data.logo = "default.png";
-    }
+    })
+    .then(function(result){
+      console.log(result.data)
+      if (result.status == "fail") {
+        window.alert("서버 요청 오류!");
+        console.log(result.data);
+        return;
+      }
+      if(result.data.logo == null){
+        result.data.logo = "default.png";
+      }
       var path2 = "/group/photo?filename=" + result.data.logo
       document.querySelector('.main-logo2').setAttribute("src", path2)
-  })
-
+    });
+    
+  // 질문목록
   fetch(`/applyform/findQuestion?no=${value}`)
-    .then(function(res){
+    .then(function(res) {
       return res.json();
-    }).then(function(result){
+    })
+    .then(function(result) {
       console.log(result.data[0])
       if (result.status == "fail") {
         window.alert("서버 요청 오류!");
         return;
       }
       
-    // 핸들바
-    var writtenContainer = document.querySelector("#handlebars-container2");
-    var divTemplate = document.querySelector("#applyList-template");
-    var htmlGenerator = Handlebars.compile(divTemplate.innerHTML);
-    writtenContainer.innerHTML = htmlGenerator(result.data);
-    $('#apply').val(result.data[0].no);
+      // 핸들바
+      var writtenContainer = document.querySelector("#handlebars-container2");
+      var divTemplate = document.querySelector("#applyList-template");
+      var htmlGenerator = Handlebars.compile(divTemplate.innerHTML);
+      writtenContainer.innerHTML = htmlGenerator(result.data);
+      $('#apply').val(result.data[0].no);
     });
-})
 
 //신청하기
 $(document).on("click","#apply",function(){
   var value = $(this).val();//appl_no
-  var fd = new FormData();
+  // var fd = new FormData();
   var answerLength = $("input[name=answer]").length;//값들의 갯수 -> 배열 길이를 지정
   var answers = new Array(answerLength);//배열 생성
   //배열에 값 주입
   for(var i=0; i<answerLength; i++){                          
     answers[i] = $("input[name=answer]").eq(i).val();
   }
-  fd.append('answer',answers)
-  fd.append('answer',document.querySelector("textarea[name=answer]").value)
-  fd.append('applyNo',value)
-  
+  // fd.append('answer',answers)
+  // fd.append('answer',document.querySelector("textarea[name=answer]").value)
+  // fd.append('applyNo',value)
+  answers.push(document.querySelector("textarea[name=answer]").value)
+  console.log(answers)
   fetch('/applyAnswer/add',{
     method:"POST",
-    body: fd
+    body: {
+      'answers':`${answers}`,
+      'applyNo':`${value}`
+    }
   })
   .then(function(res){
     return res.json()

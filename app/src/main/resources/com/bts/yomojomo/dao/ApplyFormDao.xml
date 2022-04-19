@@ -18,6 +18,17 @@
     </collection>
   </resultMap>
 
+  <insert id="insert" parameterType="ApplyForm">
+    insert into gms_applyform(g_no) 
+    values(#{gno})
+  </insert>
+  
+  
+  <insert id="insertQuestion" parameterType="ApplyForm">
+    insert into gms_applyform(question_name, appl_no) 
+    values(#{questionName},#{applyNo})
+  </insert>
+  
   <select id="findQuestion" resultMap="ApplyFormMap" parameterType="int"> 
     select
       f.*,
@@ -31,10 +42,6 @@
       quest.appl_question_no asc;
   </select>
   
-  <insert id="insert" parameterType="ApplyForm">
-    insert into gms_applyform(g_no, memb_no) 
-    values(#{gno}, #{membno})
-  </insert>
   
   <select id="findAll" resultMap="ApplyFormMap"> 
     select

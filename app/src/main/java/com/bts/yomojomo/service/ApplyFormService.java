@@ -6,7 +6,10 @@ import com.bts.yomojomo.domain.ApplyForm;
 public interface ApplyFormService {
 
   List<ApplyForm> findQuestion(int no);
+
   int add(ApplyForm applyForm);
+
+  int addQuestion(ApplyForm applyForm);
   //
   //  List<ApplyForm> list();
   //

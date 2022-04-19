@@ -24,6 +24,10 @@ public class DefaultApplyFormService implements ApplyFormService {
   public int add(ApplyForm applyForm) {
     return applyFormDao.insert(applyForm);
   }
+  @Override
+  public int addQuestion(ApplyForm applyForm) {
+    return applyFormDao.insertQuestion(applyForm);
+  }
   //
   //    @Override
   //    public List<ApplyForm> list() {

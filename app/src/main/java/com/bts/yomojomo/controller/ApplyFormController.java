@@ -13,7 +13,19 @@ import com.bts.yomojomo.service.ApplyFormService;
 public class ApplyFormController {
   @Autowired
   ApplyFormService applyFormService;
+  //  신청서 생성
+  @RequestMapping("/applyForm/add")
+  public Object add(ApplyForm applyForm) {
+    return new ResultMap().setStatus(SUCCESS).setData(applyFormService.add(applyForm));
+  }
 
+  //  신청서에 질문 추가 
+  @RequestMapping("/applyQuestion/addQuestion")
+  public Object addQuestion(ApplyForm applyForm) {
+
+    return new ResultMap().setStatus(SUCCESS).setData(applyFormService.addQuestion(applyForm));
+  }
+  //신청서의 질문 목록을 조회
   @RequestMapping("/applyform/findQuestion")
   public Object findQuestion(int no) {
     List<ApplyForm> applyForm= applyFormService.findQuestion(no);
@@ -23,10 +35,8 @@ public class ApplyFormController {
     return new ResultMap().setStatus(SUCCESS).setData(applyForm); 
   }
 
-  @RequestMapping("/applayform/add")
-  public Object add(ApplyForm applayForm) {
-    return applyFormService.add(applayForm);
-  }
+
+
 
   //  @RequestMapping("/applyform/get")
   //  public Object get(int no) {

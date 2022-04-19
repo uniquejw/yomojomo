@@ -8,11 +8,15 @@ import com.bts.yomojomo.domain.ApplyForm;
 public interface ApplyFormDao {
 
   List<ApplyForm> findQuestion(int no);
+
+  int insert(ApplyForm applyForm);
+
+  int insertQuestion(ApplyForm applyForm);
+
   //  int countAll();
   //
   //  List<ApplyForm> findAll();
   //
-  int insert(ApplyForm applayForm);
   //
   //  ApplyForm findByNo(int no);
   //
