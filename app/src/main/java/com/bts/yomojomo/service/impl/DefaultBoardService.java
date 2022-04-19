@@ -31,8 +31,8 @@ public class DefaultBoardService implements BoardService {
   }
 
   @Override
-  public List<Board> findBoardNo(Board board) {
-    return boardDao.findBoardNo(board);
+  public List<Board> findByBoardNo(Board board) {
+    return boardDao.findByBoardNo(board);
   }
 
   @Override
@@ -52,6 +52,11 @@ public class DefaultBoardService implements BoardService {
   @Override
   public int delete(Board board) {
     return boardDao.delete(board);
+  }
+
+  @Override
+  public int increaseViewCount() {
+    return boardDao.increaseViewCount();
   }
 
 

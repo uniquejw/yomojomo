@@ -193,6 +193,23 @@ $(document).on("click","#apply-form-btn",function(){
   document.querySelector(".background").className = "background";
   document.querySelector(".report-background").className = "report-background show";
   var value = $(this).val();//모임번호
+  fetch(`${PATH.groupGet}?no=${value}`)
+  .then(function(response){
+    return response.json()
+  }).then(function(result){
+    console.log(result.data)
+    if (result.status == "fail") {
+      window.alert("서버 요청 오류!");
+      console.log(result.data);
+      return;
+    }
+    if(result.data.logo == null){
+      result.data.logo = "default.png";
+    }
+      var path2 = "/group/photo?filename=" + result.data.logo
+      document.querySelector('.main-logo2').setAttribute("src", path2)
+  })
+
   fetch(`/applyform/findQuestion?no=${value}`)
     .then(function(res){
       return res.json();
@@ -202,6 +219,7 @@ $(document).on("click","#apply-form-btn",function(){
         window.alert("서버 요청 오류!");
         return;
       }
+      
     // 핸들바
     var writtenContainer = document.querySelector("#handlebars-container2");
     var divTemplate = document.querySelector("#applyList-template");
@@ -242,7 +260,13 @@ var cols = document.querySelectorAll("button.btn-close");
 [].forEach.call(cols,function(col){
   col.addEventListener("click",close)
 })
-// document.querySelector(".close").addEventListener("click", close);
+$(document).on("click",function(e){
+  if($(".background").is(e.target)){
+    console.log("출력")
+    $(".background").css({visibillty:"hidden",
+  opacity:0})
+  }
+})
 function close() {
   document.querySelector(".report-background").className = "report-background";
   document.querySelector(".background").className = "background";

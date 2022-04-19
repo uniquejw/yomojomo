@@ -11,11 +11,13 @@ public interface BoardService {
 
   List<Board> findByGroupNo(int no);
 
-  List<Board> findBoardNo(Board board);
+  List<Board> findByBoardNo(Board board);
 
   Board get(int no);
 
   int update(Board board);
 
   int delete(Board board);
+
+  int increaseViewCount();
 }
