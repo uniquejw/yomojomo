@@ -18,20 +18,17 @@ public class ApplyQuestionController {
   @RequestMapping("/applyQuestion/add")
   public Object add(int no, String[] questionName) {
     ArrayList<ApplyQuestion> questionList = new ArrayList();
-    ApplyQuestion applyQuestion = new ApplyQuestion();
     for (int i = 0; i < questionName.length; i++) {
-      String value = questionName[i];
-      System.out.println(value);
-      if (value == null) {
+      if (questionName[i].length() == 0) {
         continue;
       }
-      applyQuestion.setQuestionName(value);
+      ApplyQuestion applyQuestion = new ApplyQuestion();
+      applyQuestion.setQuestionName(questionName[i]);
       applyQuestion.setGroupNo(no);
       questionList.add(applyQuestion);
       System.out.println(questionList);
     }
-    return  new ResultMap().setStatus(SUCCESS).setData(applyQuestionService.add(questionList));  
-
+    return new ResultMap().setStatus(SUCCESS).setData(applyQuestionService.add(questionList));  
   }
   //신청서의 질문 목록을 조회
   @RequestMapping("/applyQuestion/findQuestion")

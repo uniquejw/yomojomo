@@ -13,6 +13,9 @@ questionList.querySelector("#listQuestionName").value = "";
 xQuestionListCon.append(questionList);
 };
 
+//신청서 등록 현황 
+
+
 // 신청서 등록
 var xQuestionCon = document.querySelector("#x-question-container")
 document.querySelector("#x-apply-form").onclick = function() {
@@ -26,9 +29,8 @@ document.querySelector("#x-apply-form").onclick = function() {
       .then(function(res){
         return res.json()
       }).then(function(result){
-        console.log(result.data)
+        // location.href=`/ssang/groupEdit/index.html?no=${groupNo}`
       })
-
     // window.Swal.fire({
     // position: 'top-end',
     // icon: 'success',
