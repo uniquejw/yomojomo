@@ -7,10 +7,9 @@
   <!-- 테이블의 컬럼과 객체필드를 연결한다. -->
   <resultMap type="ApplyAnswer" id="ApplyAnswerMap">
     <id column="appl_answer_no" property="no"/>
-    <result column="appl_no" property="applyNo"/>
+    <result column="appl_question_no" property="groupNo"/>
     <result column="answer" property="answer"/>
   </resultMap>
-
   <select id="findAll" resultMap="ApplyAnswerMap"> 
     select
       appl_answer_no,
@@ -21,15 +20,15 @@
     order by
       appl_answer asc
   </select>
-  <!--
+  
   <insert id="insert" >
-    insert into gms_applyform_answer(appl_no, memb_no, answer)
+    insert into gms_applyform_answer(appl_question_no, memb_no, answer)
     values 
-    <foreach collection="ApplyAnswer" item="answers" separator=",">
-    (#{answers.applyNo}, #{answers.writer.no} ,#{answers.answer}) 
+    <foreach collection="answerList" item="answers" separator=",">
+    (#{answers.applyQuestionNo}, #{answers.writer.no} ,#{answers.answer}) 
     </foreach>
  </insert>
-  -->
+ 
   <select id="findByNo" resultMap="ApplyAnswerMap" parameterType="int">
     select 
       appl_answer_no,

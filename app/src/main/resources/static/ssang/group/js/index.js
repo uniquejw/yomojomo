@@ -229,58 +229,46 @@ $(document).on("click","#apply-form-btn",function(){
       var divTemplate = document.querySelector("#applyList-template");
       var htmlGenerator = Handlebars.compile(divTemplate.innerHTML);
       writtenContainer.innerHTML = htmlGenerator(result.data);
-      // console.log(htmlGenerator(result.data))
     });
 
 //신청하기
 $(document).on("click","#apply",function(){
- var fd = new FormData(document.forms.namedItem("applyForm"))
- console.log(new URLSearchParams(fd).toString())
- console.log
-  // var value = $(this).val();//appl_no
-  // // var fd = new FormData();
-  // var answerLength = $("input[name=answer]").length;//값들의 갯수 -> 배열 길이를 지정
-  // var answers = new Array(answerLength);//배열 생성
-  // //배열에 값 주입
-  // for(var i=0; i<answerLength; i++){                          
-  //   answers[i] = $("input[name=answer]").eq(i).val();
-  // }
-  // // fd.append('answer',answers)
-  // // fd.append('answer',document.querySelector("textarea[name=answer]").value)
-  // // fd.append('applyNo',value)
+  var answerLength = $("input[name=answer]").length;//값들의 갯수 -> 배열 길이를 지정
+  var answers = new Array();//배열 생성
+  var qs = "";
+  //배열에 값 주입
+  for(var i=0; i<answerLength; i++){                          
+    var answer = $("input[name=answer]").eq(i).val()
+    var qno = $("input[name=answer]").eq(i).data('qno')
+    qs += `answers=${qno}_${answer}&`;
+  }
+  console.log(qs)
   // answers.push(document.querySelector("textarea[name=answer]").value)
-  // console.log(answers)
-  // fetch('/applyAnswer/add',{
-  //   method:"POST",
-  //   body: {
-  //     'answers':`${answers}`,
-  //     'applyNo':`${value}`
-  //   }
-  // })
-  // .then(function(res){
-  //   return res.json()
-  // }).then(function(result){
-  //   location.href="/minkyu/mypage/index.html"
-  //  })
+  fetch(`/applyAnswer/add?${qs}`)
+  .then(function(res){
+    return res.json()
+  }).then(function(result){
+    location.href="/minkyu/mypage/index.html"
+   })
 })
-
 
 //닫기
 var cols = document.querySelectorAll("button.btn-close");
 [].forEach.call(cols,function(col){
   col.addEventListener("click",close)
 })
-$(document).on("click",function(e){
-  if($(".background").is(e.target)){
-    console.log("출력")
-    $(".background").css({visibillty:"hidden",
-  opacity:0})
-  }
-})
 function close() {
+  console.log("닫기");
   document.querySelector(".report-background").className = "report-background";
   document.querySelector(".background").className = "background";
 }
+// $(document).on("click",function(e){
+//   if($(".background").is(e.target)){
+//     console.log("출력")
+//     $(".background").css({visibillty:"hidden",
+//   opacity:0})
+//   }
+// })
 
 
     
