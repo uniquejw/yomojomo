@@ -40,7 +40,12 @@ public class ApplyQuestionController {
     }
     return new ResultMap().setStatus(SUCCESS).setData(applyquestion); 
   }
-  //
+
+  @RequestMapping("/applyQuestion/delete")
+  public int delete() {
+    return applyQuestionService.delete();
+  }
+
   //  @RequestMapping("/applayQuestion/get")
   //  public Object get(int no) {
   //    ApplyQuestion applyQuestion = applyQuestionService.get(no);
@@ -49,19 +54,15 @@ public class ApplyQuestionController {
   //    }
   //    return new ResultMap().setStatus(SUCCESS).setData(applyQuestion);
   //  }
-
-  @RequestMapping("/applayQuestion/list")
-  public Object list() {
-    return applyQuestionService.list(); 
-  }
+  //
+  //  @RequestMapping("/applayQuestion/list")
+  //  public Object list() {
+  //    return applyQuestionService.list(); 
+  //  }
   //
   //  @RequestMapping("/applayQuestion/update")
   //  public Object update(ApplyQuestion applayForm) {
   //    return applyQuestionService.update(applayForm);
   //  }
   //
-  //  @RequestMapping("/applayQuestion/delete")
-  //  public Object delete(int no) {
-  //    return applyQuestionService.delete(no);
-  //  }
 }

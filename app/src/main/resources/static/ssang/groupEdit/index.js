@@ -1,5 +1,5 @@
 import{getGroupNO} from '/ssang/js/module.js';
-var groupNo = getGroupNO(); // 그룹넘버
+var groupNo = getGroupNO(); 
 
 
 // 신청서 생성
@@ -14,6 +14,17 @@ xQuestionListCon.append(questionList);
 };
 
 //신청서 등록 현황 
+var br = document.querySelector("#accordion-body")
+var brTemplate = document.querySelector("#br-template");
+var htmlGenerator = Handlebars.compile(brTemplate.innerHTML);
+fetch(`/applyQuestion/findQuestion?no=${groupNo}`)
+  .then(function(res){
+    return res.json()
+  }).then(function(result){
+    console.log(result.data)
+    br.innerHTML = htmlGenerator(result.data);
+  })
+
 
 
 // 신청서 등록
@@ -40,16 +51,14 @@ document.querySelector("#x-apply-form").onclick = function() {
     // })
 }
 // 신청서 초기화
-document.querySelector("#x-reform").onclick = function() {
-window.location.href = "index.html";
-};
+// document.querySelector("#x-reform").onclick = function() {
+//   fetch("/applyQuestion/delete")
+//     .then(function(res){
+//       return res.text()
+//     }).then(function(no){
+//       // window.location.href = `index.html?no=${groupNo}`;
+//     })
 
-let xQuestionListCon = document.querySelector("#x-question-container");
-let xQuestionList = document.querySelector(".x-question");
+// };
 
-// 삭제 이벤트
-function deleteDiv(e) {
-    if (xQuestionListCon.childElementCount > 1) {
-      xQuestionListCon.removeChild(e.target.parentNode);
-    }
-};
+

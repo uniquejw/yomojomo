@@ -18,7 +18,6 @@ public class DefaultApplyQuestionService implements ApplyQuestionService {
 
   @Override
   public int add(ArrayList<ApplyQuestion> questionList) {
-    // TODO Auto-generated method stub
     return applyQuestionDao.insert(questionList);
   }
 
@@ -42,12 +41,9 @@ public class DefaultApplyQuestionService implements ApplyQuestionService {
   //    return applyQuestionDao.update(applyQuestion);
   //  }
   //
-  //  @Override
-  //  public int delete(int no) {
-  //    return applyQuestionDao.delete(no);
-  //  }
-
-
-
+  @Override
+  public int delete() {
+    return applyQuestionDao.delete();
+  }
 
 }

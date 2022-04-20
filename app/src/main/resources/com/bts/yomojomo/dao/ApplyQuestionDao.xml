@@ -39,6 +39,11 @@
       g_no=#{no};
   </select>
   
+  
+  <delete id="delete">
+    delete from gms_applyform_question
+  </delete>
+  
   <select id="findByNo" resultMap="ApplyQuestionMap" parameterType="int">
     select 
       appl_no,
@@ -60,10 +65,4 @@
       appl_no=#{no}
   </update>
   
-  
-  <delete id="delete" parameterType="int">
-    delete from gms_applyform_question
-    where 
-      appl_no=#{no}
-  </delete>
 </mapper>

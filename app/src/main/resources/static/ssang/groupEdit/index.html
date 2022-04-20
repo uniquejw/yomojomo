@@ -64,11 +64,7 @@ $(document).ready(function () {
                     </button>
                   </h2>
                   <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                    <div class="accordion-body" >
-                      이름 <br>
-                      사는 지역 <br>
-                      주간 참여 가능 횟수 <br>
-                    </div>
+                    <div class="accordion-body" id="accordion-body" ></div>
                   </div>
                 </div>
               <!-- 질문 생성 아코디언 -->
@@ -98,10 +94,23 @@ $(document).ready(function () {
             </tr>
         </table>
     </div>
+    <script id="br-template" type="text/x-handlebars-template">
+      {{#each this}}
+      {{questionName}}<br>
+      {{/each}}
+    </script>
 </div>
 <div id="footers"></div>
 </body>
 <script type="module" src="/ssang/groupEdit/index.js"></script>
 <script>
+  // 삭제 이벤트
+let xQuestionListCon = document.querySelector("#x-question-container");
+let xQuestionList = document.querySelector(".x-question");
+function deleteDiv(e) {
+    if (xQuestionListCon.childElementCount > 1) {
+      xQuestionListCon.removeChild(e.target.parentNode);
+    }
+};
 </script>
 </html>

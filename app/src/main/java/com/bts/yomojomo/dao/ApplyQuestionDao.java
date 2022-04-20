@@ -20,5 +20,5 @@ public interface ApplyQuestionDao {
 
   int update(ApplyQuestion applyQuestion);
 
-  int delete(int no);
+  int delete();
 }
