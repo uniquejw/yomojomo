@@ -33,18 +33,6 @@ public class ApplyAnswerController {
     return new ResultMap().setStatus(SUCCESS).setData(applyAnswerService.add(answerList));  
   }
 
-  //  @RequestMapping("/applyAnswer/add")
-  //  public Object add(ApplyAnswer applyAnswer, ArrayList<ApplyAnswer> answers, HttpSession session) {
-  //
-  //    // 방법 2
-  //    //      String [] answers;
-  //    //  answerList.addAll(Arrays.asList(answers));  
-  //    //    답변 목록 담기 
-  //    //    ArrayList<ApplyAnswer> answerList = new ArrayList<>();
-  //    //    answerList.addAll(answers);
-  //    applyAnswer.setAnswer(answers);
-  //    return new ResultMap().setStatus(SUCCESS).setData(applyAnswerService.add(applyAnswer));
-  //  }
 
   @RequestMapping("/applyAnswer/list")
   public Object list() {

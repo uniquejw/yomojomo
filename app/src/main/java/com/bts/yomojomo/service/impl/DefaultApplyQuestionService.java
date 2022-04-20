@@ -1,5 +1,6 @@
 package com.bts.yomojomo.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,10 +16,10 @@ public class DefaultApplyQuestionService implements ApplyQuestionService {
   @Autowired
   ApplyQuestionDao applyQuestionDao;
 
-
   @Override
-  public int add(ApplyQuestion applyQuestion) {
-    return applyQuestionDao.insert(applyQuestion);
+  public int add(ArrayList<ApplyQuestion> questionList) {
+    // TODO Auto-generated method stub
+    return applyQuestionDao.insert(questionList);
   }
 
   @Override
@@ -45,6 +46,8 @@ public class DefaultApplyQuestionService implements ApplyQuestionService {
   //  public int delete(int no) {
   //    return applyQuestionDao.delete(no);
   //  }
+
+
 
 
 }

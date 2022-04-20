@@ -38,6 +38,3 @@ div{
 .accordion-button {
     font-weight: bold;
 }
-#addApplyForm, #applyForm{
-    display: none;
-}

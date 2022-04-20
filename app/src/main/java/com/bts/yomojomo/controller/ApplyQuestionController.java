@@ -2,6 +2,7 @@ package com.bts.yomojomo.controller;
 
 import static com.bts.yomojomo.controller.ResultMap.FAIL;
 import static com.bts.yomojomo.controller.ResultMap.SUCCESS;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,8 +16,22 @@ public class ApplyQuestionController {
   ApplyQuestionService applyQuestionService;
 
   @RequestMapping("/applyQuestion/add")
-  public Object add(ApplyQuestion applayForm) {
-    return applyQuestionService.add(applayForm);
+  public Object add(int no, String[] questionName) {
+    ArrayList<ApplyQuestion> questionList = new ArrayList();
+    ApplyQuestion applyQuestion = new ApplyQuestion();
+    for (int i = 0; i < questionName.length; i++) {
+      String value = questionName[i];
+      System.out.println(value);
+      if (value == null) {
+        continue;
+      }
+      applyQuestion.setQuestionName(value);
+      applyQuestion.setGroupNo(no);
+      questionList.add(applyQuestion);
+      System.out.println(questionList);
+    }
+    return  new ResultMap().setStatus(SUCCESS).setData(applyQuestionService.add(questionList));  
+
   }
   //신청서의 질문 목록을 조회
   @RequestMapping("/applyQuestion/findQuestion")

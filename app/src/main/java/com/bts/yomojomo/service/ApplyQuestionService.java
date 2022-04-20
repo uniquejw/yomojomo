@@ -1,11 +1,12 @@
 package com.bts.yomojomo.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import com.bts.yomojomo.domain.ApplyQuestion;
 
 public interface ApplyQuestionService {
 
-  int add(ApplyQuestion applyQuestion);
+  int add(ArrayList<ApplyQuestion> questionList);
 
   List<ApplyQuestion> list();
 
