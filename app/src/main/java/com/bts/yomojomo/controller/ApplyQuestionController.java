@@ -15,6 +15,7 @@ public class ApplyQuestionController {
   @Autowired
   ApplyQuestionService applyQuestionService;
 
+  //신청서 질문 등록 
   @RequestMapping("/applyQuestion/add")
   public Object add(int no, String[] questionName) {
     ArrayList<ApplyQuestion> questionList = new ArrayList();
