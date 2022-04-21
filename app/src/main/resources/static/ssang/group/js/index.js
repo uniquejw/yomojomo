@@ -253,15 +253,16 @@ $(document).on("click","#apply",function(){
 })
 
 //닫기
-var cols = document.querySelectorAll("button.btn-close");
-[].forEach.call(cols,function(col){
-  col.addEventListener("click",close)
-})
-function close() {
+$(document).on("click","button.btn-close",function(){
+// var cols = document.querySelectorAll("button.btn-close");
+// [].forEach.call(cols,function(col){
+//   col.addEventListener("click",close)
+// })
+// function close() {
   console.log("닫기");
   document.querySelector(".report-background").className = "report-background";
   document.querySelector(".background").className = "background";
-}
+})
 // $(document).on("click",function(e){
 //   if($(".background").is(e.target)){
 //     console.log("출력")
