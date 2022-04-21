@@ -1,6 +1,6 @@
 import{getGroupNO} from '/ssang/js/module.js';
 var getGroup = getGroupNO();
-
+console.log(getGroup)
 //-- 핸들바 -->
   var writtenContainer = document.querySelector("#handlebars-container");
   var divTemplate = document.querySelector("#div-template");
