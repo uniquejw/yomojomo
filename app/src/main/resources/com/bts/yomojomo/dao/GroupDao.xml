@@ -13,6 +13,7 @@
 		<result column="reg_dt" property="registDate" />
 		<result column="logo" property="logo" />
 		<result column="intro" property="intro" />
+		<result column="memb_cnt" property="memberCount" />
 		<result column="max_cnt" property="maxCount" />
 		<result column="view_cnt" property="viewCount" />
 	</resultMap>
@@ -136,8 +137,10 @@
 		pups_no,
 		name,
 		logo,
+		memb_cnt,
+		max_cnt,
 		intro)
-		values(#{activeLocalNo}, #{purposeNo}, #{GroupName}, #{logo}, #{intro});
+		values(#{activeLocalNo}, #{purposeNo}, #{GroupName}, #{logo}, "1", #{maxCount}, #{intro});
 	</insert>
 
 	<update id="update" parameterType="Group">

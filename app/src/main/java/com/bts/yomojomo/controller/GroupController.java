@@ -37,7 +37,7 @@ public class GroupController {
     } catch (Exception e) {
       StringWriter out = new StringWriter();
       e.printStackTrace(new PrintWriter(out));
-
+      System.out.println(group);
       return new ResultMap().setStatus(FAIL);
     }
   }
