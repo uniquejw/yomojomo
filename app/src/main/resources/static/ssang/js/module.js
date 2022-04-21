@@ -13,13 +13,13 @@ export function getGroupNO(){
   
   // 2) 쿼리 스트링에서 email 값을 추출한다.
   var params = new URLSearchParams(qs);
-  var no = params.get("gno");
+  var gno = params.get("gno");
   
-  if (no == null) {
+  if (gno == null) {
     alert("모임 번호가 없습니다.");
     throw "파라미터 오류!";
   }
   //console.log(no);
-  return no;
+  return gno;
 }
 // export var no;
