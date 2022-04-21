@@ -24,6 +24,7 @@ fetch(PATH.groupList)
       }
       writtenContainer.innerHTML = htmlGenerator(result.data);
     }
+    console.log(result.data)
   });
 
   // 시,도 카테고리불러오기
@@ -230,6 +231,7 @@ $(document).on("click","#apply-form-btn",function(){
       var htmlGenerator = Handlebars.compile(divTemplate.innerHTML);
       writtenContainer.innerHTML = htmlGenerator(result.data);
     });
+});
 
 //신청하기
 $(document).on("click","#apply",function(){
@@ -253,15 +255,17 @@ $(document).on("click","#apply",function(){
 })
 
 //닫기
-var cols = document.querySelectorAll("button.btn-close");
-[].forEach.call(cols,function(col){
-  col.addEventListener("click",close,false);
+$("button.btn-close").click((e) => {
+  var dialog = e.target.getAttribute("data-dialog");
+  $(`.${dialog}`).removeClass("show");
 });
+/*
 function close() {
+  console.log("click")
   document.querySelector(".background").className = "background";
   document.querySelector(".report-background").className = "report-background";
 }
-
+*/
 // $(document).on("click",".board-edit",function(){
 //   window.location.href = "view.html";
 // })
@@ -275,4 +279,4 @@ function close() {
 // document.querySelector(".new-post-btn").onclick = function() {
 //   window.location.href = "form.html";
 // };
-})
+

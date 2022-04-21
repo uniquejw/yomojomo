@@ -83,7 +83,6 @@ table{
 .group-list-container .item{
     float: left;
     /* display: inline-block; */
-    text-align: center;
 }
 .item-div{
   width: 345px;
@@ -116,12 +115,38 @@ img{
 li img {
   border-radius: inherit;
 }
-.group-list-container .item .group-name{
-    font-size: 15px;
-    height: 20%;
-    width: 100%;
-    background-color: rgb(237, 237, 237);
-    border-radius: inherit;
+.group-list-container .item .group-name-div{
+  display: flex;
+  height: 20%;
+  width: 100%;
+  background-color: rgb(237, 237, 237);
+  border-radius: inherit;
+}
+
+.group-list-container .item .group-name-div .group-name{
+  padding: 0 18px;
+  width: 70%;
+  margin: auto 0;
+  height: 72%;
+  font-size: 20px;
+  font-weight: bold;
+  display: inline-block;
+  overflow: auto;
+  scrollbar-width: none;
+}
+.group-list-container .item .group-name-div .group-name::-webkit-scrollbar {
+  display: none; 
+}
+.group-list-container .item .group-name-div .group-info{
+  position: relative;
+  width: 30%;
+  display: inline-block;
+  
+}
+.group-list-container .item .group-name-div .memb-count{
+  position: absolute;
+  bottom: 11px;
+  left: 0;
 }
 button.btn-show{
   background-color: #ffffff;
@@ -214,7 +239,8 @@ button.btn-show{
   }
   .popup-group-name{
     font-size: 24px;
-    margin: 21px 0 0 0;
+    margin: 21px auto 0 ;
+    width: 90%;
 }
   .popup-group-content ,.report-form{
       margin: 14px auto;
