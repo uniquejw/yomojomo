@@ -5,6 +5,7 @@
 <mapper namespace="com.bts.yomojomo.dao.JoinMemberDao">
   
   <resultMap type="JoinMember" id="JoinMemberMap">
+      <result column="memb_no" property="memberCount"/>
     <association property="group" javaType="Group"> <!-- gms_group -->
       <id column = "gno" property="no"/>
       <result column="gname" property="GroupName"/>
@@ -71,9 +72,6 @@
       jm.g_no = #{group.no}
     order by mg.g_memb_grd_no asc
   </select>
-
-
-
 
 <!--  이 밑으로 안건드림 - 경현
 
