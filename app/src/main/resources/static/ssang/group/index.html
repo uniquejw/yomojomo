@@ -74,7 +74,13 @@
         <button type="button" class="btn-show" value="{{no}}">
           <img src="/group/photo?filename={{logo}}" class="sub-logo">
         </button>
-        <div class="group-name" >{{groupName}}</div>
+        <div class="group-name-div">
+          <div class="group-name">{{groupName}}</div>
+          <div class="group-info">
+            <div>{{registDate}}</div>
+            <div class="memb-count">😃 30명</div>
+          </div>
+        </div>
       </div>  
     </li>
     {{/each}}
@@ -85,7 +91,7 @@
     <div class="window">
       <div class="popup">
         <div class="popup-img-div"><img alt="이리오너라" class="main-logo"></div>
-        <button type="button" class="btn-close" aria-label="Close"></button>
+        <button type="button" class="btn-close" data-dialog="background" aria-label="Close"></button>
         <div class="popup-group-name"></div>
         <div class="popup-group-content"></div>
         <div><button id="apply-form-btn" value="">가입하기</button></div>
@@ -97,7 +103,7 @@
     <div class="report-background">
       <div class="report-window">
         <div class="report-popup">
-          <button type="button" class="btn-close" aria-label="Close"></button>
+          <button type="button" class="btn-close" data-dialog="report-background" aria-label="Close"></button>
           <div class="report-img-div"><img alt="이리오너라" class="main-logo2"></div>
           <div class="report-form">
             <div class="report-form-title">가입신청서</div>
@@ -111,8 +117,7 @@
           <div><button id="apply" value="">가입하기</button></div>
         </div><!--report-popup-->
       </div> <!--report-window-->
-    </div>    <!--report-background-->
-
+    </div><!-- report-background -->
 </div><!--container-->
 <div id="footers"></div>
 

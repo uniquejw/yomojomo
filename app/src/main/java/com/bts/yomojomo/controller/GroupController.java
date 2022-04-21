@@ -43,8 +43,8 @@ public class GroupController {
   }
 
   @RequestMapping("/group/get")
-  public Object get(int no) {
-    Group group = groupService.get(no);
+  public Object get(int gno) {
+    Group group = groupService.get(gno);
     if (group == null) {
       return new ResultMap().setStatus(FAIL).setData("해당 번호의 모임이 없습니다.");
     }

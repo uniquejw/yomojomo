@@ -24,6 +24,7 @@ fetch(PATH.groupList)
       }
       writtenContainer.innerHTML = htmlGenerator(result.data);
     }
+    console.log(result.data)
   });
 
   // 시,도 카테고리불러오기
@@ -167,7 +168,7 @@ fetch(PATH.groupList)
 $(document).on("click","button.btn-show",function(){
   document.querySelector(".background").className = "background show";
   var value = $(this).val();
-  fetch(`${PATH.groupGet}?no=${value}`)
+  fetch(`${PATH.groupGet}?gno=${value}`)
   .then(function(response){
     return response.json()
   }).then(function(result){
@@ -194,7 +195,7 @@ $(document).on("click","#apply-form-btn",function(){
   document.querySelector(".report-background").className = "report-background show";
   var value = $(this).val();//모임번호
   // 사진
-  fetch(`${PATH.groupGet}?no=${value}`)
+  fetch(`${PATH.groupGet}?gno=${value}`)
     .then(function(response){
     return response.json()
     })
@@ -230,6 +231,7 @@ $(document).on("click","#apply-form-btn",function(){
       var htmlGenerator = Handlebars.compile(divTemplate.innerHTML);
       writtenContainer.innerHTML = htmlGenerator(result.data);
     });
+});
 
 //신청하기
 $(document).on("click","#apply",function(){
@@ -253,40 +255,28 @@ $(document).on("click","#apply",function(){
 })
 
 //닫기
-var cols = document.querySelectorAll("button.btn-close");
-[].forEach.call(cols,function(col){
-  col.addEventListener("click",close)
-})
+$("button.btn-close").click((e) => {
+  var dialog = e.target.getAttribute("data-dialog");
+  $(`.${dialog}`).removeClass("show");
+});
+/*
 function close() {
-  console.log("닫기");
-  document.querySelector(".report-background").className = "report-background";
+  console.log("click")
   document.querySelector(".background").className = "background";
+  document.querySelector(".report-background").className = "report-background";
 }
-// $(document).on("click",function(e){
-//   if($(".background").is(e.target)){
-//     console.log("출력")
-//     $(".background").css({visibillty:"hidden",
-//   opacity:0})
-//   }
+*/
+// $(document).on("click",".board-edit",function(){
+//   window.location.href = "view.html";
+// })
+// $(document).on("click",".board-edit",function(){
+//   window.location.href = "view.html";
 // })
 
 
-    
-    
-    // document.querySelector("#x-create-btn").onclick = function(){
-    //   location.href="form.html";
-    // };
 
+// 버튼클릭이벤트 
+// document.querySelector(".new-post-btn").onclick = function() {
+//   window.location.href = "form.html";
+// };
 
-
-
-
-
-    // 버튼클릭이벤트 
-      // document.querySelector(".new-post-btn").onclick = function() {
-      //   window.location.href = "form.html";
-      // };
-      // $(document).on("click",".board-edit",function(){
-      //   window.location.href = "view.html";
-      // })
-})
