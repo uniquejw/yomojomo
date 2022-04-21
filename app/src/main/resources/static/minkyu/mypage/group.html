@@ -74,7 +74,7 @@
               <table class="table table-hover">
                 <thead>
                   <tr>
-                    <th>선택</th>
+                    <th><input class="form-check-input all-check" type="checkbox" value="" id="flexCheckDefault"></th>
                     <th>신청자</th>
                     <th>제목</th>
                     <th>소모임</th>
@@ -246,6 +246,13 @@
           }
         })
       })
+      $(".all-check").click(function(e){
+      if ($(".all-check").is(":checked")){
+        $("input").prop("checked", true)
+      } else {
+        $("input").prop("checked", false)
+      }
+    })
     $(".btn-delete").click(function(e){
       if ($(".form-check-input").is(":checked") == false) {
         swa.fire(
