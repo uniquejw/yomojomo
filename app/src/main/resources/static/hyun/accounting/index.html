@@ -42,6 +42,11 @@ table > tbody > tr > td {
       $('#header').load('/junho/mainHeader.html'); //헤더 인클루드
       $('#top').load('/ssang/groupBoard/none-search-top.html'); //상준님헤더
       $('#footer').load('/junho/mainfooter.html'); //푸터부분 인클루드
+      // $('a[href="#"]').click(function(ignore) {
+      //   ignore.preventDefault();
+      // });
+
+
   });
 
   $.ajax({ //로그인 여부 확인 ajax START 비회원은 main으로 보낸다.
@@ -171,15 +176,15 @@ table > tbody > tr > td {
 <!--페이지네이션 생성 핸들 바-->
 <script id="pageli-template" type="text/x-handlebars-template">
 <li class="page-item" value="1">
-  <a class="page-link" href="#"><<</a>
+  <a class="page-link" href="javascript:void(0)"><<</a>
 </li>
 
 {{#each this}}
-<li class="page-item" value="{{no}}"><a class="page-link" href="#">{{totalPageSize}}</a></li>
+<li class="page-item" value="{{no}}"><a class="page-link" href="javascript:void(0)">{{totalPageSize}}</a></li>
 {{/each}}
 
 <li class="page-item" value="">
-  <a class="page-link" href="#" >>></a>
+  <a class="page-link" href="javascript:void(0)" >>></a>
 </li>
 </script>
 <!--페이지네이션 생성 핸들 바-->
@@ -195,34 +200,50 @@ let pagenationUl = document.querySelector("#pagination-ul");
 let pagetemplate = document.querySelector("#pageli-template");
 let pageGernerator = Handlebars.compile(pagetemplate.innerHTML);
 
+//form.html로 이동
+var arr = location.href.split("?");
+  // console.log(arr);
+  if (arr.length == 1) {
+    alert("요청 형식이 올바르지 않습니다.")
+    throw "URL 형식 오류!";
+  }
+  var qs = arr[1];
+  // console.log("qs는?" + qs);
+  var params = new URLSearchParams(qs);
+  // console.log(params);
+  var gno = params.get("gno");
+  // console.log("gno는?" + gno);
+
 
 //전체 리스트 불러오기 START
 $.ajax({
   url : "/accounting/listbygroup", 
-  type : "POST",
+  type : "GET",
   async : false,
   dataType : "json",
   data : {
     "pageSize" : 10,
     "pageNo" : 1,
-    "groupNo" : 1}, //!!!!!!!!!!!!!!!!!!!!!!!!!!!임시로 그룹 번호 줌!!!!!!!!!!!!!
+    "groupNo" : gno}, //!!!!!!!!!!!!!!!!!!!!!!!!!!!임시로 그룹 번호 줌!!!!!!!!!!!!!
   success: function(result) {
+    // console.log(result.data);
     var arr = result.data;
-    // console.log(arr);
+    // console.log(arr.accountingNo);
     var ing = "진행";
     var end = "완료";
     // console.log(arr.actCate);
     var updateData = []
     $.each(arr, function(index, arr) {
       updateData.push({
+        no : arr.accountingNo,
         "actCate" : arr.actCate.cateName,
-        no : arr.no,
         title : arr.title,
         registDate : arr.registDate,
         statusno : arr.status,
         status : arr.status == 0 ? ing : end
       })
     })
+    // console.log(updateData);
     tbody.innerHTML = htmlGenerator(updateData);
     let totalListCount = result.totalListCount;
     let totalPageSize = result.totalPageSize;
@@ -273,10 +294,10 @@ $.ajax({
         data : {
           "pageSize" : 10,
           "pageNo" : clickli,
-          "groupNo" : 1}, //!!!!!!!!!!!!!!!!!!!!!!!!!!!임시로 그룹 번호 줌!!!!!!!!!!!!!
+          "groupNo" : gno}, //!!!!!!!!!!!!!!!!!!!!!!!!!!!임시로 그룹 번호 줌!!!!!!!!!!!!!
         success: function(result) {
           var arr = result.data;
-          // console.log(arr);
+          console.log(arr);
           var ing = "진행";
           var end = "완료";
           // console.log(arr.actCate);
@@ -284,7 +305,7 @@ $.ajax({
           $.each(arr, function(index, arr) {
             updateData.push({
               "actCate" : arr.actCate.cateName,
-              no : arr.no,
+              no : arr.accountingNo,
               title : arr.title,
               registDate : arr.registDate,
               statusno : arr.status,
@@ -300,19 +321,19 @@ $.ajax({
 }); //전체 리스트 불러오기 END
 
 //selectbox 옵션별 목록 불러오기
-$(document).on("change", "#selectCate", function() {
+$(document).on("click", "#selectCate", function() {
   let cate = $("#selectCate option:selected").val();
   console.log(cate);
   if (cate == 1) {
     $.ajax({
-    url : "/accounting/listbygroup", //!!!!!!!!!!!!!!!!!!!!나중에 수정 하기!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    url : "/accounting/listbygroup", 
     type : "POST",
     async : false,
     dataType : "json",
     data : {
       "pageSize" : 10,
       "pageNo" : 1,
-      "groupNo" : 1}, //!!!!!!!!!!!!!!!!!!!!!!!!!!!임시로 그룹 번호 줌!!!!!!!!!!!!!
+      "groupNo" : gno}, 
     success: function(result) {
       var arr = result.data;
       // console.log(arr);
@@ -323,14 +344,16 @@ $(document).on("change", "#selectCate", function() {
       $.each(arr, function(index, arr) {
         updateData.push({
           "actCate" : arr.actCate.cateName,
-          no : arr.no,
+          no : arr.accountingNo,
           title : arr.title,
           registDate : arr.registDate,
           statusno : arr.status,
           status : arr.status == 0 ? ing : end
         })
       })
+      console.log(updateData);
       tbody.innerHTML = htmlGenerator(updateData);
+
       let totalListCount = result.totalListCount;
       let totalPageSize = result.totalPageSize;
       let requestPageNo = result.pageNo;
@@ -380,10 +403,10 @@ $(document).on("change", "#selectCate", function() {
           data : {
             "pageSize" : 10,
             "pageNo" : clickli,
-            "groupNo" : 1}, //!!!!!!!!!!!!!!!!!!!!!!!!!!!임시로 그룹 번호 줌!!!!!!!!!!!!!
+            "groupNo" : gno}, 
           success: function(result) {
             var arr = result.data;
-            // console.log(arr);
+            console.log(arr);
             var ing = "진행";
             var end = "완료";
             // console.log(arr.actCate);
@@ -391,7 +414,7 @@ $(document).on("change", "#selectCate", function() {
             $.each(arr, function(index, arr) {
               updateData.push({
                 "actCate" : arr.actCate.cateName,
-                no : arr.no,
+                no : arr.accountingNo,
                 title : arr.title,
                 registDate : arr.registDate,
                 statusno : arr.status,
@@ -408,7 +431,7 @@ $(document).on("change", "#selectCate", function() {
   } else {
     $.ajax({
     url : "/accounting/listbygroup",
-    type : "POST",
+    type : "GET",
     async : false,
     dataType : "json",
     data : {
@@ -426,7 +449,7 @@ $(document).on("change", "#selectCate", function() {
       $.each(arr, function(index, arr) {
         updateData.push({
           "actCate" : arr.actCate.cateName,
-          no : arr.no,
+          no : arr.accountingNo,
           title : arr.title,
           registDate : arr.registDate,
           statusno : arr.status,
@@ -484,7 +507,7 @@ $(document).on("change", "#selectCate", function() {
             "pageSize" : 10,
             "pageNo" : clickli,
             "actCate" : cate,
-            "groupNo" : 1}, //!!!!!!!!!!!!!!!!!!!!!!!!!!!임시로 그룹 번호 줌!!!!!!!!!!!!!
+            "groupNo" : gno},
           success: function(result) {
             var arr = result.data;
             // console.log(arr);
@@ -494,7 +517,7 @@ $(document).on("change", "#selectCate", function() {
             $.each(arr, function(index, arr) {
               updateData.push({
                 "actCate" : arr.actCate.cateName,
-                no : arr.no,
+                no : arr.accountingNo,
                 title : arr.title,
                 registDate : arr.registDate,
                 statusno : arr.status,
@@ -511,9 +534,9 @@ $(document).on("change", "#selectCate", function() {
   } //else 카테고리 선택 끝
 })// selectbox change event END  
 
-//form.html
+
 document.querySelector("#x-create-btn").onclick = function(){
-  location.href="form.html";
+  location.href="form.html?gno=" + gno;
 };
 </script>
 </body>

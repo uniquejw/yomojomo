@@ -18,7 +18,9 @@ public class DefaultAccountingService implements AccountingService{
   @Transactional
   @Override
   public int add(Accounting accounting) {
-    return accountingDao.insert(accounting);
+    accountingDao.insert(accounting);
+    accountingDao.insertActStatus(accounting.getAccountingNo(), accounting.getActStatus());
+    return 1;
   }
 
   @Override
@@ -51,4 +53,10 @@ public class DefaultAccountingService implements AccountingService{
   public int size(int groupNo, String actCate) {
     return accountingDao.countAll(groupNo, actCate);
   }
+
+  @Override
+  public List<Accounting> list() {
+    return accountingDao.findAll();
+  }
+
 }
