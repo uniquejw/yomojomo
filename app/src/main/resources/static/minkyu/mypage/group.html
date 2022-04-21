@@ -178,14 +178,7 @@
       },
       buttonsStyling: false
     })
-    const swadanger = Swal.mixin({
-      customClass: {
-        confirmButton: 'btn btn-danger mx-2',
-        cancelButton: 'btn btn-secondary mx-2'
-      },
-      buttonsStyling: false
-    })
-
+    
     $(".card").children("img").click(function(e){
       location.href = "/ssang/groupBoard/index.html"
     })
@@ -235,7 +228,7 @@
       })
     $(".btn-reject").click(function(e){
       e.stopPropagation();
-      swadanger.fire({
+      swa.fire({
         title: '가입을 거절하시겠습니까?',
         icon: 'warning',
         showCancelButton: true,
@@ -245,7 +238,7 @@
         if (result.isConfirmed) {
           $(".lately").remove()
           $(".modal").modal("hide")
-          swadanger.fire(
+          swa.fire(
             '가입을 거절하였습니다.',
             '',
             'success'
@@ -260,7 +253,7 @@
         '삭제할 글을 선택해주세요',
         'error'
         )} else {
-          swadanger.fire({
+          swa.fire({
           title: '글을 삭제 하시겠습니까?',
           text: '삭제하면 가입이 자동 거절됩니다',
           icon: 'warning',
