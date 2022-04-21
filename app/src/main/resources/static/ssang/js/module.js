@@ -22,4 +22,3 @@ export function getGroupNO(){
   //console.log(no);
   return gno;
 }
-// export var no;

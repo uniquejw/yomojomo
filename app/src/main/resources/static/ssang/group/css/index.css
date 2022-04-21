@@ -189,7 +189,7 @@ button.btn-show{
   height: 45px;
   font-size: 14px;
 }
-.btn-close{
+.btn-close, .btn-close2{
   position: absolute;
   right: 0;
 }
