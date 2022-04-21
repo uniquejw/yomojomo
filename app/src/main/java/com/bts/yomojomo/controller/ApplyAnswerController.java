@@ -34,6 +34,11 @@ public class ApplyAnswerController {
   }
 
 
+  //  @RequestMapping("/applydefault/add")
+  //  public Object add() {
+  //    return applyAnswerService.list(); 
+  //  }
+
   @RequestMapping("/applyAnswer/list")
   public Object list() {
     return applyAnswerService.list(); 

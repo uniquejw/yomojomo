@@ -148,6 +148,9 @@ li img {
   bottom: 11px;
   left: 0;
 }
+.material-icons{
+  vertical-align: middle;
+}
 button.btn-show{
   background-color: #ffffff;
   width: 100%;  

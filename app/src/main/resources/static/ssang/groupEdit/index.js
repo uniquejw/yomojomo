@@ -40,7 +40,7 @@ document.querySelector("#x-apply-form").onclick = function() {
       .then(function(res){
         return res.json()
       }).then(function(result){
-        // location.href=`/ssang/groupEdit/index.html?no=${groupNo}`
+        location.href=`/ssang/groupEdit/index.html?gno=${groupNo}`
       })
     // window.Swal.fire({
     // position: 'top-end',

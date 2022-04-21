@@ -302,9 +302,9 @@ insert into gms_report(title,content,valid,reported,memb_no,rpt_cate_no) values 
 insert into gms_keyword(search_name, memb_no) values ("한식", 1);
 insert into gms_keyword(search_name, memb_no) values ("당구", 1);
 insert into gms_keyword(search_name, memb_no) values ("노래방", 1);
-insert into gms_group(act_local_no, pups_no, name, logo, intro, memb_cnt, max_cnt, view_cnt) values("1", "1", "소모임1", "", "가족같은 모임입니다.", 1, 50, 1);
-insert into gms_group(act_local_no, pups_no, name, logo, intro, memb_cnt, max_cnt, view_cnt) values("1", "1", "소모임2", "", "5월의 회식", 1, 50, 1);
-insert into gms_group(act_local_no, pups_no, name, logo, intro, memb_cnt, max_cnt, view_cnt) values("1", "1", "소모임3", "", "나들이 함께 가요", 1, 50, 1);
+insert into gms_group(act_local_no, pups_no, name, intro, memb_cnt, max_cnt, view_cnt) values("1", "1", "소모임1", "가족같은 모임입니다.", 1, 50, 1);
+insert into gms_group(act_local_no, pups_no, name, intro, memb_cnt, max_cnt, view_cnt) values("1", "1", "소모임2", "5월의 회식", 1, 50, 1);
+insert into gms_group(act_local_no, pups_no, name, intro, memb_cnt, max_cnt, view_cnt) values("1", "1", "소모임3", "나들이 함께 가요", 1, 50, 1);
 insert into gms_applyform_question (g_no, question_name) values(1, "최근에 읽은 책은?");
 insert into gms_applyform_question (g_no, question_name) values(1, "가장 재밌게 본 영화는?");
 insert into gms_applyform_question (g_no, question_name) values(1, "어떻게 알고 오셨나요?");
@@ -317,6 +317,11 @@ insert into gms_applyform_answer  (appl_question_no, memb_no, answer) values(3,1
 insert into gms_applyform_answer  (appl_question_no, memb_no, answer) values(4,2, "50kg....");
 insert into gms_applyform_answer  (appl_question_no, memb_no, answer) values(5,2, "3개월");
 insert into gms_applyform_answer  (appl_question_no, memb_no, answer) values(6,2, "양재천 따라 쭉 타요 ㅎㅎ");
+insert into gms_applyform_default (g_no,memb_no,content,appl_dt) values(1,1,"잘부탁해요");
+insert into gms_applyform_default (g_no,memb_no,content,appl_dt) values(1,2,"잘부탁해요");
+insert into gms_applyform_default (g_no,memb_no,content,appl_dt) values(2,1,"잘부탁해요");
+insert into gms_applyform_default (g_no,memb_no,content,appl_dt) values(2,3,"잘부탁해요");
+insert into gms_applyform_default (g_no,memb_no,content,appl_dt) values(3,3,"잘부탁해요");
 
 insert into gms_calendar(name, content, result_url, g_no, start_dt, end_dt) values ("정모1", "7시 강남역1번출구", "www.naver.com", 1, "2022-04-03", "2022-04-03");
 insert into gms_calendar(name, content, result_url, g_no, start_dt, end_dt) values ("정모2", "7시 구디 4번 출구", "www.naver.com", 1, "2022-04-05", "2022-04-10");

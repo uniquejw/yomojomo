@@ -78,7 +78,7 @@ fetch(PATH.groupList)
     }); 
   }); 
 
-  // 전체를 선택하면 게시글 리스트 불러오기 
+  // 지역 전체 선택 시 게시글 리스트 불러오기 
   $("#nameSi").on("click", function() {  
     if ($("#nameSi option:selected").val() == 0) {
       fetch(PATH.groupList)
@@ -98,7 +98,7 @@ fetch(PATH.groupList)
     }
   })
   
-  // 시, 도 카테고리 선택하면 게시글 리스트 불러오기
+  // 시, 도 선택 시 게시글 리스트 불러오기
   $("#nameSi").on("click", function() {
     console.log("바뀜");
     $.ajax({
@@ -115,7 +115,7 @@ fetch(PATH.groupList)
   });//nameSi change End
   
   
-  // 군, 구 카테고리 선택하면 게시글 리스트 불러오기
+  // 군, 구 선택 시 게시글 리스트 불러오기
   $("#nameGu").on("click", function() { //id가 nameGu를 클릭하면 발생되는 이벤트 시작
     if ($("#nameGu option:selected").text() == "군구 선택") {
     console.log("바뀜");
@@ -143,9 +143,9 @@ fetch(PATH.groupList)
     }) //ajax END
   });//nameGu change End //id가 nameGu를 클릭하면 발생되는 이벤트 끝
 
-  // 모임목적 카테고리 선택하면 게시글 리스트 불러오기
+  // 군구 선택 후 모임목적  선택 시 게시글 리스트 불러오기
   $(document).on("click", "#selectPurpose", function() { //id가 nameGu를 클릭하면 발생되는 이벤트 시작
-    if ($("#nameGu option:selected").text() == "군구 선택") {
+    if ( $("nameSi option:selected").text() !="전체" && $("#nameGu option:selected").text() == "군구 선택") {
       alert("지역을 입력하세요")
     } else if ($("#selectPurpose option:selected").text() != "모임목적") {
     console.log("바뀜");
@@ -230,11 +230,14 @@ $(document).on("click","#apply-form-btn",function(){
       var divTemplate = document.querySelector("#applyList-template");
       var htmlGenerator = Handlebars.compile(divTemplate.innerHTML);
       writtenContainer.innerHTML = htmlGenerator(result.data);
+      $('#apply').val(value);
     });
 });
 
 //신청하기
 $(document).on("click","#apply",function(){
+  var value = $(this).val(); //모임번호
+  console.log(value)
   var answerLength = $("input[name=answer]").length;//값들의 갯수 -> 배열 길이를 지정
   var answers = new Array();//배열 생성
   var qs = "";
@@ -245,13 +248,21 @@ $(document).on("click","#apply",function(){
     qs += `answers=${qno}_${answer}&`;
   }
   console.log(qs)
-  // answers.push(document.querySelector("textarea[name=answer]").value)
-  fetch(`/applyAnswer/add?${qs}`)
-  .then(function(res){
-    return res.json()
-  }).then(function(result){
-    location.href="/minkyu/mypage/index.html"
-   })
+  // fetch(`/applyAnswer/add?${qs}`)
+  // .then(function(res){
+  //   return res.json()
+  // }).then(function(result){
+  // });
+  var defaultValue = document.querySelector("textarea[name=answer]").value
+  var qs2 = `?gno=${value}&content=${defaultValue}`
+  console.log(qs2)
+  // fetch(`/applydefault/add?${qs2}`)
+  // .then(function(res){
+  //   return res.json()
+  // })
+  // .then(function(result){
+  //   location.href="/minkyu/mypage/index.html"
+  // })
 })
 
 //닫기
