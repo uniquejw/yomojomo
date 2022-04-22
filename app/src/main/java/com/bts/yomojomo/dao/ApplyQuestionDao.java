@@ -10,6 +10,8 @@ import com.bts.yomojomo.domain.ApplyQuestion;
 public interface ApplyQuestionDao {
   int insert(@Param("questionList") ArrayList<ApplyQuestion> questionList);
 
+  int update(@Param("questionList") ArrayList<ApplyQuestion> questionList);
+
   int countAll();
 
   List<ApplyQuestion> findAll();
@@ -18,7 +20,6 @@ public interface ApplyQuestionDao {
 
   ApplyQuestion findByNo(int no);
 
-  int update(ApplyQuestion applyQuestion);
 
   int delete();
 }

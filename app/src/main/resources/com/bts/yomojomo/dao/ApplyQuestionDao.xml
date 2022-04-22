@@ -59,10 +59,11 @@
 
   
   <update id ="update" parameterType="ApplyQuestion">
-    update gms_applyform_question set 
-      content = #{content}
-    where 
-      appl_no=#{no}
+    <foreach collection="questionList" item="questions">
+    update gms_applyform_question
+     set question_name = #{questions.questionName}
+     where appl_question_no=#{questions.no};
+  </foreach>
   </update>
   
 </mapper>

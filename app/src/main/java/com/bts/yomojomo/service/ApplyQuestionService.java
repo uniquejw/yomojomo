@@ -16,6 +16,7 @@ public interface ApplyQuestionService {
   //
   //  int update(ApplyQuestion applyQuestion);
   //
-  int delete();
+
+  int update(ArrayList<ApplyQuestion> questionList);
 
 }

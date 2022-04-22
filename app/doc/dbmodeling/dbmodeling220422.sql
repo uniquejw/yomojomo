@@ -947,7 +947,7 @@ CREATE TABLE gms_applyform_default (
   g_no    INTEGER  NOT NULL COMMENT '모임번호', -- 모임번호
   memb_no INTEGER  NOT NULL COMMENT '회원번호', -- 회원번호
   content LONGTEXT NULL     COMMENT '기본답변', -- 기본답변
-  appl_dt DATE     NOT NULL COMMENT '답변일' -- 답변일
+  appl_dt DATE     NOT NULL DEFAULT current_timestamp() COMMENT '답변일' -- 답변일
 )
 COMMENT '가입신청서기본답변';
 

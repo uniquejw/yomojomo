@@ -30,20 +30,16 @@ public class DefaultApplyQuestionService implements ApplyQuestionService {
 
     return applyQuestionDao.findQuestion(no);
   }
+
+  @Override
+  public int update(ArrayList<ApplyQuestion> questionList) {
+    return applyQuestionDao.update(questionList);
+  }
   //
   //  @Override
   //  public ApplyQuestion get(int no) {
   //    return applyQuestionDao.findByNo(no);
   //  }
   //
-  //  @Override
-  //  public int update(ApplyQuestion applyQuestion) {
-  //    return applyQuestionDao.update(applyQuestion);
-  //  }
-  //
-  @Override
-  public int delete() {
-    return applyQuestionDao.delete();
-  }
 
 }

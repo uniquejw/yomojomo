@@ -2,16 +2,21 @@ import{getGroupNO} from '/ssang/js/module.js';
 var groupNo = getGroupNO(); 
 
 
-// 신청서 생성
-// $(document).on("click","#create-applyForom",function(){
-//     $("#applyForm").show();  $("#create-applyForm-div").hide();
-// })
-// 추가 이벤트
+// 질문목록 추가 이벤트
 document.querySelector("#x-addQuestion-btn").onclick = function() {
+if (xQuestionListCon.childElementCount < 5) {
 var questionList = xQuestionList.cloneNode(true);
 questionList.querySelector("#listQuestionName").value = "";
 xQuestionListCon.append(questionList);
-};
+return;
+} 
+Swal.fire({
+  icon: 'error',
+  title: '잠깐만요',
+  text: '질문은 5개 까지만 올려주세요',
+  footer: '',
+})
+}
 
 //신청서 등록 현황 
 var br = document.querySelector("#accordion-body")
@@ -24,8 +29,6 @@ fetch(`/applyQuestion/findQuestion?no=${groupNo}`)
     console.log(result.data)
     br.innerHTML = htmlGenerator(result.data);
   })
-
-
 
 // 신청서 등록
 var xQuestionCon = document.querySelector("#x-question-container")
@@ -42,23 +45,24 @@ document.querySelector("#x-apply-form").onclick = function() {
       }).then(function(result){
         location.href=`/ssang/groupEdit/index.html?gno=${groupNo}`
       })
-    // window.Swal.fire({
-    // position: 'top-end',
-    // icon: 'success',
-    // title: 'Your work has been saved',
-    // showConfirmButton: false,
-    // timer: 1500
-    // })
 }
-// 신청서 초기화
-// document.querySelector("#x-reform").onclick = function() {
-//   fetch("/applyQuestion/delete")
-//     .then(function(res){
-//       return res.text()
-//     }).then(function(no){
-//       // window.location.href = `index.html?no=${groupNo}`;
-//     })
 
-// };
+// 신청서 수정
+$(document).on("click", "#x-reform", function() {
+var contents = document.querySelectorAll("input.apply-content")
+var qs=""
+for (var content of contents){
+  var qno = content.getAttribute("data-qno")
+  var value = content.value
+  qs += `questions=${qno}_${value}&`
+}
+console.log(qs)
+fetch(`/applyQuestion/update?${qs}`)
+.then(function(res){
+  return res.json()
+}).then(function(result){
+  console.log(result.data)
+})
+})
 
 

@@ -96,8 +96,9 @@ $(document).ready(function () {
     </div>
     <script id="br-template" type="text/x-handlebars-template">
       {{#each this}}
-      {{questionName}}<br>
+      <input type="text" value="{{questionName}}" data-qno="{{no}}" class="apply-content"><br>
       {{/each}}
+      <button id="x-reform" type="button" class="btn btn-primary">수정</button><br>
     </script>
 </div>
 <div id="footers"></div>

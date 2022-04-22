@@ -237,7 +237,8 @@ $(document).on("click","#apply-form-btn",function(){
 //신청하기
 $(document).on("click","#apply",function(){
   var value = $(this).val(); //모임번호
-  if ($("input[name=answer]").length >= 1) {
+  var answerLength = $("input[name=answer]").length
+  if (answerLength >= 1) {
     console.log("test")
   var qs = "";
   for(var i=0; i<answerLength; i++){                          
