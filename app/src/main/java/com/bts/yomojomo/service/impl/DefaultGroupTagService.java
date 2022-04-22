@@ -3,7 +3,6 @@ package com.bts.yomojomo.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.bts.yomojomo.dao.ApplyQuestionDao;
-import com.bts.yomojomo.domain.ApplyQuestion;
 import com.bts.yomojomo.service.GroupTagService;
 
 //서비스객체 -> 업무로직, 트랜잭션 제어 
@@ -15,10 +14,10 @@ public class DefaultGroupTagService implements GroupTagService {
   ApplyQuestionDao applyQuestionDao;
 
 
-  @Override
-  public int add(ApplyQuestion applyQuestion) {
-    return applyQuestionDao.insert(applyQuestion);
-  }
+  //  @Override
+  //  public int add(ApplyQuestion applyQuestion) {
+  //    return applyQuestionDao.insert(applyQuestion);
+  //  }
 
   //  @Override
   //  public List<ApplyQuestion> list() {
