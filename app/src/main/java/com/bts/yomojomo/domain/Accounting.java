@@ -22,5 +22,5 @@ public class Accounting {
   Member member;
 
   //AccountingStatus 배열
-  List<AccountingStatus> actStatus;
+  List <AccountingStatus> actStatus;
 }

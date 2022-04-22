@@ -284,14 +284,6 @@ function deleteDiv(e) {
       // }
     };
 
-//멤버 전체 div의 추가 이벤트
-// document.querySelector("#x-addMemb-btn").onclick = function() {
-//   let membList = xMembList.cloneNode(true);
-//   membList.querySelector("#listAmount").value = "";
-//   membList.querySelector("#listmembName").value = "";
-//   xMembListCon.append(membList);
-// };
-
 //멤버 초기화 버튼
 $("#cleanMemb").on("click", function() {
   console.log("클릭");
@@ -301,9 +293,9 @@ $("#cleanMemb").on("click", function() {
 
 
 //등록 버튼 클릭
-
 document.querySelector("#x-add-btn").onclick = function() {
   let memberCount = xMembListCon.childElementCount;
+  let memberListAll = document.querySelectorAll(".x-membList");
   // if(
   //   $("#x-selectCate option:selected").val() == "" || 
   //    xTitle.value == "" || 
@@ -313,29 +305,33 @@ document.querySelector("#x-add-btn").onclick = function() {
   //     return;
   // }
 
-  let memberListAll = document.querySelectorAll(".x-membList");
   var qs = `group.no=${gno}&actCate.no=${$("#x-selectCate option:selected").val()}&title=${xTitle.value}&amount=${xAmount.value}&status=${$("#x-status option:selected").val()}`
-  for (var memberDiv of memberListAll) {
-    var xMembNo = memberDiv.querySelector("#membno");
-    var xGno = memberDiv.querySelector("#gno");
-    var xDate = memberDiv.querySelector("#paydt");
-    qs += `&actStatus=${xMembNo.value}_${xGno.value}_${xDate.value}`;    
-  }
-  console.log(qs);
- 
+
+    for (var memberDiv of memberListAll) {
+      var xMembNo = memberDiv.querySelector("#membno");
+      var xGno = memberDiv.querySelector("#gno");
+      var xDate = memberDiv.querySelector("#paydt");
+
+      if(xDate.value == "") {
+        qs += `&actStatuses=${xGno.value}_${xMembNo.value}`;
+      } else {
+        qs += `&actStatuses=${xGno.value}_${xMembNo.value}_${xDate.value}`;
+      }
+    }
+
   fetch(`/accounting/add?${qs}`)
   .then(function(response) {
     return response.json();
   })
   .then(function(result) {
     console.log(result);
-    // if (result.status == "success") {
-    //   window.alert("등록되었습니다.");
-    //   location.href = "index.html";
-    // } else {
-    //   window.alert("게시글 등록 실패!");
-    //   console.log(result.data);
-    // }
+    if (result.status == "success") {
+      window.alert("등록되었습니다.");
+      location.href = "index.html";
+    } else {
+      window.alert("게시글 등록 실패!");
+      console.log(result.data);
+    }
   })
 } //add btn event END
 

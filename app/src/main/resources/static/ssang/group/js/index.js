@@ -237,32 +237,31 @@ $(document).on("click","#apply-form-btn",function(){
 //신청하기
 $(document).on("click","#apply",function(){
   var value = $(this).val(); //모임번호
-  console.log(value)
-  var answerLength = $("input[name=answer]").length;//값들의 갯수 -> 배열 길이를 지정
-  var answers = new Array();//배열 생성
+  if ($("input[name=answer]").length >= 1) {
+    console.log("test")
   var qs = "";
-  //배열에 값 주입
   for(var i=0; i<answerLength; i++){                          
     var answer = $("input[name=answer]").eq(i).val()
     var qno = $("input[name=answer]").eq(i).data('qno')
     qs += `answers=${qno}_${answer}&`;
   }
   console.log(qs)
-  // fetch(`/applyAnswer/add?${qs}`)
-  // .then(function(res){
-  //   return res.json()
-  // }).then(function(result){
-  // });
+  fetch(`/applyAnswer/add?${qs}`)
+  .then(function(res){
+    return res.json()
+  }).then(function(result){
+  });
+  }
   var defaultValue = document.querySelector("textarea[name=answer]").value
-  var qs2 = `?gno=${value}&content=${defaultValue}`
+  var qs2 = `groupNo=${value}&content=${defaultValue}`
   console.log(qs2)
-  // fetch(`/applydefault/add?${qs2}`)
-  // .then(function(res){
-  //   return res.json()
-  // })
-  // .then(function(result){
-  //   location.href="/minkyu/mypage/index.html"
-  // })
+  fetch(`/applyFixedAnswer/add?${qs2}`)
+  .then(function(res){
+    return res.json()
+  })
+  .then(function(result){
+    // location.href="/minkyu/mypage/index.html"
+  })
 })
 
 //닫기
