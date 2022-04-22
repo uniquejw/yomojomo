@@ -3,22 +3,24 @@ $(document).ready(function () {
   $('#footer').load('/junho/mainfooter.html'); //푸터부분 인클루드
 });
 
-
-
-
-// 지도 다루기
+// Main Map
 var mapContainer1 = document.getElementById('map1'), // 지도를 표시할 div 
-    mapOption1 = {
-        center: new kakao.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
+    mapOption1 = { 
+        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
         level: 8 // 지도의 확대 레벨
-    };  
+    };
 
-// 지도를 생성합니다    
 var map1 = new kakao.maps.Map(mapContainer1, mapOption1); 
 
 // 주소-좌표 변환 객체를 생성합니다
 var geocoder = new kakao.maps.services.Geocoder();
 
+
+// Modal Map
+
+// 페이지 별 장소 저장
+var pointer = null;
+// 마커를 담을 배열입니다
 var markers = [];
 
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
@@ -36,8 +38,6 @@ var ps = new kakao.maps.services.Places();
 // 검색 결과 목록이나 마커를 클릭했을 때 장소명을 표출할 인포윈도우를 생성합니다
 var infowindow = new kakao.maps.InfoWindow({zIndex:1});
 
-// 키워드로 장소를 검색합니다
-searchPlaces();
 
 // 키워드 검색을 요청하는 함수입니다
 function searchPlaces() {
@@ -45,7 +45,7 @@ function searchPlaces() {
     var keyword = document.getElementById('keyword').value;
 
     // 장소검색 객체를 통해 키워드로 장소검색을 요청합니다
-    ps.keywordSearch( keyword, placesSearchCB); 
+    ps.keywordSearch(keyword, placesSearchCB); 
 }
 
 // 장소검색이 완료됐을 때 호출되는 콜백함수 입니다
@@ -58,23 +58,10 @@ function placesSearchCB(data, status, pagination) {
 
         // 페이지 번호를 표출합니다
         displayPagination(pagination);
+        savePointer(data);
 
-        var itemEls = document.querySelectorAll('.item')
-        var infoEl = null;
-
-        itemEls.forEach((target) => target.addEventListener("click", function(e){
-            if (e.target.tagName == 'DIV') {
-                infoEl = e.target;
-            } else if(e.target.tagName == 'H5') {
-                infoEl = e.target.parentNode;
-            } else if(e.target.tagName == 'SPAN' && e.target.className.split(' ')[0] == 'markerbg') {
-                infoEl = e.target.nextSibling
-            } else {
-                infoEl = e.target.parentNode
-            }
-            selectDestinationEl.innerHTML = infoEl.childNodes[3].innerText;
-        }));
-
+        // 페이지별 데이터 담기
+        pointer = data;
     } else if (status === kakao.maps.services.Status.ZERO_RESULT) {
 
         alert('검색 결과가 존재하지 않습니다.');
@@ -102,6 +89,7 @@ function displayPlaces(places) {
 
     // 지도에 표시되고 있는 마커를 제거합니다
     removeMarker();
+    
     
     for ( var i=0; i<places.length; i++ ) {
 
@@ -155,17 +143,17 @@ function getListItem(index, places) {
                 '   <h5>' + places.place_name + '</h5>';
 
     if (places.road_address_name) {
-        itemStr += '    <span>' + places.road_address_name + '</span>' +
+        itemStr += '    <span class="oldaddr">' + places.road_address_name + '</span>' +
                     '   <span class="jibun gray">' +  places.address_name  + '</span>';
     } else {
-        itemStr += '    <span>' +  places.address_name  + '</span>'; 
+        itemStr += '    <span class="oldaddr">' +  places.address_name  + '</span>'; 
     }
                  
       itemStr += '  <span class="tel">' + places.phone  + '</span>' +
                 '</div>';           
 
     el.innerHTML = itemStr;
-    el.className = 'item';
+    el.className = 'item itme'+ index;
 
     return el;
 }
@@ -246,15 +234,66 @@ function removeAllChildNods(el) {
     }
 }
 
+// 확정된 위치를 담을 배열
+var finalPoint = []
+// modal 에서 장소 선택하기
+var selectDestinationEl = document.querySelector('.select-destination');
+
+// 장소 객체정보를 담는곳
+var placeDataList = [];
+
+// 카테고리에서 뽑아낸 장소 저장하는 함수
+function savePointer(places) {
+    var itemEls = document.querySelectorAll('.item');
+    var targetItem = null; 
+    var selectNo;
+    console.log(itemEls)
+    console.log(places)
+    itemEls.forEach((item) => {
+        item.addEventListener('click', function(e) {
+            
+            console.log(e.target)
+            console.log(e.target.parentNode)
+            console.log(e.target.parentNode.tagName)
+            
+            if (e.target.parentNode.tagName == 'DIV') {
+                targetItem = e.target.parentNode.parentNode;
+            } else if (e.target.parentNode.tagName == "LI") {
+                targetItem = e.target.parentNode;
+            }
+            var selectAddr = targetItem.querySelector('.oldaddr');
+            selectNo = parseInt(targetItem.className.split(' ')[1].substr(-1))
+            console.log(selectAddr.innerHTML)
+            selectDestinationEl.innerHTML = selectAddr.innerHTML
+            console.log(places[selectNo])
+            
+            var saveBtnEl = document.querySelector('.btn-save')
+            saveBtnEl.addEventListener('click', function() {
+                placeDataList[modalclickPoint] = (places[selectNo])
+                console.log(modalclickPoint)
+                places=null;
+            })
+        })
+    })
+}
+
+var test = document.querySelector('.btn-save-data')
+test.addEventListener('click', function() {
+    console.log(placeDataList)
+})
+
+
+
 var finalDestination = [];
 var finalDestinationLatLng = [];
 var clickSaveBtn = 0;
 var infowindowtests = [];
-var selectDestinationEl = document.querySelector('.select-destination')
+var modalclickPoint;
 function modalclick(i) {
     var destinationItemEl = document.querySelector(`.destination-item${i}`);
-    console.log(destinationItemEl)
+    var nameItemEl = document.querySelector(`.member-name${i}`);
     var saveBtnEl = document.querySelector('.btn-save')
+    modalclickPoint = i;
     
     saveBtnEl.addEventListener('click', function() {
         if (selectDestinationEl.innerHTML != '') {
@@ -300,15 +339,14 @@ function modalclick(i) {
         }  
             
         }
-        
-        
     })
     
 }
 
+
 // 배열 안에 중복 값 찾기
 function isDup(arr)  {
-  return arr.some(function(x) {
-    return arr.indexOf(x) !== arr.lastIndexOf(x);
-  });  
-}
+    return arr.some(function(x) {
+      return arr.indexOf(x) !== arr.lastIndexOf(x);
+    });  
+  }

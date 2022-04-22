@@ -18,7 +18,7 @@ import com.bts.yomojomo.service.AccountingService;
 @RestController
 public class AccountingController {
 
-  private static final Logger log = LoggerFactory.getLogger(CalendarController.class);
+  private static final Logger log = LoggerFactory.getLogger(Accounting.class);
 
   @Autowired 
   AccountingService accountingService;
@@ -79,48 +79,58 @@ public class AccountingController {
   }
 
   @RequestMapping("/accounting/add")
-  public Object add(Accounting accounting, String[] actStatus, HttpSession session) {
+  public Object add(Accounting accounting, String[] actStatuses, HttpSession session) {
 
-    System.out.println(accounting);
-    System.out.println(actStatus);
+    for (int i = 0; i < actStatuses.length; i++) {
+      System.out.println(actStatuses[i]);
+    }
+
+    System.out.println();
+
     log.info("정산등록");
     log.debug(accounting.toString());
 
     Member member = (Member) session.getAttribute("loginUser");
     accounting.setMember(member);
 
+    System.out.println("actStatuses.length : " + actStatuses.length);
+
     ArrayList<AccountingStatus> statusList = new ArrayList<>();
-    for (int i = 0; i < actStatus.length; i++) {
-      String[] value = actStatus[i].split("_");
-      if(value[2].length() == 0) {
+
+    for (int i = 0; i < actStatuses.length; i++) {
+
+      System.out.println("1. for문 안 actStatuses :" + actStatuses[i]);
+
+      String[] value = actStatuses[i].split("_");
+
+      System.out.println("value의 길이 : " + value.length);
+
+      for (int j = 0; j < value.length; j++) {
+        System.out.printf("2. for문 안 value :[%s], %s\n", j, value[j]);
+      }
+
+      if(value[1].length() == 0) {
         continue;
       }
 
       AccountingStatus accountingStatus = new AccountingStatus(
-          Integer.parseInt(value[0]), 
-          Integer.parseInt(value[1]), 
-          java.sql.Date.valueOf(value[2]));
-      accounting.setActStatus(statusList);
+          Integer.parseInt(value[0]), //그룹번호
+          Integer.parseInt(value[1]), //멤버번호
+          java.sql.Date.valueOf(value[2]) //돈낸날짜
+          );
+      System.out.println("3. 만들어진 accountingStatus : " + accountingStatus);
 
-      accountingService.add(accounting);
-      return new ResultMap().setStatus(SUCCESS);
+      statusList.add(accountingStatus);
+
+      System.out.println("4. statusList : " +statusList );
     }
-    return 0;
+
+    accounting.setActStatus(statusList);
+    System.out.println("accounting : " + accounting);
+    accountingService.add(accounting);
+    //    System.out.println(accounting);
+    return new ResultMap().setStatus(SUCCESS);
   }
-
-
-  // accounting만 add 했을 때
-  //  @RequestMapping("/accounting/add")
-  //  public Object add(Accounting accounting, HttpSession session) {
-  //    log.info("정산등록");
-  //    log.debug(accounting.toString());
-  //
-  //    Member member = (Member) session.getAttribute("loginUser");
-  //    accounting.setMember(member);
-  //    accountingService.add(accounting);
-  //
-  //    return new ResultMap().setStatus(SUCCESS);
-  //  }
 
   @RequestMapping("/accounting/get")
   public Object get(int no, HttpSession session) {
