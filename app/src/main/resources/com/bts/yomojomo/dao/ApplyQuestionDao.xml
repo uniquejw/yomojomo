@@ -62,7 +62,7 @@
     <foreach collection="questionList" item="questions">
     update gms_applyform_question
      set question_name = #{questions.questionName}
-     where appl_question_no=#{questions.no};
+     where appl_question_no = #{questions.no};
   </foreach>
   </update>
   
