@@ -26,8 +26,8 @@ public interface AccountingDao {
   int insert(Accounting accounting);
 
   int insertActStatus(
-      @Param("accountingNo") int no, //Accounting의 no
-      @Param("actstatus") List<AccountingStatus> actStatus
+      @Param("accountingNo") int accountingNo, //Accounting의 no
+      @Param("actstatuses") List<AccountingStatus> actStatus
       ); //한번에 여러명의 인원을 추가한다.
 
   Accounting findByNo(int no);
