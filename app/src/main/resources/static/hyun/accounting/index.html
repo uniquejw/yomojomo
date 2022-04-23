@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>회비관리</title>
+<title>회비 및 정산 관리</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
 <script src="/node_modules/jquery/dist/jquery.min.js"></script>
 <script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -12,10 +12,8 @@
 <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.css">
 
 <style>
-/*내꺼 css*/
 #body-content{
-  padding-top: 10vh;
-  /* height: 85vh; 너무 벌어짐  */
+  padding-top: 2vh;
   height: 70vh;
   position: relative;
 }
@@ -33,57 +31,22 @@ table > tbody > tr > td {
       font-size: x-large;
       text-align: center;
 }
+#cateDiv{
+  margin-bottom: 20px;
+}
 </style>
 </head>
 
 <body class="menu6">  
-<script type="text/javascript">
-  $(document).ready(function () {
-      $('#header').load('/junho/mainHeader.html'); //헤더 인클루드
-      $('#top').load('/ssang/groupBoard/none-search-top.html'); //상준님헤더
-      $('#footer').load('/junho/mainfooter.html'); //푸터부분 인클루드
-  });
-
-  $.ajax({ //로그인 여부 확인 ajax START 비회원은 main으로 보낸다.
-        url : "/member/getLoginUser",
-        type : "POST",
-        datatype : "json",
-        success : function(result) {
-          let loginUserNo = result.data.no;
-          if (result.status == "fail") {
-            window.alert("회원이 아닙니다.");
-            window.location.replace("/junho/index.html");
-          } else {
-            $.ajax({ //회원 등급 조회 모임장이 아니라면 등록 버튼을 감춘다.
-              url : "/joinmember/grouplistbymno",
-              type : "POST",
-              datatype : "json",
-              data : {"member.no" : loginUserNo },
-              success : function(result) {
-                console.log(result.data);
-                if (result.data[0].memberGrade.gradeNo != 1) {
-                  $("#x-create-btn").hide();  
-                }//회원 등급 조회 if END              
-              }//회원 등급 조회 success END           
-            })//회원 등급 조회 ajax END 
-          }//로그인 확인 else END
-        }//로그인 여부 확인 success END
-  }); //로그인 여부 확인 ajax END
-</script>
-
-<!--공통 헤더-->
 <div id="header"></div>
-<!--모임 헤더-->
 <div id="top"></div>
-
-<div id="body-content"> <!--body content 시작-->
+<div id="body-content">
   <div class="inner">
-    <div> <!--회비 종류 카테고리 시작-->
-      <select name="selectCate" id="selectCate" class="form-select form-select-sm" aria-label=".form-select-sm example"> <!-- onchange="getOpNo()"-->
+    <div id="cateDiv">
+      <select name="selectCate" id="selectCate" class="form-select form-select-sm" aria-label=".form-select-sm example">
       </select>
-    </div> <!--회비 종류 카테고리 끝-->
-    
-    <div id="content" class="table-responsive-lg">  <!--table div 시작-->
+    </div>     
+    <div id="content" class="table-responsive-lg">
       <table id="x-board-table" class="table table-hover">
         <thead>
           <tr>
@@ -100,19 +63,48 @@ table > tbody > tr > td {
         <h1>작성된 글이 없습니다.<br></h1>
       </div>
       <button id="x-create-btn" type="button" style="float: right" class="btn btn-primary">등록</button>
-    </div> <!--table div 끝-->
-
-    <!--페이지 네이션 시작-->
+    </div>
     <nav aria-label="Page navigation example">
       <ul class="pagination justify-content-center" id="pagination-ul">        
       </ul>
     </nav>
-    <!--페이지 네이션 끝-->
   </div>
-</div><!--body content 끝-->
-
-<!--메인 푸터-->
+</div>
 <div id="footer"></div>
+
+<script type="text/javascript">
+$(document).ready(function () {
+    $('#header').load('/junho/mainHeader.html'); //헤더 인클루드
+    $('#top').load('/ssang/groupBoard/none-search-top.html'); //상준님헤더
+    $('#footer').load('/junho/mainfooter.html'); //푸터부분 인클루드
+});
+
+$.ajax({ //로그인 여부 확인 ajax START 비회원은 main으로 보낸다.
+      url : "/member/getLoginUser",
+      type : "POST",
+      datatype : "json",
+      success : function(result) {
+        let loginUserNo = result.data.no;
+        if (result.status == "fail") {
+          window.alert("회원이 아닙니다.");
+          window.location.replace("/junho/index.html");
+        } else {
+          $.ajax({ //회원 등급 조회 모임장이 아니라면 등록 버튼을 감춘다.
+            url : "/joinmember/grouplistbymno",
+            type : "POST",
+            datatype : "json",
+            data : {"member.no" : loginUserNo },
+            success : function(result) {
+              console.log(result.data);
+              if (result.data[0].memberGrade.gradeNo != 1) {
+                $("#x-create-btn").hide();  
+              }//회원 등급 조회 if END              
+            }//회원 등급 조회 success END           
+          })//회원 등급 조회 ajax END 
+        }//로그인 확인 else END
+      }//로그인 여부 확인 success END
+}); //로그인 여부 확인 ajax END
+</script>
 
 <!--카테고리 생성 핸들 바-->
 <script id="option-template" type="text/x-handlebars-template">
@@ -120,65 +112,59 @@ table > tbody > tr > td {
 <option id="selectOp" value="{{no}}">{{cateName}}</option>
 {{/each}}
 </script>
-<!--카테고리 생성 핸들 바 END-->
 
 <!--카테고리 불러오기-->
 <script>
-  let selectList = document.querySelector("#selectCate");
-  var selectOption = document.querySelector("#option-template");
-  var opGernerator = Handlebars.compile(selectOption.innerHTML);
+let selectList = document.querySelector("#selectCate");
+var selectOption = document.querySelector("#option-template");
+var opGernerator = Handlebars.compile(selectOption.innerHTML);
 
-  $.ajax({
-    url : "/accounting/catelist",
-    type : "POST",
-    async : false,
-    success: function(result) {
-      if (result.status == "fail") {
-        window.alert("서버 요청 오류!");
-        console.log(result);
-        return;
-      } else {
-        // console.log(result.data);
-        selectList.innerHTML = opGernerator(result.data);
-      }
+$.ajax({
+  url : "/accounting/catelist",
+  type : "POST",
+  async : false,
+  success: function(result) {
+    if (result.status == "fail") {
+      window.alert("서버 요청 오류!");
+      console.log(result);
+      return;
+    } else {
+      // console.log(result.data);
+      selectList.innerHTML = opGernerator(result.data);
     }
-  });
+  }
+});
 </script>
-<!--카테고리 불러오기-->
 
 <!--게시글 목록 생성 핸들바-->
 <script id="tr-template" type="text/x-handlebars-template">
-  {{#each this}}
-  <tr>
-    <td>{{no}}</td>
-    <td>{{actCate}}</td>
-    <td>
-      <select id="selectedStatus" disabled>
-        <option vlaue="{{statusno}}">{{status}}</option>
-      </select> 
-    </td>
-    <td><a href="view.html?gno={{gno}}&no={{no}}">{{title}}</a></td>
-    <td>{{registDate}}</td>
-  </tr>
-  {{/each}}
+{{#each this}}
+<tr>
+  <td>{{no}}</td>
+  <td>{{actCate}}</td>
+  <td>
+    <select id="selectedStatus" disabled>
+      <option vlaue="{{statusno}}">{{status}}</option>
+    </select> 
+  </td>
+  <td><a href="view.html?gno={{gno}}&no={{no}}">{{title}}</a></td>
+  <td>{{registDate}}</td>
+</tr>
+{{/each}}
 </script>
-<!--게시글 목록 생성 핸들바 END-->
 
 <!--페이지네이션 생성 핸들 바-->
 <script id="pageli-template" type="text/x-handlebars-template">
 <li class="page-item" value="1">
   <a class="page-link" href="javascript:void(0)"><<</a>
 </li>
-
 {{#each this}}
 <li class="page-item" value="{{no}}"><a class="page-link" href="javascript:void(0)">{{totalPageSize}}</a></li>
 {{/each}}
-
 <li class="page-item" value="">
   <a class="page-link" href="javascript:void(0)" >>></a>
 </li>
 </script>
-<!--페이지네이션 생성 핸들 바-->
 
 <!--게시글 목록 생성 ajax-->
 <script>
@@ -281,7 +267,7 @@ $.ajax({
         data : {
           "pageSize" : 10,
           "pageNo" : clickli,
-          "groupNo" : gno}, //!!!!!!!!!!!!!!!!!!!!!!!!!!!임시로 그룹 번호 줌!!!!!!!!!!!!!
+          "groupNo" : gno}, 
         success: function(result) {
           var arr = result.data;
           console.log(arr);
@@ -524,7 +510,6 @@ $(document).on("click", "#selectCate", function() {
   }); //전체 리스트 불러오기 END
   } //else 카테고리 선택 끝
 })// selectbox change event END  
-
 
 document.querySelector("#x-create-btn").onclick = function(){
   location.href="form.html?gno=" + gno;
