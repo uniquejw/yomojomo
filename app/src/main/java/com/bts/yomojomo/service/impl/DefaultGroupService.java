@@ -3,6 +3,7 @@ package com.bts.yomojomo.service.impl;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import com.bts.yomojomo.dao.GroupDao;
 import com.bts.yomojomo.domain.Group;
 import com.bts.yomojomo.service.GroupService;
@@ -16,8 +17,13 @@ public class DefaultGroupService implements GroupService {
   GroupDao groupDao;
 
   @Override
+  @Transactional
   public int add(Group group) {
-    return groupDao.insert(group);
+    groupDao.insert(group);
+    System.out.println(group.getNo());
+    System.out.println(group.getTags());
+    groupDao.insertTags(group.getNo(),group.getTags());
+    return 1;
   }
 
   @Override

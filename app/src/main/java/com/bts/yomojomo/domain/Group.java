@@ -1,6 +1,7 @@
 package com.bts.yomojomo.domain;
 
 import java.sql.Date;
+import java.util.List;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -21,4 +22,5 @@ public class Group {
   int stopDate;       //stop_dt
   ActiveLocal activeLocal;
   Purpose purpose;
+  List<GroupTag> tags;
 }

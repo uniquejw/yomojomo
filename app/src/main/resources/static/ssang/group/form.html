@@ -105,12 +105,6 @@
           </select>
         </div>
         <div class="table-row">
-          <div class="table-cell title">모임태그</div>
-          <div class="table-cell"><input name="" id="x-tag" ></div>
-          <!-- <button class="table-cell" id="tag-post-btn" value="">등록</button> -->
-        </div>
-        <!-- <div class="posted-tags"></div> -->
-        <div class="table-row">
           <div class="table-cell title">활동지역*</div>
           <div class="table-cell">
             <button id="local-btn">+추가</button>
@@ -121,7 +115,12 @@
               <input class="a11y-hidden" type="text" name="activeLocalNo" id="myText" value="">
           </div>
         </div>
+        <div class="table-row">
+          <div class="table-cell title">모임태그*</div>
+          <div class="table-cell"><input name="" id="x-tag" ><button  id="tag-post-btn" value="">등록</button></div>
+        </div>
       </div>
+      <div id="posted-tags"></div>
       
       <hr>
       <button id="create-btn">생성하기</button>
@@ -163,12 +162,10 @@
   {{/each}}
   </script>
   <!-- 태그 -->
-  <!-- <script id="tag-template" type="text/x-hanalerbars-template">
-    <div class="table-row">
-      <div class="table-cell"></div>
-      <button class="btn btn-outline-success table-cell" id="tag-canel-btn" value="">퉤스트 </button>
-    </div>
-  </script> -->
+  <script id="tag-template" type="text/x-hanalerbars-template">
+    
+    <button class="btn btn-outline-success table-cell" id="tag-canel-btn" value="">{{tag}}</button>
+  </script>
 
 <div id="footers"></div>
 <script src="/ssang/group/js/form.js"></script>

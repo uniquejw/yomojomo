@@ -1,17 +1,25 @@
 
   // //태그 
-  // $(document).on("click","#tag-post-btn",function(){
-  //   var tag = document.querySelector(".posted-tags")
-  //   var trTemplate = document.querySelector("#tag-template");
-  //   var tagGenerator = Handlebars.compile(trTemplate.innerHTML);
-
-  //   fetch("/groupTag/add")
-  //   .then(function(res){
-  //     return res.json()
-  //   }).then(function(result){
-  //     tag.innerHTML = tagGenerator(result);
-  //   })    
-  // })
+  $(document).on("click","#tag-post-btn",function(){
+    if($(".tag-canel-btn").length < 3){
+    var tags = document.getElementById('x-tag').value;
+    var button = document.createElement('button')
+    button.setAttribute('class','btn btn-outline-success tag-canel-btn')
+    button.setAttribute('id','tag-canel-btn')
+    button.setAttribute('value',`${tags}`)
+    button.innerHTML = tags
+    document.getElementById('posted-tags').append(button)
+    }else {Swal.fire({
+      icon: 'error',
+      title: '잠시만요!!',
+      text: '태그는 3개까지 입력 가능합니다.',
+      footer: ''
+    })}
+    
+  })
+  $(document).on("click","#tag-canel-btn",function(){
+    $(this).remove()
+  })
   // 시 팝업
   document.querySelector("#local-btn").addEventListener("click", show);
   function show() {
@@ -99,17 +107,19 @@
   var xPurpose = document.querySelector("#x-purpose")
   var xActiveLocalNo = document.querySelector("input[name=activeLocalNo]")
   var xMaxCnt = document.querySelector("input[name=maxcnt]")
-  
+
+
 
   $("#x-file").on('change',function(){
     var fileName = $("#x-file").val();
     $(".upload-name").val(fileName);
   });
 
-
+  
 //=======================모임 생성 =========================
 document.querySelector("#create-btn").onclick = function() {
-  if (xTitle.value == "" || xIntro.value == "" || xPurpose.value == "" || xMaxCnt.value == "" || xActiveLocalNo.value == "") {
+  var purposeLength = $(".tag-canel-btn").length
+  if (xTitle.value == "" || xIntro.value == "" || xPurpose.value == "" || xMaxCnt.value == "" || xActiveLocalNo.value == "" || purposeLength < 1) {
     Swal.fire({
       icon: 'error',
       title: '잠시만요!!',
@@ -127,6 +137,10 @@ document.querySelector("#create-btn").onclick = function() {
     formData.append('activeLocalNo',xActiveLocalNo.value);
     formData.append('maxCount',xMaxCnt.value);
     
+    for (var i=0; i<purposeLength; i++){
+      var value =$(".tag-canel-btn").eq(i).val()
+      formData.append('tags',value)
+    }
   fetch("/group/add",{
     method : "POST",
     body : formData
@@ -142,5 +156,4 @@ document.querySelector("#create-btn").onclick = function() {
       alert(result.data);
     }
   });
-  
 }

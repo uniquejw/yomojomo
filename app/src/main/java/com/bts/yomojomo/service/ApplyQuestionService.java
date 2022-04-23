@@ -11,11 +11,12 @@ public interface ApplyQuestionService {
   List<ApplyQuestion> list();
 
   List<ApplyQuestion> findQuestion(int no);
-  //
+
   //  ApplyQuestion get(int no);
   //
   //  int update(ApplyQuestion applyQuestion);
-  //
+
+  int count(int no);
 
   int update(ArrayList<ApplyQuestion> questionList);
 
