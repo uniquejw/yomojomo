@@ -14,4 +14,7 @@ public class FAQ {
   String path;
   Date regdt;
 
+  //외래키
+  QueryCate queryCate;
+  
 }
