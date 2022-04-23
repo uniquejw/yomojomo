@@ -277,13 +277,6 @@ function savePointer(places) {
     })
 }
 
-var test = document.querySelector('.btn-save-data')
-test.addEventListener('click', function() {
-    console.log(placeDataList)
-})
-
-
-
 var finalDestination = [];
 var finalDestinationLatLng = [];
 var clickSaveBtn = 0;
@@ -350,3 +343,14 @@ function isDup(arr)  {
       return arr.indexOf(x) !== arr.lastIndexOf(x);
     });  
   }
+
+
+var test = document.querySelector('.btn-save-data')
+test.addEventListener('click', function() {
+    console.log(placeDataList)
+})
+
+
+function saveDbDate(i) {
+    console.log(placeDataList[i])
+}
