@@ -1,5 +1,6 @@
 package com.bts.yomojomo.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,11 @@ public class DefaultApplyAnswerService implements ApplyAnswerService {
   //  }
 
   @Override
+  public int add(ArrayList<ApplyAnswer> answerList) {
+    return applyAnswerDao.insert(answerList);
+  }
+
+  @Override
   public List<ApplyAnswer> list() {
     return applyAnswerDao.findAll();
   }
@@ -40,5 +46,7 @@ public class DefaultApplyAnswerService implements ApplyAnswerService {
   //  public int delete(int no) {
   //    return applyAnswerDao.delete(no);
   //  }
+
+
 
 }

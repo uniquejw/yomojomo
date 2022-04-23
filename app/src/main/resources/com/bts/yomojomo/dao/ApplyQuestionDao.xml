@@ -11,6 +11,14 @@
     <result column="question_name" property="questionName"/>
   </resultMap>
 
+  <insert id="insert">
+    insert into gms_applyform_question(g_no, question_name) 
+    values
+    <foreach collection="questionList" item="questions" separator=",">
+    (#{questions.groupNo}, #{questions.questionName})
+    </foreach>
+  </insert>
+  
   <select id="findAll" resultMap="ApplyQuestionMap"> 
     select
       appl_question_no,
@@ -31,6 +39,11 @@
       g_no=#{no};
   </select>
   
+  
+  <delete id="delete">
+    delete from gms_applyform_question
+  </delete>
+  
   <select id="findByNo" resultMap="ApplyQuestionMap" parameterType="int">
     select 
       appl_no,
@@ -44,22 +57,13 @@
       g_no=#{no}
   </select>
 
-  <insert id="insert" parameterType="ApplyQuestion">
-    insert into gms_applyform_question(appl_no, question_name) 
-    values(#{applyNo}, #{questionName})
-  </insert>
   
   <update id ="update" parameterType="ApplyQuestion">
-    update gms_applyform_question set 
-      content = #{content}
-    where 
-      appl_no=#{no}
+    <foreach collection="questionList" item="questions">
+    update gms_applyform_question
+     set question_name = #{questions.questionName}
+     where appl_question_no = #{questions.no};
+  </foreach>
   </update>
   
-  
-  <delete id="delete" parameterType="int">
-    delete from gms_applyform_question
-    where 
-      appl_no=#{no}
-  </delete>
 </mapper>

@@ -2,6 +2,7 @@ package com.bts.yomojomo.controller;
 
 import static com.bts.yomojomo.controller.ResultMap.FAIL;
 import static com.bts.yomojomo.controller.ResultMap.SUCCESS;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,9 +15,21 @@ public class ApplyQuestionController {
   @Autowired
   ApplyQuestionService applyQuestionService;
 
+  //신청서 질문 등록 
   @RequestMapping("/applyQuestion/add")
-  public Object add(ApplyQuestion applayForm) {
-    return applyQuestionService.add(applayForm);
+  public Object add(int no, String[] questionName) {
+    ArrayList<ApplyQuestion> questionList = new ArrayList();
+    for (int i = 0; i < questionName.length; i++) {
+      if (questionName[i].length() == 0) {
+        continue;
+      }
+      ApplyQuestion applyQuestion = new ApplyQuestion();
+      applyQuestion.setQuestionName(questionName[i]);
+      applyQuestion.setGroupNo(no);
+      questionList.add(applyQuestion);
+      System.out.println(questionList);
+    }
+    return new ResultMap().setStatus(SUCCESS).setData(applyQuestionService.add(questionList));  
   }
   //신청서의 질문 목록을 조회
   @RequestMapping("/applyQuestion/findQuestion")
@@ -27,7 +40,20 @@ public class ApplyQuestionController {
     }
     return new ResultMap().setStatus(SUCCESS).setData(applyquestion); 
   }
-  //
+
+  @RequestMapping("/applyQuestion/update")
+  public Object update(String[] questions) {
+    ArrayList<ApplyQuestion> questionList = new ArrayList<>();
+
+    //    ApplyQuestion ApplyQuestion = new ApplyQuestion()
+    for (int i=0; i < questions.length; i++) {
+      String[] value = questions[i].split("_");
+      ApplyQuestion applyQuestion = new ApplyQuestion(Integer.parseInt(value[0]),value[1]);
+      questionList.add(applyQuestion);
+    }
+    System.out.println(questionList);
+    return new ResultMap().setData(applyQuestionService.update(questionList));    
+  }
   //  @RequestMapping("/applayQuestion/get")
   //  public Object get(int no) {
   //    ApplyQuestion applyQuestion = applyQuestionService.get(no);
@@ -36,19 +62,11 @@ public class ApplyQuestionController {
   //    }
   //    return new ResultMap().setStatus(SUCCESS).setData(applyQuestion);
   //  }
-
-  @RequestMapping("/applayQuestion/list")
-  public Object list() {
-    return applyQuestionService.list(); 
-  }
   //
-  //  @RequestMapping("/applayQuestion/update")
-  //  public Object update(ApplyQuestion applayForm) {
-  //    return applyQuestionService.update(applayForm);
+  //  @RequestMapping("/applayQuestion/list")
+  //  public Object list() {
+  //    return applyQuestionService.list(); 
   //  }
   //
-  //  @RequestMapping("/applayQuestion/delete")
-  //  public Object delete(int no) {
-  //    return applyQuestionService.delete(no);
-  //  }
+  //
 }

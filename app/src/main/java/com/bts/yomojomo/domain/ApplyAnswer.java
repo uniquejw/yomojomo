@@ -7,9 +7,15 @@ import lombok.experimental.Accessors;
 @Data
 @Accessors(chain = true)
 public class ApplyAnswer {
-  int no; // appl_answer_no 질문목록답변
   String answer;
-  int applyNo; // appl_no 가입신청서 질문목록 번호 
+  int applyQuestionNo; // appl_question_no 가입신청서 질문목록 번호 
   Date applyDate;// appl_dt
   Member writer;
+
+
+  public ApplyAnswer(int applyQuestionNo, String answer) {
+    this.applyQuestionNo = applyQuestionNo;
+    this.answer = answer;
+  }
+  public ApplyAnswer() {}
 }

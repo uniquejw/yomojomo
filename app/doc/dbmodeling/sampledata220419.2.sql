@@ -312,11 +312,11 @@ insert into gms_applyform_question (g_no, question_name) values(2, "3대 중량 
 insert into gms_applyform_question (g_no, question_name) values(2, "운동 경력");
 insert into gms_applyform_question (g_no, question_name) values(3, "좋아하는 코스를 적어주세요");
 insert into gms_applyform_answer  (appl_question_no, memb_no, answer) values(1,1, "설레는 봄엔 설렌다");
-insert into gms_applyform_answer  (appl_question_no, memb_no, answer) values(1,1, "영화는 안봐요");
-insert into gms_applyform_answer  (appl_question_no, memb_no, answer) values(1,1, "검색");
-insert into gms_applyform_answer  (appl_question_no, memb_no, answer) values(2,2, "50kg....");
-insert into gms_applyform_answer  (appl_question_no, memb_no, answer) values(2,2, "3개월");
-insert into gms_applyform_answer  (appl_question_no, memb_no, answer) values(3,2, "양재천 따라 쭉 타요 ㅎㅎ");
+insert into gms_applyform_answer  (appl_question_no, memb_no, answer) values(2,1, "영화는 안봐요");
+insert into gms_applyform_answer  (appl_question_no, memb_no, answer) values(3,1, "검색");
+insert into gms_applyform_answer  (appl_question_no, memb_no, answer) values(4,2, "50kg....");
+insert into gms_applyform_answer  (appl_question_no, memb_no, answer) values(5,2, "3개월");
+insert into gms_applyform_answer  (appl_question_no, memb_no, answer) values(6,2, "양재천 따라 쭉 타요 ㅎㅎ");
 
 insert into gms_calendar(name, content, result_url, g_no, start_dt, end_dt) values ("정모1", "7시 강남역1번출구", "www.naver.com", 1, "2022-04-03", "2022-04-03");
 insert into gms_calendar(name, content, result_url, g_no, start_dt, end_dt) values ("정모2", "7시 구디 4번 출구", "www.naver.com", 1, "2022-04-05", "2022-04-10");

@@ -11,7 +11,7 @@
 }
 #container{
     padding-top: 120px;
-    min-height: 80vh;
+    min-height: 85vh;
     width: 57vw;
     margin: 0px auto;
 }
@@ -59,7 +59,7 @@ button{
 #tag-canel-btn{
     margin: 0 0 0 1px;
 }
-input#x-title, input#x-tag {
+input#x-title, input#x-tag, input#x-maxcnt {
     position: relative;
     border: 1px solid #aaa;
     border-radius: 0.2em;

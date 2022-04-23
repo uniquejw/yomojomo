@@ -37,14 +37,14 @@ public class GroupController {
     } catch (Exception e) {
       StringWriter out = new StringWriter();
       e.printStackTrace(new PrintWriter(out));
-
+      System.out.println(group);
       return new ResultMap().setStatus(FAIL);
     }
   }
 
   @RequestMapping("/group/get")
-  public Object get(int no) {
-    Group group = groupService.get(no);
+  public Object get(int gno) {
+    Group group = groupService.get(gno);
     if (group == null) {
       return new ResultMap().setStatus(FAIL).setData("해당 번호의 모임이 없습니다.");
     }

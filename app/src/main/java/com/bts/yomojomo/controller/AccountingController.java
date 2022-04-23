@@ -2,6 +2,7 @@ package com.bts.yomojomo.controller;
 
 import static com.bts.yomojomo.controller.ResultMap.FAIL;
 import static com.bts.yomojomo.controller.ResultMap.SUCCESS;
+import java.util.ArrayList;
 import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,16 +10,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.bts.yomojomo.domain.Accounting;
+import com.bts.yomojomo.domain.AccountingStatus;
+import com.bts.yomojomo.domain.Group;
 import com.bts.yomojomo.domain.Member;
 import com.bts.yomojomo.service.AccountingService;
 
 @RestController
 public class AccountingController {
 
-  private static final Logger log = LoggerFactory.getLogger(CalendarController.class);
+  private static final Logger log = LoggerFactory.getLogger(Accounting.class);
 
   @Autowired 
   AccountingService accountingService;
+
+  @RequestMapping("/accounting/list")
+  public Object list() {
+    return accountingService.list();
+  }
 
   @RequestMapping("/accounting/listbygroup") //소모임 번호로 리스트 받기
   public Object listByGroup(int pageSize, int pageNo, int groupNo, String actCate, HttpSession session) {
@@ -27,6 +35,9 @@ public class AccountingController {
     Member member = (Member) session.getAttribute("loginUser");
     Accounting accounting = new Accounting();
     accounting.setMember(member);
+
+    Group group = new Group();
+    accounting.setGroup(group.setNo(groupNo));
 
     try {
       if (pageSize < 10 || pageSize > 100) {
@@ -51,6 +62,7 @@ public class AccountingController {
       }
     } catch (Exception e) {}
     System.out.println("totalpageSize 는 " +totalPageSize );
+    System.out.println(pageNo);
 
     return new ResultMap()
         .setStatus(SUCCESS)
@@ -67,14 +79,56 @@ public class AccountingController {
   }
 
   @RequestMapping("/accounting/add")
-  public Object add(Accounting accounting, HttpSession session) {
+  public Object add(Accounting accounting, String[] actStatuses, HttpSession session) {
+
+    for (int i = 0; i < actStatuses.length; i++) {
+      System.out.println(actStatuses[i]);
+    }
+
+    System.out.println();
+
     log.info("정산등록");
     log.debug(accounting.toString());
 
     Member member = (Member) session.getAttribute("loginUser");
     accounting.setMember(member);
-    accountingService.add(accounting);
 
+    System.out.println("actStatuses.length : " + actStatuses.length);
+
+    ArrayList<AccountingStatus> statusList = new ArrayList<>();
+
+    for (int i = 0; i < actStatuses.length; i++) {
+
+      System.out.println("1. for문 안 actStatuses :" + actStatuses[i]);
+
+      String[] value = actStatuses[i].split("_");
+
+      System.out.println("value의 길이 : " + value.length);
+
+      for (int j = 0; j < value.length; j++) {
+        System.out.printf("2. for문 안 value :[%s], %s\n", j, value[j]);
+      }
+
+      if(value[1].length() == 0) {
+        continue;
+      }
+
+      AccountingStatus accountingStatus = new AccountingStatus(
+          Integer.parseInt(value[0]), //그룹번호
+          Integer.parseInt(value[1]), //멤버번호
+          java.sql.Date.valueOf(value[2]) //돈낸날짜
+          );
+      System.out.println("3. 만들어진 accountingStatus : " + accountingStatus);
+
+      statusList.add(accountingStatus);
+
+      System.out.println("4. statusList : " +statusList );
+    }
+
+    accounting.setActStatus(statusList);
+    System.out.println("accounting : " + accounting);
+    accountingService.add(accounting);
+    //    System.out.println(accounting);
     return new ResultMap().setStatus(SUCCESS);
   }
 
@@ -105,7 +159,7 @@ public class AccountingController {
   public Object delete(int no, HttpSession session) {
     Member member = (Member) session.getAttribute("loginUser");
     Accounting accounting = new Accounting();
-    accounting.setNo(no);
+    accounting.setAccountingNo(no);
     accounting.setMember(member);
 
     int count = accountingService.delete(accounting);

@@ -24,6 +24,7 @@ fetch(PATH.groupList)
       }
       writtenContainer.innerHTML = htmlGenerator(result.data);
     }
+    console.log(result.data)
   });
 
   // 시,도 카테고리불러오기
@@ -77,7 +78,7 @@ fetch(PATH.groupList)
     }); 
   }); 
 
-  // 전체를 선택하면 게시글 리스트 불러오기 
+  // 지역 전체 선택 시 게시글 리스트 불러오기 
   $("#nameSi").on("click", function() {  
     if ($("#nameSi option:selected").val() == 0) {
       fetch(PATH.groupList)
@@ -97,7 +98,7 @@ fetch(PATH.groupList)
     }
   })
   
-  // 시, 도 카테고리 선택하면 게시글 리스트 불러오기
+  // 시, 도 선택 시 게시글 리스트 불러오기
   $("#nameSi").on("click", function() {
     console.log("바뀜");
     $.ajax({
@@ -114,7 +115,7 @@ fetch(PATH.groupList)
   });//nameSi change End
   
   
-  // 군, 구 카테고리 선택하면 게시글 리스트 불러오기
+  // 군, 구 선택 시 게시글 리스트 불러오기
   $("#nameGu").on("click", function() { //id가 nameGu를 클릭하면 발생되는 이벤트 시작
     if ($("#nameGu option:selected").text() == "군구 선택") {
     console.log("바뀜");
@@ -142,9 +143,9 @@ fetch(PATH.groupList)
     }) //ajax END
   });//nameGu change End //id가 nameGu를 클릭하면 발생되는 이벤트 끝
 
-  // 모임목적 카테고리 선택하면 게시글 리스트 불러오기
+  // 군구 선택 후 모임목적  선택 시 게시글 리스트 불러오기
   $(document).on("click", "#selectPurpose", function() { //id가 nameGu를 클릭하면 발생되는 이벤트 시작
-    if ($("#nameGu option:selected").text() == "군구 선택") {
+    if ( $("nameSi option:selected").text() !="전체" && $("#nameGu option:selected").text() == "군구 선택") {
       alert("지역을 입력하세요")
     } else if ($("#selectPurpose option:selected").text() != "모임목적") {
     console.log("바뀜");
@@ -167,7 +168,7 @@ fetch(PATH.groupList)
 $(document).on("click","button.btn-show",function(){
   document.querySelector(".background").className = "background show";
   var value = $(this).val();
-  fetch(`${PATH.groupGet}?no=${value}`)
+  fetch(`${PATH.groupGet}?gno=${value}`)
   .then(function(response){
     return response.json()
   }).then(function(result){
@@ -194,7 +195,7 @@ $(document).on("click","#apply-form-btn",function(){
   document.querySelector(".report-background").className = "report-background show";
   var value = $(this).val();//모임번호
   // 사진
-  fetch(`${PATH.groupGet}?no=${value}`)
+  fetch(`${PATH.groupGet}?gno=${value}`)
     .then(function(response){
     return response.json()
     })
@@ -229,76 +230,64 @@ $(document).on("click","#apply-form-btn",function(){
       var divTemplate = document.querySelector("#applyList-template");
       var htmlGenerator = Handlebars.compile(divTemplate.innerHTML);
       writtenContainer.innerHTML = htmlGenerator(result.data);
-      // console.log(htmlGenerator(result.data))
+      $('#apply').val(value);
     });
+});
 
 //신청하기
 $(document).on("click","#apply",function(){
- var fd = new FormData(document.forms.namedItem("applyForm"))
- console.log(new URLSearchParams(fd).toString())
- console.log
-  // var value = $(this).val();//appl_no
-  // // var fd = new FormData();
-  // var answerLength = $("input[name=answer]").length;//값들의 갯수 -> 배열 길이를 지정
-  // var answers = new Array(answerLength);//배열 생성
-  // //배열에 값 주입
-  // for(var i=0; i<answerLength; i++){                          
-  //   answers[i] = $("input[name=answer]").eq(i).val();
-  // }
-  // // fd.append('answer',answers)
-  // // fd.append('answer',document.querySelector("textarea[name=answer]").value)
-  // // fd.append('applyNo',value)
-  // answers.push(document.querySelector("textarea[name=answer]").value)
-  // console.log(answers)
-  // fetch('/applyAnswer/add',{
-  //   method:"POST",
-  //   body: {
-  //     'answers':`${answers}`,
-  //     'applyNo':`${value}`
-  //   }
-  // })
-  // .then(function(res){
-  //   return res.json()
-  // }).then(function(result){
-  //   location.href="/minkyu/mypage/index.html"
-  //  })
+  var value = $(this).val(); //모임번호
+  var answerLength = $("input[name=answer]").length
+  if (answerLength >= 1) {
+    console.log("test")
+  var qs = "";
+  for(var i=0; i<answerLength; i++){                          
+    var answer = $("input[name=answer]").eq(i).val()
+    var qno = $("input[name=answer]").eq(i).data('qno')
+    qs += `answers=${qno}_${answer}&`;
+  }
+  console.log(qs)
+  fetch(`/applyAnswer/add?${qs}`)
+  .then(function(res){
+    return res.json()
+  }).then(function(result){
+  });
+  }
+  var defaultValue = document.querySelector("textarea[name=answer]").value
+  var qs2 = `groupNo=${value}&content=${defaultValue}`
+  console.log(qs2)
+  fetch(`/applyFixedAnswer/add?${qs2}`)
+  .then(function(res){
+    return res.json()
+  })
+  .then(function(result){
+    // location.href="/minkyu/mypage/index.html"
+  })
 })
-
 
 //닫기
-var cols = document.querySelectorAll("button.btn-close");
-[].forEach.call(cols,function(col){
-  col.addEventListener("click",close)
-})
-$(document).on("click",function(e){
-  if($(".background").is(e.target)){
-    console.log("출력")
-    $(".background").css({visibillty:"hidden",
-  opacity:0})
-  }
-})
+$("button.btn-close").click((e) => {
+  var dialog = e.target.getAttribute("data-dialog");
+  $(`.${dialog}`).removeClass("show");
+});
+/*
 function close() {
-  document.querySelector(".report-background").className = "report-background";
+  console.log("click")
   document.querySelector(".background").className = "background";
+  document.querySelector(".report-background").className = "report-background";
 }
-
-
-    
-    
-    // document.querySelector("#x-create-btn").onclick = function(){
-    //   location.href="form.html";
-    // };
-
-
-
+*/
+// $(document).on("click",".board-edit",function(){
+//   window.location.href = "view.html";
+// })
+// $(document).on("click",".board-edit",function(){
+//   window.location.href = "view.html";
+// })
 
 
 
-    // 버튼클릭이벤트 
-      // document.querySelector(".new-post-btn").onclick = function() {
-      //   window.location.href = "form.html";
-      // };
-      // $(document).on("click",".board-edit",function(){
-      //   window.location.href = "view.html";
-      // })
-})
+// 버튼클릭이벤트 
+// document.querySelector(".new-post-btn").onclick = function() {
+//   window.location.href = "form.html";
+// };
+

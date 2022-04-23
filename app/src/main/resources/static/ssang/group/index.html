@@ -74,7 +74,15 @@
         <button type="button" class="btn-show" value="{{no}}">
           <img src="/group/photo?filename={{logo}}" class="sub-logo">
         </button>
-        <div class="group-name" >{{groupName}}</div>
+        <div class="group-name-div">
+          <div class="group-name">{{groupName}}</div>
+          <div class="group-info">
+            <div>{{registDate}}</div>
+            <div class="memb-count"><span class="material-icons">
+              accessibility_new
+              </span> 1명/{{maxCount}}명</div>
+          </div>
+        </div>
       </div>  
     </li>
     {{/each}}
@@ -85,7 +93,7 @@
     <div class="window">
       <div class="popup">
         <div class="popup-img-div"><img alt="이리오너라" class="main-logo"></div>
-        <button type="button" class="btn-close" aria-label="Close"></button>
+        <button type="button" class="btn-close" data-dialog="background" aria-label="Close"></button>
         <div class="popup-group-name"></div>
         <div class="popup-group-content"></div>
         <div><button id="apply-form-btn" value="">가입하기</button></div>
@@ -97,22 +105,21 @@
     <div class="report-background">
       <div class="report-window">
         <div class="report-popup">
-          <button type="button" class="btn-close" aria-label="Close"></button>
           <div class="report-img-div"><img alt="이리오너라" class="main-logo2"></div>
           <div class="report-form">
+            <button type="button" class="btn-close" data-dialog="report-background" aria-label="Close"></button>
             <div class="report-form-title">가입신청서</div>
             <form name="applyForm">
             <table>
               <tbody id="handlebars-container2"></tbody>
             </table>
-            <textarea name="answer" id="" cols="40" rows="6" class="report-comment" placeholder="하고싶은 말"></textarea>
+            <textarea name="answer" id="" cols="40" rows="6" class="report-comment" placeholder="하고싶은 말" ></textarea>
             </form>
           </div><!--report-form-->
           <div><button id="apply" value="">가입하기</button></div>
         </div><!--report-popup-->
       </div> <!--report-window-->
-    </div>    <!--report-background-->
-
+    </div><!-- report-background -->
 </div><!--container-->
 <div id="footers"></div>
 
@@ -122,7 +129,7 @@
   {{#each this}}
     <tr>
       <td><span class="report-item">{{questionName}}</span></td>
-      <td><input type="text" name="answer" data-qno="{{no}}"></td>
+      <td><input class="x-answer" type="text" name="answer" data-qno="{{no}}"></td>
     </tr>
     {{/each}}
 </script>

@@ -20,4 +20,6 @@ public interface AccountingService {
 
   int size(int groupNo, String actCate);
 
+  List<Accounting> list();
+
 }

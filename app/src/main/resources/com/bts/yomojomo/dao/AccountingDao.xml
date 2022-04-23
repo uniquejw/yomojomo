@@ -5,28 +5,48 @@
 <mapper namespace="com.bts.yomojomo.dao.AccountingDao">
   
   <resultMap type="Accounting" id="AccountingMap">
-    <id column="act_no" property="no"/>
+    <id column="accountingNo" property="accountingNo"/>
     <result column="title" property="title"/>
     <result column="amount" property="amount"/>
     <result column="status" property="status"/>
     <result column="reg_dt" property="registDate"/>
+    
     <association property="actCate" javaType="AccountingCate">  <!--카테고리-->
       <id column="actno" property="no"/>
       <result column="actname" property="cateName"/>
     </association>
+    
     <association property="group" javaType="Group">
       <id column="gno" property="no"/>
       <result column="gname" property="GroupName"/>
     </association>
+    
     <association property="member" javaType="Member"> <!-- gms_member -->
        <id column = "mno" property="no"/>
        <result column="mname" property="memberName"/>
     </association>
-</resultMap>
+    
+    
+    <collection property="actStatus" ofType="AccountingStatus">  
+      <id column="statusActNo" property="actNo"/>
+      <result column="g_no" property="gNo"/>
+      <result column="memb_no" property="membNo"/>
+      <result column="pay_dt" property="paydt"/>
+    </collection>
+     
+  </resultMap>
 
-  <select id="findListByGroup" resultMap="AccountingMap"> <!-- 모임별 accounting 찾기 -->
+  <resultMap type="AccountingStatus" id="AccountingStatusMap">
+    <id column="act_no" property="actno"/>
+    <result column="g_no" property="gno"/>
+    <result column="memb_no" property="membno"/>
+    <result column="pay_dt" property="paydt"/>
+  </resultMap>
+  
+
+  <select id="findListByGroup" resultMap="AccountingMap">   <!-- 모임별 accounting 찾기 -->
     select
-      a.act_no,
+      a.act_no accountingNo,
       g.g_no gno,
       g.name gname,
       act.act_cate_no actno,
@@ -34,11 +54,15 @@
       a.title,
       a.amount,
       a.reg_dt,
-      a.status
+      a.status,
+      st.g_no,
+      st.pay_dt,
+      st.memb_no
     from 
       gms_accounting a
       inner join gms_accounting_cate act on (a.act_cate_no = act.act_cate_no)
       left outer join gms_group g on (a.g_no = g.g_no)
+      left outer join gms_accounting_status st on (a.act_no = st.act_no)
       <choose>
 	      <when test="actCate == null">
 	          where
@@ -57,7 +81,7 @@
       </choose>
   </select>
   
-  <select id ="countAll" resultType="int">
+  <select id ="countAll" resultType="int"> <!-- 모임별 글 개수 찾기 -->
     select count(*)
     from 
       gms_accounting a
@@ -74,29 +98,57 @@
       </when>
     </choose>
   </select>
+  
+  <select id="findAll" resultMap="AccountingMap">
+    select
+      a.act_no accountingNo,
+      a.g_no,
+      a.act_cate_no,
+      a.title,
+      a.amount,
+      a.reg_Dt,
+      a.status,
+      st.g_no,
+      st.memb_no,
+      st.pay_dt
+    from gms_accounting a
+      left outer join gms_accounting_status st on (a.act_no = st.act_no)
+    order by
+      a.act_no
+  </select>
 
   <select id="findByNo" resultMap="AccountingMap" parameterType="int">
     select
-      a.act_no,
-      g.g_no gno,
-      g.name gname,
-      act.act_cate_no actno,
-      act.name actname,
+      a.act_no accountingNo,
+      a.g_no,
+      a.act_cate_no,
       a.title,
       a.amount,
-      a.reg_dt,
-      a.status
+      a.reg_Dt,
+      a.status,
+      st.g_no,
+      st.memb_no,
+      st.pay_dt
     from 
       gms_accounting a
-      inner join gms_accounting_cate act on (a.act_cate_no = act.act_cate_no)
-      left outer join gms_group g on (a.g_no = g.g_no)
+      left outer join gms_accounting_status st on (a.act_no = st.act_no)
     where 
-      a.act_no=#{no}
+      a.act_no=#{no} <!-- and g.g_no={group.no}  -->
   </select>
   
-  <insert id="insert" parameterType="Accounting">
+  <insert id="insert" parameterType="Accounting" keyProperty="accountingNo" keyColumn="act_no" useGeneratedKeys="true"> 
     insert into gms_accounting(g_no,act_cate_no,title,amount,status) 
     values(#{group.no},#{actCate.no},#{title},#{amount},#{status})
+  </insert>
+   
+  
+  <!-- AccountingStatus Insert문 -->
+  <insert id="insertActStatus">
+    insert into gms_accounting_status(act_no, g_no, memb_no, pay_dt) 
+    values
+    <foreach collection="actstatuses" item="memberStatus" separator=",">
+      (#{accountingNo}, #{memberStatus.gNo}, #{memberStatus.membNo}, #{memberStatus.paydt})
+    </foreach>
   </insert>
   
   <update id ="update" parameterType="Accounting">
@@ -116,14 +168,12 @@
       act_no=#{no}
   </delete>
 
-
-
-  <resultMap type="AccountingCate" id="AccountingCateMap">
+  <resultMap type="AccountingCate" id="AccountingCateMap"> <!-- 회비 카테고리 resultMap -->
     <id column="act_cate_no" property="no"/>
     <result column="name" property="cateName"/>
   </resultMap>
   
-  <select id="cateListAll" resultMap="AccountingCateMap"> <!--카테고리 불러오기-->
+  <select id="cateListAll" resultMap="AccountingCateMap"> <!-- 회비 카테고리 목록 불러오기-->
     select * from gms_accounting_cate
     order by act_cate_no asc
   </select>

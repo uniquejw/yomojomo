@@ -98,6 +98,7 @@
   var xIntro = document.querySelector("#x-intro")
   var xPurpose = document.querySelector("#x-purpose")
   var xActiveLocalNo = document.querySelector("input[name=activeLocalNo]")
+  var xMaxCnt = document.querySelector("input[name=maxcnt]")
   
 
   $("#x-file").on('change',function(){
@@ -108,11 +109,11 @@
 
 //=======================모임 생성 =========================
 document.querySelector("#create-btn").onclick = function() {
-  if (xTitle.value == "" || xIntro.value == "" || xPurpose.value == "") {
+  if (xTitle.value == "" || xIntro.value == "" || xPurpose.value == "" || xMaxCnt.value == "" || xActiveLocalNo.value == "") {
     Swal.fire({
       icon: 'error',
       title: '잠시만요!!',
-      text: '필수입력사항(*)을 기재해 주세요',
+      text: '입력사항(*)을 기재해 주세요',
       footer: ''
     })
     return;
@@ -124,6 +125,7 @@ document.querySelector("#create-btn").onclick = function() {
     formData.append('intro',xIntro.value); 
     formData.append('purposeNo',xPurpose.value);
     formData.append('activeLocalNo',xActiveLocalNo.value);
+    formData.append('maxCount',xMaxCnt.value);
     
   fetch("/group/add",{
     method : "POST",
