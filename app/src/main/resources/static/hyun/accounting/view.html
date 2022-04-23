@@ -165,7 +165,6 @@
 <!--불러오는 멤버 Handlebars START-->
 <script id="div-template" type="text/x-handlebars-template">
   {{#each this}}
-  <div class="preMemb">
     <div class="x-membList">
       <span class="material-icons">account_circle </span>
       <input id="listmembName" type="text" value="{{membName}}">
@@ -175,7 +174,6 @@
     <span>납부 완료일 :</span> <input type="date" id="paydt" value="{{paydt}}">
     <button id="x-deleteMemb-btn" type="button" class="btn btn-primary" onclick="deleteDiv(event)">삭제</button><br>
     </div>  
-  </div>
   {{/each}}
 </script>
 <!--불러오는 멤버 Handlebars END-->
@@ -183,7 +181,6 @@
 <!--멤버 변경  Handlebars START-->
 <script id="children-div-template" type="text/x-handlebars-template">
   {{#each this}}
-  <div class="postMemb">
     <div class="x-membList">
       <span class="material-icons">account_circle </span> 
       <input id="listmembName" type="text" value="{{member.memberName}}">
@@ -193,7 +190,6 @@
     납부 완료일 : <input type="date" id="paydt">
     <button id="x-deleteMemb-btn" type="button" class="btn btn-primary" onclick="deleteDiv(event)">삭제</button><br>
     </div>
-  </div>
   {{/each}}
 </script>
 <!--멤버 변경  Handlebars END-->
