@@ -26,19 +26,22 @@ public interface AccountingDao {
   int insert(Accounting accounting);
 
   int insertActStatus(
-      @Param("accountingNo") int accountingNo, //Accounting의 no
-      @Param("actstatuses") List<AccountingStatus> actStatus
-      ); //한번에 여러명의 인원을 추가한다.
+      @Param("accountingNo") int accountingNo,
+      @Param("actstatuses") List<AccountingStatus> actStatus,
+      @Param("qslength") int qslength
+      );
 
   Accounting findByNo(int no);
 
   int update(Accounting accounting);
 
-  int delete(Accounting accounting);
+  int delete(int accountingNo);
 
   List<Accounting> findAll();
 
   List<Accounting> findListByGroup(@Param ("groupNo") int groupNo);
+
+  int deleteStatusByNo(int accountingNo);
 
 
 

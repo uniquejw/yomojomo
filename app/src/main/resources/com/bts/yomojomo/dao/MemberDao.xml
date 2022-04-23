@@ -152,4 +152,12 @@
 		where
 			email=#{email}
 	</update>
+	
+	
+	<select id="findAll" resultMap="memberMap">
+	select
+	 memb_no,
+	 name
+	from gms_memb;
+	</select>
 </mapper>

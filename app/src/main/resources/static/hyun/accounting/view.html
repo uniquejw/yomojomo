@@ -4,8 +4,13 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>회비 및 정산 상세보기</title>
+  <script src="/node_modules/jquery/dist/jquery.min.js"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
   <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="/node_modules/handlebars/dist/handlebars.min.js"></script>
+
   <style>
     #view-content{ 
       padding-top: 10vh;
@@ -34,28 +39,17 @@
       margin:auto; /*가운데 정렬*/
       text-align:center;
     }
+    #view-content > .inner {
+      border: 1px solid blue;
+    }
   </style>
 </head>
 
 <body>
-  <script src="/node_modules/jquery/dist/jquery.min.js"></script>
-  <script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-  <script src="/node_modules/handlebars/dist/handlebars.min.js"></script>
-    
-  
-  <!--공통헤더 제이쿼리-->
-  <script type="text/javascript">
-    $(document).ready(function () {
-        $('#header').load('/junho/mainHeader.html'); //헤더 인클루드
-        $('#top').load('/ssang/groupBoard/none-search-top.html'); //상준님헤더
-        $('#footer').load('/junho/mainfooter.html'); //푸터부분 인클루드
-    });
-  </script>
-  
-  <!--공통헤더-->
-  <div id="header"></div>
-  <!--모임헤더-->
-  <div id="top"></div>
+<!--공통헤더-->
+<div id="header"></div>
+<!--모임헤더-->
+<div id="top"></div>
 
   <!--입력 폼-->
 <div id="view-content" class="table-responsive-lg">
@@ -65,139 +59,387 @@
         <tbody>
           <tr>
             <td width="150px">번호</td>
-            <td><input id="x-no" type="number" class="form-control" readonly></td>
+            <td><input id="x-no" type="number" class="form-control"></td>
           </tr>
           <tr>
-            <td>모임번호</td>
-            <td><input id="x-gno" type="number" class="form-control" readonly></td>
-          </tr>
-          <tr>
-            <td>유형번호</td>
-            <td><input id="x-actcateno" type="text" class="form-control" readonly></td>
+            <td>유형</td>
+            <td>
+              <select id="x-selectCate" name="actCate.no" class="form-select form-select-sm" aria-label=".form-select-sm example">
+                <option id="selectOp" value="1">유형을 선택하세요</option>
+                <option id="selectOp" value="2">회비</option>
+                <option id="selectOp" value="3">모임비</option>
+                <option id="selectOp" value="4">기타</option>
+              </select>
+            </td>
           </tr>
           <tr>
             <td>제목</td>
-            <td><input id="x-title" type="text" class="form-control" readonly></td>
+            <td><input id="x-title" type="text" class="form-control"></td>
           </tr>
           <tr>
             <td>작성일</td>
-            <td><input id="x-registDate" type="text" class="form-control" readonly></td>
-          </tr>
-          <tr>
-            <td>금액</td>
-            <td><input id="x-amount" type="text" class="form-control" readonly></td>
+            <td><input id="x-registDate" type="text" class="form-control"></td>
           </tr>
           <tr>
             <td>진행상태</td>
             <td>
-              <select id="x-status" name="status" disabled class="form-select form-select-sm" aria-label=".form-select-sm example">
+              <select id="x-status" name="status" class="form-select form-select-sm" aria-label=".form-select-sm example">
                 <option id="statusOp" value="0">진행</option>
                 <option id="statusOp" value="1">완료</option>
               </select>       
             </td>
           </tr>
+          <tr>
+            <td>금액</td>
+            <td><input id="x-amount" type="text" class="form-control"></td>
+          </tr>
         </tbody>
       </table>
+
+      <div>
+        <button type="button" class="btn btn-primary" id="addMemb">멤버 선택</button>
+        <button type="button" class="btn btn-primary" id="cleanMemb">멤버 초기화</button>
+      </div>
 
       <!--멤버 추가부분-->
       <div class="List-Container">
         <div id="x-membList-container">
-          <div class="x-membList">
-            이름 : <input id="listmembName" type="text" readonly>
-            금액 : <input id="listAmount" type="number" readonly>
+        </div>
+      </div>
+      <!--전체 멤버 추가부분 END-->
+
+      <!--멤버 선택 모달창-->
+      <div class="modal fade" id="memberlist-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">입력할 멤버를 선택해 주세요</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div id="modal-member-list">
+              </div>
+            </div>
+            <div class="modal-footer" style=" text-align: center;">
+              <button type="button" class="btn btn-primary" id="allMemb">전체 적용</button>
+              <button type="button" class="btn btn-primary" id="selectedOK">추가</button>
+            </div>
           </div>
         </div>
       </div>
+      <!--멤버 선택 모달창-->
 
       <button id="x-update-btn" type="button" class="btn btn-primary">수정</button>
       <button id="x-delete-btn" type="button" class="btn btn-primary">삭제</button>
-      <button id="x-cancle-btn" type="button" class="btn btn-primary">취소</button> 
+      <button id="x-cancle-btn" type="button" class="btn btn-primary">확인</button> 
     </form>
   </div>
 </div>
-<!--공통풋터-->
+
 <div id="footer"></div>
 
-<script src="/node_modules/jquery/dist/jquery.min.js"></script>
-<script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-<script src="/node_modules/handlebars/dist/handlebars.min.js"></script>
+<script type="text/javascript">
+  $(document).ready(function () {
+    $('#header').load('/junho/mainHeader.html'); //헤더 인클루드
+    $('#top').load('/ssang/groupBoard/none-search-top.html'); //상준님헤더
+    $('#footer').load('/junho/mainfooter.html'); //푸터부분 인클루드
+  });
+</script>
+
+<!--모달 창 내 멤버 리스트-->
+<script id="modal-memberlist-template" type="text/x-handlebars-template">
+  {{#each this}}
+  <div class="form-check">
+  <input class="form-check-input" name="memberNo" type="checkbox" value="{{member.no}}" id="flexCheckDefault {{member.no}}">
+    <label class="form-check-label" for="flexCheckDefault {{member.no}}">
+      {{member.memberName}}
+    </label>
+  </div>
+  {{/each}}
+</script>
+
+<!--멤버 Handlebars START-->
+<script id="div-template" type="text/x-handlebars-template">
+  {{#each this}}
+  <div class="x-membList">
+  이름 : <input id="listmembName" type="text" value="{{membName}}">
+        <input id="membno" value="{{membNo}}" type="hidden">
+        <input id="gno" value="" type="hidden">
+
+  납부 완료일 : <input type="date" id="paydt" value="{{paydt}}">
+  <button id="x-deleteMemb-btn" type="button" class="btn btn-primary" onclick="deleteDiv(event)">삭제</button><br>
+  </div>
+  {{/each}}
+</script>
+<!--멤버 Handlebars END-->
+
+<!--멤버 추가  Handlebars START-->
+<script id="children-div-template" type="text/x-handlebars-template">
+  {{#each this}}
+  <div class="x-membList">
+  이름 : <input id="listmembName" type="text" value="{{member.memberName}}">
+        <input id="membno" value="{{member.no}}" type="hidden">
+        <input id="gno" value={{group.no}} type="hidden">
+
+  납부 완료일 : <input type="date" id="paydt">
+  <button id="x-deleteMemb-btn" type="button" class="btn btn-primary" onclick="deleteDiv(event)">삭제</button><br>
+  </div>
+  {{/each}}
+</script>
+<!--멤버 추가  Handlebars END-->
 
 <script>
-  //1. URL에서 쿼리스트링 추출
-  let arr = location.href.split("?");
-  // console.log(arr);
+let qsarr = location.href.split("?");
+splitQs = qsarr[1];
+let AccountingParams = new URLSearchParams(splitQs);
+let AccountingGno = AccountingParams.get("gno");
+let AccountingNo = AccountingParams.get("no");
 
-  if (arr.length == 1) {
-    alert("요청 형식이 올바르지 않습니다.")
-    throw "URL 형식 오류!"
-  }
+//파라미터가 없을 때
+if (qsarr.length == 1) {
+  alert("요청 형식이 올바르지 않습니다.")
+  throw "URL 형식 오류!"
+}
 
-  let qs = arr[1];
-  //console.log(qs);
+//게시글 번호가 없을 때
+if (AccountingNo == null) {
+  alert("게시물 번호가 없습니다.");
+  throw "파라미터 오류!";
+}
 
-  //2. 쿼리 스트링에서 no 값 추출
-  let params = new URLSearchParams(qs);
-  let no = params.get("no");
-  // console.log(no);
+let xNo = document.querySelector("#x-no");
+let xGno = document.querySelector("#x-gno");
+let xActcateno = document.querySelector("#x-selectCate");
+let xTitle = document.querySelector("#x-title");
+let xAmount = document.querySelector("#x-amount");
+let xDate = document.querySelector("#x-registDate");
+let xStatus = document.querySelector("#x-status");
+let xMembList = document.querySelector(".x-membList");
+let xMembListCon = document.querySelector("#x-membList-container");
+let divTemplate = document.querySelector("#div-template");
+let divGenerator = Handlebars.compile(divTemplate.innerHTML);
+let ChilrenDivTemplate = document.querySelector("#children-div-template");
+let ChilrenDivGenerator = Handlebars.compile(ChilrenDivTemplate.innerHTML);
+let modalMemberList = document.querySelector("#modal-member-list");
+let checkboxTemplate = document.querySelector("#modal-memberlist-template");
+let checkboxGenerator = Handlebars.compile(checkboxTemplate.innerHTML);
 
-  if (no == null) {
-    alert("게시물 번호가 없습니다.");
-    throw "파라미터 오류!";
-  }
-  // console.log(no);
 
-  let xNo = document.querySelector("#x-no");
-  let xGno = document.querySelector("#x-gno");
-  let xActcateno = document.querySelector("#x-actcateno");
-  let xTitle = document.querySelector("#x-title");
-  let xAmount = document.querySelector("#x-amount");
-  let xDate = document.querySelector("#x-registDate");
-  let xStatus = document.querySelector("#x-status");
-  let xMembList = document.querySelector(".x-membList");
-  let xMembListCon = document.querySelector("#x-membList-container");
-  // console.log(xMembListCon);
+//화면에 뿌림
+$.ajax({
+  url: "/accounting/get",
+  type : "POST",
+  data : {no : AccountingNo},
+  success : function(result) {
+    accountingResult = result.data
 
-  //3. 서버에서 데이터 가져오기
-  fetch(`/accounting/get?no=${no}`)
-    .then(function(response) {
-      // console.log(response);
-      return response.json();
-    })
-    .then(function(result) {
-      console.log(result);
-      // console.log(result.data.actCate.cateName);
-      // 4. 화면에 출력
-      xNo.value = result.data.no;
-      xGno.value = result.data.group.no;
-      xActcateno.value = result.data.actCate.cateName;
-      xTitle.value = result.data.title;
-      xAmount.value  = result.data.amount;
-      xDate.value = result.data.registDate;
-      xStatus.value = result.data.status;
-    });
+    xNo.value = accountingResult.accountingNo;
+    xActcateno.value = accountingResult.actCateNo;
+    xTitle.value = accountingResult.title;
+    xAmount.value  = accountingResult.amount;
+    xDate.value = accountingResult.registDate;
+    xStatus.value = accountingResult.status;
+    // x.PayDt.value = accounting.
+    splitmemberNoArr = accountingResult.actStatus;
 
-//update로 이동
-  document.querySelector("#x-update-btn").onclick = function() {
-    location.href = "update.html?no="+no;
-  };
+    //accounting의 멤버리스트
+    var memberNoArr = [];
+    $.each(splitmemberNoArr, function(index, splitmemberNoArr) {
+      memberNoArr.push({
+        membNo : splitmemberNoArr.membNo,
+        paydt : splitmemberNoArr.paydt
+      })//memberNoArr push END    
+    })//each END
+
     
+    //member의 멤버리스트
+    $.ajax({
+      url: "/member/list",
+      type : "POST",
+      success : function (result) {
+        var memberArr = [];
+
+      $.each()
+        $.each(result, function(index, result) {
+          memberArr.push({
+            membNo : result.no,
+            membName : result.memberName
+          })// memberArr push END
+        })//each END
+
+        let newMemberArr = [];
+        for (i = 0; i < memberNoArr.length; i++) {
+            let MemberArr = memberArr.filter(function(data) {
+              return data.membNo == memberNoArr[i].membNo 
+            })
+            newMemberArr.push(MemberArr)
+        }
+
+        let plusDtMembArr = [];
+        for (i = 0; i < memberNoArr.length; i++) {
+          if(newMemberArr.flat()[i].membNo == memberNoArr[i].membNo ) {
+            plusDtMembArr.push({
+              membNo : splitmemberNoArr[i].membNo,
+              membName : newMemberArr.flat()[i].membName,
+              paydt : splitmemberNoArr[i].paydt
+            })
+          }
+        }
+        xMembListCon.innerHTML = divGenerator(plusDtMembArr); 
+      }
+    }) //member의 멤버리스트 ajax END
+  }// success END
+});//ajax END
+//
+
+$.ajax({ //로그인 여부 확인 ajax START 비회원은 main으로 보낸다.
+        url : "/member/getLoginUser",
+        type : "POST",
+        datatype : "json",
+        success : function(result) {
+          let loginUserNo = result.data.no;
+          if (result.status == "fail") {
+            window.alert("회원이 아닙니다.");
+            window.location.replace("/junho/index.html");
+          } else {
+            $.ajax({ //회원 등급 조회 모임장이 아니라면 등록 버튼을 감춘다.
+              url : "/joinmember/grouplistbymno",
+              type : "POST",
+              datatype : "json",
+              data : {"member.no" : loginUserNo },
+              success : function(result) {
+                console.log(result.data);
+                if (result.data[0].memberGrade.gradeNo != 1) { //모임장이 아니라면
+                  $("#x-update-btn").hide();
+                  $("#x-delete-btn").hide();
+                  $("#addMemb").hide();
+                  $("#cleanMemb").hide();
+                  $(document.querySelectorAll("#x-deleteMemb-btn")).hide();
+                }//회원 등급 조회 if END
+              }//회원 등급 조회 success END           
+            })//회원 등급 조회 ajax END 
+          }//로그인 확인 else END
+        }//로그인 여부 확인 success END
+  }); //로그인 여부 확인 ajax END
+
 //삭제 
 document.querySelector("#x-delete-btn").onclick = function() {
-  fetch(`/accounting/delete?no=${no}`)
+  fetch(`/accounting/delete?accountingNo=${AccountingNo}`)
   .then(function(response) {
       return response.json();
     })
   .then(function(result) {
     console.log("삭제");
-	  location.href = "index.html";
+    console.log(result);
+	  location.href = "index.html?gno=" + AccountingGno;
   });
 };
 
 //취소
 document.querySelector("#x-cancle-btn").onclick = function() {
-  window.location.href = "index.html";
+  window.location.href = "index.html?gno=" + AccountingGno;
 };
 
+//수정
+document.querySelector("#x-update-btn").onclick = function() {
+  let memberCount = xMembListCon.childElementCount;
+  let memberListAll = document.querySelectorAll(".x-membList");
+
+  // console.log($("#x-selectCate option:selected").val());
+
+  if(
+    $("#x-selectCate option:selected").val() == 1 || 
+     xTitle.value == "" || 
+     xAmount.value == "" ||
+     memberCount == 0) {
+      window.alert("필수 입력 항목이 비어 있습니다.");
+      return;
+  }
+
+  var qs = `accountingNo=${xNo.value}&group.no=${gno}&actCate.no=${$("#x-selectCate option:selected").val()}&title=${xTitle.value}&amount=${xAmount.value}&status=${$("#x-status option:selected").val()}`
+
+    for (var memberDiv of memberListAll) {
+      var xMembNo = memberDiv.querySelector("#membno");
+      var xGno = memberDiv.querySelector("#gno");
+      var xDate = memberDiv.querySelector("#paydt");
+
+      if(xDate.value == "") {
+        qs += `&qslength=2&actStatuses=${gno}_${xMembNo.value}`;
+      } else {
+        qs += `&qslength=3&actStatuses=${gno}_${xMembNo.value}_${xDate.value}`;
+      }
+    }
+
+  fetch(`/accounting/update?${qs}`)
+  .then(function(response) {
+    return response.json();
+  })
+  .then(function(result) {
+    console.log(result);
+    if (result.status == "success") {
+      window.alert("등록되었습니다.");
+      location.href = "index.html?gno=" + gno;
+    } else {
+      window.alert("게시글 등록 실패!");
+      console.log(result.data);
+    }
+  })
+};
+
+//멤버 선택 버튼 클릭 -> 모달
+$("#addMemb").on("click", function() { //멤버리스트 버튼 클릭 EVENT START
+  $("#memberlist-modal").modal("show");
+  $.ajax({
+    url : "/joinmember/grouplistbygno",
+    type : "POST",
+    data : {"group.no": gno}, 
+    success: function(result) {
+      // console.log(result.data);
+      modalMemberList.innerHTML = checkboxGenerator(result.data); 
+
+      $("#selectedOK").on("click", function(e) { //모달창에서 적용하기 버튼 click event START
+        let choicedMember = []; 
+        // console.log("클릭");
+        let AllMember = result.data;
+        console.log("모임 전체 번호" + AllMember);
+        $("input:checkbox[name=memberNo]:checked").each(function() { //체크박스가 true인 속성 가져오기
+          var checkedMember = $(this).val();
+          choicedMember.push(AllMember[checkedMember -1]);
+          $(".List-Container").show();
+          xMembListCon.innerHTML = ChilrenDivGenerator(choicedMember); 
+          $("#memberlist-modal").modal("hide");
+        })
+      }) //모달창에서 적용하기 버튼 click event END
+
+      // //모달창 내 멤버 전체 버튼 클릭 EVENT START
+      $("#allMemb").on("click", function() {
+        $.ajax({
+          url : "/joinmember/grouplistbygno",
+          type : "POST",
+          data : {"group.no": AccountingGno}, 
+          success: function(result) {
+            console.log(result.data);
+            $(".List-Container").show();
+            xMembListCon.innerHTML = ChilrenDivGenerator(result.data); 
+            $("#memberlist-modal").modal("hide");
+          } //success END
+        })//ajax END
+      })//모달창 내 멤버 전체 버튼 클릭 EVENT END
+    } //success END
+  })//ajax END
+}) //멤버리스트 버튼 클릭 EVENT START END
+
+//멤버 개별 div의 삭제 이벤트
+function deleteDiv(e) {
+  xMembListCon.removeChild(e.target.parentNode);
+};
+
+//멤버 초기화 버튼
+$("#cleanMemb").on("click", function() {
+  console.log("클릭");
+  // $(".List-Container").empty();
+  $("#x-membList-container").empty();
+});
 </script>
 </body>
 </html>

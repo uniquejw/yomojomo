@@ -12,7 +12,6 @@
   <script src="/node_modules/handlebars/dist/handlebars.min.js"></script>
 
   <title>회비 및 정산</title>
-
   
   <style>
     #form-content{ 
@@ -44,12 +43,11 @@
 </head>
 
 <body>
+<!--공통헤더-->
+<div id="header"></div>
+<!--모임 헤더-->
+<div id="top"></div>
     
- <!--공통헤더-->
-  <div id="header"></div>
-  <!--모임 헤더-->
-  <div id="top"></div>
-
   <!--입력 폼 -->
 <div id="form-content" class="table-responsive-lg">
   <div class="inner">
@@ -68,7 +66,7 @@
             <td>유형</td>
             <td>
               <select id="x-selectCate" name="actCate.no" class="form-select form-select-sm" aria-label=".form-select-sm example">
-                <option id="selectOp" value="">유형을 선택하세요</option>
+                <option id="selectOp" value="1">유형을 선택하세요</option>
                 <option id="selectOp" value="2">회비</option>
                 <option id="selectOp" value="3">모임비</option>
                 <option id="selectOp" value="4">기타</option>
@@ -94,14 +92,12 @@
       <div>
         <button type="button" class="btn btn-primary" id="selectMemb">멤버 리스트</button>
         <button type="button" class="btn btn-primary" id="cleanMemb">멤버 초기화</button>
-        <!-- <button type="button" class="btn btn-primary" id="Allmoney">금액 동일 적용</button> -->
       </div>
 
-      <!--전체 멤버 추가부분-->
+      <!--멤버 추가부분-->
       <div class="List-Container">
         <div id="x-membList-container">
         </div>
-        <button id="x-addMemb-btn" type="button" class="btn btn-primary">추가</button><br>
       </div>
       <!--전체 멤버 추가부분 END-->
 
@@ -146,35 +142,35 @@ $(document).ready(function() {
       $(".select-List-Container").hide();
 
       
-  // $.ajax({ //로그인 여부 확인 ajax START 비회원은 main으로 보낸다.
-  //       url : "/member/getLoginUser",
-  //       type : "POST",
-  //       datatype : "json",
-  //       success : function(result) {
-  //         let loginUserNo = result.data.no;
-  //         if (result.status == "fail") {
-  //           window.alert("회원이 아닙니다.");
-  //           window.location.replace("/junho/index.html");
-  //         } else {
-  //           $.ajax({ //회원 등급 조회 모임장이 아니라면 등록 버튼을 감춘다.
-  //             url : "/joinmember/grouplistbymno",
-  //             type : "POST",
-  //             datatype : "json",
-  //             data : {"member.no" : loginUserNo },
-  //             success : function(result) {
-  //               console.log(result.data);
-  //               if (result.data[0].memberGrade.gradeNo != 1) {
-  //                 $("#x-create-btn").hide();  
-  //               }//회원 등급 조회 if END 
+  $.ajax({ //로그인 여부 확인 ajax START 비회원은 main으로 보낸다.
+        url : "/member/getLoginUser",
+        type : "POST",
+        datatype : "json",
+        success : function(result) {
+          let loginUserNo = result.data.no;
+          if (result.status == "fail") {
+            window.alert("회원이 아닙니다.");
+            window.location.replace("/junho/index.html");
+          } else {
+            $.ajax({ //회원 등급 조회 모임장이 아니라면 등록 버튼을 감춘다.
+              url : "/joinmember/grouplistbymno",
+              type : "POST",
+              datatype : "json",
+              data : {"member.no" : loginUserNo },
+              success : function(result) {
+                console.log(result.data);
+                if (result.data[0].memberGrade.gradeNo != 1) {
+                  $("#x-create-btn").hide();  
+                }//회원 등급 조회 if END 
               
-  //               // else if () for문 돌려서 모임에 가입한 사람이 맞는지 확인 할 것
-  //               // 모임 목록에서 타고 들어와야 들어온 모임명과 맞춰볼 수 있음
+                // else if () for문 돌려서 모임에 가입한 사람이 맞는지 확인 할 것
+                // 모임 목록에서 타고 들어와야 들어온 모임명과 맞춰볼 수 있음
               
-  //             }//회원 등급 조회 success END           
-  //           })//회원 등급 조회 ajax END 
-  //         }//로그인 확인 else END
-  //       }//로그인 여부 확인 success END
-  // }); //로그인 여부 확인 ajax END
+              }//회원 등급 조회 success END           
+            })//회원 등급 조회 ajax END 
+          }//로그인 확인 else END
+        }//로그인 여부 확인 success END
+  }); //로그인 여부 확인 ajax END
 });
 </script>
 
@@ -191,7 +187,7 @@ $(document).ready(function() {
   </div>
   {{/each}}
 </script>
-<!--멤버 추가 Handlebars START-->
+<!--멤버 추가 Handlebars END-->
 
 <!--모달 창 내 멤버 리스트-->
 <script id="modal-memberlist-template" type="text/x-handlebars-template">
@@ -249,7 +245,6 @@ $("#selectMemb").on("click", function() { //멤버리스트 버튼 클릭 EVENT 
           // console.log("선택된 멤버" + choicedMember);
 
           $(".List-Container").show();
-          $("#x-addMemb-btn").hide();
           xMembListCon.innerHTML = divGenerator(choicedMember);
           // $("#modal-member-list").hide(); //멤버리스트 초기화
           $("#memberlist-modal").modal("hide");
@@ -265,7 +260,6 @@ $("#selectMemb").on("click", function() { //멤버리스트 버튼 클릭 EVENT 
           success: function(result) {
             console.log(result.data);
             $(".List-Container").show();
-            $("#x-addMemb-btn").hide();
             xMembListCon.innerHTML = divGenerator(result.data); 
             $("#memberlist-modal").modal("hide");
           } //success END
@@ -296,14 +290,14 @@ $("#cleanMemb").on("click", function() {
 document.querySelector("#x-add-btn").onclick = function() {
   let memberCount = xMembListCon.childElementCount;
   let memberListAll = document.querySelectorAll(".x-membList");
-  // if(
-  //   $("#x-selectCate option:selected").val() == "" || 
-  //    xTitle.value == "" || 
-  //    xAmount.value == "" ||
-  //    memberCount == 0) {
-  //     window.alert("필수 입력 항목이 비어 있습니다.");
-  //     return;
-  // }
+  if(
+    $("#x-selectCate option:selected").val() == 1 || 
+     xTitle.value == "" || 
+     xAmount.value == "" ||
+     memberCount == 0) {
+      window.alert("필수 입력 항목이 비어 있습니다.");
+      return;
+  }
 
   var qs = `group.no=${gno}&actCate.no=${$("#x-selectCate option:selected").val()}&title=${xTitle.value}&amount=${xAmount.value}&status=${$("#x-status option:selected").val()}`
 
@@ -313,9 +307,9 @@ document.querySelector("#x-add-btn").onclick = function() {
       var xDate = memberDiv.querySelector("#paydt");
 
       if(xDate.value == "") {
-        qs += `&actStatuses=${xGno.value}_${xMembNo.value}`;
+        qs += `&qslength=2&actStatuses=${xGno.value}_${xMembNo.value}`;
       } else {
-        qs += `&actStatuses=${xGno.value}_${xMembNo.value}_${xDate.value}`;
+        qs += `&qslength=3&actStatuses=${xGno.value}_${xMembNo.value}_${xDate.value}`;
       }
     }
 
@@ -327,7 +321,7 @@ document.querySelector("#x-add-btn").onclick = function() {
     console.log(result);
     if (result.status == "success") {
       window.alert("등록되었습니다.");
-      location.href = "index.html";
+      location.href = "index.html?gno=" + gno;
     } else {
       window.alert("게시글 등록 실패!");
       console.log(result.data);

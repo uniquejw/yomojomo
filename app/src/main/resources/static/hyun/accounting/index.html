@@ -5,10 +5,10 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <title>회비관리</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
 <script src="/node_modules/jquery/dist/jquery.min.js"></script>
 <script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="/node_modules/handlebars/dist/handlebars.min.js"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
 <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.css">
 
 <style>
@@ -42,11 +42,6 @@ table > tbody > tr > td {
       $('#header').load('/junho/mainHeader.html'); //헤더 인클루드
       $('#top').load('/ssang/groupBoard/none-search-top.html'); //상준님헤더
       $('#footer').load('/junho/mainfooter.html'); //푸터부분 인클루드
-      // $('a[href="#"]').click(function(ignore) {
-      //   ignore.preventDefault();
-      // });
-
-
   });
 
   $.ajax({ //로그인 여부 확인 ajax START 비회원은 main으로 보낸다.
@@ -66,13 +61,9 @@ table > tbody > tr > td {
               data : {"member.no" : loginUserNo },
               success : function(result) {
                 console.log(result.data);
-                // if (result.data[0].memberGrade.gradeNo != 1) {
-                //   $("#x-create-btn").hide();  
-                // }//회원 등급 조회 if END 
-              
-                // else if () for문 돌려서 모임에 가입한 사람이 맞는지 확인 할 것
-                // 모임 목록에서 타고 들어와야 들어온 모임명과 맞춰볼 수 있음
-              
+                if (result.data[0].memberGrade.gradeNo != 1) {
+                  $("#x-create-btn").hide();  
+                }//회원 등급 조회 if END              
               }//회원 등급 조회 success END           
             })//회원 등급 조회 ajax END 
           }//로그인 확인 else END
@@ -166,7 +157,7 @@ table > tbody > tr > td {
         <option vlaue="{{statusno}}">{{status}}</option>
       </select> 
     </td>
-    <td><a href="view.html?no={{no}}">{{title}}</a></td>
+    <td><a href="view.html?gno={{gno}}&no={{no}}">{{title}}</a></td>
     <td>{{registDate}}</td>
   </tr>
   {{/each}}
@@ -202,29 +193,24 @@ let pageGernerator = Handlebars.compile(pagetemplate.innerHTML);
 
 //form.html로 이동
 var arr = location.href.split("?");
-  // console.log(arr);
   if (arr.length == 1) {
     alert("요청 형식이 올바르지 않습니다.")
     throw "URL 형식 오류!";
   }
   var qs = arr[1];
-  // console.log("qs는?" + qs);
   var params = new URLSearchParams(qs);
-  // console.log(params);
   var gno = params.get("gno");
-  // console.log("gno는?" + gno);
-
 
 //전체 리스트 불러오기 START
 $.ajax({
   url : "/accounting/listbygroup", 
-  type : "GET",
+  type : "POST",
   async : false,
   dataType : "json",
   data : {
     "pageSize" : 10,
     "pageNo" : 1,
-    "groupNo" : gno}, //!!!!!!!!!!!!!!!!!!!!!!!!!!!임시로 그룹 번호 줌!!!!!!!!!!!!!
+    "groupNo" : gno},
   success: function(result) {
     // console.log(result.data);
     var arr = result.data;
@@ -235,6 +221,7 @@ $.ajax({
     var updateData = []
     $.each(arr, function(index, arr) {
       updateData.push({
+        gno : gno,
         no : arr.accountingNo,
         "actCate" : arr.actCate.cateName,
         title : arr.title,
@@ -243,7 +230,7 @@ $.ajax({
         status : arr.status == 0 ? ing : end
       })
     })
-    // console.log(updateData);
+    console.log(updateData);
     tbody.innerHTML = htmlGenerator(updateData);
     let totalListCount = result.totalListCount;
     let totalPageSize = result.totalPageSize;
@@ -305,6 +292,7 @@ $.ajax({
           $.each(arr, function(index, arr) {
             updateData.push({
               "actCate" : arr.actCate.cateName,
+              gno : gno,
               no : arr.accountingNo,
               title : arr.title,
               registDate : arr.registDate,
@@ -344,6 +332,7 @@ $(document).on("click", "#selectCate", function() {
       $.each(arr, function(index, arr) {
         updateData.push({
           "actCate" : arr.actCate.cateName,
+          gno : gno,
           no : arr.accountingNo,
           title : arr.title,
           registDate : arr.registDate,
@@ -414,6 +403,7 @@ $(document).on("click", "#selectCate", function() {
             $.each(arr, function(index, arr) {
               updateData.push({
                 "actCate" : arr.actCate.cateName,
+                gno : gno,
                 no : arr.accountingNo,
                 title : arr.title,
                 registDate : arr.registDate,
@@ -438,7 +428,7 @@ $(document).on("click", "#selectCate", function() {
       "pageSize" : 10,
       "pageNo" : 1,
       "actCate" : cate,
-      "groupNo" : 1}, //!!!!!!!!!!!!!!!!!!!!!!!!!!!임시로 그룹 번호 줌!!!!!!!!!!!!!
+      "groupNo" : gno},
     success: function(result) {
       var arr = result.data;
       // console.log(arr);
@@ -449,6 +439,7 @@ $(document).on("click", "#selectCate", function() {
       $.each(arr, function(index, arr) {
         updateData.push({
           "actCate" : arr.actCate.cateName,
+          gno : gno,
           no : arr.accountingNo,
           title : arr.title,
           registDate : arr.registDate,
