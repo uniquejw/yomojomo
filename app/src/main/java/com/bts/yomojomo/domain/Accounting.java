@@ -13,6 +13,7 @@ public class Accounting {
   int amount;           //amount
   int status;           //status
   Date registDate;      //reg_dt
+  int actCateNo; //act_cate_no
 
   //외래키
   AccountingCate actCate;   //act_cate_no
@@ -20,6 +21,8 @@ public class Accounting {
 
   //테이블 join하려고 가져온 domain class
   Member member;
+
+  JoinMember joinMember;
 
   //AccountingStatus 배열
   List <AccountingStatus> actStatus;

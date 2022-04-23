@@ -80,12 +80,20 @@
         </div>
         <div class = "faq_list_title">
           전체(1250개)
+          <span><button id="x-create-btn" type="button" style="float: right; margin-bottom: 20px;" class="btn btn-primary">등록</button></span>
         </div>
+        <script>
+          document.querySelector("#x-create-btn").onclick = function(){
+          location.href="faq_form.html";
+            };
+        </script>
         <div class = "faq_list_table">
           <table>
             <thead>
               <tr>
-                <th>유형</th><th>제목</th>
+                <th>번호</th>
+                <th>유형</th>
+                <th>제목</th>
               </tr>
               <tbody class="faq_tr">
               </tbody>

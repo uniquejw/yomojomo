@@ -6,7 +6,7 @@ import com.bts.yomojomo.domain.AccountingCate;
 
 public interface AccountingService {
 
-  int add(Accounting accounting);
+  int add(Accounting accounting, int qslength);
 
   List<Accounting> listByGroup(int pageSize, int pageNo, int groupNo, String actCate);
 
@@ -14,9 +14,9 @@ public interface AccountingService {
 
   Accounting get(int no);
 
-  int update(Accounting accounting);
+  int update(Accounting accounting, int qslength);
 
-  int delete(Accounting accounting);
+  int delete(int accountingNo);
 
   int size(int groupNo, String actCate);
 

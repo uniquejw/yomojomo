@@ -4,7 +4,6 @@ var boardCardDiv = document.querySelector(".faq_tr")
 function allList() {
   fetch("/faq/list")
     .then(function(response) {
-      console.log("aaaaaaaaaaaaaaaaaaa");
       return response.json()
     })
     .then(function(boards) {
@@ -12,8 +11,10 @@ function allList() {
         var tr = document.createElement("tr")
         // div.classList.add("card-body")
         tr.innerHTML = `
-        <td>${boards[i].maincateno}</td><td>${boards[i].title}</td>
-        
+        <td>${boards[i].no}</td>
+        <td>${boards[i].queryCate.name}</td>
+        <td><a href="faq_view.html?no=${boards[i].no}">
+        ${boards[i].title}</td></a>
         `
         boardCardDiv.appendChild(tr)
       }

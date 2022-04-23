@@ -79,7 +79,7 @@ public class AccountingController {
   }
 
   @RequestMapping("/accounting/add")
-  public Object add(Accounting accounting, String[] actStatuses, HttpSession session) {
+  public Object add(Accounting accounting, int qslength, String[] actStatuses, HttpSession session) {
 
     for (int i = 0; i < actStatuses.length; i++) {
       System.out.println(actStatuses[i]);
@@ -99,36 +99,53 @@ public class AccountingController {
 
     for (int i = 0; i < actStatuses.length; i++) {
 
-      System.out.println("1. for문 안 actStatuses :" + actStatuses[i]);
+      //      System.out.println("1. for문 안 actStatuses :" + actStatuses[i]);
 
       String[] value = actStatuses[i].split("_");
 
-      System.out.println("value의 길이 : " + value.length);
+      //      System.out.println("value의 길이 : " + value.length);
 
-      for (int j = 0; j < value.length; j++) {
-        System.out.printf("2. for문 안 value :[%s], %s\n", j, value[j]);
+      //      for (int j = 0; j < value.length; j++) {
+      //        System.out.printf("2. for문 안 value :[%s], %s\n", j, value[j]);
+      //      }
+
+      if (value.length == 2) {
+        if(value[1].length() == 0) {
+          continue;
+        }
+        System.out.println("length가 2얌");
+
+        AccountingStatus accountingStatus = new AccountingStatus(
+            Integer.parseInt(value[0]), //그룹번호
+            Integer.parseInt(value[1]) //멤버번호
+            );
+        System.out.println("3. 만들어진 accountingStatus : " + accountingStatus);
+
+        statusList.add(accountingStatus);
+
+        System.out.println("4. statusList : " +statusList );
+
+      } else {
+        if(value[1].length() == 0) {
+          continue;
+        }
+        System.out.println("length가 2가 아니야");
+        AccountingStatus accountingStatus = new AccountingStatus(
+            Integer.parseInt(value[0]), //그룹번호
+            Integer.parseInt(value[1]), //멤버번호
+            java.sql.Date.valueOf(value[2]) //돈낸날짜
+            );
+        System.out.println("3. 만들어진 accountingStatus : " + accountingStatus);
+
+        statusList.add(accountingStatus);
+
+        System.out.println("4. statusList : " +statusList );
       }
-
-      if(value[1].length() == 0) {
-        continue;
-      }
-
-      AccountingStatus accountingStatus = new AccountingStatus(
-          Integer.parseInt(value[0]), //그룹번호
-          Integer.parseInt(value[1]), //멤버번호
-          java.sql.Date.valueOf(value[2]) //돈낸날짜
-          );
-      System.out.println("3. 만들어진 accountingStatus : " + accountingStatus);
-
-      statusList.add(accountingStatus);
-
-      System.out.println("4. statusList : " +statusList );
     }
-
     accounting.setActStatus(statusList);
     System.out.println("accounting : " + accounting);
-    accountingService.add(accounting);
-    //    System.out.println(accounting);
+    accountingService.add(accounting, qslength);
+
     return new ResultMap().setStatus(SUCCESS);
   }
 
@@ -142,11 +159,63 @@ public class AccountingController {
   }
 
   @RequestMapping("/accounting/update")
-  public Object update(Accounting accounting, HttpSession session) {
+  public Object update(Accounting accounting, int qslength, String[] actStatuses, HttpSession session) {
+    log.info("정산 수정");
+    log.debug(accounting.toString());
+
+    for (int i = 0; i < actStatuses.length; i++) {
+      System.out.println("1. for문 안 actStatuses :" + actStatuses[i]);
+      System.out.println(actStatuses[i]);
+    }
+
     Member member = (Member) session.getAttribute("loginUser");
     accounting.setMember(member);
+    System.out.println("actStatuses.length : " + actStatuses.length);
 
-    int count = accountingService.update(accounting);
+    ArrayList<AccountingStatus> statusList = new ArrayList<>();
+    for (int i = 0; i < actStatuses.length; i++) {
+      String[] value = actStatuses[i].split("_");
+
+      System.out.println("value의 길이 : " + value.length);
+
+      for (int j = 0; j < value.length; j++) {
+        System.out.printf("2. for문 안 value :[%s], %s\n", j, value[j]);
+      }
+
+      if (value.length == 2) {
+        if(value[1].length() == 0) {
+          continue;
+        }
+        System.out.println("length가 2얌");
+        AccountingStatus accountingStatus = new AccountingStatus(
+            Integer.parseInt(value[0]), //그룹번호
+            Integer.parseInt(value[1]) //멤버번호
+            );
+        System.out.println("3. 만들어진 accountingStatus : " + accountingStatus);
+        statusList.add(accountingStatus);
+        System.out.println("4. statusList : " +statusList );
+      } else {
+
+        if(value[1].length() == 0) {
+          continue;
+        }
+
+        System.out.println("length가 2가 아니야");
+
+        AccountingStatus accountingStatus = new AccountingStatus(
+            Integer.parseInt(value[0]), //그룹번호
+            Integer.parseInt(value[1]), //멤버번호
+            java.sql.Date.valueOf(value[2]) //돈낸날짜
+            );
+        System.out.println("3. 만들어진 accountingStatus : " + accountingStatus);
+        statusList.add(accountingStatus);
+        System.out.println("4. statusList : " +statusList );
+      }
+    }
+
+    accounting.setActStatus(statusList);
+    System.out.println("accounting : " + accounting);
+    int count = accountingService.update(accounting, qslength);
 
     if (count == 1) {
       return new ResultMap().setStatus(SUCCESS);
@@ -156,13 +225,13 @@ public class AccountingController {
   }
 
   @RequestMapping("/accounting/delete")
-  public Object delete(int no, HttpSession session) {
+  public Object delete(int accountingNo, HttpSession session) {
     Member member = (Member) session.getAttribute("loginUser");
     Accounting accounting = new Accounting();
-    accounting.setAccountingNo(no);
+    accounting.setAccountingNo(accountingNo);
     accounting.setMember(member);
 
-    int count = accountingService.delete(accounting);
+    int count = accountingService.delete(accountingNo);
 
     if (count == 1) {
       return new ResultMap().setStatus(SUCCESS);
