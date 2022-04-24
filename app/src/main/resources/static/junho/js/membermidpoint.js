@@ -345,12 +345,8 @@ function isDup(arr)  {
   }
 
 
-var test = document.querySelector('.btn-save-data')
-test.addEventListener('click', function() {
-    console.log(placeDataList)
-})
 
 
 function saveDbDate(i) {
-    console.log(placeDataList[i])
+    
 }
