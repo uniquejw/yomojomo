@@ -9,13 +9,11 @@ import com.bts.yomojomo.domain.Board;
 public interface BoardDao {
   int countAll();
 
-  List<Board> findAll();
+  int insert(Board board);
 
   List<Board> findByGroupNo(int no);
 
   List<Board> findByBoardNo(Board board);
-
-  int insert(Board board);
 
   Board findByNo(int no);
 
@@ -26,4 +24,6 @@ public interface BoardDao {
   int increaseViewCount(int no);
 
   int increaseViewCount();
+
+  List<Board> findAll();
 }

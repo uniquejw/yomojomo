@@ -1,21 +1,30 @@
-
-
-
+import{getGroupNO} from '/ssang/js/module.js';
+var getGroup = getGroupNO();
 // ============================================게시글 입력
-// When the submit button is clicked, update output
 $('#s-post-btn').on('click', () => { 
-  
-  
-
-  // if (xContent.value == "") {
-  //   window.alert("항목이 비어 있습니다.");
-  //   return;
-  // }
-  // fetch("/board/add", {
-  //   method: "POST",
-  //   body: myForm.submit();
-  // }).then(function(response){}).then(function(t) {});
+  var xContent = document.getElementById("xx-content")
+  if (xContent.value == ""){
+    Swal.fire({
+      icon: 'warning',
+      title: '잠시만요',
+      text: '작성된 내용이 없어요',
+      footer: ''
+    })
+    return;
+  }
+  var formData = new FormData();
+  formData.append('content',xContent.value)
+  formData.append('groupNo',getGroup)
+  fetch('/board/add',{
+    method:"post",
+    body: formData
+  })
+  .then(res => res.json())
+  .then(res => {
+    console.log(res.status)
+    location.href=`index.html?gno=${getGroup}`
+  });
 })
   document.querySelector("#s-cancel-btn").onclick = function() {
-    window.location.href = "index.html";
+    window.location.href = `index.html?gno=${getGroup}`;
   };
