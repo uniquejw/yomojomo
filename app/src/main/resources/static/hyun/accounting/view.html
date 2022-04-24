@@ -115,6 +115,7 @@
           <td colspan="2">        
             <button type="button" class="btn btn-primary" id="addMemb">멤버 변경</button>
             <button type="button" class="btn btn-primary" id="cleanMemb">멤버 초기화</button>
+            <button type="button" class="btn btn-primary" id="recoverMemb">멤버 복구</button>
           </td>
         </tr>
       </tbody>
@@ -162,7 +163,7 @@
   {{/each}}
 </script>
 
-<!--불러오는 멤버 Handlebars START-->
+<!--멤버 추가 Handlebars START-->
 <script id="div-template" type="text/x-handlebars-template">
   {{#each this}}
     <div class="x-membList">
@@ -173,10 +174,10 @@
 
     <span>납부 완료일 :</span> <input type="date" id="paydt" value="{{paydt}}">
     <button id="x-deleteMemb-btn" type="button" class="btn btn-primary" onclick="deleteDiv(event)">삭제</button><br>
-    </div>  
+    </div>
   {{/each}}
+  <div class="children-div-template"></div>
 </script>
-<!--불러오는 멤버 Handlebars END-->
 
 <!--멤버 변경  Handlebars START-->
 <script id="children-div-template" type="text/x-handlebars-template">
@@ -235,6 +236,7 @@ let ChilrenDivGenerator = Handlebars.compile(ChilrenDivTemplate.innerHTML);
 let modalMemberList = document.querySelector("#modal-member-list");
 let checkboxTemplate = document.querySelector("#modal-memberlist-template");
 let checkboxGenerator = Handlebars.compile(checkboxTemplate.innerHTML);
+let plusDtMembArr = [];
 
 //화면에 뿌림
 $.ajax({
@@ -243,7 +245,6 @@ $.ajax({
   data : {no : AccountingNo},
   success : function(result) {
     accountingResult = result.data
-
     xNo.value = accountingResult.accountingNo;
     xActcateno.value = accountingResult.actCateNo;
     xTitle.value = accountingResult.title;
@@ -261,6 +262,7 @@ $.ajax({
         paydt : splitmemberNoArr.paydt
       })//memberNoArr push END    
     })//each END
+
 
     //member의 멤버리스트
     $.ajax({
@@ -285,7 +287,7 @@ $.ajax({
             newMemberArr.push(MemberArr)
         }
 
-        let plusDtMembArr = [];
+
         for (i = 0; i < memberNoArr.length; i++) {
           if(newMemberArr.flat()[i].membNo == memberNoArr[i].membNo ) {
             plusDtMembArr.push({
@@ -296,10 +298,19 @@ $.ajax({
           }
         }
         xMembListCon.innerHTML = divGenerator(plusDtMembArr); 
-      }
+
+        //멤버 복구 click Event
+        $("#recoverMemb").on("click", function() {
+          $(".List-Container").show();
+          xMembListCon.innerHTML = divGenerator(plusDtMembArr);
+        }) //멤버 복구 clickEvent END
+        
+      } //member의 멤버리스트 Success END
     }) //member의 멤버리스트 ajax END
   }// success END
 });//ajax END
+
+console.log(plusDtMembArr);
 
 $.ajax({ //로그인 여부 확인 ajax START 비회원은 main으로 보낸다.
         url : "/member/getLoginUser",
@@ -318,7 +329,16 @@ $.ajax({ //로그인 여부 확인 ajax START 비회원은 main으로 보낸다.
               data : {"member.no" : loginUserNo },
               success : function(result) {
                 // console.log(result.data);
-                if (result.data[0].memberGrade.gradeNo != 1) { //모임장이 아니라면
+                MemberInfo = result.data;
+                var memberAuthority; //멤버등급번호
+                for (i=0; i < MemberInfo.length; i++) {
+                  if (AccountingGno == MemberInfo[i].group.no) {
+                    // console.log(MemberInfo[i].group.no); //현재 접속한 그룹번호
+                    memberAuthority = MemberInfo[i].memberGrade.gradeNo
+                    // console.log(memberAuthority);
+                  }            
+                }
+                if (memberAuthority != 1) { //모임장이 아니라면
                   console.log("모임장아님");
                   $("#x-update-btn").hide();
                   $("#x-delete-btn").hide();
@@ -441,12 +461,18 @@ $("#addMemb").on("click", function() { //멤버리스트 버튼 클릭 EVENT STA
 //멤버 개별 div의 삭제 이벤트
 function deleteDiv(e) {
   xMembListCon.removeChild(e.target.parentNode);
+  
+  let memberCount = xMembListCon.childElementCount;
+  // console.log(memberCount);
+    if (memberCount == 1) {
+      $(".List-Container").hide(); //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!DIV 수정하면 count 숫자 바꾸기!!!!!!!!!!!!!!!!!!!
+    // $("#x-membList-container").empty();
+    }
 };
 
 //멤버 초기화 버튼
 $("#cleanMemb").on("click", function() {
-  console.log("클릭");
-  $("#x-membList-container").empty();
+  $(".List-Container").hide();
 });
 </script>
 </body>
