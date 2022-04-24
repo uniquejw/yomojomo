@@ -20,6 +20,7 @@ public interface ApplyQuestionDao {
 
   ApplyQuestion findByNo(int no);
 
+  int count(int no);
 
   int delete();
 }

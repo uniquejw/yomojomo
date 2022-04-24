@@ -4,63 +4,88 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <script src="/node_modules/jquery/dist/jquery.js"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
   <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.css">
   <script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
   <script src="/node_modules/handlebars/dist/handlebars.min.js"></script>
-
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <title>회비 및 정산</title>
-  
   <style>
     #form-content{ 
-      padding-top: 10vh;
+      /* padding-top: 10vh;
       height: 85vh;
+      position: relative; */
+      padding-top: 5vh;
+      padding-bottom: 10vh;
       position: relative;
     }
     form {
-      margin: 10px auto;
+      /* margin: 10px auto; */
+      margin-top: 100px;
     }
     #x-add-btn, #x-cancel-btn {
       float: right;
       margin: 5px;
     }
+    table > tbody > tr > td:nth-child(odd) {
+      text-align: center;
+    }
     table > tbody > tr > td:first-child {
       text-align: right;
       column-span: 300px;
     }
-    /*멤버 추가부분*/
-    #x-deleteMemb-btn {
+    #x-deleteMemb-btn { /*멤버 삭제버튼*/
       margin: 10px auto;
     }
-    .List-Container, .select-List-Container {
+    .List-Container {
       margin:auto; /*가운데 정렬*/
       text-align:center;
+      padding: 50px;
+    }
+    #x-membList-container{
+      border: 1px solid rgb(17, 147, 218);
+      padding: 5px;
+    }
+    .x-membList {
+      padding: 10px, 0px;
+      display: inline;
+    }
+    .x-membList > .material-icons{
+      font-size: 60px;
+      color: rgb(17, 147, 218);
+      vertical-align: middle;
+    }
+    .x-membList > #listmembName, #paydt {
+      padding : 0px, 50px, 0px, 0px;
+      text-align: center;
+    }
+    .modal-content >.modal-header > .modal-title{
+      font-size: 25px;
+    }
+    .form-check {
+      vertical-align: middle;
+      font-size: 20px;
+    }
+    .form-check > .form-check-label > .material-icons {
+      font-size: 60px;
+      color: rgb(17, 147, 218);
+      vertical-align: middle;
     }
   </style>
-
 </head>
 
 <body>
-<!--공통헤더-->
 <div id="header"></div>
-<!--모임 헤더-->
-<div id="top"></div>
-    
-  <!--입력 폼 -->
+<div id="top"></div>    
 <div id="form-content" class="table-responsive-lg">
   <div class="inner">
     <form name="accounting-form">
       <table id="formTable" class="table table-borderless">
         <tbody>
-          <!-- <tr>
-            <td width="150px">모임번호</td>
-            <td><input id="x-gno" name="group.no" type="number" class="form-control"></td>
-          </tr> -->
           <tr>
             <td>제목</td>
-            <td><input id="x-title" name="title" type="text" class="form-control"></td>
+            <td colspan="3"><input id="x-title" type="text" class="form-control"></td>
           </tr>
           <tr>
             <td>유형</td>
@@ -72,8 +97,6 @@
                 <option id="selectOp" value="4">기타</option>
               </select>
             </td>
-          </tr>
-          <tr>
             <td>진행상태</td>
             <td>
               <select id="x-status" name="status" class="form-select form-select-sm" aria-label=".form-select-sm example">
@@ -84,29 +107,25 @@
           </tr>
           <tr>
             <td>금액</td>
-            <td><input id="x-amount" name="amount" type="number" class="form-control" id="changeText"></td>
+            <td><input id="x-amount" type="number" class="form-control"></td>
+            <td colspan="2">        
+              <button type="button" class="btn btn-primary" id="selectMemb">멤버 리스트</button>
+              <button type="button" class="btn btn-primary" id="cleanMemb">멤버 초기화</button>
+            </td>
           </tr>
         </tbody>
       </table>
 
-      <div>
-        <button type="button" class="btn btn-primary" id="selectMemb">멤버 리스트</button>
-        <button type="button" class="btn btn-primary" id="cleanMemb">멤버 초기화</button>
-      </div>
-
-      <!--멤버 추가부분-->
       <div class="List-Container">
         <div id="x-membList-container">
         </div>
       </div>
-      <!--전체 멤버 추가부분 END-->
 
-      <!--멤버 선택 모달창-->
       <div class="modal fade" id="memberlist-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">입력할 멤버를 선택해 주세요</h5>
+              <h3 class="modal-title" id="exampleModalLabel">입력할 멤버를 선택해 주세요</h5>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -120,18 +139,13 @@
           </div>
         </div>
       </div>
-      <!--멤버 선택 모달창-->
       
       <button id="x-add-btn" type="button" class="btn btn-primary">등록</button>
       <button id="x-cancel-btn" type="button" class="btn btn-primary">취소</button><br>
     </form>    
   </div>
 </div>
-<!--공통footer-->
 <div id="footer"></div>
-
-
-
 
 <script type="text/javascript">
 $(document).ready(function() {
@@ -139,8 +153,6 @@ $(document).ready(function() {
       $('#top').load('/ssang/groupBoard/none-search-top.html'); //상준님헤더
       $('#footer').load('/junho/mainfooter.html'); //푸터부분 인클루드
       $(".List-Container").hide();
-      $(".select-List-Container").hide();
-
       
   $.ajax({ //로그인 여부 확인 ajax START 비회원은 main으로 보낸다.
         url : "/member/getLoginUser",
@@ -162,10 +174,6 @@ $(document).ready(function() {
                 if (result.data[0].memberGrade.gradeNo != 1) {
                   $("#x-create-btn").hide();  
                 }//회원 등급 조회 if END 
-              
-                // else if () for문 돌려서 모임에 가입한 사람이 맞는지 확인 할 것
-                // 모임 목록에서 타고 들어와야 들어온 모임명과 맞춰볼 수 있음
-              
               }//회원 등급 조회 success END           
             })//회원 등급 조회 ajax END 
           }//로그인 확인 else END
@@ -178,11 +186,12 @@ $(document).ready(function() {
 <script id="div-template" type="text/x-handlebars-template">
   {{#each this}}
   <div class="x-membList">
-  이름 : <input id="listmembName" type="text" value="{{member.memberName}}">
-        <input id="membno" value={{member.no}} type="hidden">
-        <input id="gno" value={{group.no}} type="hidden">
+    <span class="material-icons">account_circle </span>
+    <input id="listmembName" type="text" value="{{member.memberName}}">
+    <input id="membno" value="{{member.no}}" type="hidden">
+    <input id="gno" value={{group.no}} type="hidden">
 
-  납부일 : <input type="date" id="paydt">
+  <span>납부 완료일 :</span> <input type="date" id="paydt" value="{{paydt}}">
   <button id="x-deleteMemb-btn" type="button" class="btn btn-primary" onclick="deleteDiv(event)">삭제</button><br>
   </div>
   {{/each}}
@@ -193,24 +202,31 @@ $(document).ready(function() {
 <script id="modal-memberlist-template" type="text/x-handlebars-template">
   {{#each this}}
   <div class="form-check">
-  <input class="form-check-input" name="memberNo" type="checkbox" value="{{member.no}}" id="flexCheckDefault {{member.no}}">
+  <input class="form-check-input" name="memberNo" type="checkbox" value="{{member.no}}" id="flexCheckDefault {{member.no}}" style="position:relative; top:16px">
     <label class="form-check-label" for="flexCheckDefault {{member.no}}">
+      <span class="material-icons">account_circle </span>
       {{member.memberName}}
     </label>
   </div>
   {{/each}}
 </script>
-  
 
 <script>
-// let xGno = document.querySelector("#x-gno");
+var arr = location.href.split("?");
+if (arr.length == 1) {
+  alert("요청 형식이 올바르지 않습니다.")
+  throw "URL 형식 오류!";
+}
+var qs = arr[1];
+var params = new URLSearchParams(qs);
+var gno = params.get("gno");
+
 let xTitle = document.querySelector("#x-title");
 let xAmount = document.querySelector("#x-amount");
 let xMembList = document.querySelector(".x-membList");
 let xMembListCon = document.querySelector("#x-membList-container");
 
 //멤버 전체 불러오기
-// let memberListAll = document.querySelector("#x-membList-container");
 let divTemplate = document.querySelector("#div-template");
 let divGenerator = Handlebars.compile(divTemplate.innerHTML);
 
@@ -219,7 +235,6 @@ let modalMemberList = document.querySelector("#modal-member-list");
 let checkboxTemplate = document.querySelector("#modal-memberlist-template");
 let checkboxGenerator = Handlebars.compile(checkboxTemplate.innerHTML);
 
-// console.log(document.querySelector("#memberlist-modal"));
 //멤버 선택 버튼 클릭 -> 모달
 $("#selectMemb").on("click", function() { //멤버리스트 버튼 클릭 EVENT START
   // console.log("클릭");
@@ -246,7 +261,7 @@ $("#selectMemb").on("click", function() { //멤버리스트 버튼 클릭 EVENT 
 
           $(".List-Container").show();
           xMembListCon.innerHTML = divGenerator(choicedMember);
-          // $("#modal-member-list").hide(); //멤버리스트 초기화
+          // $("#x-membList-container").css({"border": "1px solid rgb(17, 147, 218)"})
           $("#memberlist-modal").modal("hide");
         })
       }) //모달창에서 적용하기 버튼 click event END
@@ -256,7 +271,7 @@ $("#selectMemb").on("click", function() { //멤버리스트 버튼 클릭 EVENT 
         $.ajax({
           url : "/joinmember/grouplistbygno",
           type : "POST",
-          data : {"group.no": 1}, //!!!!!!!!!!!!!!!!!!!나중에 모임번호로 바꾸기!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+          data : {"group.no": gno},
           success: function(result) {
             console.log(result.data);
             $(".List-Container").show();
@@ -269,22 +284,15 @@ $("#selectMemb").on("click", function() { //멤버리스트 버튼 클릭 EVENT 
   })//ajax END
 }) //멤버리스트 버튼 클릭 EVENT START END
 
-
-
 //멤버 개별 div의 삭제 이벤트
 function deleteDiv(e) {
-// if (xMembListCon.childElementCount > 1) {
-        xMembListCon.removeChild(e.target.parentNode);
-      // }
-    };
+  xMembListCon.removeChild(e.target.parentNode);
+};
 
 //멤버 초기화 버튼
 $("#cleanMemb").on("click", function() {
-  console.log("클릭");
-  // $(".List-Container").empty();
   $("#x-membList-container").empty();
 });
-
 
 //등록 버튼 클릭
 document.querySelector("#x-add-btn").onclick = function() {
@@ -300,12 +308,10 @@ document.querySelector("#x-add-btn").onclick = function() {
   }
 
   var qs = `group.no=${gno}&actCate.no=${$("#x-selectCate option:selected").val()}&title=${xTitle.value}&amount=${xAmount.value}&status=${$("#x-status option:selected").val()}`
-
     for (var memberDiv of memberListAll) {
       var xMembNo = memberDiv.querySelector("#membno");
       var xGno = memberDiv.querySelector("#gno");
       var xDate = memberDiv.querySelector("#paydt");
-
       if(xDate.value == "") {
         qs += `&qslength=2&actStatuses=${xGno.value}_${xMembNo.value}`;
       } else {
@@ -329,27 +335,9 @@ document.querySelector("#x-add-btn").onclick = function() {
   })
 } //add btn event END
 
-
-//form.html로 이동
-var arr = location.href.split("?");
-  // console.log(arr);
-  if (arr.length == 1) {
-    alert("요청 형식이 올바르지 않습니다.")
-    throw "URL 형식 오류!";
-  }
-  var qs = arr[1];
-  // console.log("qs는?" + qs);
-  var params = new URLSearchParams(qs);
-  // console.log(params);
-  var gno = params.get("gno");
-  // console.log("gno는?" + gno);
-
 //취소
 document.querySelector("#x-cancel-btn").onclick = function() {
-  // console.log("클릭함");
   window.location.href = "index.html?gno=" + gno;
 };
-
 </script>
-
 </body>

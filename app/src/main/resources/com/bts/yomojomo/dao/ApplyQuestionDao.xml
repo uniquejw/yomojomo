@@ -19,31 +19,6 @@
     </foreach>
   </insert>
   
-  <select id="findAll" resultMap="ApplyQuestionMap"> 
-    select
-      appl_question_no,
-      g_no,
-      question_name
-    from
-      gms_applyform_question
-    order by
-      g_no asc
-  </select>
-  
-  <select id="findQuestion" resultMap="ApplyQuestionMap" parameterType="int"> 
-     select
-      * 
-     from 
-      gms_applyform_question 
-     where 
-      g_no=#{no};
-  </select>
-  
-  
-  <delete id="delete">
-    delete from gms_applyform_question
-  </delete>
-  
   <select id="findByNo" resultMap="ApplyQuestionMap" parameterType="int">
     select 
       appl_no,
@@ -65,5 +40,40 @@
      where appl_question_no = #{questions.no};
   </foreach>
   </update>
+  
+  <select id="findAll" resultMap="ApplyQuestionMap"> 
+    select
+      appl_question_no,
+      g_no,
+      question_name
+    from
+      gms_applyform_question
+    order by
+      g_no asc
+  </select>
+  
+  <select id="count" resultType="int">
+    select 
+     count(appl_question_no) 
+    from 
+     gms_applyform_question 
+    where 
+     g_no=#{no}
+  </select>
+  
+  <select id="findQuestion" resultMap="ApplyQuestionMap" parameterType="int"> 
+     select
+      * 
+     from 
+      gms_applyform_question 
+     where 
+      g_no=#{no};
+  </select>
+  
+  
+  <delete id="delete">
+    delete from gms_applyform_question
+  </delete>
+  
   
 </mapper>

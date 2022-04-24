@@ -8,7 +8,6 @@ public class Comment {
   int no;
   int boardNo;
   String content;
-  int memberNo;
   int groupNo;
   Date registDate;
   boolean status;

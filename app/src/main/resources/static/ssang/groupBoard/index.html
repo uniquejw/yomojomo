@@ -59,15 +59,6 @@
   </div><!--  컨테이너 -->
 <div id="footers"></div>
 
-<script id="div-template2" type="text/x-handlebars-template">
-  {{#each this}}
-  <p>{{no}},{{content}},{{writer.memberName}}<br>
-    {{#each comments}}
-      {{no}},{{content}},{{writer.memberName}}<br>
-    {{/each}}
-  </p>
-  {{/each}}
-</script>
 <script id="div-template" type="text/x-handlebars-template">
   {{#each this}}
   <div id="written-board">
@@ -91,33 +82,39 @@
     
     <div class="comment-input-div">
       <div class="comment-name">댓글</div>
-      <input type="text" placeholder="댓글 달기" class="comment-input"><button class="comment-btn" type="button">확인</button>
-    </div>
-    <!-- 댓글불러오기  -->
-    <div id="written-comment">
-      <div class="comment-author-div">
-        <div class="comment-author-img-div">
-          <img class="comment-author-img" src="" alt=""><span class="material-icons md-34">
-            face
-            </span>  &nbsp;&nbsp;&nbsp;
-        </div>
-        <div class="comment-column-div">
-          <div class="comment-author-name">{{comments.[0].writer.memberName}}</div>
-          <div class="comment-createdTime">{{comments.[0].registDate}}</div>
-        </div>
-        <!-- <div class="modify-div">
-          <button class="comment-delete icon" type="button"><span class="material-icons md-34">delete</span></button>
-          <button class="comment-edit icon" type="button"><span class="material-icons md-34">mode_edit</span></button>
-        </div> -->
-      </div>
-      <div class="comment-content">
-        {{comments.[0].content}}
-      </div>
+      <input type="text" placeholder="댓글 달기" class="comment-input" name="{{no}}"><button class="comment-btn" type="button" value="{{no}}">확인</button>
     </div>
   </div>
+  <!-- 댓글불러오기  -->
+  {{#each comments}}
+  {{#if @last}}
+  <div id="written-comment">
+    <div class="comment-author-div">
+      <div class="comment-author-img-div">
+        <img class="comment-author-img" src="" alt=""><span class="material-icons md-34">
+          face
+        </span>  &nbsp;&nbsp;&nbsp;
+      </div>
+      <div class="comment-column-div">
+        <div class="comment-author-name">{{writer.memberName}}</div>
+        <div class="comment-createdTime">{{registDate}}</div>
+      </div>
+      <div class="modify-div">
+        <button class="comment-delete icon" type="button"><span class="material-icons md-34">delete</span></button>
+        <button class="comment-edit icon" type="button"><span class="material-icons md-34">mode_edit</span></button>
+      </div>
+    </div><!-- comment-author-div -->
+    <div class="comment-content">
+      {{content}}
+    </div>
+  </div><!-- written-comment -->
+  {{/if}}
+  {{/each}}
   <hr>
   {{/each}}
 </script>
+
+  
 <script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="/node_modules/handlebars/dist/handlebars.min.js"></script>
 <script type="module" src="/ssang/groupBoard/js/index.js"></script>

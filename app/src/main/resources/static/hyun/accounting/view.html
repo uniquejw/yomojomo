@@ -10,185 +10,197 @@
   <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
   <script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
   <script src="/node_modules/handlebars/dist/handlebars.min.js"></script>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
   <style>
-    #view-content{ 
-      padding-top: 10vh;
-      padding-bottom: 10vh;
-      position: relative;
-    }
-     body{
-      margin-top: 100px;
-    } 
-    form {
-      margin: 10px auto;
-    }
-    #x-delete-btn, #x-update-btn, #x-cancle-btn {
-      float: right;
-      margin: 5px;
-    }
-    table > tbody > tr > td:first-child {
-      text-align: right;
-      column-span: 300px;
-    }
-    /*멤버 추가부분*/
-    #x-deleteMemb-btn {
-      margin: 10px auto;
-    }
-    .List-Container{
-      margin:auto; /*가운데 정렬*/
-      text-align:center;
-    }
-    #view-content > .inner {
-      border: 1px solid blue;
-    }
+  #view-content{ 
+    padding-top: 5vh;
+    padding-bottom: 10vh;
+    position: relative;
+  }
+    body{
+    margin-top: 100px;
+  } 
+  #x-delete-btn, #x-update-btn, #x-cancle-btn {
+    float: right;
+    margin: 5px;
+  }
+  table > tbody > tr > td:nth-child(odd) {
+    text-align: center;
+  }
+  #x-deleteMemb-btn { /*멤버 삭제버튼*/
+    margin: 10px auto;
+  }
+  .List-Container{
+    margin:auto; /*가운데 정렬*/
+    text-align:center;
+    padding: 50px;
+  }
+  #x-membList-container{
+    border: 1px solid rgb(17, 147, 218);
+    padding: 5px;
+    margin: 20px;
+  }
+  .x-membList {
+    /* border: solid 1px red; */
+    margin: 60px;
+    margin-top: 30px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    display: inline;
+  }
+  .x-membList > .material-icons{
+    font-size: 60px;
+    color: rgb(17, 147, 218);
+    vertical-align: middle;
+  }
+  .x-membList > #listmembName, #paydt {
+    padding : 0px, 50px, 0px, 0px;
+    text-align: center;
+  }
+  .modal-content >.modal-header > .modal-title{
+    font-size: 25px;
+  }
+  .form-check {
+    vertical-align: middle;
+    font-size: 20px;
+  }
+  .form-check > .form-check-label > .material-icons {
+    font-size: 60px;
+    color: rgb(17, 147, 218);
+    vertical-align: middle;
+  }
   </style>
 </head>
 
 <body>
-<!--공통헤더-->
 <div id="header"></div>
-<!--모임헤더-->
 <div id="top"></div>
-
-  <!--입력 폼-->
 <div id="view-content" class="table-responsive-lg">
   <div class="inner">
     <form>
-      <table id="formTable" class="table table-borderless">
-        <tbody>
-          <tr>
-            <td width="150px">번호</td>
-            <td><input id="x-no" type="number" class="form-control"></td>
-          </tr>
-          <tr>
-            <td>유형</td>
-            <td>
-              <select id="x-selectCate" name="actCate.no" class="form-select form-select-sm" aria-label=".form-select-sm example">
-                <option id="selectOp" value="1">유형을 선택하세요</option>
-                <option id="selectOp" value="2">회비</option>
-                <option id="selectOp" value="3">모임비</option>
-                <option id="selectOp" value="4">기타</option>
-              </select>
-            </td>
-          </tr>
-          <tr>
-            <td>제목</td>
-            <td><input id="x-title" type="text" class="form-control"></td>
-          </tr>
-          <tr>
-            <td>작성일</td>
-            <td><input id="x-registDate" type="text" class="form-control"></td>
-          </tr>
-          <tr>
-            <td>진행상태</td>
-            <td>
-              <select id="x-status" name="status" class="form-select form-select-sm" aria-label=".form-select-sm example">
-                <option id="statusOp" value="0">진행</option>
-                <option id="statusOp" value="1">완료</option>
-              </select>       
-            </td>
-          </tr>
-          <tr>
-            <td>금액</td>
-            <td><input id="x-amount" type="text" class="form-control"></td>
-          </tr>
-        </tbody>
-      </table>
-
-      <div>
-        <button type="button" class="btn btn-primary" id="addMemb">멤버 선택</button>
-        <button type="button" class="btn btn-primary" id="cleanMemb">멤버 초기화</button>
+    <table id="formTable" class="table table-borderless">
+      <tbody>
+        <tr>
+          <td width="100px">번호</td>
+          <td><input id="x-no" type="number" class="form-control" disabled></td>
+          <td width="100px">작성일</td>
+          <td><input id="x-registDate" type="text" class="form-control" disabled></td>
+        </tr>
+        <tr>
+          <td>제목</td>
+          <td colspan="3"><input id="x-title" type="text" class="form-control"></td>
+        </tr>
+        <tr>
+          <td>유형</td>
+          <td>
+            <select id="x-selectCate" name="actCate.no" class="form-select form-select-sm" aria-label=".form-select-sm example">
+              <option id="selectOp" value="1">유형을 선택하세요</option>
+              <option id="selectOp" value="2">회비</option>
+              <option id="selectOp" value="3">모임비</option>
+              <option id="selectOp" value="4">기타</option>
+            </select>
+          </td>
+          <td>진행상태</td>
+          <td>
+            <select id="x-status" name="status" class="form-select form-select-sm" aria-label=".form-select-sm example">
+              <option id="statusOp" value="0">진행</option>
+              <option id="statusOp" value="1">완료</option>
+            </select>       
+          </td>
+        </tr>
+        <tr>
+          <td>금액</td>
+          <td><input id="x-amount" type="number" class="form-control"></td>
+          <td colspan="2">        
+            <button type="button" class="btn btn-primary" id="addMemb">멤버 변경</button>
+            <button type="button" class="btn btn-primary" id="cleanMemb">멤버 초기화</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="List-Container">
+      <div id="x-membList-container">
       </div>
-
-      <!--멤버 추가부분-->
-      <div class="List-Container">
-        <div id="x-membList-container">
-        </div>
-      </div>
-      <!--전체 멤버 추가부분 END-->
-
-      <!--멤버 선택 모달창-->
-      <div class="modal fade" id="memberlist-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">입력할 멤버를 선택해 주세요</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal fade" id="memberlist-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">입력할 멤버를 선택해 주세요</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div id="modal-member-list">
             </div>
-            <div class="modal-body">
-              <div id="modal-member-list">
-              </div>
-            </div>
-            <div class="modal-footer" style=" text-align: center;">
-              <button type="button" class="btn btn-primary" id="allMemb">전체 적용</button>
-              <button type="button" class="btn btn-primary" id="selectedOK">추가</button>
-            </div>
+          </div>
+          <div class="modal-footer" style=" text-align: center;">
+            <button type="button" class="btn btn-primary" id="allMemb">전체 적용</button>
+            <button type="button" class="btn btn-primary" id="selectedOK">추가</button>
           </div>
         </div>
       </div>
-      <!--멤버 선택 모달창-->
-
-      <button id="x-update-btn" type="button" class="btn btn-primary">수정</button>
-      <button id="x-delete-btn" type="button" class="btn btn-primary">삭제</button>
-      <button id="x-cancle-btn" type="button" class="btn btn-primary">확인</button> 
-    </form>
+    </div>
+    <button id="x-update-btn" type="button" class="btn btn-primary">수정</button>
+    <button id="x-delete-btn" type="button" class="btn btn-primary">삭제</button>
+    <button id="x-cancle-btn" type="button" class="btn btn-primary">확인</button> 
+  </form>
   </div>
 </div>
-
 <div id="footer"></div>
-
-<script type="text/javascript">
-  $(document).ready(function () {
-    $('#header').load('/junho/mainHeader.html'); //헤더 인클루드
-    $('#top').load('/ssang/groupBoard/none-search-top.html'); //상준님헤더
-    $('#footer').load('/junho/mainfooter.html'); //푸터부분 인클루드
-  });
-</script>
 
 <!--모달 창 내 멤버 리스트-->
 <script id="modal-memberlist-template" type="text/x-handlebars-template">
   {{#each this}}
   <div class="form-check">
-  <input class="form-check-input" name="memberNo" type="checkbox" value="{{member.no}}" id="flexCheckDefault {{member.no}}">
+  <input class="form-check-input" name="memberNo" type="checkbox" value="{{member.no}}" id="flexCheckDefault {{member.no}}" style="position:relative; top:16px">
     <label class="form-check-label" for="flexCheckDefault {{member.no}}">
+      <span class="material-icons">account_circle </span>
       {{member.memberName}}
     </label>
   </div>
   {{/each}}
 </script>
 
-<!--멤버 Handlebars START-->
+<!--불러오는 멤버 Handlebars START-->
 <script id="div-template" type="text/x-handlebars-template">
   {{#each this}}
-  <div class="x-membList">
-  이름 : <input id="listmembName" type="text" value="{{membName}}">
-        <input id="membno" value="{{membNo}}" type="hidden">
-        <input id="gno" value="" type="hidden">
+    <div class="x-membList">
+      <span class="material-icons">account_circle </span>
+      <input id="listmembName" type="text" value="{{membName}}">
+      <input id="membno" value="{{membNo}}" type="hidden">
+      <input id="gno" value="" type="hidden">
 
-  납부 완료일 : <input type="date" id="paydt" value="{{paydt}}">
-  <button id="x-deleteMemb-btn" type="button" class="btn btn-primary" onclick="deleteDiv(event)">삭제</button><br>
-  </div>
+    <span>납부 완료일 :</span> <input type="date" id="paydt" value="{{paydt}}">
+    <button id="x-deleteMemb-btn" type="button" class="btn btn-primary" onclick="deleteDiv(event)">삭제</button><br>
+    </div>  
   {{/each}}
 </script>
-<!--멤버 Handlebars END-->
+<!--불러오는 멤버 Handlebars END-->
 
-<!--멤버 추가  Handlebars START-->
+<!--멤버 변경  Handlebars START-->
 <script id="children-div-template" type="text/x-handlebars-template">
   {{#each this}}
-  <div class="x-membList">
-  이름 : <input id="listmembName" type="text" value="{{member.memberName}}">
-        <input id="membno" value="{{member.no}}" type="hidden">
-        <input id="gno" value={{group.no}} type="hidden">
+    <div class="x-membList">
+      <span class="material-icons">account_circle </span> 
+      <input id="listmembName" type="text" value="{{member.memberName}}">
+      <input id="membno" value="{{member.no}}" type="hidden">
+      <input id="gno" value={{group.no}} type="hidden">
 
-  납부 완료일 : <input type="date" id="paydt">
-  <button id="x-deleteMemb-btn" type="button" class="btn btn-primary" onclick="deleteDiv(event)">삭제</button><br>
-  </div>
+    납부 완료일 : <input type="date" id="paydt">
+    <button id="x-deleteMemb-btn" type="button" class="btn btn-primary" onclick="deleteDiv(event)">삭제</button><br>
+    </div>
   {{/each}}
 </script>
-<!--멤버 추가  Handlebars END-->
+<!--멤버 변경  Handlebars END-->
 
 <script>
+$(document).ready(function () {
+  $('#header').load('/junho/mainHeader.html'); //헤더 인클루드
+  $('#top').load('/ssang/groupBoard/none-search-top.html'); //상준님헤더
+  $('#footer').load('/junho/mainfooter.html'); //푸터부분 인클루드
+});
+
 let qsarr = location.href.split("?");
 splitQs = qsarr[1];
 let AccountingParams = new URLSearchParams(splitQs);
@@ -224,7 +236,6 @@ let modalMemberList = document.querySelector("#modal-member-list");
 let checkboxTemplate = document.querySelector("#modal-memberlist-template");
 let checkboxGenerator = Handlebars.compile(checkboxTemplate.innerHTML);
 
-
 //화면에 뿌림
 $.ajax({
   url: "/accounting/get",
@@ -251,7 +262,6 @@ $.ajax({
       })//memberNoArr push END    
     })//each END
 
-    
     //member의 멤버리스트
     $.ajax({
       url: "/member/list",
@@ -290,7 +300,6 @@ $.ajax({
     }) //member의 멤버리스트 ajax END
   }// success END
 });//ajax END
-//
 
 $.ajax({ //로그인 여부 확인 ajax START 비회원은 main으로 보낸다.
         url : "/member/getLoginUser",
@@ -308,13 +317,19 @@ $.ajax({ //로그인 여부 확인 ajax START 비회원은 main으로 보낸다.
               datatype : "json",
               data : {"member.no" : loginUserNo },
               success : function(result) {
-                console.log(result.data);
+                // console.log(result.data);
                 if (result.data[0].memberGrade.gradeNo != 1) { //모임장이 아니라면
+                  console.log("모임장아님");
                   $("#x-update-btn").hide();
                   $("#x-delete-btn").hide();
                   $("#addMemb").hide();
                   $("#cleanMemb").hide();
-                  $(document.querySelectorAll("#x-deleteMemb-btn")).hide();
+                  // console.log(document.querySelectorAll(".x-membList > #x-deleteMemb-btn")); //!!!!!!!!!!!!!!!!!!!!!!!!!! 읽혔다 안읽혔다 함!!!!!!!!!!!!!!!!!!!!!
+                  $(document.querySelectorAll("#x-deleteMemb-btn")).css("display","none"); //!!!!!!!!!!!!!!!!!!!!!!!!!! 읽혔다 안읽혔다 함!!!!!!!!!!!!!!!!!!!!!
+                  $(".inner > form > table > tbody > tr > td > input").attr("readonly", true);
+                  $(".inner > form > table > tbody > tr > td > select").prop("disabled", true);
+                  $(document.querySelectorAll("#listmembName")).attr("readonly", true);
+                  $(document.querySelectorAll("#paydt")).attr("readonly", true);
                 }//회원 등급 조회 if END
               }//회원 등급 조회 success END           
             })//회원 등급 조회 ajax END 
@@ -344,9 +359,6 @@ document.querySelector("#x-cancle-btn").onclick = function() {
 document.querySelector("#x-update-btn").onclick = function() {
   let memberCount = xMembListCon.childElementCount;
   let memberListAll = document.querySelectorAll(".x-membList");
-
-  // console.log($("#x-selectCate option:selected").val());
-
   if(
     $("#x-selectCate option:selected").val() == 1 || 
      xTitle.value == "" || 
@@ -355,14 +367,11 @@ document.querySelector("#x-update-btn").onclick = function() {
       window.alert("필수 입력 항목이 비어 있습니다.");
       return;
   }
-
   var qs = `accountingNo=${xNo.value}&group.no=${gno}&actCate.no=${$("#x-selectCate option:selected").val()}&title=${xTitle.value}&amount=${xAmount.value}&status=${$("#x-status option:selected").val()}`
-
     for (var memberDiv of memberListAll) {
       var xMembNo = memberDiv.querySelector("#membno");
       var xGno = memberDiv.querySelector("#gno");
       var xDate = memberDiv.querySelector("#paydt");
-
       if(xDate.value == "") {
         qs += `&qslength=2&actStatuses=${gno}_${xMembNo.value}`;
       } else {
@@ -437,7 +446,6 @@ function deleteDiv(e) {
 //멤버 초기화 버튼
 $("#cleanMemb").on("click", function() {
   console.log("클릭");
-  // $(".List-Container").empty();
   $("#x-membList-container").empty();
 });
 </script>

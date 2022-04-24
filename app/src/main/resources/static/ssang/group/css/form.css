@@ -58,6 +58,7 @@ button{
 }
 #tag-canel-btn{
     margin: 0 0 0 1px;
+    overflow: visible;
 }
 input#x-title, input#x-tag, input#x-maxcnt {
     position: relative;

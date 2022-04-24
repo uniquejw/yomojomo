@@ -2,8 +2,10 @@ package com.bts.yomojomo.dao;
 
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import com.bts.yomojomo.domain.ActiveLocal;
 import com.bts.yomojomo.domain.Group;
+import com.bts.yomojomo.domain.GroupTag;
 
 @Mapper 
 //=> Mybatis에서 DAO 구현체를 자동으로 생성한다.
@@ -21,6 +23,8 @@ public interface GroupDao {
   List<Group> selectedPurpcate(Group group);
 
   int insert(Group group);
+
+  int insertTags(@Param("groupNo")int no,@Param("tags") List<GroupTag> tags);
 
   Group findByNo(int no);
 

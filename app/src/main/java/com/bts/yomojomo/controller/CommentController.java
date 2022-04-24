@@ -1,38 +1,43 @@
 package com.bts.yomojomo.controller;
 
+import static com.bts.yomojomo.controller.ResultMap.SUCCESS;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.bts.yomojomo.dao.CommentDao;
 import com.bts.yomojomo.domain.Comment;
+import com.bts.yomojomo.domain.Member;
+import com.bts.yomojomo.service.CommentService;
 
 @RestController
 public class CommentController {
   @Autowired
-  CommentDao commentDao;
+  CommentService commentService;
 
   @RequestMapping("/comment/add")
-  public Object add(Comment comment) {
-    return commentDao.insert(comment);
+  public Object add(Comment comment,HttpSession session) {
+    Member member = (Member) session.getAttribute("loginUser");
+    comment.setWriter(member);
+    return new ResultMap().setStatus(SUCCESS).setData(commentService.add(comment));
   }
-
-  @RequestMapping("/comment/get")
-  public Object get(int no) {
-    return commentDao.findByNo(no);
-  }
-
-  @RequestMapping("/comment/list")
-  public Object list() {
-    return commentDao.findAll(); 
-  }
-
-  @RequestMapping("/comment/update")
-  public Object update(Comment comment) {
-    return commentDao.update(comment);
-  }
-
-  @RequestMapping("/comment/delete")
-  public Object delete(int no) {
-    return commentDao.delete(no);
-  }
+  //
+  //  @RequestMapping("/comment/get")
+  //  public Object get(int no) {
+  //    return commentService.findByNo(no);
+  //  }
+  //
+  //  @RequestMapping("/comment/list")
+  //  public Object list() {
+  //    return commentService.findAll(); 
+  //  }
+  //
+  //  @RequestMapping("/comment/update")
+  //  public Object update(Comment comment) {
+  //    return commentService.update(comment);
+  //  }
+  //
+  //  @RequestMapping("/comment/delete")
+  //  public Object delete(int no) {
+  //    return commentService.delete(no);
+  //  }
 }
