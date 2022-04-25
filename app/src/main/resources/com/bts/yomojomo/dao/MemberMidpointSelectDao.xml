@@ -52,8 +52,8 @@
 	   left outer join gms_select_midpoint sm on jm.memb_no = sm.memb_no and jm.g_no = sm.g_no
 
    where
-     jm.g_no = 1 
-     and c.cal_no = 1
+     jm.g_no = #{group.no}
+     and c.cal_no = #{calendar.no}
   </select>
   
 

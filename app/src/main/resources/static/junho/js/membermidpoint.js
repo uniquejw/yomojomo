@@ -2,6 +2,12 @@ $(document).ready(function () {
   $('#header').load('/junho/mainHeader.html'); //헤더 인클루드
   $('#footer').load('/junho/mainfooter.html'); //푸터부분 인클루드
 });
+const url = new URL(window.location.href)
+const urlParams = url.searchParams
+console.log(url)
+console.log(urlParams)
+var gNoParameter = urlParams.get('gno')
+var calNoParaMeter = urlParams.get('cal_no')
 
 selectDataListFromDb();
 
@@ -360,8 +366,15 @@ console.log(liTemplate)
 var htmlGenerator = Handlebars.compile(liTemplate.innerHTML);
 console.log(htmlGenerator)
 
+
+
+
+console.log(window.location.search)
+
 function selectDataListFromDb() {
-    var data = {'group.no': 1, 'calendar.no':1};
+    console.log(gNoParameter)
+    console.log(calNoParaMeter)
+    var data = {'group.no': gNoParameter, 'calendar.no': calNoParaMeter};
     $.ajax( {
         url: "/midpoint/member/calendar/list",
         type: "POST",
