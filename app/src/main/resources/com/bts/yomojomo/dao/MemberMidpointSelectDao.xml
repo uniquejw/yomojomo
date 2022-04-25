@@ -33,7 +33,7 @@
 
   
   <select id="findAll" resultMap="MemberMidpointSelectMap">
-    select
+   select
       sm.memb_pt_no midpointNo,
       sm.lat,
       sm.lng,
