@@ -95,14 +95,6 @@
   </div>
   <div id="footers"></div>
   <script>
-    fetch("/member/getmemberinfo")
-    .then(function(response){
-      return response.json()
-    })
-    .then(function(memberinfo){
-      console.log(memberinfo)
-    })
-
   $(".card").children("img").click(function(e){
     location.href = "/ssang/groupBoard/index.html"
   })
