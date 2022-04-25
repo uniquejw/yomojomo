@@ -39,34 +39,51 @@
     values(#{groupNo}, #{writer.no}, #{content})
   </insert>
   
-  <!-- 모임별 게시판 조회 -->
+  <!--게시판 get-->
+  <select id="findByNo" resultMap="BoardMap" parameterType="int">
+	 SELECT 
+	    b.content, b.reg_dt, m.memb_no writer_no, m.membername writer_name
+	 FROM 
+	    gms_board b  
+	    LEFT OUTER JOIN gms_memb m ON b.memb_no = m.memb_no 
+	 WHERE 
+	    b.b_no = #{no};
+  </select>
+  <!--게시글 업데이트 -->
+  <update id ="update" parameterType="Board">
+    update gms_board set 
+      content = #{content}
+    where 
+      b_no=#{no} and memb_no = #{writer.no}
+  </update>
+  <!-- 모임별 게시판 전체 조회 -->
   <select id="findByGroupNo" resultMap="BoardMap" parameterType="int">
 	SELECT 
-	    b.g_no,
-	    b.b_no,
-	    b.content,
-	    b.reg_dt,
-	    m.memb_no writer_no,
-	    m.name writer_name,
-	    m.email writer_email,
-	    c.content cmt_content,
-	    c.reg_dt cmt_reg_dt,
-	    m2.name cmt_writer_name,
-	    m2.email cmt_writer_email
-	FROM 
-	    gms_board b 
-	    LEFT OUTER JOIN gms_comment c ON b.b_no = c.b_no 
-	    LEFT OUTER JOIN gms_memb m ON b.memb_no = m.memb_no 
-	    LEFT OUTER JOIN gms_memb m2 ON b.memb_no = m2.memb_no 
-	WHERE 
-	    b.g_no = #{no}
-	ORDER BY 
-	    b.b_no DESC 
+        b.g_no,
+        b.b_no,
+        b.content,
+        b.reg_dt,
+        m.memb_no writer_no,
+        m.membername writer_name,
+        m.email writer_email,
+       comment.*
+    FROM 
+        gms_board b 
+        LEFT OUTER JOIN 
+        (SELECT c.content cmt_content  , gm.membername cmt_writer_name, c.reg_dt cmt_reg_dt, c.b_no  
+        FROM gms_comment c , gms_memb gm 
+        WHERE c.memb_no =gm.memb_no 
+        ) comment
+        ON b.b_no = comment.b_no 
+        LEFT OUTER JOIN gms_memb m ON b.memb_no = m.memb_no 
+    WHERE 
+        b.g_no = #{no}
+    ORDER BY 
+        b.b_no DESC
   </select>
   <!-- 모임별 게시판을 번호로 조회 -->
   <select id="findByBoardNo" resultMap="BoardMap">
     select
-       distinct
        g_no,
        b_no,
        content,
@@ -78,25 +95,28 @@
 	       from
 	       (
 		       SELECT 
-			        b.g_no,
-			        b.b_no,
-			        b.content,
-			        b.reg_dt,
-			        m.name writer_name,
-			        m.email writer_email,
-			        c.content cmt_content,
-			        c.reg_dt cmt_reg_dt,
-			        m2.name cmt_writer_name,
-			        m2.email cmt_writer_email
-			    FROM 
-			        gms_board b 
-			        LEFT OUTER JOIN gms_comment c ON b.b_no = c.b_no 
-			        LEFT OUTER JOIN gms_memb m ON b.memb_no = m.memb_no 
-			        LEFT OUTER JOIN gms_memb m2 ON b.memb_no = m2.memb_no 
-			    WHERE 
-			        b.g_no = #{no}
-			    ORDER BY 
-			        b.b_no DESC 
+        b.g_no,
+        b.b_no,
+        b.content,
+        b.reg_dt,
+        m.memb_no writer_no,
+        m.membername writer_name,
+        m.email writer_email,
+       comment.*
+    FROM 
+        gms_board b 
+        LEFT OUTER JOIN 
+        (SELECT c.content cmt_content  , gm.membername cmt_writer_name, c.reg_dt cmt_reg_dt, c.b_no  
+        FROM gms_comment c , gms_memb gm 
+        WHERE c.memb_no =gm.memb_no 
+        ) comment
+        ON b.b_no = comment.b_no 
+        LEFT OUTER JOIN gms_memb m ON b.memb_no = m.memb_no 
+        LEFT OUTER JOIN gms_memb m2 ON b.memb_no = m2.memb_no 
+    WHERE 
+        b.g_no = #{no}
+    ORDER BY 
+        b.b_no DESC
 	       ) b
 	     where
 	       b.b_no = #{board.no}
@@ -108,12 +128,7 @@
     where b_no=#{no}
   </update>
   
-  <update id ="update" parameterType="Board">
-    update gms_board set 
-      content = #{content}
-    where 
-      b_no = #{no}
-  </update>
+
   
   <delete id="delete" parameterType="int">
     delete from gms_board

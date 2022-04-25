@@ -2,6 +2,14 @@ $(document).ready(function () {
   $('#header').load('/junho/mainHeader.html'); //헤더 인클루드
   $('#footer').load('/junho/mainfooter.html'); //푸터부분 인클루드
 });
+const url = new URL(window.location.href)
+const urlParams = url.searchParams
+console.log(url)
+console.log(urlParams)
+var gNoParameter = urlParams.get('gno')
+var calNoParaMeter = urlParams.get('cal_no')
+
+selectDataListFromDb();
 
 // Main Map
 var mapContainer1 = document.getElementById('map1'), // 지도를 표시할 div 
@@ -345,8 +353,46 @@ function isDup(arr)  {
   }
 
 
+var memberList = [];
+var addrList = [];
+var finalList = [];
 
-
-function saveDbDate(i) {
+var ulEL = document.querySelector(".member-list")
     
+// 템플릿 엔진에서 사용할 HTML 조각을 가져오기
+var liTemplate = document.querySelector("#li-template");
+console.log(liTemplate)
+//템플릿 엔진 준비
+var htmlGenerator = Handlebars.compile(liTemplate.innerHTML);
+console.log(htmlGenerator)
+
+
+
+
+console.log(window.location.search)
+
+function selectDataListFromDb() {
+    console.log(gNoParameter)
+    console.log(calNoParaMeter)
+    var data = {'group.no': gNoParameter, 'calendar.no': calNoParaMeter};
+    $.ajax( {
+        url: "/midpoint/member/calendar/list",
+        type: "POST",
+        dataType: 'json',
+        data: data,
+        success : function(result) {
+            for (var i = 0; i < result.length; i++) {
+                finalList[i] = {
+                    memberName: result[i].member.memberName,
+                    addr: result[i].addr,
+                    lat: result[i].lat,
+                    lng: result[i].lng
+                }
+                
+            }
+            console.log(finalList)
+            ulEL.innerHTML = htmlGenerator(finalList);
+        }
+    })
 }
+

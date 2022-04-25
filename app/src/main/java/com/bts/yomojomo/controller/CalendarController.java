@@ -36,6 +36,10 @@ public class CalendarController {
     return new ResultMap().setStatus(SUCCESS).setData(calendarservice.listByGroup(calendar));
   }
 
+
+
+
+
   @RequestMapping("/calendar/add")
   public Object add(Calendar calendar, HttpSession session) {
     log.info("일정 등록!"); // 운영자가 확인하기를 원하는 정보
@@ -59,6 +63,7 @@ public class CalendarController {
 
   @RequestMapping("/calendar/update")
   public Object update(Calendar calendar, HttpSession session) {
+    System.out.println(calendar);
     Member member = (Member) session.getAttribute("loginUser");
     calendar.setMember(member);
 

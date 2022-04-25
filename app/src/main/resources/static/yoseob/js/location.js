@@ -10,3 +10,4 @@ document.querySelector("#information-btn").onclick = function () {
 document.querySelector("#inquiry-btn").onclick = function () {
   location.href = "/yoseob/notice/inquiry.html";
 };
+

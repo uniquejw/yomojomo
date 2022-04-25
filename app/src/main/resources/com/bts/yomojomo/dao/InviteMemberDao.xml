@@ -21,7 +21,7 @@
     select 
       jm.g_no gno, 
       jm.memb_no mno,
-      m.name mname,
+      m.membername mname,
       jm.g_memb_grd_no mgno,
       m.tel mtel
     from gms_join_memb jm

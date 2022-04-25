@@ -1,13 +1,12 @@
 import{getGroupNO} from '/ssang/js/module.js';
 var getGroup = getGroupNO();
 console.log(getGroup)
-
+// 로그인 정보 요청
 fetch("/member/getLoginUser")
 .then(function(res){
   return res.json()
 })
 .then(function(res) {
-
 // 게시글 읽어오기
 var writtenContainer = document.querySelector("#handlebars-container");
 var divTemplate = document.querySelector("#div-template");
@@ -17,8 +16,6 @@ fetch(`/board/findByGroupNo?no=${getGroup}`)
   return response.json();
 })
 .then(function(boards){
-  console.log(boards)
-  
   for (var board of boards) {
     if (board.writer.no == window.loginUser.no) {
       board.isWriter = true;
@@ -33,8 +30,6 @@ fetch(`/board/findByGroupNo?no=${getGroup}`)
   });
 })
 })// fetch -> member/getLoginUser
-
-
 // 댓글 등록
 $(document).on("click", ".comment-btn", function() {
   var value = $(this).val()
@@ -58,6 +53,11 @@ $(document).on("click",".new-post-btn",function(){
   window.location.href = `form.html?gno=${getGroup}`;
 });
 $(document).on("click",".board-edit",function(){
-  window.location.href = `view.html?gno=${getGroup}`;
+  var value = $(this).val()
+  window.location.href = `view-board-edit.html?gno=${getGroup}&bno=${value}`;
+})
+$(document).on("click",".written-content",function(){
+  var value = $(this).val()
+  window.location.href = `view.html?gno=${getGroup}&bno=${value}`;
 })
 
