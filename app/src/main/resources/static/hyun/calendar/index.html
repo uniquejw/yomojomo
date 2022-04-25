@@ -5,35 +5,58 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <script src="/node_modules/jquery/dist/jquery.min.js"></script>
+  <script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
   <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
-
   <!--full calendar node_modues-->
   <link href="/node_modules/fullcalendar/main.min.css" rel="stylesheet" />
   <script src="/node_modules/fullcalendar/main.min.js"></script>
   <script src="/node_modules/fullcalendar/locales/ko.js"></script> <!--한글설정-->
   <!--full calendar node_modues END-->
+  <title>일정</title>
 
   <style>
   /*내 css inner 주면 달력 짤림*/
   #calendar-container{
-    width: 600px auto;
-    margin: 100px 150px; 
+    /* width: 600px auto;
+    margin: 100px 150px;  */
+    padding-top: 2vh;
+    height: 70vh;
+    position: relative;
+    margin-bottom: 30vh;
   }
-  /* .fc-view-harness fc-view-harness-active{
-      min-width: 500px;
-  } */
-
+  #calendar {
+    border: 1px solid red;
+    max-width: 1100px;
+    margin: 40px auto;
+}
+  .fc-header-toolbar > .fc-toolbar-chunk > .fc-button-group:first-child > .fc-addEventButton-button {
+      border: 0px;
+      background-color: rgb(17, 147, 218);
+      margin-right: 13px;      
+  }
+  .fc-header-toolbar > .fc-toolbar-chunk > .fc-button-group:first-child > .fc-goMidPointButton-button {
+      border: 0px;
+      background-color: rgb(17, 147, 218);
+      margin-right: 13px;      
+  }
+  .fc-header-toolbar > .fc-toolbar-chunk > .fc-today-button {
+      border: 0px;
+      background-color: red;
+  }
+  .fc-header-toolbar > .fc-toolbar-chunk > .fc-button-group > .fc-prev-button{
+    border: 0px;
+    background-color: rgb(17, 147, 218);
+  }
+  .fc-header-toolbar > .fc-toolbar-chunk > .fc-button-group > .fc-next-button{
+    border: 0px;
+    background-color: rgb(17, 147, 218);
+  }  
   </style>
-
-<title>일정</title>
 </head>
 
 <body class="menu3">
-<script src="/node_modules/jquery/dist/jquery.min.js"></script>
-<script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-
-<!--공통헤더 제이쿼리-->
 <script type="text/javascript">
   $(document).ready(function () {
       $('#header').load('/junho/mainHeader.html'); //헤더 인클루드
@@ -41,7 +64,6 @@
       $('#footer').load('/junho/mainfooter.html'); //푸터부분 인클루드
   });
 </script>
-<!--공통헤더 제이쿼리 끝-->
 
 <!--공통헤더-->
 <div id="header"></div>
@@ -55,6 +77,80 @@
     <!-- </div> -->
 </div>
 
+<!--일정관리 추가 눌렀을 때 모달창-->
+<div class="modal fade" id="calendarModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+aria-hidden="true">
+<from id="calendar-add">
+  <div class="modal-dialog" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">일정을 입력하세요.</h5>
+              <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button> -->
+          </div>
+          <div class="modal-body">
+                    <div class="form-group">
+                        <!-- <label for="taskId" class="col-form-label">모임 번호</label> !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                        <input type="text" name="joinMemb.group.no" class="form-control" id="add-modal-gno"> -->
+                        <label for="taskId" class="col-form-label">일정 제목</label>
+                        <input type="text" name="name" class="form-control" id="add-modal-title">
+                        <label for="taskId" class="col-form-label">일정 내용</label>
+                        <input type="text" name="content" class="form-control" id="add-modal-content">
+                        <label for="taskId" class="col-form-label">시작 날짜</label>
+                        <input type="date" name="startDt" class="form-control" id="add-modal-startDt">
+                        <label for="taskId" class="col-form-label">종료 날짜</label>
+                        <input type="date" name="endDt" class="form-control" id="add-modal-endDt">
+                        <label for="taskId" class="col-form-label">모임장소 URL</label>
+                        <input type="url" name="resulturl" class="form-control" id="add-modal-URL">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="x-addCalendar">추가</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                </div>
+            </div>
+        </div>
+    </from>
+</div>
+
+<!--상세보기 모달창-->
+<div class="modal fade" id="view-Modal" tabindex="-1">
+    <form name="calendar-update">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <!--모임 title들어감-->
+                <input type="text" name="name" id="view-modal-title" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div> <!--modal-header END-->
+            <div class="modal-body">
+                <div class="form-group">
+                        <label for="taskId" class="col-form-label">약속 내용</label>                    
+                        <input type="text" name="content" id="view-modal-content" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                        <label for="taskId" class="col-form-label">모임 번호</label>
+                        <input type="text" name="joinMemb.group.no" id="view-modal-gno" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                        <label for="taskId" class="col-form-label">시작 날짜</label>
+                        <input type="date" name="startDt" id="view-modal-startDt" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                        <label for="taskId" class="col-form-label">끝 날짜</label>
+                        <input type="date" name="endDt" id="view-modal-endDt" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                        <label for="taskId" class="col-form-label">모임 장소 URL</label>
+                        <input type="url" name="resulturl" id="view-modal-resultURL" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                    </div><!--form-group END-->
+                </div><!--modal-body END-->
+                <div class="modal-footer">
+                    <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
+                    <button type="button" class="btn btn-primary" id="modal-UpdateBtn">변경</button>
+                    <button type="button" class="btn btn-primary" id="modal-DeleteBtn">삭제</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                </div> <!--modal-footer END-->
+            </div> <!--modal-content END-->
+        </div> <!--modal-dialog END-->
+    </form>
+</div> <!--view-Modal END-->
+
+<div id="footer"></div>
+
 
 
 <script type="text/javascript">
@@ -67,18 +163,19 @@ var arr = location.href.split("?");
   var params = new URLSearchParams(qs);
   var gno = params.get("gno");
 
+  
+
 document.addEventListener('DOMContentLoaded', function () {
     var calendarEl = document.getElementById('calendar');
     var calendar = new FullCalendar.Calendar(calendarEl, {
-    height: 600, // calendar 높이 설정  
+    height: 600, // calendar 높이 설정
     expandRows: true, // 화면에 맞게 높이 재설정
     handleWindowResize: true, //브라우저 창의 크기를 조정할 때 캘린더 크기를 자동으로 조정
-    // locale : 'ko', //한글
     timeZone: 'local',
     initialView: 'dayGridMonth', //월만 보이게함
     editable: false, // false로 변경 시 draggable 작동 x 
     displayEventTime: false, // 시간 표시 x
-    headerToolbar: {center: 'addEventButton'}, // headerToolbar에 버튼을 추가
+    headerToolbar: {center: 'addEventButton,goMidPointButton'}, // headerToolbar에 버튼을 추가
 
     events: function(info, successCallback, failureCallback) { //캘린더 화면에 뿌리기
         $.ajax({
@@ -153,10 +250,10 @@ document.addEventListener('DOMContentLoaded', function () {
                                     // console.log(data.status);
                                     if(data.status == 'fail') {
                                         alert("삭제 권한이 없습니다.");
-                                        location.href = "index.html";
+                                        window.location.href = "index.html?gno=" + gno;
                                     } else {
                                         alert('삭제되었습니다.');
-                                        location.href = "index.html";
+                                        window.location.href = "index.html?gno=" + gno;
                                     }                                        
                                 }
                             }) //delete요청 ajax END
@@ -186,11 +283,11 @@ document.addEventListener('DOMContentLoaded', function () {
                             .then(function(result) {
                                 if (result.status == "success") {
                                     window.alert("수정되었습니다.")
-                                    location.href = "index.html";
+                                    window.location.href = "index.html?gno=" + gno;
                                 } else {
                                     window.alert("게시글 변경 실패");
                                     console.log(result.data);
-                                    location.href = "index.html";
+                                    window.location.href = "index.html?gno=" + gno;
                                 }
                             })
                         } // else 정상입력 END
@@ -206,9 +303,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 $("#calendarModal").modal("show"); // modal 나타내기
                 console.log($("#calendarModal"));
                 $("#x-addCalendar").on("click",function(){  // modal 추가 버튼 클릭 시
-
-
-                    
                     var startDt = $("#add-modal-startDt").val();
                     var endDt = $("#add-modal-endDt").val();
                     var content = $("#add-modal-content").val();
@@ -227,7 +321,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                 url: '/calendar/add',
                                 type: 'POST',
                                 data: {
-                                    "joinMemb.group.no": $("#add-modal-gno").val(),
+                                    "joinMemb.group.no": gno,
                                     "name": $("#add-modal-title").val(),
                                     "content": content,
                                     "startDt": startDt,
@@ -239,11 +333,11 @@ document.addEventListener('DOMContentLoaded', function () {
                                         console.log(data);
                                         if (data.status == "success") {
                                             alert("일정이 추가 되었습니다.");
-                                            location.href = "index.html";
+                                            window.location.href = "index.html?gno=" + gno;
                                         } else {
                                             alert("일정 추가 실패");
                                             console.log(data);
-                                            location.href = "index.html";
+                                            window.location.href = "index.html?gno=" + gno;
                                         }
                                     }, //success END
                                     error: function() {
@@ -254,86 +348,22 @@ document.addEventListener('DOMContentLoaded', function () {
                     // window.location.reload();
                 }); // modal 추가 버튼 클릭 이벤트 END
             } // 버튼 클릭 시 이벤트 END
-        }// addEventButton END
+        },// addEventButton END
+        goMidPointButton : { // 중간지점찾기 버튼 설정
+            text : "중간지점찾기",
+            click : function(){
+                window.location.href=`/junho/midpoint/membermidpoint.html?gno=${gno}`;
+            }
+        },
+
+        
     }, //customButtons
     }); //var calendar End
     calendar.render(); // 달력 출력
   }); //document.addEventListener End
 </script>
 
-<!--일정관리 추가 눌렀을 때 모달창-->
-<div class="modal fade" id="calendarModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-aria-hidden="true">
-<from id="calendar-add">
-  <div class="modal-dialog" role="document">
-      <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">일정을 입력하세요.</h5>
-              <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-              </button> -->
-          </div>
-          <div class="modal-body">
-                    <div class="form-group">
-                        <label for="taskId" class="col-form-label">모임 번호</label> <!--나중에삭제-->
-                        <input type="text" name="joinMemb.group.no" class="form-control" id="add-modal-gno">
-                        <label for="taskId" class="col-form-label">일정 제목</label>
-                        <input type="text" name="name" class="form-control" id="add-modal-title">
-                        <label for="taskId" class="col-form-label">일정 내용</label>
-                        <input type="text" name="content" class="form-control" id="add-modal-content">
-                        <label for="taskId" class="col-form-label">시작 날짜</label>
-                        <input type="date" name="startDt" class="form-control" id="add-modal-startDt">
-                        <label for="taskId" class="col-form-label">종료 날짜</label>
-                        <input type="date" name="endDt" class="form-control" id="add-modal-endDt">
-                        <label for="taskId" class="col-form-label">모임장소 URL</label>
-                        <input type="url" name="resulturl" class="form-control" id="add-modal-URL">
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" id="x-addCalendar">추가</button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-                </div>
-            </div>
-        </div>
-    </from>
-</div>
 
-<!--상세보기 모달창-->
-<div class="modal fade" id="view-Modal" tabindex="-1">
-    <form name="calendar-update">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <!--모임 title들어감-->
-                <input type="text" name="name" id="view-modal-title" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div> <!--modal-header END-->
-            <div class="modal-body">
-                <div class="form-group">
-                        <label for="taskId" class="col-form-label">약속 내용</label>                    
-                        <input type="text" name="content" id="view-modal-content" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                        <label for="taskId" class="col-form-label">모임 번호</label>
-                        <input type="text" name="joinMemb.group.no" id="view-modal-gno" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                        <label for="taskId" class="col-form-label">시작 날짜</label>
-                        <input type="date" name="startDt" id="view-modal-startDt" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                        <label for="taskId" class="col-form-label">끝 날짜</label>
-                        <input type="date" name="endDt" id="view-modal-endDt" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                        <label for="taskId" class="col-form-label">모임 장소 URL</label>
-                        <input type="url" name="resulturl" id="view-modal-resultURL" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                    </div><!--form-group END-->
-                </div><!--modal-body END-->
-                <div class="modal-footer">
-                    <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
-                    <button type="button" class="btn btn-primary" id="modal-UpdateBtn">변경</button>
-                    <button type="button" class="btn btn-primary" id="modal-DeleteBtn">삭제</button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-                </div> <!--modal-footer END-->
-            </div> <!--modal-content END-->
-        </div> <!--modal-dialog END-->
-    </form>
-</div> <!--view-Modal END-->
-
-<div id="footer"></div>
 
 </body>
 </html>

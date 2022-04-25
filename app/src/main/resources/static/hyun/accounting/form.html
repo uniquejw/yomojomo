@@ -109,8 +109,8 @@
             <td>금액</td>
             <td><input id="x-amount" type="number" class="form-control"></td>
             <td colspan="2">        
-              <button type="button" class="btn btn-primary" id="selectMemb">멤버 리스트</button>
-              <button type="button" class="btn btn-primary" id="cleanMemb">멤버 초기화</button>
+              <button type="button" class="btn btn-primary" id="selectMemb" data-bs-toggle="tooltip" data-bs-placement="bottom" title="멤버 리스트를 불러옵니다">멤버 리스트</button>
+              <button type="button" class="btn btn-primary" id="cleanMemb" data-bs-toggle="tooltip" data-bs-placement="bottom" title="멤버 리스트를 모두 삭제합니다">멤버 초기화</button>
             </td>
           </tr>
         </tbody>
@@ -172,18 +172,33 @@ $(document).ready(function() {
               success : function(result) {
                 MemberInfo = result.data;
                 var memberAuthority; //멤버등급번호
-                for (i=0; i < MemberInfo.length; i++) {
-                  if (gno == MemberInfo[i].group.no) {
-                    // console.log(MemberInfo[i].group.no); //현재 접속한 그룹번호
-                    memberAuthority = MemberInfo[i].memberGrade.gradeNo
-                    // console.log(memberAuthority);
-                  }            
-                }
-                if (memberAuthority != 1) {
-                  $("#x-create-btn").hide();
-                  window.alert("모임 회원이 아닙니다.");
-                  window.location.replace("/junho/index.html");
-                }//회원 등급 조회 if END 
+                var currentGroup = []; //현재 모임정보
+
+                for (i=0; i < MemberInfo.length; i++) { //현재 있는 그룹의 정보 배열로 빼기
+                if (gno == MemberInfo[i].group.no) {
+                  // console.log("가입한 소모임이야");
+                  memberAuthority = MemberInfo[i].memberGrade.gradeNo
+                  currentGroup.push({
+                    group : MemberInfo[i].group,
+                    member : MemberInfo[i].member,
+                    memberGrade : MemberInfo[i].memberGrade,
+                  })
+                }       
+              }
+
+              if (currentGroup.length == 0 || gno != currentGroup[0].group.no  ) {
+                window.alert("가입된 소모임이 아닙니다");
+                location.href="/junho/index.html";
+              } else {
+                console.log("가입한 소모임");
+              }
+
+              if (memberAuthority != 1) {
+                $("#x-add-btn").hide();
+                $("#cleanMemb").hide();
+                $("#selectMemb").hide();
+              }//회원 등급 조회 if END 
+
               }//회원 등급 조회 success END           
             })//회원 등급 조회 ajax END 
           }//로그인 확인 else END

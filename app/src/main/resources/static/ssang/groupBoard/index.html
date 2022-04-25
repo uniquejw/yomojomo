@@ -60,29 +60,29 @@
 <div id="footers"></div>
 
 <script id="div-template" type="text/x-handlebars-template">
-  {{#each this}}
+  {{#each list}}
   <div id="written-board">
     <div class="written-author-div" >
       <div class="written-author-img-div">
         <img class="written-author-img" src="" alt=""><span class="material-icons md-34">
           face
           </span>  &nbsp;&nbsp;&nbsp;
-      </div>
+      </div> 
       <div class="written-column-div">
         <div class="written-author-name">{{writer.memberName}}</div>
         <div class="written-createdTime">{{registDate}}</div>
       </div>
+      {{#if isWriter}}
       <div class="modify-div">
         <button class="board-delete icon" type="button"><span class="material-icons md-34">delete</span></button>
         <button class="board-edit icon" type="button"><span class="material-icons md-34">mode_edit</span></button>
       </div>
+      {{/if}}
     </div>
-  
     <div class="written-content">{{content}}</div>
-    
     <div class="comment-input-div">
       <div class="comment-name">댓글</div>
-      <input type="text" placeholder="댓글 달기" class="comment-input" name="{{no}}"><button class="comment-btn" type="button" value="{{no}}">확인</button>
+      <input type="text" placeholder="{{../user.memberName}}님 댓글을 달아주세요" class="comment-input" name="{{no}}"><button class="comment-btn" type="button" value="{{no}}">확인</button>
     </div>
   </div>
   <!-- 댓글불러오기  -->
@@ -96,12 +96,12 @@
         </span>  &nbsp;&nbsp;&nbsp;
       </div>
       <div class="comment-column-div">
-        <div class="comment-author-name">{{writer.memberName}}</div>
+        <div class="comment-author-name">{{../../user.memberName}}</div>
         <div class="comment-createdTime">{{registDate}}</div>
       </div>
       <div class="modify-div">
-        <button class="comment-delete icon" type="button"><span class="material-icons md-34">delete</span></button>
-        <button class="comment-edit icon" type="button"><span class="material-icons md-34">mode_edit</span></button>
+        <!-- <button class="comment-delete icon" type="button"><span class="material-icons md-34">delete</span></button>
+        <button class="comment-edit icon" type="button"><span class="material-icons md-34">mode_edit</span></button> -->
       </div>
     </div><!-- comment-author-div -->
     <div class="comment-content">
