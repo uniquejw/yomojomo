@@ -51,14 +51,9 @@
   
   <update id ="update" parameterType="Calendar">
     update gms_comment set 
-      b_no = #{bno},
-      content = #{content},
-      memb_no = #{membno},
-      g_no = #{gno},
-      reg_dt = #{regdt}
-      status = #{status}
+      content = #{content}
     where 
-      cmt_no = #{no}
+      cmt_no = #{no} and memb_no =#{writer.no}
   </update>
   
   <select id ="countAll" parameterType="int">

@@ -45,32 +45,32 @@ fetch("/member/getLoginUser")
   })
 })
 
-
-
-
-
-// ============================================게시글 입력
-$('#s-post-btn').on('click', () => { 
-  var xContent = document.getElementById("xx-content")
-  if (xContent.value == ""){
-    Swal.fire({
-      icon: 'warning',
-      title: '잠시만요',
-      text: '작성된 내용이 없어요',
-      footer: ''
-    })
-    return;
-  }
-  // var formData = new FormData();
-  // formData.append('content',xContent.value)
-  // formData.append('no',getBoard)
-  // formData.append('groupNo',getGroup)
-  fetch(`/board/findByBoardNo?no=${getBoard}`)
-  .then(res => res.json())
-  .then(res => {
-    console.log(res.status)
-    location.href=`index.html?gno=${getGroup}`
-  });
+// ============================================댓글 수정
+$(document).on('click','.comment-edit',function() { 
+  var value=$(this).val()
+  var content=$(this).data()
+  $(`div[data-cno=${value}]`).html(
+    `<div class="input-group mb-3">
+    <input type="text" class="form-control"   aria-label="Recipient's username" aria-describedby="button-addon2">
+    <button class="btn btn-outline-secondary" type="button" id="button-addon2" value="${value}">수정</button>
+  </div>`)
+  $('.form-control').val(content.content)
+})
+$(document).on('click','#button-addon2',function() { 
+  var value = $(this).val()
+  var content = $('.form-control').val()
+  var fd = new FormData()
+  fd.append('no',value)
+  fd.append('content',content)
+  fetch("/comment/update",{
+    method:"POST",
+    body:fd
+  })
+  .then(function(res){
+    return res.json()
+  }).then(function(result){
+    location.reload()
+  })
 })
   document.querySelector("#s-cancel-btn").onclick = function() {
     window.location.href = `index.html?gno=${getGroup}`;

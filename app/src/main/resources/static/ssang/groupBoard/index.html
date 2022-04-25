@@ -61,7 +61,7 @@
 
 <script id="div-template" type="text/x-handlebars-template">
   {{#each list}}
-  <div id="written-board">
+  <div id="written-board" >
     <div class="written-author-div" >
       <div class="written-author-img-div">
         <img class="written-author-img" src="" alt=""><span class="material-icons md-34">
@@ -79,7 +79,7 @@
       </div>
       {{/if}}
     </div>
-    <div class="written-content" type="button" data-bno="{{no}}">{{content}}</div>
+    <div class="written-content text-truncate" type="button" data-bno="{{no}}">{{content}}</div>
     <div class="comment-input-div">
       <div class="comment-name">댓글</div>
       <input type="text" placeholder="{{../user.memberName}}님 댓글을 달아주세요" class="comment-input" name="{{no}}"><button class="comment-btn" type="button" value="{{no}}">확인</button>
