@@ -157,8 +157,8 @@ public class MemberController {
 
     } else {
       // 4-2) 등록된 사용자가 아니라면 회원 등록 후 자동 로그인 처리한다.
-      //			memberService.add(new Member().setEmail(email).setMemberName(name).setPassWord("1111"));
-      //			session.setAttribute("loginUser", memberService.get(email));
+      //            memberService.add(new Member().setEmail(email).setMemberName(name).setPassWord("1111"));
+      //            session.setAttribute("loginUser", memberService.get(email));
       return new ResultMap().setStatus(SUCCESS).setData(email + "____" + name);
     }
   }
@@ -177,8 +177,8 @@ public class MemberController {
 
     } else {
       // 4-2) 등록된 사용자가 아니라면 회원 등록 후 자동 로그인 처리한다.
-      //					memberService.add(new Member().setEmail(email).setMemberName(name).setPassWord("1111"));
-      //					session.setAttribute("loginUser", memberService.get(email));
+      //                    memberService.add(new Member().setEmail(email).setMemberName(name).setPassWord("1111"));
+      //                    session.setAttribute("loginUser", memberService.get(email));
       return new ResultMap().setStatus(SUCCESS).setData("N");
     }
   }
@@ -197,8 +197,8 @@ public class MemberController {
 
     } else {
       // 4-2) 등록된 사용자가 아니라면 회원 등록 후 자동 로그인 처리한다.
-      //					memberService.add(new Member().setEmail(email).setMemberName(name).setPassWord("1111"));
-      //					session.setAttribute("loginUser", memberService.get(email));
+      //                    memberService.add(new Member().setEmail(email).setMemberName(name).setPassWord("1111"));
+      //                    session.setAttribute("loginUser", memberService.get(email));
       return new ResultMap().setStatus(SUCCESS).setData("N");
     }
   }

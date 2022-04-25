@@ -170,9 +170,19 @@ $(document).ready(function() {
               datatype : "json",
               data : {"member.no" : loginUserNo },
               success : function(result) {
-                console.log(result.data);
-                if (result.data[0].memberGrade.gradeNo != 1) {
-                  $("#x-create-btn").hide();  
+                MemberInfo = result.data;
+                var memberAuthority; //멤버등급번호
+                for (i=0; i < MemberInfo.length; i++) {
+                  if (gno == MemberInfo[i].group.no) {
+                    // console.log(MemberInfo[i].group.no); //현재 접속한 그룹번호
+                    memberAuthority = MemberInfo[i].memberGrade.gradeNo
+                    // console.log(memberAuthority);
+                  }            
+                }
+                if (memberAuthority != 1) {
+                  $("#x-create-btn").hide();
+                  window.alert("모임 회원이 아닙니다.");
+                  window.location.replace("/junho/index.html");
                 }//회원 등급 조회 if END 
               }//회원 등급 조회 success END           
             })//회원 등급 조회 ajax END 
@@ -181,22 +191,6 @@ $(document).ready(function() {
   }); //로그인 여부 확인 ajax END
 });
 </script>
-
-<!--멤버 추가 Handlebars START-->
-<script id="div-template" type="text/x-handlebars-template">
-  {{#each this}}
-  <div class="x-membList">
-    <span class="material-icons">account_circle </span>
-    <input id="listmembName" type="text" value="{{member.memberName}}">
-    <input id="membno" value="{{member.no}}" type="hidden">
-    <input id="gno" value={{group.no}} type="hidden">
-
-  <span>납부 완료일 :</span> <input type="date" id="paydt" value="{{paydt}}">
-  <button id="x-deleteMemb-btn" type="button" class="btn btn-primary" onclick="deleteDiv(event)">삭제</button><br>
-  </div>
-  {{/each}}
-</script>
-<!--멤버 추가 Handlebars END-->
 
 <!--모달 창 내 멤버 리스트-->
 <script id="modal-memberlist-template" type="text/x-handlebars-template">
@@ -210,6 +204,21 @@ $(document).ready(function() {
   </div>
   {{/each}}
 </script>
+
+<!--멤버 추가 Handlebars START-->
+<script id="div-template" type="text/x-handlebars-template">
+  {{#each this}}
+  <div class="x-membList">
+    <span class="material-icons">account_circle </span>
+    <input id="listmembName" type="text" value="{{memberName}}">
+    <input id="membno" value="{{no}}" type="hidden">
+
+  <span>납부 완료일 :</span> <input type="date" id="paydt">
+  <button id="x-deleteMemb-btn" type="button" class="btn btn-primary" onclick="deleteDiv(event)">삭제</button><br>
+  </div>
+  {{/each}}
+</script>
+<!--멤버 추가 Handlebars END-->
 
 <script>
 var arr = location.href.split("?");
@@ -237,34 +246,49 @@ let checkboxGenerator = Handlebars.compile(checkboxTemplate.innerHTML);
 
 //멤버 선택 버튼 클릭 -> 모달
 $("#selectMemb").on("click", function() { //멤버리스트 버튼 클릭 EVENT START
-  // console.log("클릭");
   $("#memberlist-modal").modal("show");
-  // $("#modal-member-list").show();
-
   $.ajax({
     url : "/joinmember/grouplistbygno",
     type : "POST",
     data : {"group.no": gno}, 
     success: function(result) {
-      // console.log(result.data);
+      let AllMember = result.data;
       modalMemberList.innerHTML = checkboxGenerator(result.data); 
 
-      $("#selectedOK").on("click", function(e) { //모달창에서 적용하기 버튼 click event START
-        let choicedMember = []; 
-        // console.log("클릭");
-        let AllMember = result.data;
-        console.log(AllMember);
-        $("input:checkbox[name=memberNo]:checked").each(function() { //체크박스가 true인 속성 가져오기
-          var checkedMember = $(this).val();
-          choicedMember.push(AllMember[checkedMember -1]);
-          // console.log("선택된 멤버" + choicedMember);
+      $("#selectedOK").on("click", function() { //모달창에서 적용하기 버튼 click event START
+        let MembArr = []; //멤버번호랑, 이름만 있는 배열
+        let checkedMembArr = []; //선택된 멤버 번호 배열
+        let FinalChoicedMember = []; 
+        console.log(FinalChoicedMember);
 
-          $(".List-Container").show();
-          xMembListCon.innerHTML = divGenerator(choicedMember);
-          // $("#x-membList-container").css({"border": "1px solid rgb(17, 147, 218)"})
-          $("#memberlist-modal").modal("hide");
+        for (i=0; i < AllMember.length; i++) { //멤버리스트 배열로 빼기
+          // console.log(AllMember[i].member);
+          MembArr.push(AllMember[i].member);
+        }
+        
+        $("input:checkbox[name=memberNo]:checked").each(function() { //선택된 멤버 번호 배열로 빼기
+          var checkedMemb = $(this).val();
+          checkedMembArr.push(checkedMemb);
         })
+
+        for (i=0; i<MembArr.length; i++) {
+          for (j=0; j<checkedMembArr.length; j++) {
+            if(MembArr[i].no == checkedMembArr[j]) {
+              FinalChoicedMember.push({
+                "no" : MembArr[i].no,
+                "memberName" : MembArr[i].memberName,
+              })
+            }
+          }
+        } 
+
+        $(".List-Container").show();
+        xMembListCon.innerHTML = divGenerator(FinalChoicedMember); 
+        $("#memberlist-modal").modal("hide");
+        $("#x-membList-container").css({"border": "1px solid rgb(17, 147, 218)"})
+        $("#memberlist-modal").modal("hide");
       }) //모달창에서 적용하기 버튼 click event END
+
 
       //모달창 내 멤버 전체 버튼 클릭 EVENT START
       $("#allMemb").on("click", function() {
@@ -273,9 +297,15 @@ $("#selectMemb").on("click", function() { //멤버리스트 버튼 클릭 EVENT 
           type : "POST",
           data : {"group.no": gno},
           success: function(result) {
-            console.log(result.data);
+            console.log(AllMember);
+            let MembArr = []; //멤버번호랑, 이름만 있는 배열
+
+            for (i=0; i < AllMember.length; i++) { //멤버리스트 배열로 빼기
+              MembArr.push(AllMember[i].member);
+            }
+
             $(".List-Container").show();
-            xMembListCon.innerHTML = divGenerator(result.data); 
+            xMembListCon.innerHTML = divGenerator(MembArr); 
             $("#memberlist-modal").modal("hide");
           } //success END
         })//ajax END
@@ -287,11 +317,20 @@ $("#selectMemb").on("click", function() { //멤버리스트 버튼 클릭 EVENT 
 //멤버 개별 div의 삭제 이벤트
 function deleteDiv(e) {
   xMembListCon.removeChild(e.target.parentNode);
+
+  //모든 멤버를 삭제 했을 때
+let memberCount = xMembListCon.childElementCount;
+  if (memberCount == 0) {
+    $(".List-Container").hide();
+  // $("#x-membList-container").empty();
+  }
 };
+
+
 
 //멤버 초기화 버튼
 $("#cleanMemb").on("click", function() {
-  $("#x-membList-container").empty();
+  $(".List-Container").hide();
 });
 
 //등록 버튼 클릭
@@ -310,12 +349,11 @@ document.querySelector("#x-add-btn").onclick = function() {
   var qs = `group.no=${gno}&actCate.no=${$("#x-selectCate option:selected").val()}&title=${xTitle.value}&amount=${xAmount.value}&status=${$("#x-status option:selected").val()}`
     for (var memberDiv of memberListAll) {
       var xMembNo = memberDiv.querySelector("#membno");
-      var xGno = memberDiv.querySelector("#gno");
       var xDate = memberDiv.querySelector("#paydt");
       if(xDate.value == "") {
-        qs += `&qslength=2&actStatuses=${xGno.value}_${xMembNo.value}`;
+        qs += `&qslength=2&actStatuses=${gno}_${xMembNo.value}`;
       } else {
-        qs += `&qslength=3&actStatuses=${xGno.value}_${xMembNo.value}_${xDate.value}`;
+        qs += `&qslength=3&actStatuses=${gno}_${xMembNo.value}_${xDate.value}`;
       }
     }
 

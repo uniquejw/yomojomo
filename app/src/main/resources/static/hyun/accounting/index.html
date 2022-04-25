@@ -78,32 +78,6 @@ $(document).ready(function () {
     $('#top').load('/ssang/groupBoard/none-search-top.html'); //상준님헤더
     $('#footer').load('/junho/mainfooter.html'); //푸터부분 인클루드
 });
-
-$.ajax({ //로그인 여부 확인 ajax START 비회원은 main으로 보낸다.
-      url : "/member/getLoginUser",
-      type : "POST",
-      datatype : "json",
-      success : function(result) {
-        let loginUserNo = result.data.no;
-        if (result.status == "fail") {
-          window.alert("회원이 아닙니다.");
-          window.location.replace("/junho/index.html");
-        } else {
-          $.ajax({ //회원 등급 조회 모임장이 아니라면 등록 버튼을 감춘다.
-            url : "/joinmember/grouplistbymno",
-            type : "POST",
-            datatype : "json",
-            data : {"member.no" : loginUserNo },
-            success : function(result) {
-              console.log(result.data);
-              if (result.data[0].memberGrade.gradeNo != 1) {
-                $("#x-create-btn").hide();  
-              }//회원 등급 조회 if END              
-            }//회원 등급 조회 success END           
-          })//회원 등급 조회 ajax END 
-        }//로그인 확인 else END
-      }//로그인 여부 확인 success END
-}); //로그인 여부 확인 ajax END
 </script>
 
 <!--카테고리 생성 핸들 바-->
@@ -186,6 +160,44 @@ var arr = location.href.split("?");
   var qs = arr[1];
   var params = new URLSearchParams(qs);
   var gno = params.get("gno");
+  console.log("모임번호 : " + gno);
+
+//로그인 여부 확인
+$.ajax({ //로그인 여부 확인 ajax START 비회원은 main으로 보낸다.
+  url : "/member/getLoginUser",
+  type : "POST",
+  datatype : "json",
+  success : function(result) {
+    let loginUserNo = result.data.no;
+    if (result.status == "fail") {
+      window.alert("회원이 아닙니다.");
+      window.location.replace("/junho/index.html");
+    } else {
+      $.ajax({ //회원 등급 조회 모임장이 아니라면 등록 버튼을 감춘다.
+        url : "/joinmember/grouplistbymno",
+        type : "POST",
+        datatype : "json",
+        data : {"member.no" : loginUserNo },
+        success : function(result) {
+          //gno와 맞는 회원정보 꺼내기
+          MemberInfo = result.data;
+          var memberAuthority; //멤버등급번호
+          for (i=0; i < MemberInfo.length; i++) {
+            if (gno == MemberInfo[i].group.no) {
+              // console.log(MemberInfo[i].group.no); //현재 접속한 그룹번호
+              memberAuthority = MemberInfo[i].memberGrade.gradeNo
+              // console.log(memberAuthority);
+            }            
+          }
+          // console.log(memberAuthority);
+          if (memberAuthority != 1) {
+            $("#x-create-btn").hide();  
+          }//회원 등급 조회 if END              
+        }//회원 등급 조회 success END           
+      })//회원 등급 조회 ajax END 
+    }//로그인 확인 else END
+  }//로그인 여부 확인 success END
+}); //로그인 여부 확인 ajax END  
 
 //전체 리스트 불러오기 START
 $.ajax({
