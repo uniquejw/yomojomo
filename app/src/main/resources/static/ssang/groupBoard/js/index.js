@@ -56,4 +56,8 @@ $(document).on("click",".board-edit",function(){
   var value = $(this).val()
   window.location.href = `view-board-edit.html?gno=${getGroup}&bno=${value}`;
 })
+$(document).on("click",".written-content",function(){
+  var value = $(this).val()
+  window.location.href = `view.html?gno=${getGroup}&bno=${value}`;
+})
 

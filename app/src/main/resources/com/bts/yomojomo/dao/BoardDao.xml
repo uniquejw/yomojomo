@@ -42,7 +42,7 @@
   <!--게시판 get-->
   <select id="findByNo" resultMap="BoardMap" parameterType="int">
 	 SELECT 
-	    b.content, b.reg_dt, m.memb_no writer_no, m.name writer_name
+	    b.content, b.reg_dt, m.memb_no writer_no, m.membername writer_name
 	 FROM 
 	    gms_board b  
 	    LEFT OUTER JOIN gms_memb m ON b.memb_no = m.memb_no 
@@ -64,13 +64,13 @@
         b.content,
         b.reg_dt,
         m.memb_no writer_no,
-        m.name writer_name,
+        m.membername writer_name,
         m.email writer_email,
        comment.*
     FROM 
         gms_board b 
         LEFT OUTER JOIN 
-        (SELECT c.content cmt_content  , gm.name cmt_writer_name, c.reg_dt cmt_reg_dt, c.b_no  
+        (SELECT c.content cmt_content  , gm.membername cmt_writer_name, c.reg_dt cmt_reg_dt, c.b_no  
         FROM gms_comment c , gms_memb gm 
         WHERE c.memb_no =gm.memb_no 
         ) comment
@@ -100,13 +100,13 @@
         b.content,
         b.reg_dt,
         m.memb_no writer_no,
-        m.name writer_name,
+        m.membername writer_name,
         m.email writer_email,
        comment.*
     FROM 
         gms_board b 
         LEFT OUTER JOIN 
-        (SELECT c.content cmt_content  , gm.name cmt_writer_name, c.reg_dt cmt_reg_dt, c.b_no  
+        (SELECT c.content cmt_content  , gm.membername cmt_writer_name, c.reg_dt cmt_reg_dt, c.b_no  
         FROM gms_comment c , gms_memb gm 
         WHERE c.memb_no =gm.memb_no 
         ) comment
