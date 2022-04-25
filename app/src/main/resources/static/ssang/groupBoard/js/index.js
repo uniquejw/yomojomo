@@ -2,14 +2,11 @@ import{getGroupNO} from '/ssang/js/module.js';
 var getGroup = getGroupNO();
 console.log(getGroup)
 
-var user=""
 fetch("/member/getLoginUser")
 .then(function(res){
   return res.json()
 })
 .then(function(res) {
-  user = res.data
-  
 
 // 게시글 읽어오기
 var writtenContainer = document.querySelector("#handlebars-container");
@@ -21,7 +18,7 @@ fetch(`/board/findByGroupNo?no=${getGroup}`)
 })
 .then(function(boards){
   console.log(boards)
-  console.log(window.loginUser)
+  
   for (var board of boards) {
     if (board.writer.no == window.loginUser.no) {
       board.isWriter = true;
@@ -30,10 +27,11 @@ fetch(`/board/findByGroupNo?no=${getGroup}`)
     }
   }
   console.log(boards);
-  writtenContainer.innerHTML = htmlGenerator(boards);
+  writtenContainer.innerHTML = htmlGenerator({
+    list : boards,
+    user : window.loginUser
+  });
 })
-console.log(user.memberName)
-
 })// fetch -> member/getLoginUser
 
 
