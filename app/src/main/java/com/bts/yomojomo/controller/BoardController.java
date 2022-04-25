@@ -1,5 +1,6 @@
 package com.bts.yomojomo.controller;
 
+import static com.bts.yomojomo.controller.ResultMap.FAIL;
 import static com.bts.yomojomo.controller.ResultMap.SUCCESS;
 import java.io.File;
 import java.io.FileInputStream;
@@ -52,18 +53,27 @@ public class BoardController {
   }
 
   @RequestMapping("/board/update")
-  public Object update(Board board) {
-    return boardService.update(board);
+  public Object update(Board board, HttpSession session) {
+    Member member = (Member) session.getAttribute("loginUser");
+    board.setWriter(member);
+    System.out.println(board);                                  
+    // 서비스 객체 실행
+    int count = boardService.update(board);
+    if (count == 1) {
+      return new ResultMap().setStatus(SUCCESS);
+    } else {
+      return new ResultMap().setStatus(FAIL).setData("게시글 번호가 유효하지 않거나 작성자가 아닙니다.");
+    }
   }
 
   @RequestMapping("/board/delete")
-  public Object delete(Board board) {
-    return boardService.delete(board);
+  public Object delete(int no) {
+    return new ResultMap().setStatus(SUCCESS).setData(boardService.get(no));
   }
 
   @RequestMapping("/board/get")
   public Object get(int no) {
-    return boardService.get(no);
+    return  new ResultMap().setStatus(SUCCESS).setData(boardService.get(no));
   }
 
 

@@ -52,8 +52,8 @@ button {
 .material-icons{
     color: rgb(17, 147, 218);
     margin-left: 3px;
-    font-size: 34px;
 }
+
 .settings-btn .material-icons{
     color: rgb(231, 76, 60);
     margin-left: 3px;
@@ -131,6 +131,7 @@ button {
 /* 댓글 */
 #written-comment{
     margin: 17px 0 15px 0;
+    padding: 0 10px;
 }
 .comment-input-div{
     display: flex;
