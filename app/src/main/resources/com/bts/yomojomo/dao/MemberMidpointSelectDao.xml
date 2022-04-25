@@ -49,7 +49,7 @@
       inner join gms_group g on (sm.g_no = g.g_no)
       inner join gms_calendar c on (sm.cal_no = c.cal_no)
     where
-      g.gno = 1 and cal_no=1
+      g.g_no = 1 and c.cal_no=1
     order by
       sm.memb_pt_no
   </select>
