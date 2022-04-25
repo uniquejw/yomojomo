@@ -1,27 +1,32 @@
 package com.bts.yomojomo.service;
 
+import java.util.List;
 import com.bts.yomojomo.domain.Member;
 import com.bts.yomojomo.dto.MemberDto;
 
 public interface MemberService {
 
-	int add(Member member);
+  int add(Member member);
 
-	Member get(String email);
+  Member get(String email);
 
-	Member get(String email, String password);
+  Member get(String email, String password);
 
-	Member find(String name, String tel);
+  Member find(String name, String tel);
 
-	Member send(String email, String tel);
+  Member send(String email, String tel);
 
-	Member send(String email);
+  Member send(String email);
 
-	MemberDto createMailandChangePassword(String email);
+  MemberDto createMailandChangePassword(String email);
 
-	void updatePassword(String str, String userEmail);
+  void updatePassword(String str, String userEmail);
 
-	public String getTempPassword();
+  public String getTempPassword();
 
-	public void mailSend(MemberDto memberDto);
+  public void mailSend(MemberDto memberDto);
+
+
+  //추가
+  List<Member> list();
 }

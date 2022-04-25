@@ -17,9 +17,9 @@ public class DefaultAccountingService implements AccountingService{
 
   @Transactional
   @Override
-  public int add(Accounting accounting) {
+  public int add(Accounting accounting, int qslength) {
     accountingDao.insert(accounting);
-    accountingDao.insertActStatus(accounting.getAccountingNo(), accounting.getActStatus());
+    accountingDao.insertActStatus(accounting.getAccountingNo(), accounting.getActStatus(), qslength);
     return 1;
   }
 
@@ -35,13 +35,20 @@ public class DefaultAccountingService implements AccountingService{
 
   @Transactional
   @Override
-  public int update(Accounting accounting) {
-    return accountingDao.update(accounting);
+  public int update(Accounting accounting, int qslength) {
+    int count = accountingDao.update(accounting);
+    if (count > 0) {
+      accountingDao.deleteStatusByNo(accounting.getAccountingNo());
+      accountingDao.insertActStatus(accounting.getAccountingNo(), accounting.getActStatus(), qslength);
+    }
+    return count;
   }
 
+  @Transactional
   @Override
-  public int delete(Accounting accounting) {
-    return accountingDao.delete(accounting);
+  public int delete(int accountingNo) {
+    accountingDao.deleteStatusByNo(accountingNo);
+    return accountingDao.delete(accountingNo);
   }
 
   @Override

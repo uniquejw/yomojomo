@@ -4,56 +4,64 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bts.yomojomo.dao.BoardDao">
   
-  
   <!-- collection -> has many / association -> has one -->
   
   <!-- 테이블의 컬럼과 객체필드를 연결한다. -->
   <resultMap type="Board" id="BoardMap" >
-    <id column="b_no" property="no"/>
-    <result column="g_no" property="groupNo"/>
-    <result column="memb_no" property="memberNo"/>
-    <result column="reg_dt" property="registDate"/>
-    <result column="content" property="content"/>
-    <result column="view_cnt" property="viewCount"/>
-    <result column="status" property="status"/>
-    <association property="writer" javaType="member">
-      <id column="writer_no" property="no"/>
-      <result column="writer_name" property="memberName"/>
-    </association>
-    <collection property="comments" ofType="Comment">
-      <id column = "cmt_no" property="no"/>
-      <result column="cmt_content" property="content"/>
-      <result column="cmt_reg_dt" property="registDate"/>
-	      <association property="writer" javaType="member">
-	      <id column="cmt_writer_no" property="no"/>
-	      <result column="cmt_writer_name" property="memberName"/>
-	      </association>
-    </collection>
+  <id column="b_no" property="no"/>
+  <result column="g_no" property="groupNo"/>
+  <result column="memb_no" property="memberNo"/>
+  <result column="reg_dt" property="registDate"/>
+  <result column="content" property="content"/>
+  <result column="view_cnt" property="viewCount"/>
+  <result column="status" property="status"/>
+	<association property="writer" javaType="member">
+	<id column="writer_no" property="no"/>
+	<result column="writer_name" property="memberName"/>
+	<result column="writer_email" property="email"/>
+	</association>
+	 <collection property="comments" ofType="Comment">
+     <id column = "cmt_no" property="no"/>
+	 <result column="cmt_content" property="content"/>
+	 <result column="cmt_reg_dt" property="registDate"/>
+      <association property="writer" javaType="member">
+      <id column="cmt_writer_no" property="no"/>
+      <result column="cmt_writer_name" property="memberName"/>
+      <result column="cmt_writer_email" property="email"/>
+      </association>
+     </collection>
     
   </resultMap>
   
+    <!-- 게시글 등록 -->
+  <insert id="insert" parameterType="Board" keyProperty="no" keyColumn="b_no" useGeneratedKeys="true">
+    insert into gms_board(g_no, memb_no, content) 
+    values(#{groupNo}, #{writer.no}, #{content})
+  </insert>
+  
   <!-- 모임별 게시판 조회 -->
   <select id="findByGroupNo" resultMap="BoardMap" parameterType="int">
-    select
-       distinct
-       j.g_no,
-       b.b_no,
-       b.content,
-       b.reg_dt,
-       m.name writer_name,
-       c.content cmt_content,
-       c.reg_dt cmt_reg_dt,
-       m2.name cmt_writer_name
-       from
-       gms_board b
-       inner join gms_join_memb j on b.g_no = j.g_no
-         left outer join gms_comment c on b.b_no = c.cmt_no
-         left outer join gms_memb m on b.memb_no = m.memb_no
-         left outer join gms_memb m2 on c.memb_no = m.memb_no
-     where
-       j.g_no = #{no}
-    order by
-      b_no desc
+	SELECT 
+	    b.g_no,
+	    b.b_no,
+	    b.content,
+	    b.reg_dt,
+	    m.memb_no writer_no,
+	    m.name writer_name,
+	    m.email writer_email,
+	    c.content cmt_content,
+	    c.reg_dt cmt_reg_dt,
+	    m2.name cmt_writer_name,
+	    m2.email cmt_writer_email
+	FROM 
+	    gms_board b 
+	    LEFT OUTER JOIN gms_comment c ON b.b_no = c.b_no 
+	    LEFT OUTER JOIN gms_memb m ON b.memb_no = m.memb_no 
+	    LEFT OUTER JOIN gms_memb m2 ON b.memb_no = m2.memb_no 
+	WHERE 
+	    b.g_no = #{no}
+	ORDER BY 
+	    b.b_no DESC 
   </select>
   <!-- 모임별 게시판을 번호로 조회 -->
   <select id="findByBoardNo" resultMap="BoardMap">
@@ -69,26 +77,26 @@
        cmt_writer
 	       from
 	       (
-		       select
-			       distinct
-			       j.g_no,
-			       b.b_no,
-			       b.content,
-			       b.reg_dt,
-			       m.name writer_name,
-			       c.content cmt_content,
-			       c.reg_dt cmt_reg_dt,
-			       m2.name cmt_writer_name
-			       from
-			       gms_board b
-			       inner join gms_join_memb j on b.g_no = j.g_no
-			         left outer join gms_comment c on b.b_no = c.cmt_no
-			         left outer join gms_memb m on b.memb_no = m.memb_no
-			         left outer join gms_memb m2 on c.memb_no = m.memb_no
-			     where
-			       j.g_no = #{no}
-			    order by
-			      b_no desc
+		       SELECT 
+			        b.g_no,
+			        b.b_no,
+			        b.content,
+			        b.reg_dt,
+			        m.name writer_name,
+			        m.email writer_email,
+			        c.content cmt_content,
+			        c.reg_dt cmt_reg_dt,
+			        m2.name cmt_writer_name,
+			        m2.email cmt_writer_email
+			    FROM 
+			        gms_board b 
+			        LEFT OUTER JOIN gms_comment c ON b.b_no = c.b_no 
+			        LEFT OUTER JOIN gms_memb m ON b.memb_no = m.memb_no 
+			        LEFT OUTER JOIN gms_memb m2 ON b.memb_no = m2.memb_no 
+			    WHERE 
+			        b.g_no = #{no}
+			    ORDER BY 
+			        b.b_no DESC 
 	       ) b
 	     where
 	       b.b_no = #{board.no}
@@ -99,12 +107,6 @@
       view_count=view_count + 1 
     where b_no=#{no}
   </update>
-  
-    <!-- 자동 증가된 PK 값을 받고 싶을 때! -->
-  <insert id="insert" parameterType="Board" keyProperty="no" keyColumn="b_no" useGeneratedKeys="true">
-    insert into gms_board(g_no, memb_no, content) 
-    values(#{groupNo}, #{memberNo}, #{content})
-  </insert>
   
   <update id ="update" parameterType="Board">
     update gms_board set 

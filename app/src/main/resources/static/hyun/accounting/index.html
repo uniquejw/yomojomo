@@ -4,18 +4,16 @@
 <meta charset="UTF-8">
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>회비관리</title>
+<title>회비 및 정산 관리</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
 <script src="/node_modules/jquery/dist/jquery.min.js"></script>
 <script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="/node_modules/handlebars/dist/handlebars.min.js"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
 <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.css">
 
 <style>
-/*내꺼 css*/
 #body-content{
-  padding-top: 10vh;
-  /* height: 85vh; 너무 벌어짐  */
+  padding-top: 2vh;
   height: 70vh;
   position: relative;
 }
@@ -33,66 +31,22 @@ table > tbody > tr > td {
       font-size: x-large;
       text-align: center;
 }
+#cateDiv{
+  margin-bottom: 20px;
+}
 </style>
 </head>
 
 <body class="menu6">  
-<script type="text/javascript">
-  $(document).ready(function () {
-      $('#header').load('/junho/mainHeader.html'); //헤더 인클루드
-      $('#top').load('/ssang/groupBoard/none-search-top.html'); //상준님헤더
-      $('#footer').load('/junho/mainfooter.html'); //푸터부분 인클루드
-      // $('a[href="#"]').click(function(ignore) {
-      //   ignore.preventDefault();
-      // });
-
-
-  });
-
-  $.ajax({ //로그인 여부 확인 ajax START 비회원은 main으로 보낸다.
-        url : "/member/getLoginUser",
-        type : "POST",
-        datatype : "json",
-        success : function(result) {
-          let loginUserNo = result.data.no;
-          if (result.status == "fail") {
-            window.alert("회원이 아닙니다.");
-            window.location.replace("/junho/index.html");
-          } else {
-            $.ajax({ //회원 등급 조회 모임장이 아니라면 등록 버튼을 감춘다.
-              url : "/joinmember/grouplistbymno",
-              type : "POST",
-              datatype : "json",
-              data : {"member.no" : loginUserNo },
-              success : function(result) {
-                console.log(result.data);
-                // if (result.data[0].memberGrade.gradeNo != 1) {
-                //   $("#x-create-btn").hide();  
-                // }//회원 등급 조회 if END 
-              
-                // else if () for문 돌려서 모임에 가입한 사람이 맞는지 확인 할 것
-                // 모임 목록에서 타고 들어와야 들어온 모임명과 맞춰볼 수 있음
-              
-              }//회원 등급 조회 success END           
-            })//회원 등급 조회 ajax END 
-          }//로그인 확인 else END
-        }//로그인 여부 확인 success END
-  }); //로그인 여부 확인 ajax END
-</script>
-
-<!--공통 헤더-->
 <div id="header"></div>
-<!--모임 헤더-->
 <div id="top"></div>
-
-<div id="body-content"> <!--body content 시작-->
+<div id="body-content">
   <div class="inner">
-    <div> <!--회비 종류 카테고리 시작-->
-      <select name="selectCate" id="selectCate" class="form-select form-select-sm" aria-label=".form-select-sm example"> <!-- onchange="getOpNo()"-->
+    <div id="cateDiv">
+      <select name="selectCate" id="selectCate" class="form-select form-select-sm" aria-label=".form-select-sm example">
       </select>
-    </div> <!--회비 종류 카테고리 끝-->
-    
-    <div id="content" class="table-responsive-lg">  <!--table div 시작-->
+    </div>     
+    <div id="content" class="table-responsive-lg">
       <table id="x-board-table" class="table table-hover">
         <thead>
           <tr>
@@ -109,19 +63,22 @@ table > tbody > tr > td {
         <h1>작성된 글이 없습니다.<br></h1>
       </div>
       <button id="x-create-btn" type="button" style="float: right" class="btn btn-primary">등록</button>
-    </div> <!--table div 끝-->
-
-    <!--페이지 네이션 시작-->
+    </div>
     <nav aria-label="Page navigation example">
       <ul class="pagination justify-content-center" id="pagination-ul">        
       </ul>
     </nav>
-    <!--페이지 네이션 끝-->
   </div>
-</div><!--body content 끝-->
-
-<!--메인 푸터-->
+</div>
 <div id="footer"></div>
+
+<script type="text/javascript">
+$(document).ready(function () {
+    $('#header').load('/junho/mainHeader.html'); //헤더 인클루드
+    $('#top').load('/ssang/groupBoard/none-search-top.html'); //상준님헤더
+    $('#footer').load('/junho/mainfooter.html'); //푸터부분 인클루드
+});
+</script>
 
 <!--카테고리 생성 핸들 바-->
 <script id="option-template" type="text/x-handlebars-template">
@@ -129,65 +86,59 @@ table > tbody > tr > td {
 <option id="selectOp" value="{{no}}">{{cateName}}</option>
 {{/each}}
 </script>
-<!--카테고리 생성 핸들 바 END-->
 
 <!--카테고리 불러오기-->
 <script>
-  let selectList = document.querySelector("#selectCate");
-  var selectOption = document.querySelector("#option-template");
-  var opGernerator = Handlebars.compile(selectOption.innerHTML);
+let selectList = document.querySelector("#selectCate");
+var selectOption = document.querySelector("#option-template");
+var opGernerator = Handlebars.compile(selectOption.innerHTML);
 
-  $.ajax({
-    url : "/accounting/catelist",
-    type : "POST",
-    async : false,
-    success: function(result) {
-      if (result.status == "fail") {
-        window.alert("서버 요청 오류!");
-        console.log(result);
-        return;
-      } else {
-        // console.log(result.data);
-        selectList.innerHTML = opGernerator(result.data);
-      }
+$.ajax({
+  url : "/accounting/catelist",
+  type : "POST",
+  async : false,
+  success: function(result) {
+    if (result.status == "fail") {
+      window.alert("서버 요청 오류!");
+      console.log(result);
+      return;
+    } else {
+      // console.log(result.data);
+      selectList.innerHTML = opGernerator(result.data);
     }
-  });
+  }
+});
 </script>
-<!--카테고리 불러오기-->
 
 <!--게시글 목록 생성 핸들바-->
 <script id="tr-template" type="text/x-handlebars-template">
-  {{#each this}}
-  <tr>
-    <td>{{no}}</td>
-    <td>{{actCate}}</td>
-    <td>
-      <select id="selectedStatus" disabled>
-        <option vlaue="{{statusno}}">{{status}}</option>
-      </select> 
-    </td>
-    <td><a href="view.html?no={{no}}">{{title}}</a></td>
-    <td>{{registDate}}</td>
-  </tr>
-  {{/each}}
+{{#each this}}
+<tr>
+  <td>{{no}}</td>
+  <td>{{actCate}}</td>
+  <td>
+    <select id="selectedStatus" disabled>
+      <option vlaue="{{statusno}}">{{status}}</option>
+    </select> 
+  </td>
+  <td><a href="view.html?gno={{gno}}&no={{no}}">{{title}}</a></td>
+  <td>{{registDate}}</td>
+</tr>
+{{/each}}
 </script>
-<!--게시글 목록 생성 핸들바 END-->
 
 <!--페이지네이션 생성 핸들 바-->
 <script id="pageli-template" type="text/x-handlebars-template">
 <li class="page-item" value="1">
   <a class="page-link" href="javascript:void(0)"><<</a>
 </li>
-
 {{#each this}}
 <li class="page-item" value="{{no}}"><a class="page-link" href="javascript:void(0)">{{totalPageSize}}</a></li>
 {{/each}}
-
 <li class="page-item" value="">
   <a class="page-link" href="javascript:void(0)" >>></a>
 </li>
 </script>
-<!--페이지네이션 생성 핸들 바-->
 
 <!--게시글 목록 생성 ajax-->
 <script>
@@ -202,29 +153,80 @@ let pageGernerator = Handlebars.compile(pagetemplate.innerHTML);
 
 //form.html로 이동
 var arr = location.href.split("?");
-  // console.log(arr);
   if (arr.length == 1) {
     alert("요청 형식이 올바르지 않습니다.")
     throw "URL 형식 오류!";
   }
   var qs = arr[1];
-  // console.log("qs는?" + qs);
   var params = new URLSearchParams(qs);
-  // console.log(params);
   var gno = params.get("gno");
-  // console.log("gno는?" + gno);
+  console.log("모임번호 : " + gno);
 
+//로그인 여부 확인
+$.ajax({ //로그인 여부 확인 ajax START 비회원은 main으로 보낸다.
+  url : "/member/getLoginUser",
+  type : "POST",
+  datatype : "json",
+  success : function(result) {
+    let loginUserNo = result.data.no;
+    if (result.status == "fail") {
+      window.alert("회원이 아닙니다.");
+      window.location.replace("/junho/index.html");
+    } else {
+      $.ajax({ //회원 등급 조회 모임장이 아니라면 등록 버튼을 감춘다.
+        url : "/joinmember/grouplistbymno",
+        type : "POST",
+        datatype : "json",
+        data : {"member.no" : loginUserNo },
+        success : function(result) {
+          MemberInfo = result.data;
+          var memberAuthority; //멤버등급번호
+          var currentGroup = []; //현재 모임정보
+
+          for (i=0; i < MemberInfo.length; i++) { //현재 있는 그룹의 정보 배열로 빼기
+            if (gno == MemberInfo[i].group.no) {
+              // console.log("가입한 소모임이야");
+              memberAuthority = MemberInfo[i].memberGrade.gradeNo
+              currentGroup.push({
+                group : MemberInfo[i].group,
+                member : MemberInfo[i].member,
+                memberGrade : MemberInfo[i].memberGrade,
+              })
+            }       
+          }
+
+          if (currentGroup.length == 0 || gno != currentGroup[0].group.no  ) {
+            window.alert("가입된 소모임이 아닙니다");
+            location.href="/junho/index.html";
+          } else {
+            console.log("가입한 소모임");
+          }
+
+          if (memberAuthority != 1) {
+            $("#x-create-btn").hide();
+          }//회원 등급 조회 if END 
+
+          console.log(currentGroup);
+          // if (memberAuthority != 1) {
+          //     $("#x-create-btn").hide();  
+          //   }//회원 등급 조회 if END     
+                   
+        }//회원 등급 조회 success END           
+      })//회원 등급 조회 ajax END 
+    }//로그인 확인 else END
+  }//로그인 여부 확인 success END
+}); //로그인 여부 확인 ajax END  
 
 //전체 리스트 불러오기 START
 $.ajax({
   url : "/accounting/listbygroup", 
-  type : "GET",
+  type : "POST",
   async : false,
   dataType : "json",
   data : {
     "pageSize" : 10,
     "pageNo" : 1,
-    "groupNo" : gno}, //!!!!!!!!!!!!!!!!!!!!!!!!!!!임시로 그룹 번호 줌!!!!!!!!!!!!!
+    "groupNo" : gno},
   success: function(result) {
     // console.log(result.data);
     var arr = result.data;
@@ -235,6 +237,7 @@ $.ajax({
     var updateData = []
     $.each(arr, function(index, arr) {
       updateData.push({
+        gno : gno,
         no : arr.accountingNo,
         "actCate" : arr.actCate.cateName,
         title : arr.title,
@@ -243,7 +246,7 @@ $.ajax({
         status : arr.status == 0 ? ing : end
       })
     })
-    // console.log(updateData);
+    console.log(updateData);
     tbody.innerHTML = htmlGenerator(updateData);
     let totalListCount = result.totalListCount;
     let totalPageSize = result.totalPageSize;
@@ -294,7 +297,7 @@ $.ajax({
         data : {
           "pageSize" : 10,
           "pageNo" : clickli,
-          "groupNo" : gno}, //!!!!!!!!!!!!!!!!!!!!!!!!!!!임시로 그룹 번호 줌!!!!!!!!!!!!!
+          "groupNo" : gno}, 
         success: function(result) {
           var arr = result.data;
           console.log(arr);
@@ -305,6 +308,7 @@ $.ajax({
           $.each(arr, function(index, arr) {
             updateData.push({
               "actCate" : arr.actCate.cateName,
+              gno : gno,
               no : arr.accountingNo,
               title : arr.title,
               registDate : arr.registDate,
@@ -344,6 +348,7 @@ $(document).on("click", "#selectCate", function() {
       $.each(arr, function(index, arr) {
         updateData.push({
           "actCate" : arr.actCate.cateName,
+          gno : gno,
           no : arr.accountingNo,
           title : arr.title,
           registDate : arr.registDate,
@@ -414,6 +419,7 @@ $(document).on("click", "#selectCate", function() {
             $.each(arr, function(index, arr) {
               updateData.push({
                 "actCate" : arr.actCate.cateName,
+                gno : gno,
                 no : arr.accountingNo,
                 title : arr.title,
                 registDate : arr.registDate,
@@ -438,7 +444,7 @@ $(document).on("click", "#selectCate", function() {
       "pageSize" : 10,
       "pageNo" : 1,
       "actCate" : cate,
-      "groupNo" : 1}, //!!!!!!!!!!!!!!!!!!!!!!!!!!!임시로 그룹 번호 줌!!!!!!!!!!!!!
+      "groupNo" : gno},
     success: function(result) {
       var arr = result.data;
       // console.log(arr);
@@ -449,6 +455,7 @@ $(document).on("click", "#selectCate", function() {
       $.each(arr, function(index, arr) {
         updateData.push({
           "actCate" : arr.actCate.cateName,
+          gno : gno,
           no : arr.accountingNo,
           title : arr.title,
           registDate : arr.registDate,
@@ -533,7 +540,6 @@ $(document).on("click", "#selectCate", function() {
   }); //전체 리스트 불러오기 END
   } //else 카테고리 선택 끝
 })// selectbox change event END  
-
 
 document.querySelector("#x-create-btn").onclick = function(){
   location.href="form.html?gno=" + gno;

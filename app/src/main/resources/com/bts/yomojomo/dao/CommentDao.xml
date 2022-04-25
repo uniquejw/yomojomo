@@ -7,13 +7,17 @@
   <!-- 테이블의 컬럼과 객체필드를 연결한다. -->
   <resultMap type="Comment" id="CommentMap">
     <id column="cmt_no" property="no"/>
-    <result column="b_no" property="bno"/>
+    <result column="b_no" property="boardNo"/>
     <result column="content" property="content"/>
-    <result column="memb_no" property="membno"/>
-    <result column="g_no" property="gno"/>
-    <result column="reg_dt" property="regdt"/>
+    <result column="g_no" property="groupNo"/>
+    <result column="reg_dt" property="registDate"/>
     <result column="status" property="status"/>
   </resultMap>
+  
+  <insert id="insert" parameterType="Comment">
+    insert into gms_comment(b_no, content, memb_no, g_no) 
+    values(#{boardNo}, #{content}, #{writer.no}, #{groupNo})
+  </insert>
 
   <select id="findAll" resultMap="CommentMap"> 
     select
@@ -44,11 +48,6 @@
     where 
       cmt_no=#{no}
   </select>
-
-  <insert id="insert" parameterType="Calendar">
-    insert into gms_comment(b_no, content, memb_no, g_no, reg_dt, status) 
-    values(#{bno}, #{content}, #{membno}, #{gno}, #{regdt}, #{status})
-  </insert>
   
   <update id ="update" parameterType="Calendar">
     update gms_comment set 

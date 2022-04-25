@@ -12,7 +12,7 @@ public class InviteMemberController {
   @Autowired
   InviteMemberService inviteMemberService;
 
-  @RequestMapping("/junho/midpoint/member/list")
+  @RequestMapping("/midpoint/member/list")
   public Object list(InviteMember invitemember) {
 
     return inviteMemberService.memberlistByGroup(invitemember);

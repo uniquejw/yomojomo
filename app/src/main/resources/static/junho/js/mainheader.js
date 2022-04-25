@@ -37,6 +37,7 @@ $.ajax({ //로그인 회원 정보 가져오기
 			$("#alert-msg-li").hide();
 			$("#createGroupli").hide();
 		}
+		window.loginUser = result.data;
 		// console.log(memberNo);
 		$.ajax({ //받은 초대 메세지 가져오기
 			url: "/invitebox/mnolist",

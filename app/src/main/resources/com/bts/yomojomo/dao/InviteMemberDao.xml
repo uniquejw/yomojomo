@@ -21,13 +21,12 @@
     select 
       jm.g_no gno, 
       jm.memb_no mno,
-      gm.name mname,
+      m.name mname,
       jm.g_memb_grd_no mgno,
       m.tel mtel
     from gms_join_memb jm
       inner join gms_group g on jm.g_no = g.g_no
       inner join gms_memb m on jm.memb_no = m.memb_no
-      inner join gms_memb gm on jm.memb_no = gm.memb_no
     where
       g.g_no = #{group.no}
     order by

@@ -27,7 +27,6 @@ public class DefaultApplyQuestionService implements ApplyQuestionService {
   }
   @Override
   public List<ApplyQuestion> findQuestion(int no) {
-
     return applyQuestionDao.findQuestion(no);
   }
 
@@ -35,6 +34,13 @@ public class DefaultApplyQuestionService implements ApplyQuestionService {
   public int update(ArrayList<ApplyQuestion> questionList) {
     return applyQuestionDao.update(questionList);
   }
+
+  @Override
+  public int count(int no) {
+    return applyQuestionDao.count(no);
+  }
+
+
   //
   //  @Override
   //  public ApplyQuestion get(int no) {

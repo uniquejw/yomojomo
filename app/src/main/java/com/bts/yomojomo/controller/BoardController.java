@@ -1,5 +1,6 @@
 package com.bts.yomojomo.controller;
 
+import static com.bts.yomojomo.controller.ResultMap.SUCCESS;
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.UUID;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import com.bts.yomojomo.domain.Board;
+import com.bts.yomojomo.domain.Member;
 import com.bts.yomojomo.service.BoardService;
 import net.coobird.thumbnailator.Thumbnails;
 import net.coobird.thumbnailator.geometry.Positions;
@@ -30,15 +32,10 @@ public class BoardController {
   @PostMapping("http://localhost:8080//ssang/groupboard/index.html")
 
   @RequestMapping("/board/add")
-  public Object add(Board board, MultipartFile file,HttpSession session ) {
-    try {
-      board.setPhoto(saveFile(file));
-      return boardService.add(board);
-
-    } catch (Exception e) {
-      e.printStackTrace();
-      return "error!";
-    }
+  public Object add(Board board, HttpSession session) {
+    Member member = (Member) session.getAttribute("loginUser");
+    board.setWriter(member);
+    return new ResultMap().setStatus(SUCCESS).setData(boardService.add(board));
   }
 
   //  모임별 게시글 리스트

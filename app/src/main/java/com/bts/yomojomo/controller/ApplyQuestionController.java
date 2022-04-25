@@ -40,7 +40,7 @@ public class ApplyQuestionController {
     }
     return new ResultMap().setStatus(SUCCESS).setData(applyquestion); 
   }
-
+  //신청서 수정
   @RequestMapping("/applyQuestion/update")
   public Object update(String[] questions) {
     ArrayList<ApplyQuestion> questionList = new ArrayList<>();
@@ -54,6 +54,13 @@ public class ApplyQuestionController {
     System.out.println(questionList);
     return new ResultMap().setData(applyQuestionService.update(questionList));    
   }
+
+  @RequestMapping("/applyQuestion/count")
+  public Object count(int no) {
+    return new ResultMap().setStatus(SUCCESS).setData(applyQuestionService.count(no));
+  }
+
+
   //  @RequestMapping("/applayQuestion/get")
   //  public Object get(int no) {
   //    ApplyQuestion applyQuestion = applyQuestionService.get(no);

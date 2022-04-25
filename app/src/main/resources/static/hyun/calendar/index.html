@@ -58,6 +58,15 @@
 
 
 <script type="text/javascript">
+var arr = location.href.split("?");
+  if (arr.length == 1) {
+    alert("요청 형식이 올바르지 않습니다.")
+    throw "URL 형식 오류!";
+  }
+  var qs = arr[1];
+  var params = new URLSearchParams(qs);
+  var gno = params.get("gno");
+
 document.addEventListener('DOMContentLoaded', function () {
     var calendarEl = document.getElementById('calendar');
     var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -77,7 +86,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 type: 'POST',
                 async : false, //비동기 off
                 datatype : 'json',
-                data : {"joinMemb.group.no" : 1}, //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!임시로 소모임 번호 줌 나중에 수정!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                data : {"joinMemb.group.no" : gno},
                 success: function(param) {
                     var events = [];
                     $.each(param.data, function(index, data){

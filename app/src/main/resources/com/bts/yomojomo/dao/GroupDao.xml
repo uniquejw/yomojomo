@@ -22,7 +22,7 @@
 	<select id="findAll" resultMap="GroupMap">
 		select
         g_no,
-        act_local_no,
+        act_local_no,       
         pups_no,
         name,
         reg_dt,
@@ -141,6 +141,14 @@
 		max_cnt,
 		intro)
 		values(#{activeLocalNo}, #{purposeNo}, #{GroupName}, #{logo}, "1", #{maxCount}, #{intro});
+	</insert>
+	
+	<insert id="insertTags">
+      insert into gms_grouptag(g_no,tag_name)
+      values
+      <foreach collection="tags" item="tag" separator=",">
+        (#{groupNo}, #{tag.tagname}) 
+      </foreach>
 	</insert>
 
 	<update id="update" parameterType="Group">
