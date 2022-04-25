@@ -2,14 +2,22 @@ $(document).ready(function () {
   $('#header').load('/junho/mainHeader.html'); //헤더 인클루드
   $('#footer').load('/junho/mainfooter.html'); //푸터부분 인클루드
 });
+const url = new URL(window.location.href)
+const urlParams = url.searchParams
+console.log(url)
+console.log(urlParams)
+var gNoParameter = urlParams.get('gno')
+var calNoParaMeter = urlParams.get('cal_no')
+var initialLat = 126.9784147;
+var initialLng = 37.5666805;
 
 selectDataListFromDb();
 
 // Main Map
 var mapContainer1 = document.getElementById('map1'), // 지도를 표시할 div 
     mapOption1 = { 
-        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-        level: 8 // 지도의 확대 레벨
+        center: new kakao.maps.LatLng(initialLng, initialLat), // 지도의 중심좌표
+        level: 10 // 지도의 확대 레벨
     };
 
 var map1 = new kakao.maps.Map(mapContainer1, mapOption1); 
@@ -27,7 +35,7 @@ var markers = [];
 
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
     mapOption = {
-        center: new kakao.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
+        center: new kakao.maps.LatLng(initialLng, initialLat), // 지도의 중심좌표
         level: 3 // 지도의 확대 레벨
     };  
 
@@ -274,10 +282,15 @@ function savePointer(places) {
                 placeDataList[modalclickPoint] = (places[selectNo])
                 console.log(modalclickPoint)
                 places=null;
+                console.log(placeDataList)
+
             })
         })
     })
 }
+
+
+
 
 var finalDestination = [];
 var finalDestinationLatLng = [];
@@ -297,6 +310,7 @@ function modalclick(i) {
             selectDestinationEl.innerHTML = "";
             keyword.value = "";
             destinationItemEl = null;
+            console.log(finalDestination)
 
 
         for (var i = 0; i < finalDestination.length; i ++) {
@@ -338,6 +352,10 @@ function modalclick(i) {
     
 }
 
+function clicktest() {
+    console.log(finalDestination)
+}
+
 
 // 배열 안에 중복 값 찾기
 function isDup(arr)  {
@@ -360,8 +378,15 @@ console.log(liTemplate)
 var htmlGenerator = Handlebars.compile(liTemplate.innerHTML);
 console.log(htmlGenerator)
 
+
+
+
+console.log(window.location.search)
+
 function selectDataListFromDb() {
-    var data = {'group.no': 1, 'calendar.no':1};
+    console.log(gNoParameter)
+    console.log(calNoParaMeter)
+    var data = {'group.no': gNoParameter, 'calendar.no': calNoParaMeter};
     $.ajax( {
         url: "/midpoint/member/calendar/list",
         type: "POST",
@@ -379,7 +404,78 @@ function selectDataListFromDb() {
             }
             console.log(finalList)
             ulEL.innerHTML = htmlGenerator(finalList);
+            setTimeout(markerList(finalList),3000)
         }
     })
 }
 
+
+function markerList(finalList) {
+    var positions =[]
+    for (var j = 0; j <finalList.length ; j++) {
+        if (finalList[j].lat != null) {
+        var positiontest = {
+            name: finalList[j].memberName,
+            latlng: new kakao.maps.LatLng(Number(finalList[j].lng), Number(finalList[j].lat))
+        }
+        positions.push(positiontest)
+        }
+    }
+    console.log(positions)       
+    
+    
+    // 마커 이미지의 이미지 주소입니다
+    var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"; 
+        
+    for (var i = 0; i < positions.length; i ++) {
+        
+        // 마커 이미지의 이미지 크기 입니다
+        var imageSize = new kakao.maps.Size(24, 35); 
+        
+        // 마커 이미지를 생성합니다    
+        var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize); 
+        
+        // 마커를 생성합니다
+        var marker = new kakao.maps.Marker({
+            map: map1, // 마커를 표시할 지도
+            position: positions[i].latlng, // 마커를 표시할 위치
+            title : positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+            image : markerImage // 마커 이미지 
+        });
+    }
+}
+
+
+
+function saveDataIndb(i) {
+    console.log(placeDataList[i].x)
+    var data = {'lat': placeDataList[i].x, 'lng': placeDataList[i].y, 'group.no': gNoParameter, 'calendar.no': calNoParaMeter, 'addr': placeDataList[i].address_name}
+    console.log(data)
+    $.ajax({
+        url: "/midpoint/member/calendar/add",
+        type: "POST",
+        dataType: "json",
+        data: data,
+        success : function(result) {
+            console.log(result);
+        }
+    })
+}
+
+var lat = 0;
+var lng = 0;
+function selectMidpoint() {
+    for(var i = 0; i< finalList.length; i++) {
+        lat += Number(finalList[i].lat)
+        lng += Number(finalList[i].lng)
+    }
+    lat = lat / finalList.length
+    lng = lng / finalList.length
+
+    // removeMarkertests();
+    
+    // panTo(lat, lng)
+    // midpointMarker(lng, lat)
+    console.log(lng, lat)
+    window.location = `/junho/midpoint/index1.html?lng=${lng}&lat=${lat}`
+}

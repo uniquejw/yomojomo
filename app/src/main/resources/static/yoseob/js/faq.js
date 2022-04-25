@@ -11,7 +11,7 @@ function allList() {
         var tr = document.createElement("tr")
         // div.classList.add("card-body")
         tr.innerHTML = `
-        <td>${boards[i].no}</td>
+        <td style="display:none;">${boards[i].no}</td>
         <td>${boards[i].queryCate.name}</td>
         <td><a href="faq_view.html?no=${boards[i].no}">
         ${boards[i].title}</td></a>

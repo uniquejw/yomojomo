@@ -51,7 +51,7 @@ var listFirstStr = `<li class="list-group-item">
 <span style="padding: 5px;">전체선택</span>
 </li>`
 function selesctData() {
-  var data = {"group.no" : 3};
+  var data = {"group.no" : 1};
   
   $.ajax({
     url: "/midpoint/member/list",

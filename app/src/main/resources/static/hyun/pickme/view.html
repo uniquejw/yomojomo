@@ -6,6 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
   <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <script src="/node_modules/jquery/dist/jquery.min.js"></script>
+  <script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="/node_modules/handlebars/dist/handlebars.min.js"></script>
 
   <title>Pick me!</title>
   
@@ -20,6 +23,13 @@
     } 
     form {
       margin: 10px auto;
+    }
+    table > tbody > tr > td:nth-child(odd) {
+    text-align: center;
+    }
+    #localSelect{
+      width: 400px;
+      display: flex;
     }
     #localSelect{
       width: 400px;
@@ -52,36 +62,37 @@
 <!--입력 폼 -->
 <div id="view-content" class="table-responsive-lg">
   <div class="inner">
-    <form>
+    <form id="pickme-update">
       <table id="formTable" class="table table-borderless">
         <tbody>
           <tr>
-            <td width="80px">제목</td>
-            <td><input id="x-title" type="text" class="form-control" readonly></td>
+            <td>제목</td>
+            <td colspan="3"><input name="title" type="text" class="form-control"></td>
           </tr>
           <tr>
-            <td>작성자</td>
+            <td><span>번호</span></td>
+            <td><input name="no" type="text" class="form-control" readonly></td>
+            <td><span>작성일</span></td>
+            <td><input id="reg_dt" type="text" class="form-control" readonly></td>
+          </tr>
+          <tr>
+            <td><span>작성자</span></td>
             <td><input id="x-name" type="text" class="form-control" readonly></td>
+            <td><span>조회수</span></td>
+            <td><input id="x-viewCnt" type="text" class="form-control" readonly></td>
           </tr>
-          <tr>
-            <td>활동지역</td>
-              <td><input id="x-gu" type="text" class="form-control" readonly></td>
-          </tr>
-          <tr>
-            <td>관심활동</td>
-            <td><input name="purpose.no" id="x-purpose" type="text" class="form-control" readonly></td>
-          </tr>
-          <tr>
-            <td>등록일</td>
-            <td><input id="x-regDate" type="text" class="form-control" readonly></td>
-          </tr>
-          <tr>
-            <td>조회수</td>
-            <td><input id="x-viewCount" type="number" class="form-control" readonly></td>
+          <tr>  
+            <td><span>활동지역</span></td>
+            <td style="display: flex;">
+              <select id="nameSi" class="form-select form-select-sm" aria-label=".form-select-sm example"></select>
+              <select name="activeLocal.no" id="nameGu" class="form-select form-select-sm" aria-label=".form-select-sm example"></select>
+            </td>
+            <td><span>관심활동</span></td>
+            <td><select name="purpose.no" id="purpose" class="form-select form-select-sm" aria-label=".form-select-sm example"></select></td>
           </tr>
           <tr>
             <td><label for="comment">내용:</label></td>
-            <td><textarea class="form-control" rows="5" id="x-content" name="text" readonly></textarea></td>
+            <td colspan="3"><textarea class="form-control" rows="5" id="x-content" name="content"></textarea></td>
           </tr>
         </tbody>
       </table>
@@ -130,10 +141,6 @@
 </div>
 <!--모달 끝-->
 
-<script src="/node_modules/jquery/dist/jquery.min.js"></script>
-<script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-<script src="/node_modules/handlebars/dist/handlebars.min.js"></script>
-
 <div id="footer"></div>
 
 <!--모임 리스트 불러오는 handlebars-->
@@ -145,9 +152,34 @@
 </script>
 <!--모임 리스트 불러오는 handlebars END-->
 
+<!-- 시,도 카테고리 생성 핸들 바-->
+<script id="optionSi-template" type="text/x-handlebars-template">
+  <!-- <option id="allList" value="0">전체</option> -->
+  {{#each this}}
+  <option id="selectOp" value="{{nameSi}}">{{nameSi}}</option>
+  {{/each}}
+</script>
+<!--시,도 카테고리 생성 핸들 바 END -->
+
+<!--군,구 카테고리 생성 핸들 바-->
+<script id="optionGu-template" type="text/x-handlebars-template">
+  <option>군구 선택</option>
+  {{#each this}}
+  <option id="selectGuOp" value="{{no}}">{{nameGu}}</option>
+  {{/each}}
+</script>
+<!--군, 구 카테고리 생성 핸들 바 END-->
+
+<!--관심 활동 생성 핸들 바 START-->
+<script id="optionPurpose-template" type="text/x-handlebars-template">
+  {{#each this}}
+  <option id="selectPurposeOp" value="{{no}}">{{purposeName}}</option>
+  {{/each}}
+</script>
+<!--관심 활동 생성 핸들 바 END-->
 
 <script>
-//헤더 푸터 불러오기
+//헤더, 푸터, 권한 설정
 $(document).ready(function () {
   $('#header').load('/junho/mainHeader.html'); //헤더 인클루드
   $('#footer').load('/junho/mainfooter.html'); //푸터부분 인클루드
@@ -162,24 +194,25 @@ $(document).ready(function () {
           $("#x-delete-btn").hide();
           $("#x-update-btn").hide();
         } else if (result.status == "success") {
-          // console.log(result.data);
           let loginUserNo = result.data.no; //로그인한 회원 번호
-          // console.log(loginUserNo);
           fetch(`/pickme/get?no=${no}`) //글 작성자 확인 fetch-then-then START
           .then(function(response) {
             return response.json();
           })
           .then(function(result){
-            // console.log(result.data);
             let writerNo = result.data.member.no;
-            // console.log(writerNo);
-            // console.log(loginUserNo);
 
             if (writerNo != loginUserNo) {
               $("#x-delete-btn").hide();
               $("#x-update-btn").hide();
+              $("input[name=title]").attr("disabled", true);
+              $("#nameSi").attr("disabled", true);
+              $("#nameGu").attr("disabled", true);
+              $("#purpose").attr("disabled", true);
+              $("#x-content").attr("disabled", true);              
             } else if (writerNo == loginUserNo) {
               $("#x-invitation-btn").hide();
+              $("#x-cancel-btn").text("취소");
             }
           })//글 작성자 확인 fetch-then-then END
         }// else if
@@ -188,6 +221,63 @@ $(document).ready(function () {
 });//document.ready END
 
 //화면 뿌리기 Start
+
+//시,도 카테고리 카테고리 불러오기
+let selectSiList = document.querySelector("#nameSi");
+let selectSiOption = document.querySelector("#optionSi-template");
+let opSiGernerator = Handlebars.compile(selectSiOption.innerHTML);
+
+$.ajax({
+  url : "/activeLocal/silistcate",
+  type : "POST",
+  async : false,
+  success: function(result) {
+      console.log(result.data);
+      selectSiList.innerHTML = opSiGernerator(result.data);
+  }
+});
+//시,도 카테고리 불러오기 END
+
+//군,구 카테고리 불러오기
+let selectGuList = document.querySelector("#nameGu");
+let selectGuOption = document.querySelector("#optionGu-template");
+let opGuGernerator = Handlebars.compile(selectGuOption.innerHTML);
+
+$(document).on("click", "#nameSi", function() {
+  //console.log("바뀜");
+  $.ajax({
+    url : "/activeLocal/gulistcate",
+    type : "POST",
+    async : false,
+    data: {nameSi: $("#nameSi option:selected").val()},
+    success: function(result) {
+        console.log(result.data);
+        selectGuList.innerHTML = opGuGernerator(result.data);
+        if (selectedGuNo != 0) {
+          $("#nameGu").val(selectedGuNo).prop("selected", true);
+        }
+    } //success END
+  }); //ajax END
+}); //nameSi change End
+//군,구 카테고리 카테고리 불러오기 END
+
+//관심 활동 리스트 불러오기 START
+let selectPuposeList = document.querySelector("#purpose");
+let selectPurposeOption = document.querySelector("#optionPurpose-template");
+let PurposeopGernerator = Handlebars.compile(selectPurposeOption.innerHTML);
+
+$.ajax({
+    url : "/purpose/list",
+    type : "POST",
+    async : false,
+    datatype : "json",
+    success : function(result) {
+      // console.log(result);
+      selectPuposeList.innerHTML = PurposeopGernerator(result);
+    }//success END
+  })//ajax END
+// 관심 활동 리스트 불러오기 END
+
 let arr = location.href.split("?");
 
 // console.log(arr);
@@ -196,7 +286,6 @@ if (arr.length == 1) {
   throw "URL 형식 오류";
 }
 let qs = arr[1];
-// console.log(qs);
 
 let params = new URLSearchParams(qs);
 var no = params.get("no");
@@ -205,60 +294,63 @@ if(no == null) {
   alert("게시물 번호가 없습니다.");
   throw "파라미터 오류";
 }
-//console.log(no);
 
-let xTitle = document.querySelector("#x-title");
+let xTitle = document.querySelector("input[name=title]");
+let xNo = document.querySelector("input[name=no]");
+let xregDt = document.querySelector("#reg_dt");
 let xName = document.querySelector("#x-name");
-let xGuName = document.querySelector("#x-gu");
-let xPurpose = document.querySelector("#x-purpose");
-let xRegDate = document.querySelector("#x-regDate");
-let xViewCnt = document.querySelector("#x-viewCount");
-let xContent = document.querySelector("#x-content");
+let xViewCnt = document.querySelector("#x-viewCnt");
+let xNameGu = document.querySelector("#nameGu");
+let xPurpose = document.querySelector("#purpose");
+let xPurposeName = document.querySelector("#purpose");
+let xContent = document.querySelector("textarea");
+let selectedGuNo = 0;
+let purposeNo = 0;
 
 fetch(`/pickme/get?no=${no}`)
   .then(function(response) {
-    // console.log(response);
     return response.json();
   })
   .then(function(result){
-    console.log(result);
     if (result.status == "fail") {
       window.alert("서버 요청 오류!");
-      // console.log(result.data);
-    } else {//화면에 뿌리는 else 시작
+    } else {
       let pickmeCont = result.data;
-      // console.log(pickmeCont);
+      console.log(pickmeCont);  
       xTitle.value = pickmeCont.title;
-      xName.value = pickmeCont.member.memberName;
-      xGuName.value = (pickmeCont.activeLocal.nameSi) + " " +(pickmeCont.activeLocal.nameGu);
-      xPurpose.value = pickmeCont.purpose.purposeName;
-      xRegDate.value = pickmeCont.date;
+      xNo.value = pickmeCont.no;
+      xregDt.value = pickmeCont.date;
       xViewCnt.value = pickmeCont.viewCnt;
+      xName.value = pickmeCont.member.memberName;
+      $("#nameSi").val(pickmeCont.activeLocal.nameSi).prop("selected", true);
+      selectedGuNo = pickmeCont.activeLocal.no;
+      purposeNo = pickmeCont.purpose.no;
       xContent.value = pickmeCont.content;
+      $('#nameSi').click();
 
       //초대하기 버튼 이벤트 시작
       document.querySelector("#x-invitation-btn").onclick = function() {
-      let xModalName = document.querySelector("#recipient-name");
-      xModalName.value = xName.value;
-      let recipientNameno = pickmeCont.member.no;
-      // console.log(recipientNameno);
-      //로그인한 회원 정보 가져오기
-      $.ajax({
-        url : "/member/getLoginUser",
-        type : "POST",
-        datatype : "json",
-        success : function(result) {
-          console.log(result.data.no);
-          console.log(result);
-          if (result.status == "fail") {
-            $("#invitationbtn").hide(); //초대하기 버튼 숨기기
-            window.alert("로그인 하지 않았습니다.");
-            // console.log(result.status);
-          } else {
-            var inviteeNo = result.data.no; //초대 보내는 사람 회원 번호
-            let selectGroupList = document.querySelector("#groupList");
-            var selectGroupOption = document.querySelector("#joinedGroupList-template");
-            var opGernerator = Handlebars.compile(selectGroupOption.innerHTML);
+            let xModalName = document.querySelector("#recipient-name");
+            xModalName.value = xName.value;
+            let recipientNameno = pickmeCont.member.no;
+            // console.log(recipientNameno);
+            //로그인한 회원 정보 가져오기
+            $.ajax({
+              url : "/member/getLoginUser",
+              type : "POST",
+              datatype : "json",
+              success : function(result) {
+                console.log(result.data.no);
+                console.log(result);
+                if (result.status == "fail") {
+                  $("#invitationbtn").hide(); //초대하기 버튼 숨기기
+                  window.alert("로그인 하지 않았습니다.");
+                  // console.log(result.status);
+                } else {
+                  var inviteeNo = result.data.no; //초대 보내는 사람 회원 번호
+                  let selectGroupList = document.querySelector("#groupList");
+                  var selectGroupOption = document.querySelector("#joinedGroupList-template");
+                  var opGernerator = Handlebars.compile(selectGroupOption.innerHTML);
 
             $.ajax({ //초대 보내는 사람의 모임 리스트 가져오는 ajax
               url : "/joinmember/grouplistbymno",
@@ -299,18 +391,50 @@ fetch(`/pickme/get?no=${no}`)
             } //로그인한 회원 정보 success END
           })//로그인한 회원정보 가져오기 ajax END
       }//초대하기 버튼 이벤트 END
-    }//화면에 뿌리는 else END
+    } //else END
   }); //화면 뿌리는 fetch END
 //화면 뿌리기 END
+
+//서버로 보내기
+document.querySelector("#x-update-btn").onclick = function() {
+let fd = new FormData(document.forms.namedItem("pickme-update"))    
+// fd.append("no", no);
+
+if(        
+  xTitle.value == "" ||
+  xNameGu.value == "전체" ||
+  selectGuList.value == "군구 선택" ||
+  selectSiList.value == 0 ||
+  xPurpose.value == "" ||
+  xContent.value == "") 
+  {
+    window.alert("필수 입력 항목이 비어 있습니다.")
+    return;
+  }
+
+  fetch("/pickme/update", {
+    method: "POST",
+    body: new URLSearchParams(fd)
+    })
+    .then(function(response) {
+    // console.log(response);
+      return response.json();
+    })
+    .then(function(result) {
+      console.log(result);
+      if (result.status == "success") {
+        window.alert("수정되었습니다.")
+        location.href = "index.html";
+      } else {
+        window.alert("게시글 변경 실패");
+        console.log(result.data);
+      }
+    });
+  } //updatebtn Event END
 
 //뒤로가기
 document.querySelector("#x-cancel-btn").onclick = function() {
 window.location.href = "index.html";
-};
-
-//update로 이동
-document.querySelector("#x-update-btn").onclick = function() {
-location.href = "update.html?no="+ no;
 };
 
 // 삭제
