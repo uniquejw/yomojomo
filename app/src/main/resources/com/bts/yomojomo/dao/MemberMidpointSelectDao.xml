@@ -56,5 +56,10 @@
      and c.cal_no = #{calendar.no}
   </select>
   
+  <insert id="insert" parameterType="MemberMidpointSelect">
+    insert into gms_select_midpoint(lat, lng, memb_no, g_no, addr, cal_no)
+    values(#{lat}, #{lng}, #{member.no}, #{group.no}, #{addr}, #{calendar.no})
+  </insert>
+  
 
 </mapper>

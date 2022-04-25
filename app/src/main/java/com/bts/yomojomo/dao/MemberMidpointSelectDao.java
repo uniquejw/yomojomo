@@ -7,4 +7,6 @@ import com.bts.yomojomo.domain.MemberMidpointSelect;
 @Mapper
 public interface MemberMidpointSelectDao {
   List<MemberMidpointSelect> findAll(MemberMidpointSelect memberMidpointSelect);
+
+  int insert(MemberMidpointSelect memberMidpointSelect);
 }

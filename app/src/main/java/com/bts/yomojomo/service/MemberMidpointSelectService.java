@@ -6,4 +6,6 @@ import com.bts.yomojomo.domain.MemberMidpointSelect;
 
 public interface MemberMidpointSelectService {
   List<MemberMidpointSelect> memberListByGroupAndCalendar(MemberMidpointSelect memberSelectMidpoint);
+
+  int add(MemberMidpointSelect memberMidpointSelect);
 }
