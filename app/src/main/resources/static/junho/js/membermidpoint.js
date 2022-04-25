@@ -361,7 +361,7 @@ var htmlGenerator = Handlebars.compile(liTemplate.innerHTML);
 console.log(htmlGenerator)
 
 function selectDataListFromDb() {
-    var data = {'group.no': 3, 'calendar.no':4};
+    var data = {'group.no': 1, 'calendar.no':1};
     $.ajax( {
         url: "/midpoint/member/calendar/list",
         type: "POST",
