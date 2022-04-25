@@ -63,6 +63,7 @@ public class CalendarController {
 
   @RequestMapping("/calendar/update")
   public Object update(Calendar calendar, HttpSession session) {
+    System.out.println(calendar);
     Member member = (Member) session.getAttribute("loginUser");
     calendar.setMember(member);
 
