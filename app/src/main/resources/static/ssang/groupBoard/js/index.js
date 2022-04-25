@@ -1,6 +1,16 @@
 import{getGroupNO} from '/ssang/js/module.js';
 var getGroup = getGroupNO();
 console.log(getGroup)
+
+var user=""
+fetch("/member/getLoginUser")
+.then(function(res){
+  return res.json()
+})
+.then(function(res) {
+  user = res.data
+  
+
 // 게시글 읽어오기
 var writtenContainer = document.querySelector("#handlebars-container");
 var divTemplate = document.querySelector("#div-template");
@@ -11,8 +21,21 @@ fetch(`/board/findByGroupNo?no=${getGroup}`)
 })
 .then(function(boards){
   console.log(boards)
+  console.log(window.loginUser)
+  for (var board of boards) {
+    if (board.writer.no == window.loginUser.no) {
+      board.isWriter = true;
+    } else {
+      board.isWriter = false;
+    }
+  }
+  console.log(boards);
   writtenContainer.innerHTML = htmlGenerator(boards);
 })
+console.log(user.memberName)
+
+})// fetch -> member/getLoginUser
+
 
 // 댓글 등록
 $(document).on("click", ".comment-btn", function() {
@@ -23,19 +46,20 @@ $(document).on("click", ".comment-btn", function() {
   fd.append('groupNo',getGroup)
   fd.append('content',input)
   fetch("/comment/add",{
-    method:"post",
-    body:fd
-  })
-  .then(res=>res.json())
-  .then(res=>{
-    console.log(res.status)
-    location.href=`index.html?gno=${getGroup}`
-  })
+  method:"post",
+  body:fd
+})
+.then(res=>res.json())
+.then(res=>{
+  console.log(res.status)
+  location.href=`index.html?gno=${getGroup}`
+})
 })
 //--버튼클릭이벤트 -->
-  document.querySelector(".new-post-btn").onclick = function() {
-    window.location.href = `form.html?gno=${getGroup}`;
-  };
-  $(document).on("click",".board-edit",function(){
-    window.location.href = `view.html?gno=${getGroup}`;
-  })
+$(document).on("click",".new-post-btn",function(){
+  window.location.href = `form.html?gno=${getGroup}`;
+});
+$(document).on("click",".board-edit",function(){
+  window.location.href = `view.html?gno=${getGroup}`;
+})
+
