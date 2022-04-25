@@ -7,7 +7,7 @@
 	<!-- 테이블의 컬럼과 객체필드를 연결한다. -->
 	<resultMap type="Member" id="memberMap">
 		<id column="memb_no" property="no" />
-		<result column="name" property="memberName" />
+		<result column="membername" property="memberName" />
 		<result column="pwd" property="passWord" />
 		<result column="email" property="email" />
 		<result column="tel" property="tel" />
@@ -32,7 +32,7 @@
 	
 	<resultMap type="Member" id="memberMap2">
 		<id column="memb_no" property="no" />
-		<result column="name" property="memberName" />
+		<result column="membername" property="memberName" />
 		<result column="pwd" property="passWord" />
 		<result column="email" property="email" />
 		<result column="tel" property="tel" />
