@@ -9,7 +9,7 @@ public interface PickmeService {
 
   int add(Pickme pickme);
 
-  List<Pickme> list(int pageSize, int pageNo, String nameSi, String nameGu);
+  List<Pickme> list(int pageSize, int pageNo, String nameSi, String nameGu, String keyword);
 
   Pickme get(int no);
 
@@ -17,6 +17,6 @@ public interface PickmeService {
 
   int delete(Pickme pickme);
 
-  int size(String nameSi, String nameGu);
+  int size(String nameSi, String nameGu, String keyword);
 
 }

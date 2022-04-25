@@ -45,7 +45,38 @@
       inner join gms_activelocal a on pm.act_local_no=a.act_local_no
       inner join gms_purpose p on p.pups_no=pm.pups_no
       <choose>
-        <when test="nameSi == null and nameGu == null">
+        <when test="nameSi == null and nameGu == null and keyword != null">
+          where 
+            pm.content like CONCAT('%',#{keyword},'%') 
+            or pm.title like CONCAT('%',#{keyword},'%')
+            or m.membername like CONCAT('%',#{keyword},'%')
+          order by
+             pm.pm_b_no desc
+             limit #{offset}, #{rowCount}
+        </when>
+        <when test="nameSi != null and nameGu == null and keyword != null">
+          where 
+            a.name_si like #{nameSi}
+            and
+            (pm.content like CONCAT('%',#{keyword},'%') 
+            or pm.title like CONCAT('%',#{keyword},'%')
+            or m.membername like CONCAT('%',#{keyword},'%'))
+          order by
+             pm.pm_b_no desc
+             limit #{offset}, #{rowCount}
+        </when>
+        <when test="nameSi == null and nameGu != null and keyword != null">
+          where 
+            a.act_local_no = #{nameGu}
+            and
+            (pm.content like CONCAT('%',#{keyword},'%') 
+            or pm.title like CONCAT('%',#{keyword},'%')
+            or m.membername like CONCAT('%',#{keyword},'%'))
+          order by
+             pm.pm_b_no desc
+             limit #{offset}, #{rowCount}
+        </when>
+        <when test="nameSi == null and nameGu == null and keyword == null">
           order by
           pm.pm_b_no desc
           limit #{offset}, #{rowCount}
@@ -53,9 +84,9 @@
         <when test="nameSi != null and nameGu == null">
             where
             a.name_si like #{nameSi}
-				    order by
-				      pm.pm_b_no desc
-				      limit #{offset}, #{rowCount}
+            order by
+              pm.pm_b_no desc
+              limit #{offset}, #{rowCount}
         </when>
         <when test="nameSi != null and nameGu != null">
             where
@@ -74,18 +105,38 @@
       inner join gms_activelocal a on pm.act_local_no=a.act_local_no
       inner join gms_purpose p on p.pups_no=pm.pups_no
     <choose>
-      <when test="nameSi != null and nameGu == null">
+      <when test="nameSi == null and nameGu == null and keyword != null">
+          where 
+            pm.content like CONCAT('%',#{keyword},'%') 
+            or pm.title like CONCAT('%',#{keyword},'%')
+            or m.membername like CONCAT('%',#{keyword},'%')
+      </when>
+      <when test="nameSi != null and nameGu == null and keyword != null">
+         where
+         a.name_si like #{nameSi} 
+         and
+         (pm.content like CONCAT('%',#{keyword},'%') 
+         or pm.title like CONCAT('%',#{keyword},'%')
+         or m.membername like CONCAT('%',#{keyword},'%'))
+      </when>
+      <when test="nameSi == null and nameGu != null and keyword != null">
+         where
+         a.act_local_no = #{nameGu}
+         and
+         (pm.content like CONCAT('%',#{keyword},'%') 
+         or pm.title like CONCAT('%',#{keyword},'%')
+         or m.membername like CONCAT('%',#{keyword},'%'))
+      </when>
+      <when test="nameSi != null and nameGu == null and keyword == null">
           where
             a.name_si like #{nameSi}
       </when>
-      <when test="nameSi != null and nameGu != null">
+      <when test="nameSi != null and nameGu != null and keyword == null">
           where
             a.act_local_no = #{nameGu}
       </when>
     </choose>
   </select>
-  
-
   
   <select id="findByNo" resultMap="PickmeMap" parameterType="int"> <!--게시글 번호로 조회-->
      select
@@ -109,7 +160,7 @@
       pm.pm_b_no=#{no}
   </select>
   
-  <select id="findByName" resultMap="PickmeMap" parameterType="int"> <!--나중에 수정-->
+  <select id="findByName" resultMap="PickmeMap" parameterType="int">
     select
       pm.pm_b_no,
       pm.title,
@@ -128,7 +179,7 @@
   </select>
 
   <insert id="insert" parameterType="Pickme">
-    insert into gms_pickme(title, content, act_local_no, pups_no, memb_no) <!--실제 컬럼이름-->
+    insert into gms_pickme(title, content, act_local_no, pups_no, memb_no)
     values(#{title}, #{content}, #{activeLocal.no}, #{purpose.no}, #{member.no})
   </insert>
   
@@ -155,13 +206,4 @@
     where
       pm_b_no = #{no}
   </update>
-  
-
-
-  
-
-  
-
-
-    
 </mapper>

@@ -21,7 +21,7 @@ public class PickmeController {
   PickmeService pickmeService;
 
   @RequestMapping("/pickme/list")
-  public Object list(int pageSize, int pageNo, String nameSi, String nameGu, HttpSession session) {
+  public Object list(int pageSize, int pageNo, String nameSi, String nameGu, String keyword, HttpSession session) {
     log.info("게시물 목록 조회");
 
     try {
@@ -30,7 +30,7 @@ public class PickmeController {
       }
     } catch (Exception e) {}
 
-    int pickmeSize = pickmeService.size(nameSi, nameGu);
+    int pickmeSize = pickmeService.size(nameSi, nameGu, keyword);
     System.out.println("게시글 총 개수 count : " + pickmeSize);
 
     int totalPageSize = pickmeSize / pageSize; 
@@ -53,7 +53,7 @@ public class PickmeController {
         .setTotalListCount(pickmeSize)
         .setPageNo(pageNo)
         .setTotalPageSize(totalPageSize)
-        .setData(pickmeService.list(pageSize, pageNo, nameSi, nameGu));
+        .setData(pickmeService.list(pageSize, pageNo, nameSi, nameGu, keyword));
   }
 
   @RequestMapping("/pickme/add")
