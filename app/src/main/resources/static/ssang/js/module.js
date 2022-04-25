@@ -46,3 +46,11 @@ export function getBoardNO(){
   //console.log(no);
   return bno;
 }
+
+export async function getLoginUser(){
+  const response = await fetch("/member/getLoginUser")
+                    .then(function(res){
+                      return res.json()
+                      })
+   return response;                     
+}

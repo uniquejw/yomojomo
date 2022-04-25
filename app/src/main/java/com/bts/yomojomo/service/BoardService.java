@@ -11,7 +11,7 @@ public interface BoardService {
 
   List<Board> findByGroupNo(int no);
 
-  List<Board> findByBoardNo(Board board);
+  List<Board> findByBoardNo(int no);
 
   Board get(int no);
 

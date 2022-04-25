@@ -31,12 +31,12 @@ public class DefaultBoardService implements BoardService {
   }
 
   @Override
-  public List<Board> findByBoardNo(Board board) {
-    //    Board board = boardDao.findByNo(no);
-    //    if (board != null) {
-    //      boardDao.increaseViewCount(no);
-    //    }
-    return boardDao.findByBoardNo(board);
+  public List<Board> findByBoardNo(int no) {
+    List<Board> board = boardDao.findByBoardNo(no);
+    if (board != null) {
+      boardDao.increaseViewCount(no);
+    }
+    return board;
   }
 
   @Override
