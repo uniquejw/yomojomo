@@ -23,8 +23,8 @@
     </association>
     
     <association property="member" javaType="Member">
-       <id column = "mno" property="no"/>
-       <result column="mname" property="memberName"/>
+       <id column = "memb_no" property="no"/>
+       <result column="membername" property="memberName"/>
     </association>
     
     <collection property="actStatus" ofType="AccountingStatus">  

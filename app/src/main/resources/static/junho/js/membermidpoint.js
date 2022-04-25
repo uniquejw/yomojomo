@@ -3,6 +3,8 @@ $(document).ready(function () {
   $('#footer').load('/junho/mainfooter.html'); //푸터부분 인클루드
 });
 
+selectDataListFromDb();
+
 // Main Map
 var mapContainer1 = document.getElementById('map1'), // 지도를 표시할 div 
     mapOption1 = { 
@@ -345,8 +347,39 @@ function isDup(arr)  {
   }
 
 
+var memberList = [];
+var addrList = [];
+var finalList = [];
 
-
-function saveDbDate(i) {
+var ulEL = document.querySelector(".member-list")
     
+// 템플릿 엔진에서 사용할 HTML 조각을 가져오기
+var liTemplate = document.querySelector("#li-template");
+console.log(liTemplate)
+//템플릿 엔진 준비
+var htmlGenerator = Handlebars.compile(liTemplate.innerHTML);
+console.log(htmlGenerator)
+
+function selectDataListFromDb() {
+    var data = {'group.no': 3, 'calendar.no':4};
+    $.ajax( {
+        url: "/midpoint/member/calendar/list",
+        type: "POST",
+        dataType: 'json',
+        data: data,
+        success : function(result) {
+            for (var i = 0; i < result.length; i++) {
+                finalList[i] = {
+                    memberName: result[i].member.memberName,
+                    addr: result[i].addr,
+                    lat: result[i].lat,
+                    lng: result[i].lng
+                }
+                
+            }
+            console.log(finalList)
+            ulEL.innerHTML = htmlGenerator(finalList);
+        }
+    })
 }
+

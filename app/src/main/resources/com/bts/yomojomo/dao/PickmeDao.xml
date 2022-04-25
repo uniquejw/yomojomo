@@ -34,7 +34,7 @@
       pm.reg_dt,
       pm.view_cnt,
       m.memb_no mno,
-      m.name mname,
+      m.membername mname,
       p.pups_no pno,
       p.name pname,
       a.act_local_no ano,
@@ -95,7 +95,7 @@
       pm.reg_dt,
       pm.view_cnt,
       m.memb_no mno,
-      m.name mname,
+      m.membername mname,
       p.pups_no pno,
       p.name pname,
       a.act_local_no ano,
@@ -119,12 +119,12 @@
       pm.act_local_no,
       pm.pups_no,
       m.memb_no,
-      m.name
+      m.membername
     from
       gms_pickme pm
       left outer join gms_memb m on r.memb_no = pm.memb_no
     where 
-      m.name=#{name}
+      m.membername=#{name}
   </select>
 
   <insert id="insert" parameterType="Pickme">

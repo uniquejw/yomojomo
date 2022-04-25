@@ -179,20 +179,38 @@ $.ajax({ //로그인 여부 확인 ajax START 비회원은 main으로 보낸다.
         datatype : "json",
         data : {"member.no" : loginUserNo },
         success : function(result) {
-          //gno와 맞는 회원정보 꺼내기
           MemberInfo = result.data;
           var memberAuthority; //멤버등급번호
-          for (i=0; i < MemberInfo.length; i++) {
+          var currentGroup = []; //현재 모임정보
+
+          for (i=0; i < MemberInfo.length; i++) { //현재 있는 그룹의 정보 배열로 빼기
             if (gno == MemberInfo[i].group.no) {
-              // console.log(MemberInfo[i].group.no); //현재 접속한 그룹번호
+              // console.log("가입한 소모임이야");
               memberAuthority = MemberInfo[i].memberGrade.gradeNo
-              // console.log(memberAuthority);
-            }            
+              currentGroup.push({
+                group : MemberInfo[i].group,
+                member : MemberInfo[i].member,
+                memberGrade : MemberInfo[i].memberGrade,
+              })
+            }       
           }
-          // console.log(memberAuthority);
+
+          if (currentGroup.length == 0 || gno != currentGroup[0].group.no  ) {
+            window.alert("가입된 소모임이 아닙니다");
+            location.href="/junho/index.html";
+          } else {
+            console.log("가입한 소모임");
+          }
+
           if (memberAuthority != 1) {
-            $("#x-create-btn").hide();  
-          }//회원 등급 조회 if END              
+            $("#x-create-btn").hide();
+          }//회원 등급 조회 if END 
+
+          console.log(currentGroup);
+          // if (memberAuthority != 1) {
+          //     $("#x-create-btn").hide();  
+          //   }//회원 등급 조회 if END     
+                   
         }//회원 등급 조회 success END           
       })//회원 등급 조회 ajax END 
     }//로그인 확인 else END

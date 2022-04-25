@@ -34,9 +34,9 @@
 		  ib.confirm,
 		  ib.reg_dt,
 		  (select memb_no from gms_memb where memb_no=ib.memb_no) as invitedNo,
-		  (select name from gms_memb where memb_no=ib.memb_no) as invitedName,
+		  (select membername from gms_memb where memb_no=ib.memb_no) as invitedName,
 		  (select memb_no from gms_memb where memb_no=ib.memb_no2) as inviteeNo,
-		  (select name from gms_memb where memb_no=ib.memb_no2) as inviteeName,
+		  (select membername from gms_memb where memb_no=ib.memb_no2) as inviteeName,
 		  g.g_no groupno,
 		  g.groupName groupname
 		from gms_invite_box ib
