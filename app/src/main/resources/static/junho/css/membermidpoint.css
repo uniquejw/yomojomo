@@ -27,6 +27,7 @@ a {
   background-color: #f6f5f0;
   height: 80vh;
   display: flex;
+  padding-top: 5vh;
 }
 
 
@@ -109,7 +110,7 @@ a {
 #map1 {
   position: absolute;
   width: 60%;
-  height: 80vh;
+  height: 75vh;
   right: 0;
 }
 
