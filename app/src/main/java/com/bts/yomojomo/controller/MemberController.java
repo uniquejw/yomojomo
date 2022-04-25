@@ -1,10 +1,7 @@
 package com.bts.yomojomo.controller;
 
-import static com.bts.yomojomo.controller.ResultMap.FAIL;
-import static com.bts.yomojomo.controller.ResultMap.SUCCESS;
 import java.util.ArrayList;
 import java.util.Map;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
