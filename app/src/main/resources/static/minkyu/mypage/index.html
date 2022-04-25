@@ -95,10 +95,13 @@
   </div>
   <div id="footers"></div>
   <script>
-  // $.ajax({
-  //   type:"POST"
-  //   url:"/mypage/"
-  // })
+    fetch("/member/getmemberinfo")
+    .then(function(response){
+      return response.json()
+    })
+    .then(function(memberinfo){
+      console.log(memberinfo)
+    })
 
   $(".card").children("img").click(function(e){
     location.href = "/ssang/groupBoard/index.html"

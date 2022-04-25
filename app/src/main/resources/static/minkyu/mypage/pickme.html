@@ -76,7 +76,7 @@
             <table class="table table-hover">
               <thead>
                 <tr>
-                  <th scope="col"><input class="form-check-input all-check" type="checkbox" value="" id="flexCheckDefault"></th>
+                  <th scope="col"><input class="form-check-input request-all-check" type="checkbox" value="" id="flexCheckDefault"></th>
                   <th scope="col">제목</th>
                   <th scope="col">상태</th>
                   <th scope="col">요청일</th>
@@ -143,7 +143,7 @@
             <table class="table table-hover">
               <thead>
                 <tr>
-                  <th scope="col"><input class="form-check-input all-check" type="checkbox" value="" id="flexCheckDefault"></th>
+                  <th scope="col"><input class="form-check-input pickme-all-check" type="checkbox" value="" id="flexCheckDefault"></th>
                   <th scope="col">제목</th>
                   <th scope="col">상태</th>
                   <th scope="col">작성일</th>
@@ -371,11 +371,18 @@
           }
         })
       })
-      $(".all-check").click(function(e){
-      if ($(".all-check").is(":checked")){
-        $("input").prop("checked", true)
+      $(".request-all-check").click(function(e){
+      if ($(".request-all-check").is(":checked")){
+        $(".request-table").find("input:not(:disabled)").prop("checked", true)
       } else {
-        $("input").prop("checked", false)
+        $(".request-table").find("input:not(:disabled)").prop("checked", false)
+      }
+    })
+      $(".pickme-all-check").click(function(e){
+      if ($(".pickme-all-check").is(":checked")){
+        $(".pickme-table").find("input").prop("checked", true)
+      } else {
+        $(".pickme-table").find("input").prop("checked", false)
       }
     })
     // 글 삭제

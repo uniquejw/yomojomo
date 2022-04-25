@@ -90,6 +90,15 @@
 		</foreach>
 	</insert>
 
+	<select id="getMemberInfo" resultMap="memberMap" parameterType="String">
+		select
+			memb_no, name, email, tel, roadname_addr, base_addr
+		from
+			gms_memb
+		where
+			email=#{email}
+	</select>
+	
 	<select id="findByEmailAndPassword" resultMap="memberMap">
 		select 
 			memb_no, name, email from gms_memb
