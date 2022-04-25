@@ -27,7 +27,7 @@
       jm.g_no gno, 
       g.name gname,
       jm.memb_no mno,
-      gm.name mname,
+      gm.membername mname,
       jm.g_memb_grd_no mgno,
       mg.name mgname
     from gms_join_memb jm
@@ -44,7 +44,7 @@
       jm.g_no gno, 
       g.name gname,
       jm.memb_no mno,
-      gm.name mname,
+      gm.membername mname,
       jm.g_memb_grd_no mgno,
       mg.name mgname
     from gms_join_memb jm
@@ -61,7 +61,7 @@
       jm.g_no gno, 
       g.name gname,
       jm.memb_no mno,
-      gm.name mname,
+      gm.membername mname,
       jm.g_memb_grd_no mgno,
       mg.name mgname
     from gms_join_memb jm

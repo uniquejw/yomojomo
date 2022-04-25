@@ -32,16 +32,16 @@ public class DefaultBoardService implements BoardService {
 
   @Override
   public List<Board> findByBoardNo(Board board) {
+    //    Board board = boardDao.findByNo(no);
+    //    if (board != null) {
+    //      boardDao.increaseViewCount(no);
+    //    }
     return boardDao.findByBoardNo(board);
   }
 
   @Override
   public Board get(int no) {
-    Board board = boardDao.findByNo(no);
-    if (board != null) {
-      boardDao.increaseViewCount(no);
-    }
-    return board;
+    return boardDao.findByNo(no);
   }
 
   @Override

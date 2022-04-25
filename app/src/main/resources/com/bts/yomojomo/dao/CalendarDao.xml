@@ -42,7 +42,7 @@
       jm.memb_no gmmno,              
       jm.g_memb_grd_no gmgno,        
       mg.name mgname,                
-      gm.name mname                  
+      gm.membername mname                  
     from
       gms_calendar gc
       inner join gms_group g on gc.g_no = g.g_no
@@ -66,7 +66,7 @@
       jm.memb_no gmmno,              
       jm.g_memb_grd_no gmgno,        
       mg.name mgname,                
-      gm.name mname                  
+      gm.membername mname                  
     from
       gms_calendar gc
       inner join gms_group g on gc.g_no = g.g_no
@@ -92,7 +92,7 @@
       jm.memb_no gmmno,              /*joinMemb*/
       jm.g_memb_grd_no gmgno,        /*joinMemb*/
       mg.name mgname,                /*grade*/
-      gm.name mname                  /*member*/
+      gm.membername mname                  /*member*/
     from
       gms_calendar gc
       inner join gms_group g on gc.g_no = g.g_no

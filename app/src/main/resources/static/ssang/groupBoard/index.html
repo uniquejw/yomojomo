@@ -74,12 +74,12 @@
       </div>
       {{#if isWriter}}
       <div class="modify-div">
-        <button class="board-delete icon" type="button"><span class="material-icons md-34">delete</span></button>
-        <button class="board-edit icon" type="button"><span class="material-icons md-34">mode_edit</span></button>
+        <button class="board-delete icon" type="button" value="{{no}}"><span class="material-icons md-34">delete</span></button>
+        <button class="board-edit icon" type="button" value="{{no}}"><span class="material-icons md-34">mode_edit</span></button>
       </div>
       {{/if}}
     </div>
-    <div class="written-content">{{content}}</div>
+    <div class="written-content"  type="button">{{content}}</div>
     <div class="comment-input-div">
       <div class="comment-name">댓글</div>
       <input type="text" placeholder="{{../user.memberName}}님 댓글을 달아주세요" class="comment-input" name="{{no}}"><button class="comment-btn" type="button" value="{{no}}">확인</button>
@@ -88,15 +88,15 @@
   <!-- 댓글불러오기  -->
   {{#each comments}}
   {{#if @last}}
-  <div id="written-comment">
+  <div id="written-comment" style="border-left: 5px solid rgb(17, 147, 218);">
     <div class="comment-author-div">
       <div class="comment-author-img-div">
-        <img class="comment-author-img" src="" alt=""><span class="material-icons md-34">
+        <img class="comment-author-img" src="" alt=""><span id="comment-icon" class="material-icons md-34">
           face
         </span>  &nbsp;&nbsp;&nbsp;
       </div>
       <div class="comment-column-div">
-        <div class="comment-author-name">{{../../user.memberName}}</div>
+        <div class="comment-author-name">{{writer.memberName}}</div>
         <div class="comment-createdTime">{{registDate}}</div>
       </div>
       <div class="modify-div">
@@ -104,7 +104,7 @@
         <button class="comment-edit icon" type="button"><span class="material-icons md-34">mode_edit</span></button> -->
       </div>
     </div><!-- comment-author-div -->
-    <div class="comment-content">
+    <div class="comment-content" type="button">
       {{content}}
     </div>
   </div><!-- written-comment -->

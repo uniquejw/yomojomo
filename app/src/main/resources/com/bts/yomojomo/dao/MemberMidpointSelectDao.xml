@@ -33,25 +33,27 @@
 
   
   <select id="findAll" resultMap="MemberMidpointSelectMap">
-    select
-      sm.memb_pt_no midpointNo,
-      sm.lat,
-      sm.lng,
-      sm.addr,
-      m.name mname,
-      m.roadname_addr maddr,
-      g.g_no gno,
-      c.cal_no,
-      c.name calname,
-      c.content calcontent
-    from gms_select_midpoint sm
-      inner join gms_memb m on (sm.memb_no = m.memb_no)
-      inner join gms_group g on (sm.g_no = g.g_no)
-      inner join gms_calendar c on (sm.cal_no = c.cal_no)
-    where
-      g.g_no = 1 and c.cal_no=1
-    order by
-      sm.memb_pt_no
+   select 
+	   jm.g_no gno, 
+	   jm.memb_no mno,
+	   m.membername mname,
+	   jm.g_memb_grd_no mgno,
+	   m.tel mtel,
+	   c.cal_no,
+	   c.name,
+	   sm.memb_pt_no,
+	   sm.lat,
+	   sm.lng,
+	   sm.addr
+   from 
+	   gms_join_memb jm
+	   inner join gms_memb m on jm.memb_no = m.memb_no
+	   inner join gms_calendar c on jm.g_no = c.g_no
+	   left outer join gms_select_midpoint sm on jm.memb_no = sm.memb_no and jm.g_no = sm.g_no
+
+   where
+     jm.g_no = 1 
+     and c.cal_no = 1
   </select>
   
 
