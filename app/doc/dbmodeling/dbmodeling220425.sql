@@ -671,7 +671,7 @@ CREATE TABLE `gms_accounting_status` (
 	`act_no`  INTEGER NOT NULL COMMENT '모금번호', -- 모금번호
 	`g_no`    INTEGER NOT NULL COMMENT '모임번호', -- 모임번호
 	`memb_no` INTEGER NOT NULL COMMENT '회원번호', -- 회원번호
-	`pay_dt`  DATE    NOT NULL DEFAULT null COMMENT '납부일' -- 납부일
+	`pay_dt`  DATE    NOT NULL DEFAULT current_timestamp() COMMENT '납부일' -- 납부일
 )
 COMMENT '모금납부내역';
 
