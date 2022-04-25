@@ -17,26 +17,17 @@
   <title>일정</title>
 
   <style>
-  /*내 css inner 주면 달력 짤림*/
   #calendar-container{
-    /* width: 600px auto;
-    margin: 100px 150px;  */
     padding-top: 2vh;
     height: 70vh;
     position: relative;
     margin-bottom: 30vh;
   }
   #calendar {
-    border: 1px solid red;
     max-width: 1100px;
     margin: 40px auto;
 }
-  .fc-header-toolbar > .fc-toolbar-chunk > .fc-button-group:first-child > .fc-addEventButton-button {
-      border: 0px;
-      background-color: rgb(17, 147, 218);
-      margin-right: 13px;      
-  }
-  .fc-header-toolbar > .fc-toolbar-chunk > .fc-button-group:first-child > .fc-goMidPointButton-button {
+  .fc-header-toolbar > .fc-toolbar-chunk > .fc-addEventButton-button {
       border: 0px;
       background-color: rgb(17, 147, 218);
       margin-right: 13px;      
@@ -58,41 +49,34 @@
 
 <body class="menu3">
 <script type="text/javascript">
-  $(document).ready(function () {
-      $('#header').load('/junho/mainHeader.html'); //헤더 인클루드
-      $('#top').load('/ssang/groupBoard/none-search-top.html'); //상준님헤더
-      $('#footer').load('/junho/mainfooter.html'); //푸터부분 인클루드
-  });
+$(document).ready(function () {
+  $('#header').load('/junho/mainHeader.html'); 
+  $('#top').load('/ssang/groupBoard/none-search-top.html');
+  $('#footer').load('/junho/mainfooter.html'); 
+});
 </script>
 
-<!--공통헤더-->
+
 <div id="header"></div>
-<!--모임 헤더-->
 <div id="top"></div>
 
 <!--캘린더 API 자리-->
 <div id="calendar-container">
-    <!-- <div class="inner"> -->
-        <div id='calendar'></div>
-    <!-- </div> -->
+<!-- <div class="inner"> -->
+  <div id='calendar'></div>
+<!-- </div> -->
 </div>
 
 <!--일정관리 추가 눌렀을 때 모달창-->
-<div class="modal fade" id="calendarModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-aria-hidden="true">
+<div class="modal fade" id="calendarModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 <from id="calendar-add">
   <div class="modal-dialog" role="document">
-      <div class="modal-content">
-          <div class="modal-header">
+        <div class="modal-content">
+            <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">일정을 입력하세요.</h5>
-              <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-              </button> -->
-          </div>
-          <div class="modal-body">
+            </div>
+            <div class="modal-body">
                     <div class="form-group">
-                        <!-- <label for="taskId" class="col-form-label">모임 번호</label> !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                        <input type="text" name="joinMemb.group.no" class="form-control" id="add-modal-gno"> -->
                         <label for="taskId" class="col-form-label">일정 제목</label>
                         <input type="text" name="name" class="form-control" id="add-modal-title">
                         <label for="taskId" class="col-form-label">일정 내용</label>
@@ -101,8 +85,6 @@ aria-hidden="true">
                         <input type="date" name="startDt" class="form-control" id="add-modal-startDt">
                         <label for="taskId" class="col-form-label">종료 날짜</label>
                         <input type="date" name="endDt" class="form-control" id="add-modal-endDt">
-                        <label for="taskId" class="col-form-label">모임장소 URL</label>
-                        <input type="url" name="resulturl" class="form-control" id="add-modal-URL">
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -111,7 +93,7 @@ aria-hidden="true">
                 </div>
             </div>
         </div>
-    </from>
+  </from>
 </div>
 
 <!--상세보기 모달창-->
@@ -128,13 +110,11 @@ aria-hidden="true">
                 <div class="form-group">
                         <label for="taskId" class="col-form-label">약속 내용</label>                    
                         <input type="text" name="content" id="view-modal-content" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                        <label for="taskId" class="col-form-label">모임 번호</label>
-                        <input type="text" name="joinMemb.group.no" id="view-modal-gno" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                         <label for="taskId" class="col-form-label">시작 날짜</label>
                         <input type="date" name="startDt" id="view-modal-startDt" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                         <label for="taskId" class="col-form-label">끝 날짜</label>
                         <input type="date" name="endDt" id="view-modal-endDt" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                        <label for="taskId" class="col-form-label">모임 장소 URL</label>
+                        <label for="taskId" class="col-form-label">모임 장소 URL <button type="button" class="btn btn-primary" id="Gomidpoint-Btn">중간지점찾기</button></label>
                         <input type="url" name="resulturl" id="view-modal-resultURL" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                     </div><!--form-group END-->
                 </div><!--modal-body END-->
@@ -151,8 +131,6 @@ aria-hidden="true">
 
 <div id="footer"></div>
 
-
-
 <script type="text/javascript">
 var arr = location.href.split("?");
   if (arr.length == 1) {
@@ -163,7 +141,56 @@ var arr = location.href.split("?");
   var params = new URLSearchParams(qs);
   var gno = params.get("gno");
 
-  
+//로그인 여부 확인
+$.ajax({ //로그인 여부 확인 ajax START 비회원은 main으로 보낸다.
+  url : "/member/getLoginUser",
+  type : "POST",
+  datatype : "json",
+  success : function(result) {
+    let loginUserNo = result.data.no;
+    if (result.status == "fail") {
+      window.alert("회원이 아닙니다.");
+      window.location.replace("/junho/index.html");
+    } else {
+      $.ajax({ //회원 등급 조회 모임장이 아니라면 등록 버튼을 감춘다.
+        url : "/joinmember/grouplistbymno",
+        type : "POST",
+        datatype : "json",
+        data : {"member.no" : loginUserNo },
+        success : function(result) {
+          MemberInfo = result.data;
+          var memberAuthority; //멤버등급번호
+          var currentGroup = []; //현재 모임정보
+
+          for (i=0; i < MemberInfo.length; i++) { //현재 있는 그룹의 정보 배열로 빼기
+            if (gno == MemberInfo[i].group.no) {
+              memberAuthority = MemberInfo[i].memberGrade.gradeNo
+              currentGroup.push({
+                group : MemberInfo[i].group,
+                member : MemberInfo[i].member,
+                memberGrade : MemberInfo[i].memberGrade,
+              })
+            }       
+          }
+
+          if (currentGroup.length == 0 || gno != currentGroup[0].group.no  ) {
+            window.alert("가입된 소모임이 아닙니다");
+            location.href="/junho/index.html";
+          } else {
+            console.log("가입한 소모임");
+          }
+
+          if (memberAuthority != 1) {
+            $(".fc-addEventButton-button").hide();
+            $("#Gomidpoint-Btn").hide();
+            $("#modal-UpdateBtn").hide();
+            $("#modal-DeleteBtn").hide();
+          }//회원 등급 조회 if END    
+        }//회원 등급 조회 success END           
+      })//회원 등급 조회 ajax END 
+    }//로그인 확인 else END
+  }//로그인 여부 확인 success END
+}); //로그인 여부 확인 ajax END  
 
 document.addEventListener('DOMContentLoaded', function () {
     var calendarEl = document.getElementById('calendar');
@@ -175,7 +202,7 @@ document.addEventListener('DOMContentLoaded', function () {
     initialView: 'dayGridMonth', //월만 보이게함
     editable: false, // false로 변경 시 draggable 작동 x 
     displayEventTime: false, // 시간 표시 x
-    headerToolbar: {center: 'addEventButton,goMidPointButton'}, // headerToolbar에 버튼을 추가
+    headerToolbar: {center: 'addEventButton'}, // headerToolbar에 버튼을 추가
 
     events: function(info, successCallback, failureCallback) { //캘린더 화면에 뿌리기
         $.ajax({
@@ -198,11 +225,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 }// success END
             }) //캘린더 리스트 불러오는ajax END
     },//events ajax list function END
-
-        
         
     eventClick: function(info) { //날짜를 클릭하면 나오는 이벤트
     var eventObj = info.event;
+      console.log(eventObj);
+      $("#Gomidpoint-Btn").on("click", function() {
+          window.location.href=`/junho/midpoint/membermidpoint.html?gno=${gno}&cal_no=${eventObj.id}`;
+      })
         $.ajax({
             url: '/calendar/get',
             type: 'POST',
@@ -226,26 +255,11 @@ document.addEventListener('DOMContentLoaded', function () {
                     $("#view-modal-resultURL").val(" ");
                 }
 
-                //삭제, 수정버튼 권한 - 모임장만 삭제 수정 할 수 있다.
-                // console.log(data.membGrade.gradeNo); 
-                // console.log(data.membGrade.gradeNo); 
-                // if (data.membGrade.gradeNO == 1) {
-                //     $("#modal-DeleteBtn").show();
-                //     $("#modal-UpdateBtn").show();
-                // } else {
-                //     $("#modal-DeleteBtn").hide();
-                //     $("#modal-UpdateBtn").hide();
-                // }
-            
-                //deletebtn function -> 현 상태 로그인 했을 때만 삭제 됨.
                 $("#modal-DeleteBtn").on("click", function() { 
                     $.ajax({
                         url: '/calendar/delete',
                         type: 'POST',
-                        data: {
-                                no: eventObj.id,
-                                gradeNo: eventObj.gradeNo
-                            },
+                        data: { no: eventObj.id },
                             success: function(data) {
                                     // console.log(data.status);
                                     if(data.status == 'fail') {
@@ -272,6 +286,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         }else{ //정상 입력
                             var fd = new FormData(document.forms.namedItem("calendar-update"))
                             fd.append("no", eventObj.id);
+                            fd.append("g_no", gno)
                             
                             fetch("/calendar/update", {
                                 method: "POST",
@@ -301,7 +316,7 @@ document.addEventListener('DOMContentLoaded', function () {
             text : "일정 추가",  // 버튼 내용
             click : function(){ // 버튼 클릭 시 이벤트 추가
                 $("#calendarModal").modal("show"); // modal 나타내기
-                console.log($("#calendarModal"));
+                // console.log($("#calendarModal"));
                 $("#x-addCalendar").on("click",function(){  // modal 추가 버튼 클릭 시
                     var startDt = $("#add-modal-startDt").val();
                     var endDt = $("#add-modal-endDt").val();
@@ -325,8 +340,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                     "name": $("#add-modal-title").val(),
                                     "content": content,
                                     "startDt": startDt,
-                                    "endDt": endDt,
-                                    "resulturl": $("#add-modal-URL").val()
+                                    "endDt": endDt
                                 }, //Data END
                                 dataType: 'json',
                                     success: function(data) {
@@ -349,14 +363,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 }); // modal 추가 버튼 클릭 이벤트 END
             } // 버튼 클릭 시 이벤트 END
         },// addEventButton END
-        goMidPointButton : { // 중간지점찾기 버튼 설정
-            text : "중간지점찾기",
-            click : function(){
-                window.location.href=`/junho/midpoint/membermidpoint.html?gno=${gno}`;
-            }
-        },
-
-        
     }, //customButtons
     }); //var calendar End
     calendar.render(); // 달력 출력
