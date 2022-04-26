@@ -77,6 +77,12 @@
         <button class="board-delete icon" type="button" value="{{no}}"><span class="material-icons md-34">delete</span></button>
         <button class="board-edit icon" type="button" value="{{no}}"><span class="material-icons md-34">mode_edit</span></button>
       </div>
+      {{else}}
+      {{#if isMaster}}
+      <div class="modify-div">
+        <button class="board-delete icon" type="button" value="{{no}}"><span class="material-icons md-34">delete</span></button>
+      </div>
+      {{/if}}
       {{/if}}
     </div>
     <div class="written-content text-truncate" type="button" data-bno="{{no}}">{{content}}</div>

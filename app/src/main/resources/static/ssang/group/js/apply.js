@@ -54,48 +54,39 @@ fetch(`/group/get?gno=${getGroup}`)
     });
 
 //신청하기
-// $(document).on("click","#apply",function(){
-//   var value = $(this).val(); //모임번호
-//   var answerLength = $("input[name=answer]").length
-//   if (answerLength >= 1) {
-//     console.log("test")
-//   var qs = "";
-//   for(var i=0; i<answerLength; i++){                          
-//     var answer = $("input[name=answer]").eq(i).val()
-//     var qno = $("input[name=answer]").eq(i).data('qno')
-//     qs += `answers=${qno}_${answer}&`;
-//   }
-//   console.log(qs)
-//   fetch(`/applyAnswer/add?${qs}`)
-//   .then(function(res){
-//     return res.json()
-//   }).then(function(result){
-//   });
-//   }
-//   var defaultValue = document.querySelector("textarea[name=answer]").value
-//   var qs2 = `groupNo=${value}&content=${defaultValue}`
-//   console.log(qs2)
-//   fetch(`/applyFixedAnswer/add?${qs2}`)
-//   .then(function(res){
-//     return res.json()
-//   })
-//   .then(function(result){
-//     location.href="/minkyu/mypage/index.html"
-//   })
-// })
+$(document).on("click","#apply",function(){
+  var value = $(this).val(); //모임번호
+  var answerLength = $("input[name=answer]").length
+  if (answerLength >= 1) {
+    console.log("test")
+  var qs = "";
+  for(var i=0; i<answerLength; i++){                          
+    var answer = $("input[name=answer]").eq(i).val()
+    var qno = $("input[name=answer]").eq(i).data('qno')
+    qs += `answers=${qno}_${answer}&`;
+  }
+  console.log(qs)
+  fetch(`/applyAnswer/add?${qs}`)
+  .then(function(res){
+    return res.json()
+  }).then(function(result){
+  });
+  }
+  var defaultValue = document.querySelector("textarea[name=answer]").value
+  var qs2 = `groupNo=${value}&content=${defaultValue}`
+  console.log(qs2)
+  fetch(`/applyFixedAnswer/add?${qs2}`)
+  .then(function(res){
+    return res.json()
+  })
+  .then(function(result){
+    if(result.status == "success"){
+    location.href="/minkyu/mypage/index.html"
+    }
+  })
+})
 
-//닫기
-$("button.btn-close").click((e) => {
-  var dialog = e.target.getAttribute("data-dialog");
-  $(`.${dialog}`).removeClass("show");
-});
-/*
-function close() {
-  console.log("click")
-  document.querySelector(".background").className = "background";
-  document.querySelector(".report-background").className = "report-background";
-}
-*/
+
 // $(document).on("click",".board-edit",function(){
 //   window.location.href = "view.html";
 // })
