@@ -144,8 +144,9 @@ button {
     font-size: 34px;
 }
 .comment-report .material-icons{
-    color: rgb(231, 76, 60);
+    color: rgba(231, 76, 60, 0.6);
     margin-left: 3px;
     font-size: 34px;
+    
 }
 .material-icons.md-34 { font-size: 32px; }

@@ -14,7 +14,7 @@ public interface CommentService {
   //
   //  Comment get(int no);
   //
-  //  int update(Comment comment);
+  int update(Comment comment);
   //
   //  int delete(Comment comment);
   //
