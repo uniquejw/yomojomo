@@ -9,6 +9,9 @@ console.log(qs)
 var params = new URLSearchParams(qs);
 console.log(params.get('lng'))
 console.log(params.get('lat'))
+var gNoParameter = params.get('gno');
+var calNoParameter = params.get('cal_no');
+
 
 
 // 마커를 클릭했을 때 해당 장소의 상세정보를 보여줄 커스텀오버레이입니다
@@ -138,6 +141,9 @@ function displayPlaces(places) {
                 lat = place.y
                 console.log(lat, lng)
                 saveData(place.x, place.y, place.place_name, place.id)
+                setTimeout(function(){
+                    window.location.href = `/junho/midpoint/invitefinalpoint.html?gno=${gNoParameter}&cal_no=${calNoParameter}&placeURL=${place.place_url}`
+                },2000)
               }
           });
 

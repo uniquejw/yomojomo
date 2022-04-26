@@ -8,8 +8,13 @@ console.log(qs)
 var params = new URLSearchParams(qs);
 gnoParameter = params.get('gno');
 calNoParameter = params.get('cal_no');
+URLParameter = params.get('placeURL');
 console.log(params.get('gno'))
 console.log(params.get('cal_no'))
+console.log(URLParameter)
+console.log(URLParameter.lastIndexOf('/'));
+console.log(URLParameter.substring(27))
+
 
 // Member 정보 담을 배열
 var memberList = [];
@@ -85,14 +90,12 @@ function selesctData() {
 function sendLinkCustom() {
   Kakao.init("2b7fdb2b98c4e61592bd51f09cac1ca8");
   Kakao.Link.sendCustom({
-      templateId: 75255 ,
-      templateArgs: {'url' : `/junho/midpoint/membermidpoint.html?gno=${gnoParameter}&cal_no=${calNoParameter}`}
+      templateId: 75630 ,
+      templateArgs: {'url' : `${URLParameter.substring(27)}`}
   });
 }
 
-$('.btn-gomidpoint').click(function() {
-  window.location.href = `/junho/midpoint/membermidpoint.html?gno=${gnoParameter}&cal_no=${calNoParameter}`
-})
+
 
 
 

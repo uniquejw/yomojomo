@@ -97,7 +97,7 @@
   var faqDiv = document.querySelector(".faq_tr")
   var boardCardDiv = document.querySelector(".notice_tr")
 
-window.onload = function allList() {
+  window.onload = function allList() {
     fetch("/notice/list")
       .then(function(response) {
         return response.json()
@@ -123,7 +123,7 @@ window.onload = function allList() {
           // div.classList.add("card-body")
           tr.innerHTML = `
           <li><a href="faq_view.html?no=${boards[i].no}">
-          ${boards[i].title}</li></a>
+          ${boards[i].title}</li></a >
           `
           faqDiv.appendChild(tr)
         }

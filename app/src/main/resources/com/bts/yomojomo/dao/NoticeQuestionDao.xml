@@ -38,6 +38,7 @@
   
   <select id="findByNo" resultMap="noticeQuestionMap" parameterType="int">
     select 
+      q_no,
       main_cate_no,
       query_no,
       memb_no,
@@ -55,7 +56,7 @@
 
   <insert id="insert" parameterType="NoticeQuestion">
     insert into gms_notice_question(main_cate_no,query_no,memb_no,title,content,path,query_dt,answer,answer_dt) 
-    values(#{mainCateNo},#{queryNo},#{membNo},#{title},#{content},#{path},#{queryDt},#{answer},#{answerDt})
+    values(1,#{queryNo},#{memberNo},#{title},#{content},#{path},NOW(),#{answer},#{answerDate})
   </insert>
   
   <update id ="update" parameterType="NoticeQuestion">
@@ -63,12 +64,12 @@
       path = #{path},
       title = #{title},
       content = #{content},
-      query_dt = #{queryDt},
+      query_dt = #{queryDate},
       answer = #{answer},
-      answer_dt = #{answerDt},
-      main_cate_no = mainCateNo,
+      answer_dt = #{answerDate},
+      main_cate_no = 1,
       query_no = queryNo,
-      memb_no = membNo
+      memb_no = memberNo
     where 
       q_no = #{no}
   </update>
