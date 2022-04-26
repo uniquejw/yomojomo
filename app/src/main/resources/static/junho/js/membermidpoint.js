@@ -491,5 +491,5 @@ function selectMidpoint() {
             console.log(result);
         }
     })
-    window.location = `/junho/midpoint/index1.html?lng=${lng}&lat=${lat}&gno=${gNoParameter}&cal_no=${calNoParaMeter}`
+    window.location = `/junho/midpoint/memberfinalpoint.html?lng=${lng}&lat=${lat}&gno=${gNoParameter}&cal_no=${calNoParaMeter}`
 }
