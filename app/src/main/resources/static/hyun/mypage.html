@@ -361,7 +361,6 @@
               cancelButtonText: '취소',
             }).then((result) => {
               if (result.isConfirmed) {
-                $(".request-all-check").prop("checked", false)
                 $(".pickme-table").find("input").prop("checked", false)
                 $("input:checkbox:checked").each(function(){
                   this.closest("tr").remove()
@@ -383,7 +382,6 @@
             cancelButtonText: '취소',
           }).then((result) => {
             if (result.isConfirmed) {
-              $(".pickme-all-check").prop("checked", false)
               $(".request-table").find("input").prop("checked", false)
               $("input:checkbox:checked").each(function(){
                 this.closest("tr").remove()
