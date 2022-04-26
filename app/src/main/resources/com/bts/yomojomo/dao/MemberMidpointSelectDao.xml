@@ -61,5 +61,14 @@
     values(#{lat}, #{lng}, #{member.no}, #{group.no}, #{addr}, #{calendar.no})
   </insert>
   
+  <delete id="delete" parameterType="MemberMidpointSelect">
+    delete
+     from gms_select_midpoint
+    where
+      g_no = #{group.no} and cal_no = #{calendar.no}
+  </delete>
+  
+  
+  
 
 </mapper>

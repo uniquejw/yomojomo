@@ -36,6 +36,15 @@ public class MemberMidpointSelectController {
     return new ResultMap().setStatus(SUCCESS);
   }
 
+  @RequestMapping("/midpoint/member/calendar/delete")
+  public Object delete(MemberMidpointSelect memberMidpointSelect, HttpSession session) {
+
+    Member member = (Member) session.getAttribute("loginUser");
+    memberMidpointSelect.setMember(member);
+    memberMidpointSelectService.delete(memberMidpointSelect);
+    return new ResultMap().setStatus(SUCCESS);
+  }
+
 
 
 }

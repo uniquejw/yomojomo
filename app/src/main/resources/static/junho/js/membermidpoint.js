@@ -450,6 +450,7 @@ function markerList(finalList) {
 function saveDataIndb(i) {
     console.log(placeDataList[i].x)
     var data = {'lat': placeDataList[i].x, 'lng': placeDataList[i].y, 'group.no': gNoParameter, 'calendar.no': calNoParaMeter, 'addr': placeDataList[i].address_name}
+    
     console.log(data)
     $.ajax({
         url: "/midpoint/member/calendar/add",
@@ -460,11 +461,14 @@ function saveDataIndb(i) {
             console.log(result);
         }
     })
+    
 }
 
 var lat = 0;
 var lng = 0;
+
 function selectMidpoint() {
+    console.log(finalList)
     for(var i = 0; i< finalList.length; i++) {
         lat += Number(finalList[i].lat)
         lng += Number(finalList[i].lng)
@@ -476,6 +480,16 @@ function selectMidpoint() {
     
     // panTo(lat, lng)
     // midpointMarker(lng, lat)
+    var deleteData ={'group.no': gNoParameter, 'calendar.no': calNoParaMeter}
     console.log(lng, lat)
-    window.location = `/junho/midpoint/index1.html?lng=${lng}&lat=${lat}`
+    $.ajax({
+        url: "/midpoint/member/calendar/delete",
+        type: "POST",
+        dataType: "json",
+        data: deleteData,
+        success : function(result) {
+            console.log(result);
+        }
+    })
+    window.location = `/junho/midpoint/index1.html?lng=${lng}&lat=${lat}&gno=${gNoParameter}&cal_no=${calNoParaMeter}`
 }
