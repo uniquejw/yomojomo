@@ -47,7 +47,10 @@ export function getBoardNO(){
   //console.log(no);
   return bno;
 }
-
+export async function findgrouplistByGno(no){
+  const response = await fetch(`/joinmember/grouplistbygno?group.no=${no}`).then(function(res){return res.json()})
+  return response
+}
 export async function getLoginUser(){
   const response = await fetch("/member/getLoginUser")
                     .then(function(res){

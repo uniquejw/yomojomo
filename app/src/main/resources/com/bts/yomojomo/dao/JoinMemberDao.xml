@@ -72,7 +72,6 @@
       jm.g_no = #{group.no}
     order by mg.g_memb_grd_no asc
   </select>
-
 <!--  이 밑으로 안건드림 - 경현
 
   <select id="findAll" resultMap="JoinMemberMap"> 
