@@ -10,7 +10,7 @@ for (var list of groupList.data){
 }
 if(arr.includes(loginUser.data.no) == false){ 
   // 모임에 가입된 유저가 아니라면 메인화면으로 이동시킨다
-  window.alert("모임에 가입 후 입장 가능합니다.")
+  window.alert("가입한 모임만 입장 가능합니다")
   location.replace("/junho/index.html")
 }
 
