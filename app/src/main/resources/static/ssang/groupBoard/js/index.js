@@ -1,6 +1,19 @@
-import{getGroupNO} from '/ssang/js/module.js';
-var getGroup = getGroupNO();
-console.log(getGroup)
+import{getGroupNO,getLoginUser,findgrouplistByGno} from '/ssang/js/module.js';
+var getGroup = getGroupNO();//쿼리스트링에서 가져온 모임번호 
+var loginUser = await getLoginUser() //로그인한 유저의 정보
+var groupList = await findgrouplistByGno(getGroup) // 그룹번호로 조회한 모임과 회원정보 
+console.log(groupList.data)
+console.log(loginUser.data.no)
+var arr = [];
+for (var list of groupList.data){
+  arr.push(list.member.no) 
+}
+if(arr.includes(loginUser.data.no) == false){ 
+  // 모임에 가입된 유저가 아니라면 메인화면으로 이동시킨다
+  window.alert("모임에 가입 후 입장 가능합니다.")
+  location.replace("/junho/index.html")
+}
+
 // 로그인 정보 요청
 fetch("/member/getLoginUser")
 .then(function(res){
