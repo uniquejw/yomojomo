@@ -44,3 +44,7 @@ div{
 .material-icons{
     vertical-align: middle;
 }
+input.apply-content{
+    margin-bottom: 5px;
+    border-radius: 3px;
+}
