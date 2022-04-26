@@ -17,6 +17,7 @@
     <association property="activeLocal" javaType="ActiveLocal">
       <id column="atlno" property="no"/>
       <result column="namesi" property="nameSi"/>
+      <result column="namegu" property="nameGu"/>
     </association>
     
     <association property="purpose" javaType="Purpose">
@@ -38,7 +39,8 @@
       m.roadname_addr,
       m.base_addr,
       m.addr,
-      a.name_si namesi
+      a.name_si namesi,
+      a.name_gu namegu
     from
       gms_memb m
       inner join gms_final_activelocal fa on m.memb_no = fa.memb_no
@@ -47,7 +49,18 @@
       m.email=#{email}
   </select>
   
-  
+  <select id="findCategory" resultMap="MyPageMap">
+  	select
+      m.memb_no,
+      p.pups_no pupno,
+      p.name pupname
+    from
+      gms_memb m
+      inner join gms_final_purpose fp on m.memb_no = fp.memb_no
+      inner join gms_purpose p on fp.pups_no = p.pups_no
+    where
+      m.email=#{email}
+  </select>
   
 
 </mapper>

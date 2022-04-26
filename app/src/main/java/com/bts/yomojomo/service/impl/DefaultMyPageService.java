@@ -17,5 +17,4 @@ public class DefaultMyPageService implements MyPageService {
   public List<MyPage> list(String email) {
     return mypageDao.findAll(email);
   }
-
 }

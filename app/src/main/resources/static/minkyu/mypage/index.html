@@ -96,7 +96,15 @@
           <p>상세 주소 : ${memberInfo[0].addr}</p>
           <br>`).appendTo(".info2")
     })
-    // fetch()
+
+    fetch("/mypage/category")
+    .then(function(response){
+      return response.json()
+    })
+    .then(function(categoryList){
+      console.log(categoryList)
+    })
+
   $(".card").children("img").click(function(e){
     location.href = "/ssang/groupBoard/index.html"
   })

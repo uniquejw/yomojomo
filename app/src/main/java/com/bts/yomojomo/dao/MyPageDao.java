@@ -6,5 +6,6 @@ import com.bts.yomojomo.domain.MyPage;
 
 @Mapper
 public interface MyPageDao {
+
   List<MyPage> findAll(String email);
 }

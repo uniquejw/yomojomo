@@ -11,9 +11,11 @@ public class MyPageController {
   @Autowired
   MyPageService myPageService;
 
+  String Email = "aaa@naver.com";
+
   @RequestMapping("/mypage/list")
   public Object list(String email) {
-    email = "aaa@naver.com";
+    email = this.Email;
     return myPageService.list(email);
   }
 }

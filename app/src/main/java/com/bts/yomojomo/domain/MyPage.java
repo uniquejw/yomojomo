@@ -14,5 +14,4 @@ public class MyPage {
 
 
   ActiveLocal activeLocal;
-  Purpose purpose;
 }
