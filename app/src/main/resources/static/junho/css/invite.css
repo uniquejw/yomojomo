@@ -79,6 +79,8 @@ a {
   font-weight: 700;
 }
 
+
+
 .invite .invite-content .list-group {
   padding-top: 2vh;
   max-height: 430px;
@@ -119,6 +121,13 @@ a {
   height: 45px;
   position: absolute;
   right: 0;
+  bottom: -6vh;
+}
+
+.invite .invite-content .btn-gomidpoint {
+  height: 45px;
+  position: absolute;
+  right: 198px;
   bottom: -6vh;
 }
 

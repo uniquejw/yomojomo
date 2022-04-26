@@ -2,6 +2,14 @@ $(document).ready(function () {
   $('#header').load('/junho/mainHeader.html'); //헤더 인클루드
   $('#footer').load('/junho/mainfooter.html'); //푸터부분 인클루드
 });
+// 파마미터 값 얻어오기
+var qs = window.location.search
+console.log(qs)
+var params = new URLSearchParams(qs);
+gnoParameter = params.get('gno');
+calNoParameter = params.get('cal_no');
+console.log(params.get('gno'))
+console.log(params.get('cal_no'))
 
 // Member 정보 담을 배열
 var memberList = [];
@@ -50,12 +58,15 @@ var listFirstStr = `<li class="list-group-item">
 <input class="form-check-input me-1" type="checkbox" value="selectAll" aria-label="..." name="member" onclick="selectAll(this)">
 <span style="padding: 5px;">전체선택</span>
 </li>`
+
+
+
 function selesctData() {
-  var data = {"group.no" : 1};
+  // var data = {"group.no" : 1};
   
   $.ajax({
-    url: "/midpoint/member/list",
-    data: data,
+    url: `/midpoint/member/list?group.no=${gnoParameter}`,
+    // data: data,
     type: "POST",
     dataType: "json",
     success : function(result) {
@@ -69,12 +80,18 @@ function selesctData() {
   
 }
 
+
+
 function sendLinkCustom() {
   Kakao.init("2b7fdb2b98c4e61592bd51f09cac1ca8");
   Kakao.Link.sendCustom({
       templateId: 75255 
   });
 }
+
+$('.btn-gomidpoint').click(function() {
+  window.location.href = `/junho/midpoint/membermidpoint.html?gno=${gnoParameter}&cal_no=${calNoParameter}`
+})
 
 
 
