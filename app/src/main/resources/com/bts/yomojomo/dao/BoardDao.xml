@@ -83,18 +83,7 @@
   </select>
   <!-- 모임별 게시판을 번호로 조회 -->
   <select id="findByBoardNo" resultMap="BoardMap">
-    select
-       g_no,
-       b_no,
-       content,
-       reg_dt,
-       board_writer,
-       content cmt_content,
-       reg_dt cmt_reg_dt,
-       cmt_writer
-	       from
-	       (
-		       SELECT 
+    SELECT 
         b.g_no,
         b.b_no,
         b.content,
@@ -102,29 +91,25 @@
         m.memb_no writer_no,
         m.membername writer_name,
         m.email writer_email,
-       comment.*
+        comment.*
     FROM 
         gms_board b 
         LEFT OUTER JOIN 
-        (SELECT c.content cmt_content  , gm.membername cmt_writer_name, c.reg_dt cmt_reg_dt, c.b_no  
+        (SELECT c.cmt_no,  c.content cmt_content, gm.memb_no cmt_writer_no,gm.membername cmt_writer_name, c.reg_dt cmt_reg_dt, c.b_no  
         FROM gms_comment c , gms_memb gm 
         WHERE c.memb_no =gm.memb_no 
         ) comment
         ON b.b_no = comment.b_no 
         LEFT OUTER JOIN gms_memb m ON b.memb_no = m.memb_no 
-        LEFT OUTER JOIN gms_memb m2 ON b.memb_no = m2.memb_no 
     WHERE 
-        b.g_no = #{no}
+        b.b_no = #{no}
     ORDER BY 
-        b.b_no DESC
-	       ) b
-	     where
-	       b.b_no = #{board.no}
+        comment.cmt_no DESC;
   </select>
   <!-- 조회시 조회수 증가 -->
   <update id="increaseViewCount" parameterType="int">
     update gms_board set 
-      view_count=view_count + 1 
+      view_cnt=view_cnt + 1 
     where b_no=#{no}
   </update>
   

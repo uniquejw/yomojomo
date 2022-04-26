@@ -19,4 +19,15 @@ public class DefaultMemberSelectService implements MemberMidpointSelectService {
     return memberMidpointSelectDao.findAll(memberSelectMidpoint);
   }
 
+  @Override
+  public int add(MemberMidpointSelect memberMidpointSelect) {
+    return memberMidpointSelectDao.insert(memberMidpointSelect);
+  }
+
+  @Override
+  public int delete(MemberMidpointSelect memberMidpointSelect) {
+    return memberMidpointSelectDao.delete(memberMidpointSelect);
+  }
+
+
 }

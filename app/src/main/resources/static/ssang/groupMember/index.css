@@ -30,17 +30,13 @@ a, p, span, button {
 ol, ul, li {
     list-style: none;
 }
-div{
-    /* margin: 5px; 
-    border: 1px solid #616161; */
-}
 /* 아이콘 설정 */
 .material-icons{
     color: rgb(17, 147, 218);
     margin-left: 3px;
 }
 .report-btn .material-icons{
-    color: rgb(231, 76, 60);
+    color: rgba(231, 76, 60, 0.6);
     margin-left: 3px;
 }
 .material-icons.md-32 { font-size: 32px; }
@@ -96,7 +92,7 @@ div{
     display:table;
     vertical-align:middle;
 }
-#x-memb-name{
+.x-memb-name{
     margin: 0 30px 0 0;
 }
 .modify-btn-div{
@@ -104,6 +100,10 @@ div{
 }
 .grade{
     display: inline-block;
+}
+button.report-btn{
+    display: inline;
+    margin: 0 0 0 5px;
 }
 .memb-item .material-icons{
     vertical-align: middle;

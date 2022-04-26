@@ -7,11 +7,21 @@ import com.bts.yomojomo.domain.Pickme;
 
 @Mapper 
 public interface PickmeDao {
-  int countAll(@Param("nameSi") String nameSi, @Param("nameGu") String nameGu);
+  int countAll(
+      @Param("nameSi") String nameSi, 
+      @Param("nameGu") String nameGu,
+      @Param("keyword") String keyword
+      );
 
   int countSiList(@Param("nameSi") String nameSi);
 
-  List<Pickme> findAll(@Param("rowCount") int rowCount, @Param("offset") int offset, @Param("nameSi") String nameSi, @Param("nameGu") String nameGu);
+  List<Pickme> findAll(
+      @Param("rowCount") int rowCount, 
+      @Param("offset") int offset, 
+      @Param("nameSi") String nameSi, 
+      @Param("nameGu") String nameGu,
+      @Param("keyword") String keyword
+      );
 
   Pickme findByNo(int no);
 

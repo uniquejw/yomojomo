@@ -126,7 +126,8 @@ button {
 .written-content{
     padding-top: 15px;
     margin: 16px 0 0 10px;
-    min-height: 300px;
+    min-height: 120px;
+    width: 80%;
 }
 /* 댓글 */
 #written-comment{

@@ -1,50 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <script src="/node_modules/jquery/dist/jquery.min.js"></script>
-  <script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
-  <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
-  <!--full calendar node_modues-->
-  <link href="/node_modules/fullcalendar/main.min.css" rel="stylesheet" />
-  <script src="/node_modules/fullcalendar/main.min.js"></script>
-  <script src="/node_modules/fullcalendar/locales/ko.js"></script> <!--한글설정-->
-  <!--full calendar node_modues END-->
-  <title>일정</title>
+<script src="/node_modules/jquery/dist/jquery.min.js"></script>
+<script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
+<link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
+<!--full calendar node_modues-->
+<link href="/node_modules/fullcalendar/main.min.css" rel="stylesheet" />
+<script src="/node_modules/fullcalendar/main.min.js"></script>
+<script src="/node_modules/fullcalendar/locales/ko.js"></script> <!--한글설정-->
+<!--full calendar node_modues END-->
+<title>일정</title>
 
-  <style>
-  #calendar-container{
+<style>
+#calendar-container{
     padding-top: 2vh;
     height: 70vh;
     position: relative;
     margin-bottom: 30vh;
-  }
-  #calendar {
+}
+#calendar {
     max-width: 1100px;
     margin: 40px auto;
 }
-  .fc-header-toolbar > .fc-toolbar-chunk > .fc-addEventButton-button {
-      border: 0px;
-      background-color: rgb(17, 147, 218);
-      margin-right: 13px;      
-  }
-  .fc-header-toolbar > .fc-toolbar-chunk > .fc-today-button {
-      border: 0px;
-      background-color: red;
-  }
-  .fc-header-toolbar > .fc-toolbar-chunk > .fc-button-group > .fc-prev-button{
+.fc-header-toolbar > .fc-toolbar-chunk > .fc-addEventButton-button {
     border: 0px;
     background-color: rgb(17, 147, 218);
-  }
-  .fc-header-toolbar > .fc-toolbar-chunk > .fc-button-group > .fc-next-button{
+    margin-right: 13px;      
+}
+.fc-header-toolbar > .fc-toolbar-chunk > .fc-today-button {
+    border: 0px;
+    background-color: red;
+}
+.fc-header-toolbar > .fc-toolbar-chunk > .fc-button-group > .fc-prev-button{
     border: 0px;
     background-color: rgb(17, 147, 218);
-  }  
-  </style>
+}
+.fc-header-toolbar > .fc-toolbar-chunk > .fc-button-group > .fc-next-button{
+    border: 0px;
+    background-color: rgb(17, 147, 218);
+}
+.fc-daygrid-event-harness, .fc-event-title-container {
+    cursor: pointer
+}
+</style>
 </head>
 
 <body class="menu3">
@@ -114,8 +117,8 @@ $(document).ready(function () {
                         <input type="date" name="startDt" id="view-modal-startDt" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                         <label for="taskId" class="col-form-label">끝 날짜</label>
                         <input type="date" name="endDt" id="view-modal-endDt" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                        <label for="taskId" class="col-form-label">모임 장소 URL <button type="button" class="btn btn-primary" id="Gomidpoint-Btn">중간지점찾기</button></label>
-                        <input type="url" name="resulturl" id="view-modal-resultURL" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                        <label for="taskId" class="col-form-label">모임 장소 선정 URL <button type="button" class="btn btn-primary" id="Gomidpoint-Btn">중간지점 초대메세지보내기</button></label>
+                        <input type="url" name="resulturl" id="view-modal-resultURL" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" data-bs-toggle="tooltip" data-bs-placement="bottom" title="모임장소선정으로 이동" style="cursor:pointer">
                     </div><!--form-group END-->
                 </div><!--modal-body END-->
                 <div class="modal-footer">
@@ -132,6 +135,7 @@ $(document).ready(function () {
 <div id="footer"></div>
 
 <script type="text/javascript">
+var calNoparameter=0;
 var arr = location.href.split("?");
   if (arr.length == 1) {
     alert("요청 형식이 올바르지 않습니다.")
@@ -185,6 +189,11 @@ $.ajax({ //로그인 여부 확인 ajax START 비회원은 main으로 보낸다.
             $("#Gomidpoint-Btn").hide();
             $("#modal-UpdateBtn").hide();
             $("#modal-DeleteBtn").hide();
+            $("#view-modal-title").attr("disabled", true);
+            $("#view-modal-content").attr("disabled", true);
+            $("#view-modal-gno").attr("disabled", true);
+            $("#view-modal-startDt").attr("disabled", true);
+            $("#view-modal-endDt").attr("disabled", true);
           }//회원 등급 조회 if END    
         }//회원 등급 조회 success END           
       })//회원 등급 조회 ajax END 
@@ -229,8 +238,14 @@ document.addEventListener('DOMContentLoaded', function () {
     eventClick: function(info) { //날짜를 클릭하면 나오는 이벤트
     var eventObj = info.event;
       console.log(eventObj);
+      calNoparameter = eventObj.id;
+      var urlInput = document.querySelector('input[type="url"]')
+      urlInput.value = `/junho/midpoint/membermidpoint.html?gno=${gno}&cal_no=${calNoparameter}`;
+      urlInput.addEventListener('click' ,function() {
+          window.location.href = `/junho/midpoint/membermidpoint.html?gno=${gno}&cal_no=${calNoparameter}`;
+      })
       $("#Gomidpoint-Btn").on("click", function() {
-          window.location.href=`/junho/midpoint/membermidpoint.html?gno=${gno}&cal_no=${eventObj.id}`;
+          window.location.href=`/junho/midpoint/inviteindex.html?gno=${gno}&cal_no=${eventObj.id}`;
       })
         $.ajax({
             url: '/calendar/get',
@@ -249,7 +264,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 $("#view-modal-gno").val(data.joinMemb.group.no);
                 $("#view-modal-startDt").val(data.startDt);
                 $("#view-modal-endDt").val(data.endDt);
-                $("#view-modal-resultURL").val(data.resulturl);
+                // $("#view-modal-resultURL").val(data.resulturl);
                 if ($("#view-modal-resultURL").val() != null){
                 } else {
                     $("#view-modal-resultURL").val(" ");
@@ -368,8 +383,6 @@ document.addEventListener('DOMContentLoaded', function () {
     calendar.render(); // 달력 출력
   }); //document.addEventListener End
 </script>
-
-
 
 </body>
 </html>

@@ -47,9 +47,8 @@ public class BoardController {
 
   //  모임별 게시글 조회
   @RequestMapping("/board/findByBoardNo")
-  public Object findBoardNo(Board board) {
-    boardService.increaseViewCount();
-    return boardService.findByBoardNo(board);
+  public Object findBoardNo(int no) {
+    return new ResultMap().setStatus(SUCCESS).setData(boardService.findByBoardNo(no));
   }
 
   @RequestMapping("/board/update")

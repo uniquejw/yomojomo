@@ -22,6 +22,7 @@ export function getGroupNO(){
   //console.log(no);
   return gno;
 }
+
 export function getBoardNO(){
   // 1) URL에서 쿼리스트링(query string)을 추출한다.
   var arr = location.href.split("?");
@@ -45,4 +46,19 @@ export function getBoardNO(){
   }
   //console.log(no);
   return bno;
+}
+export async function findgrouplistByGno(no){
+  const response = await fetch(`/joinmember/grouplistbygno?group.no=${no}`)
+  .then(function(res){return res.json()})
+  return response
+}
+export async function getLoginUser(){
+  const response = await fetch("/member/getLoginUser")
+  .then(function(res){return res.json()})
+   return response;                     
+}
+export async function qCount(no){
+  const response = await fetch(`/applyQuestion/count?no=${no}`)
+  .then(function(res){return res.json()})
+  return response;
 }

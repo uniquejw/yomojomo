@@ -6,36 +6,33 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>pick me 글 작성</title>
   
-  <!-- 파비콘생성 -->
   <link rel="icon" href="/junho/img/logo.png">
-  <!-- css 초기화 -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
-  <!-- 폰트 -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700&display=swap" rel="stylesheet">
-  <!-- 아이콘 연결 코드 -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <!-- JQUERY -->
   <script src="/node_modules/jquery/dist/jquery.min.js"></script>
-  <!-- 부트스트랩 CSS-->
   <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.css">
-  <!-- 부트스트랩 JS-->
   <script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-  <!--핸들바-->
   <script src="/node_modules/handlebars/dist/handlebars.min.js"></script>
 
   <style>
     #form-content{ 
-      padding-top: 30vh;
-      padding-bottom: 30vh;
+      padding-top: 20vh;
+      padding-bottom: 10vh;
       position: relative;
+    }
+    #outline{
+      margin: 20px;
+      padding: 20px;
     }
     form {
       margin: 10px auto;
+      
     }
     #localSelect{
-      width: 400px;
+      width: 500px;
       display: flex;
     }
     textarea { /*사이즈 고정*/
@@ -60,37 +57,39 @@
 <!--입력 폼 -->
 <div class="inner">
   <div id="form-content" class="table-responsive-lg">
-    <form name="pickme-form">
-      <table id="formTable" class="table table-borderless">
-        <tbody>
-          <tr>
-            <td width="150px">제목</td>
-            <td><input name="title" type="text" class="form-control" placeholder="제목을 입력해주세요"></td>
-          </tr>
-          <tr>
-            <td>활동지역</td>
-            <td>
-              <div id="localSelect">
-                <select name="nameSi" id="nameSi" class="form-select form-select-sm" aria-label=".form-select-sm example"></select>
-                <select name="activeLocal.no" id="nameGu" class="form-select form-select-sm" aria-label=".form-select-sm example"></select>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>관심활동</td>
-            <td>            
-              <select name="purpose.no" id="purpose" class="form-select form-select-sm" aria-label=".form-select-sm example"></select>
-            </td>
-          </tr>
-          <tr>
-            <td><label for="comment">내용:</label></td>
-            <td><textarea class="form-control" rows="5" id= "content" name="content"></textarea></td>
-          </tr>
-        </tbody>
-      </table>
-        <button id="x-add-btn" type="button" class="btn btn-primary">등록</button>
-        <button id="x-cancel-btn" type="button" class="btn btn-primary">취소</button><br>
-    </form>    
+    <div id="outline">
+      <form name="pickme-form">
+        <table id="formTable" class="table table-borderless">
+          <tbody>
+            <tr>
+              <td width="200px">제목</td>
+              <td><input name="title" type="text" class="form-control" placeholder="제목을 입력해주세요"></td>
+            </tr>
+            <tr>
+              <td>활동지역</td>
+              <td>
+                <div id="localSelect">
+                  <select name="nameSi" id="nameSi" class="form-select form-select-sm" aria-label=".form-select-sm example"></select>
+                  <select name="activeLocal.no" id="nameGu" class="form-select form-select-sm" aria-label=".form-select-sm example"></select>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>관심활동</td>
+              <td>            
+                <select name="purpose.no" id="purpose" class="form-select form-select-sm" aria-label=".form-select-sm example"></select>
+              </td>
+            </tr>
+            <tr>
+              <td><label for="comment">내용:</label></td>
+              <td><textarea class="form-control" rows="5" id= "content" name="content"></textarea></td>
+            </tr>
+          </tbody>
+        </table>
+          <button id="x-add-btn" type="button" class="btn btn-primary">등록</button>
+          <button id="x-cancel-btn" type="button" class="btn btn-primary">취소</button><br>
+      </form>
+    </div> 
   </div>
 </div>
 
@@ -141,7 +140,6 @@ $.ajax({
   type : "POST",
   async : false,
   success: function(result) {
-      // console.log(result.data);
       selectSiList.innerHTML = opGernerator(result.data);
   }
 });
@@ -153,7 +151,6 @@ let selectGuOption = document.querySelector("#optionGu-template");
 opGernerator = Handlebars.compile(selectGuOption.innerHTML);
 
 $(document).on("click", "#nameSi", function() {
-  // console.log("바뀜");
   $.ajax({
     url : "/activeLocal/gulistcate",
     type : "POST",

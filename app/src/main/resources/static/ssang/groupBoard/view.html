@@ -4,11 +4,15 @@
   <meta charset="utf-8">
   <title>모임개설</title>
   <!-- 제이쿼리 -->
-  <script src="../../node_modules/sweetalert2/dist/sweetalert2.min.js"></script>
-  <script src="../../node_modules/jquery/dist/jquery.min.js"></script>
+  <script src="/node_modules/sweetalert2/dist/sweetalert2.min.js"></script>
+  <script src="/node_modules/jquery/dist/jquery.min.js"></script>
+  <!-- 부트스트랩 -->
+  <script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+  <!-- 핸들바 -->
+  <script src="/node_modules/handlebars/dist/handlebars.min.js"></script>
   <!-- css 초기화 -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
-  <link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
   <!--공용css-->
   <link rel="stylesheet" href="/css/common.css">
   <!--내css-->
@@ -45,58 +49,42 @@
         </div>
         <div class="post-cancel-div">
           <button id="s-cancel-btn" type="button">취소</button>
-          <button id="s-post-btn" type="button">확인</button>
           <button id="s-report-btn" type="button">신고</button>
         </div>
       </div>
       <hr>
       <!-- 댓글 -->
-      <div id="written-comment">
-        <div class="comment-author-div">
-          <div class="comment-author-img-div">
-            <img class="comment-author-img" src="" alt=""><span class="material-icons md-34">
-              face
-              </span>  &nbsp;&nbsp;&nbsp;
-          </div>
-          <div class="comment-column-div">
-            <div class="comment-author-name">박서준</div>
-            <div class="comment-createdTime">어제</div>
-          </div>
-          <div class="modify-div">
-            <button class="comment-delete icon" type="button"><span class="material-icons md-34">delete</span></button>
-            <button class="comment-edit icon" type="button"><span class="material-icons md-34">mode_edit</span></button>
-            <button class="comment-report icon" type="button"><span class="material-icons md-34">report</span></button>
-          </div>
-        </div>
-        <div class="comment-content">
-          ㅋㅋㅋㅋㅋ 날씨가 봄이다 봄봄봄
-        </div>
-      </div>
+      <div id="handlebars-container"></div>
     </div>  
   </div>
-<div id="footers"></div>
-<script src="../../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-<script src="../../node_modules/handlebars/dist/handlebars.min.js"></script>
-<!-- 게시글 댓글 가져오기  -->
-<script>
-  var writtenAuthorName = document.querySelector(".written-author-name");
-  var writtenCreatedTime = document.querySelector(".written-createdTime");
-  var writtenContent = document.querySelector(".written-content");
-
-  fetch("/board/get?no=")
-  .then(function(response) {
-    return response.json();
-  })
-  .then(function(boards){
-    console.log(boards)
-  })
+  <div id="footers"></div>
+  <script id="comment-template" type="text/x-handlebars-template">
+    {{#each comments}}
+  <div id="written-comment" >
+  <div class="comment-author-div">
+    <div class="comment-author-img-div">
+      <img class="comment-author-img" src="" alt=""><span class="material-icons md-34" style="border-left: 3px solid rgb(17, 147, 218);">
+        format_quote
+        </span>  &nbsp;&nbsp;&nbsp;
+    </div>
+    <div class="comment-column-div">
+      <div class="comment-author-name">{{writer.memberName}}</div>
+      <div class="comment-createdTime">{{registDate}}</div>
+    </div>
+    <div class="modify-div">
+      <button class="comment-report icon" type="button" value="{{no}}"><span class="material-icons md-34" >report</span></button>
+      {{#if isWriter}}
+      <button class="comment-delete icon" type="button" value="{{no}}"><span class="material-icons md-34" >delete</span></button>
+      <button class="comment-edit icon" type="button" value="{{no}}" data-content="{{content}}"><span class="material-icons md-34" >mode_edit</span></button>
+      {{/if}}
+    </div>
+  </div>
+  <div class="comment-content" data-cno="{{no}}">
+    {{content}}
+  </div>
+  </div>
+  {{/each}}
 </script>
-
-<!--버튼클릭이벤트 -->
-<script>
-  document.querySelector("#s-cancel-btn").onclick = function() {
-    window.location.href = "index.html";
-  };
-</script>
+<script type="module" src="/ssang/groupBoard/js/view.js"></script>
 </body>
 </html>

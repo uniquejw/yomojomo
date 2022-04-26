@@ -38,7 +38,7 @@
     <div class="inner">
       <div class="left-content">
         <h1>참석자 명단</h1>
-        <button type="button" class="btn btn-primary final-destination">결과보기</button>
+        <button type="button" class="btn btn-primary final-destination" onclick="selectMidpoint()">결과보기</button>
         <ul class="member-list">
           
         </ul>
@@ -60,7 +60,7 @@
         <button type="button" class="btn btn-primary insert-destination" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="setTimeout(function(){ map.relayout();}, 1000); modalclick(`{{@index}}`)">
           <input type="text" class="input-destination destination-item{{@index}}" value="{{addr}}">
         </button>
-        <button type="button" class="btn btn-primary" onclick="saveDbDate(`{{@index}}`)">완료</button>
+        <button type="button" class="btn btn-primary btn-save-data"  onclick="saveDataIndb(`{{@index}}`)">저장</button>
       </div>
     </li>
     {{/each}}
