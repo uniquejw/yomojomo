@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bts.yomojomo.dao.MyPageDao">
+  
+  <resultMap type="MyPage" id="MyPageMap">
+    <id column="memb_no" property="no"/>
+    <result column="membername" property="name"/>
+    <result column="email" property="email"/>
+    <result column="tel" property="tel"/>
+    <result column="roadname_addr" property="roadNameAddr"/>
+    <result column="base_addr" property="baseAddr"/>
+    <result column="addr" property="addr"/>
+    
+
+    <association property="activeLocal" javaType="ActiveLocal">
+      <id column="atlno" property="no"/>
+      <result column="namesi" property="nameSi"/>
+    </association>
+    
+    <association property="purpose" javaType="Purpose">
+       <id column = "pupno" property="no"/>
+       <result column="pupname" property="purposeName"/>
+    </association>
+    
+  </resultMap>
+
+  
+  <select id="findAll" resultMap="MyPageMap">
+    select
+      m.memb_no,
+      a.act_local_no atlno,
+      m.membername,
+      m.email,
+      m.tel,
+      m.post_no,
+      m.roadname_addr,
+      m.base_addr,
+      m.addr,
+      a.name_si namesi
+    from
+      gms_memb m
+      inner join gms_final_activelocal fa on m.memb_no = fa.memb_no
+      inner join gms_activelocal a on fa.act_local_no = a.act_local_no
+    where
+      m.email=#{email}
+  </select>
+  
+  
+  
+
+</mapper>

@@ -24,6 +24,7 @@
       $('#footers').load('/junho/mainfooter.html'); //푸터부분 인클루드
     });
   </script>
+  <script src="/node_modules/handlebars/dist/handlebars.min.js"></script>
 </head>
 <body>
   <div id="header"></div>
@@ -48,28 +49,10 @@
           <br>
           <div class="my-info">
             <div class="info1">
-              <img id="info-img" src="../profile.jpg">
-              <p id="info-name">박서준</p>
-              <p>이메일 주소 : jkjk@naver.com</p>
-              <p>핸드폰 번호 : 989-8989-8989</p>
+
             </div>
             <div class="info2">
-              <p>주소 : 미국 남동구 세종로 37</p>
-              <p>근무지 : 판교 네이버 웹개발 1팀</p>
-              <p>지역 : 서울</p>
-              <p>결혼 여부 : 미혼</p>
-              <br>
-              <span class="badge rounded-pill bg-primary category">낚시</span>
-              <span class="badge rounded-pill bg-primary category">독서</span>
-              <span class="badge rounded-pill bg-primary category">축구</span>
-              <span class="badge rounded-pill bg-primary category">한식</span>
-              <span class="badge rounded-pill bg-primary category">중식</span>
-              <br>
-              <span class="badge rounded-pill bg-primary category">공부</span>
-              <span class="badge rounded-pill bg-primary category">IT</span>
-              <span class="badge rounded-pill bg-primary category">문학</span>
-              <span class="badge rounded-pill bg-primary category">30대</span>
-              <span class="badge rounded-pill bg-primary category">남자</span>
+
             </div>
           </div>
           <br>
@@ -95,9 +78,28 @@
   </div>
   <div id="footers"></div>
   <script>
+    fetch("/mypage/list")
+    .then(function(response){
+      return response.json()
+    })
+    .then(function(memberInfo){
+      console.log(memberInfo)
+      $(`<img id="info-img" src="../profile.jpg">
+              <p id="info-name">${memberInfo[0].name}</p>
+              <p>이메일 주소 : ${memberInfo[0].email}</p>
+              <p>핸드폰 번호 : ${memberInfo[0].tel}</p>`)
+              .appendTo(".info1")
+      $(` <br>
+          <p>지역 : ${memberInfo[0].activeLocal.nameSi}</p>
+          <p>도로명 주소 : ${memberInfo[0].roadNameAddr}</p>
+          <p>지번 주소 : ${memberInfo[0].baseAddr}</p>
+          <p>상세 주소 : ${memberInfo[0].addr}</p>
+          <br>`).appendTo(".info2")
+    })
   $(".card").children("img").click(function(e){
     location.href = "/ssang/groupBoard/index.html"
   })
+  // <span class="badge rounded-pill bg-primary category">${pupr}</span>
   </script>
 </body>
 </html>
