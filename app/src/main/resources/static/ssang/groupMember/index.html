@@ -7,14 +7,8 @@
     <title>Document</title>
     <!-- 제이쿼리 -->
   <script src="/node_modules/sweetalert2/dist/sweetalert2.all.min.js"></script>
-  <!-- 파비콘생성 -->
-  <link rel="icon" href="/junho/img/favicon.png">
   <!-- css 초기화 -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
-  <!-- 폰트 -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700&display=swap" rel="stylesheet">
   <!-- 아이콘 연결 코드 -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <script src="/node_modules/jquery/dist/jquery.min.js"></script>
@@ -68,30 +62,8 @@
       </div>
       <div class="memb-list-container" >
         <div class="memb-list" >
-          <div class="memb-item-column" >
-            <div class="memb-item" >
-              <span class="material-icons md-32">
-              person
-              </span>
-              <span id="x-memb-name">name</span>
-              <div class="grade">
-                <span>모임장</span>
-              </div>
-            </div><!---memb-item-->
-            <div class="memb-item" >
-              <span class="material-icons md-32">
-              person
-              </span>
-              <span id="x-memb-name">name</span>
-              <div class="grade">
-                <span>일반회원</span>
-              </div>
-              <button class="report-btn" type="button">
-                <span class="material-icons md-32">
-                  report
-                </span>
-              </button>
-            </div><!---memb-item-->
+          <div class="memb-item-column">
+            <div id="membContainer"></div>
           </div>
           <div class="modify-btn-div">
             <button class="settings-btn" type="button">
@@ -133,8 +105,24 @@
   </div>
 </div><!--container-->
 <div id="footers"></div>
-    <script>
-      $('.btn').button();
-    </script>
 </body>
+<script id="memb-template" type="text/x-handlebars-template">
+  {{#each this}}
+  <div class="memb-item" >
+    <span class="material-icons md-32">
+    person
+    </span>
+    <span class="x-memb-name">{{member.memberName}}</span>
+    <div class="grade">
+      <span class="x-general">{{memberGrade.gradeName}}</span>
+    </div>
+    <button class="report-btn" type="button">
+      <span class="material-icons md-32">
+        report
+      </span>
+    </button>
+  </div><!---memb-item-->
+  {{/each}}
+</script>
+<script type="module" src="/ssang/groupMember/index.js"></script>
 </html>

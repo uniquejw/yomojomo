@@ -57,3 +57,8 @@ export async function getLoginUser(){
   .then(function(res){return res.json()})
    return response;                     
 }
+export async function qCount(no){
+  const response = await fetch(`/applyQuestion/count?no=${no}`)
+  .then(function(res){return res.json()})
+  return response;
+}

@@ -1,11 +1,7 @@
-import{getGroupNO} from '/ssang/js/module.js';
+import{getGroupNO,qCount} from '/ssang/js/module.js';
 var groupNo = getGroupNO(); 
-// var qcnt=""
-// fetch(`/applyQuestion/count?no=${groupNo}`)
-//   .then(function(res){
-//     return res.json()
-//   }).then(function(result){
-//   })
+var questionCnt = await qCount(groupNo);
+var qCnt = questionCnt.data
 //신청서 등록 현황 
 var br = document.querySelector("#accordion-body")
 var brTemplate = document.querySelector("#br-template");
@@ -14,10 +10,10 @@ fetch(`/applyQuestion/findQuestion?no=${groupNo}`)
   .then(function(res){
     return res.json()
   }).then(function(result){
-    console.log(result.data)
-    br.innerHTML = htmlGenerator(result.data);
+    if (result.data.length != 0){
+      br.innerHTML = htmlGenerator(result.data);
+    }
   })
-
 // 질문목록 추가 이벤트
 document.querySelector("#x-addQuestion-btn").onclick = function() {
 if (xQuestionListCon.childElementCount < 5) {
@@ -39,6 +35,7 @@ Swal.fire({
 var xQuestionCon = document.querySelector("#x-question-container")
 document.querySelector("#x-apply-form").onclick = function() {
   var xQuestions = xQuestionCon.querySelectorAll(".x-question");
+  if(xQuestions.length+qCnt < 6){
   var qs="";
   for (var xQuestion of xQuestions) {
       var question = xQuestion.querySelector("input");
@@ -50,6 +47,9 @@ document.querySelector("#x-apply-form").onclick = function() {
     }).then(function(result){
       location.href=`/ssang/groupEdit/index.html?gno=${groupNo}`
     })
+  } else{
+    alert("질문은 총 5개 까지만 등록 가능합니다. ")
+  }
 }
 
 // 신청서 수정
