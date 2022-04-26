@@ -114,7 +114,7 @@ $(document).ready(function () {
                         <input type="date" name="startDt" id="view-modal-startDt" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                         <label for="taskId" class="col-form-label">끝 날짜</label>
                         <input type="date" name="endDt" id="view-modal-endDt" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                        <label for="taskId" class="col-form-label">모임 장소 URL <button type="button" class="btn btn-primary" id="Gomidpoint-Btn">중간지점찾기</button></label>
+                        <label for="taskId" class="col-form-label">모임 장소 선정 URL <button type="button" class="btn btn-primary" id="Gomidpoint-Btn">중간지점 초대메세지보내기</button></label>
                         <input type="url" name="resulturl" id="view-modal-resultURL" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                     </div><!--form-group END-->
                 </div><!--modal-body END-->
@@ -132,6 +132,7 @@ $(document).ready(function () {
 <div id="footer"></div>
 
 <script type="text/javascript">
+var calNoparameter=0;
 var arr = location.href.split("?");
   if (arr.length == 1) {
     alert("요청 형식이 올바르지 않습니다.")
@@ -229,8 +230,14 @@ document.addEventListener('DOMContentLoaded', function () {
     eventClick: function(info) { //날짜를 클릭하면 나오는 이벤트
     var eventObj = info.event;
       console.log(eventObj);
+      calNoparameter = eventObj.id;
+      var urlInput = document.querySelector('input[type="url"]')
+      urlInput.value = `/junho/midpoint/membermidpoint.html?gno=${gno}&cal_no=${calNoparameter}`;
+      urlInput.addEventListener('click' ,function() {
+          window.location.href = `/junho/midpoint/membermidpoint.html?gno=${gno}&cal_no=${calNoparameter}`;
+      })
       $("#Gomidpoint-Btn").on("click", function() {
-          window.location.href=`/junho/midpoint/membermidpoint.html?gno=${gno}&cal_no=${eventObj.id}`;
+          window.location.href=`/junho/midpoint/inviteindex.html?gno=${gno}&cal_no=${eventObj.id}`;
       })
         $.ajax({
             url: '/calendar/get',
@@ -249,7 +256,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 $("#view-modal-gno").val(data.joinMemb.group.no);
                 $("#view-modal-startDt").val(data.startDt);
                 $("#view-modal-endDt").val(data.endDt);
-                $("#view-modal-resultURL").val(data.resulturl);
+                // $("#view-modal-resultURL").val(data.resulturl);
                 if ($("#view-modal-resultURL").val() != null){
                 } else {
                     $("#view-modal-resultURL").val(" ");
@@ -367,6 +374,10 @@ document.addEventListener('DOMContentLoaded', function () {
     }); //var calendar End
     calendar.render(); // 달력 출력
   }); //document.addEventListener End
+</script>
+
+<script>
+    
 </script>
 
 
