@@ -14,6 +14,7 @@ public interface AccountingService {
 
   Accounting get(int no);
 
+
   int update(Accounting accounting, int qslength);
 
   int delete(int accountingNo);

@@ -189,8 +189,8 @@
       <input id="listmembName" type="text" value="{{membName}}">
       <input id="membno" value="{{memberNo}}" type="hidden">
 
-    <span>납부 완료일 :</span> <input type="date" id="paydt" value="{{paydt}}">
-    <button id="x-deleteMemb-btn" type="button" class="btn btn-primary" onclick="deleteDiv(event)">삭제</button><br>
+    <span>납부 완료일 :</span> <input type="date" id="paydt" value="{{paydt}}"> <br>
+    <!-- <button id="x-deleteMemb-btn" type="button" class="btn btn-primary" onclick="deleteDiv(event)">삭제</button> -->
     </div>
   {{/each}}
 </script>
@@ -203,8 +203,8 @@
     <input id="listmembName" type="text" value="{{memberName}}">
     <input id="membno" value="{{no}}" type="hidden">
 
-  <span>납부 완료일 :</span> <input type="date" id="paydt">
-  <button id="x-deleteMemb-btn" type="button" class="btn btn-primary" onclick="newDeleteDiv(event)">삭제</button><br>
+  <span>납부 완료일 :</span> <input type="date" id="paydt"><br>
+  <!-- <button id="x-deleteMemb-btn" type="button" class="btn btn-primary" onclick="newDeleteDiv(event)">삭제</button> -->
   </div>
   {{/each}}
 </script>
@@ -238,7 +238,7 @@ $(document).ready(function () {
                 var currentGroup = []; //현재 모임정보
 
                 for (i=0; i < MemberInfo.length; i++) { //현재 있는 그룹의 정보 배열로 빼기
-                if (gno == MemberInfo[i].group.no) {
+                if (AccountingGno == MemberInfo[i].group.no) {
                     // console.log("가입한 소모임이야");
                     memberAuthority = MemberInfo[i].memberGrade.gradeNo
                     currentGroup.push({
@@ -263,8 +263,7 @@ $(document).ready(function () {
                   $("#newMemb").hide();
                   $("#cleanMemb").hide();
                   $("#recoverMemb").hide();
-                  // console.log(document.querySelectorAll(".x-membList > #x-deleteMemb-btn")); //!!!!!!!!!!!!!!!!!!!!!!!!!! 읽혔다 안읽혔다 함!!!!!!!!!!!!!!!!!!!!!
-                  $(document.querySelectorAll("#x-deleteMemb-btn")).css("display","none"); //!!!!!!!!!!!!!!!!!!!!!!!!!! 읽혔다 안읽혔다 함!!!!!!!!!!!!!!!!!!!!!
+                  $(document.querySelectorAll("#x-deleteMemb-btn")).css("display","none");
                   $(".inner > form > table > tbody > tr > td > input").attr("readonly", true);
                   $(".inner > form > table > tbody > tr > td > select").prop("disabled", true);
                   $(document.querySelectorAll("#listmembName")).attr("readonly", true);
@@ -317,6 +316,7 @@ let checkboxTemplate = document.querySelector("#modal-memberlist-template");
 let checkboxGenerator = Handlebars.compile(checkboxTemplate.innerHTML);
 let plusDtMembArr = [];
 
+
 //화면에 뿌림
 $.ajax({
   url: "/accounting/get",
@@ -330,7 +330,6 @@ $.ajax({
     xAmount.value  = accountingResult.amount;
     xDate.value = accountingResult.registDate;
     xStatus.value = accountingResult.status;
-    // x.PayDt.value = accounting.
     splitmemberNoArr = accountingResult.actStatus;
 
     //accounting의 멤버리스트
@@ -342,13 +341,14 @@ $.ajax({
       })//memberNoArr push END    
     })//each END
 
+    console.log(splitmemberNoArr);
+
     //member의 멤버리스트
     $.ajax({
       url: "/member/list",
       type : "POST",
       success : function (result) {
         var memberArr = [];
-
       $.each()
         $.each(result, function(index, result) {
           memberArr.push({
@@ -356,6 +356,8 @@ $.ajax({
             membName : result.memberName
           })// memberArr push END
         })//each END
+
+        // console.log(MemberArr);
 
         let newMemberArr = [];
         for (i = 0; i < memberNoArr.length; i++) {
@@ -366,7 +368,7 @@ $.ajax({
         }
 
         for (i = 0; i < memberNoArr.length; i++) {
-          if(newMemberArr.flat()[i].membNo == memberNoArr[i].membNo ) {
+          if(newMemberArr.flat()[i].membNo === memberNoArr[i].membNo ) {
             plusDtMembArr.push({
               memberNo : splitmemberNoArr[i].membNo,
               membName : newMemberArr.flat()[i].membName,
@@ -381,6 +383,80 @@ $.ajax({
           $(".List-Container").show();
           xMembListCon.innerHTML = divGenerator(plusDtMembArr);
         }) //멤버 복구 clickEvent END
+
+        console.log(plusDtMembArr);
+
+        //멤버 변경 버튼 클릭 -> 모달
+        $("#newMemb").on("click", function() { //멤버리스트 버튼 클릭 EVENT START
+          $("#memberlist-modal").modal("show");
+          $("#allMemb").show();
+          $.ajax({
+            url : "/joinmember/grouplistbygno",
+            type : "POST",
+            data : {"group.no": gno}, 
+            success: function(result) {
+              let AllMember = result.data;
+              modalMemberList.innerHTML = checkboxGenerator(AllMember); 
+
+              $("#selectedOK").on("click", function() { //모달창에서 적용하기 버튼 click event START
+                let MembArr = []; //멤버번호랑, 이름만 있는 배열
+                let checkedMembArr = []; //선택된 멤버 번호 배열
+                let FinalChoicedMember = []; 
+                
+
+                for (i=0; i < AllMember.length; i++) { //멤버리스트 배열로 빼기
+                  // console.log(AllMember[i].member);
+                  MembArr.push(AllMember[i].member);
+                }
+                
+                $("input:checkbox[name=memberNo]:checked").each(function() { //선택된 멤버 번호 배열로 빼기
+                  var checkedMemb = $(this).val();
+                  checkedMembArr.push(checkedMemb);
+                })
+
+                for (i=0; i<MembArr.length; i++) {
+                  for (j=0; j<checkedMembArr.length; j++) {
+                    if(MembArr[i].no == checkedMembArr[j]) {
+                      FinalChoicedMember.push({
+                        "no" : MembArr[i].no,
+                        "memberName" : MembArr[i].memberName,
+                      })
+                    }
+                  }
+                } 
+
+                $(".List-Container").show();
+                xMembListCon.innerHTML = newDivGenerator(FinalChoicedMember);
+                $("#memberlist-modal").modal("hide");
+              }) //모달창에서 적용하기 버튼 click event END
+
+
+              //모달창 내 멤버 전체 버튼 클릭 EVENT START
+              $("#allMemb").on("click", function() {
+                $.ajax({
+                  url : "/joinmember/grouplistbygno",
+                  type : "POST",
+                  data : {"group.no": gno},
+                  success: function(result) {
+                    // console.log(AllMember);
+                    let MembArr = []; //멤버번호랑, 이름만 있는 배열
+
+                    for (i=0; i < AllMember.length; i++) { //멤버리스트 배열로 빼기
+                      MembArr.push(AllMember[i].member);
+                    }
+
+                    $(".List-Container").show();
+                    xMembListCon.innerHTML = newDivGenerator(MembArr); 
+                    $("#memberlist-modal").modal("hide");
+                  } //success END
+                })//ajax END
+              })//모달창 내 멤버 전체 버튼 클릭 EVENT END
+            } //success END
+          })//ajax END
+        }) //멤버리스트 버튼 클릭 EVENT START END
+
+
+
       } //member의 멤버리스트 Success END
     }) //member의 멤버리스트 ajax END
   }// success END
@@ -460,74 +536,76 @@ document.querySelector("#x-update-btn").onclick = function() {
   }) //fetch END
 };
 
-//멤버 변경 버튼 클릭 -> 모달
-$("#newMemb").on("click", function() { //멤버리스트 버튼 클릭 EVENT START
-  $("#memberlist-modal").modal("show");
-  $("#allMemb").show();
-  $.ajax({
-    url : "/joinmember/grouplistbygno",
-    type : "POST",
-    data : {"group.no": gno}, 
-    success: function(result) {
-      let AllMember = result.data;
-      modalMemberList.innerHTML = checkboxGenerator(AllMember); 
 
-      $("#selectedOK").on("click", function() { //모달창에서 적용하기 버튼 click event START
-        let MembArr = []; //멤버번호랑, 이름만 있는 배열
-        let checkedMembArr = []; //선택된 멤버 번호 배열
-        let FinalChoicedMember = []; 
+
+// //멤버 변경 버튼 클릭 -> 모달
+// $("#newMemb").on("click", function() { //멤버리스트 버튼 클릭 EVENT START
+//   $("#memberlist-modal").modal("show");
+//   $("#allMemb").show();
+//   $.ajax({
+//     url : "/joinmember/grouplistbygno",
+//     type : "POST",
+//     data : {"group.no": gno}, 
+//     success: function(result) {
+//       let AllMember = result.data;
+//       modalMemberList.innerHTML = checkboxGenerator(AllMember); 
+
+//       $("#selectedOK").on("click", function() { //모달창에서 적용하기 버튼 click event START
+//         let MembArr = []; //멤버번호랑, 이름만 있는 배열
+//         let checkedMembArr = []; //선택된 멤버 번호 배열
+//         let FinalChoicedMember = []; 
         
 
-        for (i=0; i < AllMember.length; i++) { //멤버리스트 배열로 빼기
-          // console.log(AllMember[i].member);
-          MembArr.push(AllMember[i].member);
-        }
+//         for (i=0; i < AllMember.length; i++) { //멤버리스트 배열로 빼기
+//           // console.log(AllMember[i].member);
+//           MembArr.push(AllMember[i].member);
+//         }
         
-        $("input:checkbox[name=memberNo]:checked").each(function() { //선택된 멤버 번호 배열로 빼기
-          var checkedMemb = $(this).val();
-          checkedMembArr.push(checkedMemb);
-        })
+//         $("input:checkbox[name=memberNo]:checked").each(function() { //선택된 멤버 번호 배열로 빼기
+//           var checkedMemb = $(this).val();
+//           checkedMembArr.push(checkedMemb);
+//         })
 
-        for (i=0; i<MembArr.length; i++) {
-          for (j=0; j<checkedMembArr.length; j++) {
-            if(MembArr[i].no == checkedMembArr[j]) {
-              FinalChoicedMember.push({
-                "no" : MembArr[i].no,
-                "memberName" : MembArr[i].memberName,
-              })
-            }
-          }
-        } 
+//         for (i=0; i<MembArr.length; i++) {
+//           for (j=0; j<checkedMembArr.length; j++) {
+//             if(MembArr[i].no == checkedMembArr[j]) {
+//               FinalChoicedMember.push({
+//                 "no" : MembArr[i].no,
+//                 "memberName" : MembArr[i].memberName,
+//               })
+//             }
+//           }
+//         } 
 
-        $(".List-Container").show();
-        xMembListCon.innerHTML = newDivGenerator(FinalChoicedMember);
-        $("#memberlist-modal").modal("hide");
-      }) //모달창에서 적용하기 버튼 click event END
+//         $(".List-Container").show();
+//         xMembListCon.innerHTML = newDivGenerator(FinalChoicedMember);
+//         $("#memberlist-modal").modal("hide");
+//       }) //모달창에서 적용하기 버튼 click event END
 
 
-      //모달창 내 멤버 전체 버튼 클릭 EVENT START
-      $("#allMemb").on("click", function() {
-        $.ajax({
-          url : "/joinmember/grouplistbygno",
-          type : "POST",
-          data : {"group.no": gno},
-          success: function(result) {
-            // console.log(AllMember);
-            let MembArr = []; //멤버번호랑, 이름만 있는 배열
+//       //모달창 내 멤버 전체 버튼 클릭 EVENT START
+//       $("#allMemb").on("click", function() {
+//         $.ajax({
+//           url : "/joinmember/grouplistbygno",
+//           type : "POST",
+//           data : {"group.no": gno},
+//           success: function(result) {
+//             // console.log(AllMember);
+//             let MembArr = []; //멤버번호랑, 이름만 있는 배열
 
-            for (i=0; i < AllMember.length; i++) { //멤버리스트 배열로 빼기
-              MembArr.push(AllMember[i].member);
-            }
+//             for (i=0; i < AllMember.length; i++) { //멤버리스트 배열로 빼기
+//               MembArr.push(AllMember[i].member);
+//             }
 
-            $(".List-Container").show();
-            xMembListCon.innerHTML = newDivGenerator(MembArr); 
-            $("#memberlist-modal").modal("hide");
-          } //success END
-        })//ajax END
-      })//모달창 내 멤버 전체 버튼 클릭 EVENT END
-    } //success END
-  })//ajax END
-}) //멤버리스트 버튼 클릭 EVENT START END
+//             $(".List-Container").show();
+//             xMembListCon.innerHTML = newDivGenerator(MembArr); 
+//             $("#memberlist-modal").modal("hide");
+//           } //success END
+//         })//ajax END
+//       })//모달창 내 멤버 전체 버튼 클릭 EVENT END
+//     } //success END
+//   })//ajax END
+// }) //멤버리스트 버튼 클릭 EVENT START END
 
 //불러온 멤버 개별 div의 삭제 이벤트               !!!!!!!!!!!!!!!!!!!!!!!!!나중에 하나로 합치든가 코드 정리하기!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 function deleteDiv(e) {

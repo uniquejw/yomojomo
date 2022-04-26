@@ -3,7 +3,15 @@ const PATH = {
   'groupGet' : '/group/get',
   'applyQuestion' : '/applyQuestion/findQuestion'
 }
-
+fetch("/member/getLoginUser")
+.then(function(res){
+  return res.json()
+}).then(function(result){
+  console.log(result.data)
+  // if(result.status == fail){
+  //   alert.apply("회원이 아닙니다.")
+  // }
+})
 // 모임리스트
 var writtenContainer = document.querySelector("#handlebars-container");
 var divTemplate = document.querySelector("#div-template");
