@@ -18,7 +18,8 @@ fetch(`/group/get?gno=${getGroup}`)
   .then(function(result){
     console.log(result.data)
     $('#group-title').text(result.data.groupName)
-    $('.group-intro').text(result.data.intro)
+    $('.group-intro').text(`인사말 : ${result.data.intro}`)
+    $('.group-memb-cnt').text(`모집인원 : ${result.data.maxCount}명`)
     if (result.status == "fail") {
       window.alert("서버 요청 오류!");
       console.log(result.data);

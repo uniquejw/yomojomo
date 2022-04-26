@@ -75,6 +75,16 @@ table{
 .group-intro{
   margin-top: 20px;
   margin-left: 10px;
+  font-weight: bold;
+  font-size: 20px;
+  width: 230px;
+  overflow: auto;
+}
+.group-memb-cnt{
+  margin-top: 20px;
+  margin-left: 10px;
+  font-weight: bold;
+  font-size: 24px;
 }
 .report-form-div{
   display: inline-block;
@@ -83,6 +93,7 @@ table{
   position: absolute;
   right: 20px;
   top: 90px;
+  width: 390px;
 }
 input.x-answer{
   margin: 0 0 40px 40px;
@@ -98,7 +109,7 @@ textarea{
   float: right;
 }
 button#apply{
-  margin-top: 15px;
+  margin-top: 10px;
   width: 100px;
   height: 39px;
   border-radius: 5px;
