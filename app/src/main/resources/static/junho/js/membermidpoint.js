@@ -11,7 +11,7 @@ var calNoParaMeter = urlParams.get('cal_no')
 var initialLat = 126.9784147;
 var initialLng = 37.5666805;
 
-selectDataListFromDb();
+getDataListFromDb();
 
 // Main Map
 var mapContainer1 = document.getElementById('map1'), // 지도를 표시할 div 
@@ -383,7 +383,7 @@ console.log(htmlGenerator)
 
 console.log(window.location.search)
 
-function selectDataListFromDb() {
+function getDataListFromDb() {
     console.log(gNoParameter)
     console.log(calNoParaMeter)
     var data = {'group.no': gNoParameter, 'calendar.no': calNoParaMeter};
@@ -405,6 +405,7 @@ function selectDataListFromDb() {
             console.log(finalList)
             ulEL.innerHTML = htmlGenerator(finalList);
             setTimeout(markerList(finalList),3000)
+
         }
     })
 }
@@ -492,4 +493,27 @@ function selectMidpoint() {
         }
     })
     window.location = `/junho/midpoint/memberfinalpoint.html?lng=${lng}&lat=${lat}&gno=${gNoParameter}&cal_no=${calNoParaMeter}`
+}
+
+
+setTimeout(function(){clickCheck()},1000);
+function clickCheck() {
+    console.log(finalList)
+    for (var i = 0; i < finalList.length; i++) {
+        if (finalList[i].addr != null) {
+            document.querySelectorAll('.btn-save-data')[i].classList.add('btn-finish');
+            document.querySelectorAll('.input-destination')[i].classList.add('input-finish');
+            console.log('clickcheck')
+        }
+        var btnFinishEl = document.querySelectorAll('.btn-finish')[i]
+        var inputFinishEl = document.querySelectorAll('.input-finish')[i]
+        btnFinishEl.style.backgroundColor = '#333';
+        btnFinishEl.innerHTML = '완료';
+        btnFinishEl.disabled = true;
+        inputFinishEl.style.backgroundColor = '#333';
+        inputFinishEl.style.color = '#fff';
+        inputFinishEl.disabled = true;
+
+    }
+
 }
