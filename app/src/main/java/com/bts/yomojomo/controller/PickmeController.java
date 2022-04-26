@@ -56,6 +56,41 @@ public class PickmeController {
         .setData(pickmeService.list(pageSize, pageNo, nameSi, nameGu, keyword));
   }
 
+  @RequestMapping("/pickme/mypagelist")
+  public Object mypagelist (int pageSize, int pageNo, int memberNo, HttpSession session) {
+    System.out.println(pageNo);
+    try {
+      if (pageSize < 3 || pageSize > 100) {
+        pageSize = 3;
+      }
+    } catch (Exception e) {}
+
+    int pickmeSize = pickmeService.mypageSize(memberNo);
+    System.out.println("게시글 총 개수 count : " + pickmeSize);
+
+    int totalPageSize = pickmeSize / pageSize; 
+
+    if ((pickmeSize % pageSize) > 0) {
+      totalPageSize++;
+    }
+
+    try { 
+      if (pageNo < 1 || pageNo > totalPageSize) {
+        pageNo = 1;
+      }
+    } catch (Exception e) {}
+
+    System.out.println("totalpageSize 는 " +totalPageSize );
+
+    return 
+        new ResultMap()
+        .setStatus(SUCCESS)
+        .setTotalListCount(pickmeSize)
+        .setPageNo(pageNo)
+        .setTotalPageSize(totalPageSize)
+        .setData(pickmeService.listbyMembNo(pageSize, pageNo, memberNo));
+  }
+
   @RequestMapping("/pickme/add")
   public Object add(Pickme pickme, HttpSession session) {
     log.info("게시글 등록!"); // 운영자가 확인하기를 원하는 정보

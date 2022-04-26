@@ -26,7 +26,7 @@
   </resultMap>
   
   
-  <select id="findAll" resultMap="PickmeMap"> <!-- 게시글 전체 조회 -->
+  <select id="findAll" resultMap="PickmeMap"> 
      select
       pm.pm_b_no,
       pm.title,
@@ -98,6 +98,42 @@
       </choose>
   </select>
   
+    <select id="findListBymembNo" resultMap="PickmeMap"> 
+     select
+      pm.pm_b_no,
+      pm.title,
+      pm.content,
+      pm.reg_dt,
+      pm.view_cnt,
+      m.memb_no mno,
+      m.membername mname,
+      p.pups_no pno,
+      p.name pname,
+      a.act_local_no ano,
+      a.name_si asi,
+      a.name_gu agu
+    from gms_pickme pm
+      inner join gms_memb m on pm.memb_no=m.memb_no
+      inner join gms_activelocal a on pm.act_local_no=a.act_local_no
+      inner join gms_purpose p on p.pups_no=pm.pups_no
+    where
+      m.memb_no = #{memberNo}
+    order by
+      pm.pm_b_no desc
+      limit #{offset}, #{rowCount}
+  </select>
+  
+  
+  <select id ="countMebAll" resultType="int">
+    select count(*) 
+    from gms_pickme pm
+      inner join gms_memb m on pm.memb_no=m.memb_no
+      inner join gms_activelocal a on pm.act_local_no=a.act_local_no
+      inner join gms_purpose p on p.pups_no=pm.pups_no
+    where
+      pm.memb_no = #{memberNo}
+  </select>
+  
   <select id ="countAll" resultType="int">
     select count(*) 
     from gms_pickme pm
@@ -137,7 +173,7 @@
       </when>
     </choose>
   </select>
-  
+
   <select id="findByNo" resultMap="PickmeMap" parameterType="int"> <!--게시글 번호로 조회-->
      select
       pm.pm_b_no,

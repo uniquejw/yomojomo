@@ -6,22 +6,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>MyPage</title>
   <!-- 제이쿼리 -->
-  <script src="/node_modules/sweetalert2/dist/sweetalert2.min.js"></script>
   <script src="/node_modules/jquery/dist/jquery.min.js"></script>
+  <!-- <script src="/node_modules/sweetalert2/dist/sweetalert2.min.js"></script> -->
   <!-- css 초기화 -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
   <!--공용css-->
   <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="/node_modules/sweetalert2/dist/sweetalert2.min.css">
-  <link rel="stylesheet" href="/css/common.css">
+  <!-- <link rel="stylesheet" href="/node_modules/sweetalert2/dist/sweetalert2.min.css"> -->
+  <!-- <link rel="stylesheet" href="/css/common.css"> -->
   <!--내css-->
   <link rel="stylesheet" href="/minkyu/css/main.css">
   <link rel="stylesheet" href="/minkyu/css/pickme.css">
+  <script src="../../hyun/mypagePickme.js"></script>
+  <script src="/node_modules/handlebars/dist/handlebars.min.js"></script>
+  
   <!--인클루드-->
   <script type="text/javascript">
     $(document).ready(function () {
       $('#header').load('/junho/mainHeader.html'); //헤더 인클루드
       $('#footers').load('/junho/mainfooter.html'); //푸터부분 인클루드
+      $("#listnone").hide();
     });
   </script>
 </head>
@@ -140,64 +144,37 @@
           <h3>픽미 게시글</h3>
           <br>
           <div class="pickme-table table-wrap d-flex flex-column">
-            <table class="table table-hover">
+            <table class="table table-hover" id="pickmeTable">
               <thead>
                 <tr>
                   <th scope="col"><input class="form-check-input pickme-all-check" type="checkbox" value="" id="flexCheckDefault"></th>
                   <th scope="col">제목</th>
-                  <th scope="col">상태</th>
                   <th scope="col">작성일</th>
+                  <th scope="col">조회수</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <th scope="col">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                  </th>
-                  <td class="table-title">야구 한판 하시죠</td>
-                  <td>구직중</td>
-                  <td>2999.99.99</td>
-                </tr>
-                <tr>
-                  <th scope="col">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                  </th>
-                  <td class="table-title">야구말고 축구하시죠</td>
-                  <td class="text-primary">완료</td>
-                  <td>3999.99.99</td>
-                </tr>
-                <tr>
-                  <th scope="col">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                  </th>
-                  <td class="table-title">축구말고 농구하시죠</td>
-                  <td>구직중</td>
-                  <td>4999.99.99</td>
-                </tr>
-                <tr>
-                  <th scope="col">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                  </th>
-                  <td class="table-title">비트캠프에서 공부할 인재를 찾습니다</td>
-                  <td class="text-primary">완료</td>
-                  <td>4999.99.99</td>
-                </tr>
               </tbody>
             </table>
-            <div class="btn-wrap">
-              <button type="button" class="btn btn-primary btn-delete">삭제하기</button>
+            <div id="listnone">
+              <h1>작성한 글이 없습니다.<br></h1>
             </div>
-            <nav aria-label="Page navigation" >
-              <ul class="pagination">
-                <li class="page-item">
-                  <a class="page-link" href="#" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
+
+            <div class="btn-wrap">
+              <button type="button" class="btn btn-primary btn-delete" id="pickme-deleteBtn">삭제하기</button>
+            </div>
+
+            <nav aria-label="Page navigation">
+              <ul class="pagination" id="pickme-pagenation">
+                <li class="page-item" id="preNoli">
+                  <a class="page-link" href="javascript:void(0)" aria-label="Previous" id="preA">
+                    <span aria-hidden="true" id="preNo">&laquo;</span>
                   </a>
                 </li>
-                <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                <li class="page-item">
-                  <a class="page-link" href="#" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
+                <li class="page-item active" id="pageNoli"><a class="page-link" href="#"><span id="pageNo"></span></a></li>
+                <li class="page-item" id="nextNoli">
+                  <a class="page-link" href="javascript:void(0)" aria-label="Next" id="nextA" value="">
+                    <span aria-hidden="true" id="nextNo">&raquo;</span>
                   </a>
                 </li>
               </ul>
@@ -276,7 +253,8 @@
     </div>  
   </div>
   <div id="footers"></div>
-  <script>
+
+  <!-- <script>
     const swa = Swal.mixin({
       customClass: {
         confirmButton: 'btn btn-primary mx-2',
@@ -437,6 +415,22 @@
         }
       }
     })
+  </script> -->
+
+  <!--픽미 게시글 handlebars-->
+  <script id="tr-template" type="text/x-handlebars-template">
+    {{#each this}}
+    <tr>
+      <th scope="col">
+        <input class="form-check-input" type="checkbox" name="no" value="{{no}}" id="flexCheckDefault">
+      </th>
+      <td class="table-title"><a href="/hyun/pickme/view.html?no={{no}}" target="_blank">{{title}}</a></td>
+      <td>{{date}}</td>
+      <td>{{viewCnt}}</td>
+    </tr>
+    {{/each}}
   </script>
+
+
 </body>
 </html>
