@@ -85,7 +85,7 @@ table{
     /* display: inline-block; */
 }
 .item-div{
-  width: 345px;
+  width: 250px;
   height: 280px;
   /* border: 1px solid rgb(192, 192, 192); */
   margin: 0 20px 20px 0;
@@ -101,7 +101,12 @@ table{
 .group-list-container ul{
   margin: 0 0 40px 0;
 }
-.group-list-container .item .image-div, .popup-img-div{
+.popup-img-div{
+  margin: 0 auto;
+  width: 100%;
+  height: 300px;
+}
+.group-list-container .item .image-div{
     width: 100%;
     height: 300px;
     /* background-image: url(../교육.jfif);
@@ -124,8 +129,8 @@ li img {
 }
 
 .group-list-container .item .group-name-div .group-name{
-  padding: 0 18px;
-  width: 70%;
+  padding: 0 8px;
+  width: 65%;
   margin: auto 0;
   height: 72%;
   font-size: 20px;
@@ -139,14 +144,14 @@ li img {
 }
 .group-list-container .item .group-name-div .group-info{
   position: relative;
-  width: 33%;
+  width: 43%;
   display: inline-block;
-  
 }
 .group-list-container .item .group-name-div .memb-count{
   position: absolute;
-  bottom: 11px;
+  bottom: 5px;
   left: 0;
+  font-size: 15px;
 }
 .material-icons{
   vertical-align: middle;
@@ -234,6 +239,7 @@ button.btn-show{
     min-height: 600px;
     text-align: center;
     padding: 1px;
+    border-radius: 10px;
 
     /* 초기에 약간 아래에 배치 */
     transform: translate(-50%, -40%);
@@ -245,7 +251,14 @@ button.btn-show{
     margin: 21px auto 0 ;
     width: 90%;
 }
-  .popup-group-content ,.report-form{
+  .popup-group-content{
+      margin: 14px auto;
+      width: 333px;
+      min-height: 150px;
+      border: 1px solid rgb(192, 192, 192);
+      border-radius: 20px;
+  }
+  .report-form{
       margin: 14px auto;
       width: 440px;
       min-height: 265px;
@@ -255,7 +268,9 @@ button.btn-show{
   .popup-group-content{
     padding: 20px;
   }
-
+.main-logo, .main-logo2{
+  border-radius: 10px;
+}
   .show .popup {
     transform: translate(-50%, -50%);
     transition: all 0.3s;

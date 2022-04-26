@@ -54,7 +54,7 @@
   
   <select id="count" resultType="int">
     select 
-     count(appl_question_no) 
+     count(*) 
     from 
      gms_applyform_question 
     where 

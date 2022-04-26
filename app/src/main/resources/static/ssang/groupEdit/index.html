@@ -86,7 +86,6 @@ $(document).ready(function () {
                         </div>
                         <button id="x-addQuestion-btn" type="button" class="btn btn-primary">추가</button>
                         <button id="x-apply-form" type="button" class="btn btn-primary">등록</button>
-                        <button id="x-reform" type="button" class="btn btn-primary">초기화</button><br>
                       </div>
                   </div>
                 </div>
@@ -96,7 +95,7 @@ $(document).ready(function () {
     </div>
     <script id="br-template" type="text/x-handlebars-template">
       {{#each this}}
-      <input type="text" value="{{questionName}}" data-qno="{{no}}" class="apply-content"><br>
+      <input type="text" value="{{questionName}}" data-qno="{{no}}" class="apply-content" ><br>
       {{/each}}
       <button id="x-reform" type="button" class="btn btn-primary">수정</button><br>
     </script>
