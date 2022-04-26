@@ -112,7 +112,6 @@
       a.act_no
   </select>
 
-
   <select id="findByNo" resultMap="AccountingMap" parameterType="int">
     select
       a.act_no accountingNo,
@@ -133,6 +132,7 @@
     where 
       a.act_no=#{no}
   </select>
+ 
  
   <insert id="insert" parameterType="Accounting" keyProperty="accountingNo" keyColumn="act_no" useGeneratedKeys="true"> 
     insert into gms_accounting(g_no, act_cate_no, title, amount, status) 
