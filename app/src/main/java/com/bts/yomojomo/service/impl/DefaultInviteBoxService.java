@@ -14,8 +14,13 @@ public class DefaultInviteBoxService implements InviteBoxService{
   InviteBoxDao inviteBoxDao;
 
   @Override
-  public List<InviteBox> findInvitationList(InviteBox inviteBox) {
-    return inviteBoxDao.invitationList(inviteBox);
+  public List<InviteBox> inviteListByRecipient(InviteBox inviteBox) {
+    return inviteBoxDao.findInviteListByRecipient(inviteBox);
+  }
+
+  @Override
+  public List<InviteBox> inviteListBySender(int pageSize, int pageNo, int memberNo) {
+    return inviteBoxDao.findinvitelistBySender(pageSize, ((pageNo - 1) * pageSize), memberNo);
   }
 
   @Override
@@ -23,5 +28,19 @@ public class DefaultInviteBoxService implements InviteBoxService{
     return inviteBoxDao.createInvitation(inviteBox);
   }
 
+  @Override
+  public int mypageSize(int memberNo) {
+    return inviteBoxDao.countSender(memberNo);
+  }
+
+  @Override
+  public int delete(InviteBox inviteBox) {
+    return inviteBoxDao.delete(inviteBox);
+  }
+
+  @Override
+  public InviteBox get(int inviteNo, int senderNo) {
+    return inviteBoxDao.findByNo(inviteNo, senderNo);
+  }
 
 }
