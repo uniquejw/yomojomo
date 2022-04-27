@@ -11,6 +11,8 @@ public interface PickmeService {
 
   List<Pickme> list(int pageSize, int pageNo, String nameSi, String nameGu, String keyword);
 
+  List<Pickme> listbyMembNo(int pageSize, int pageNo, int memberNo);
+
   Pickme get(int no);
 
   int update(Pickme pickme);
@@ -18,5 +20,10 @@ public interface PickmeService {
   int delete(Pickme pickme);
 
   int size(String nameSi, String nameGu, String keyword);
+
+  int mypageSize(int memberNo);
+
+
+
 
 }

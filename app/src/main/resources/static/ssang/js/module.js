@@ -62,3 +62,8 @@ export async function qCount(no){
   .then(function(res){return res.json()})
   return response;
 }
+export async function findgrouplistByMno(no){
+  const response = await fetch(`/joinmember/grouplistbymno?member.no=${no}`)
+  .then(function(res){return res.json()})
+  return response;
+}

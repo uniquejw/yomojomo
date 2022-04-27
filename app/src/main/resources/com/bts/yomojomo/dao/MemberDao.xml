@@ -45,8 +45,7 @@
 		<result column="status" property="status" />
 		<result column="stop_dt" property="stopDate" />
 	</resultMap>
-
-
+	
 	<!-- <select id="findAll" resultMap="MemberMap"> select memb_no, name, pwd, 
 		email, tel, post_no, base_addr, addr, type, unsubscribe from gms_memb order 
 		by memb_no desc </select> <select id="findByNo" resultMap="MemberMap" parameterType="int"> 
@@ -89,15 +88,6 @@
 			(#{no}, #{FinalPurpose.no})
 		</foreach>
 	</insert>
-
-	<select id="getMemberInfo" resultMap="memberMap" parameterType="String">
-		select
-			memb_no, name, email, tel, roadname_addr, base_addr
-		from
-			gms_memb
-		where
-			email=#{email}
-	</select>
 	
 	<select id="findByEmailAndPassword" resultMap="memberMap">
 		select 

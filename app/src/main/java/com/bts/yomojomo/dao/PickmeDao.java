@@ -13,6 +13,8 @@ public interface PickmeDao {
       @Param("keyword") String keyword
       );
 
+  int countMebAll (@Param("memberNo") int memberNo);
+
   int countSiList(@Param("nameSi") String nameSi);
 
   List<Pickme> findAll(
@@ -22,6 +24,11 @@ public interface PickmeDao {
       @Param("nameGu") String nameGu,
       @Param("keyword") String keyword
       );
+
+  List<Pickme> findListBymembNo (
+      @Param("rowCount") int rowCount, 
+      @Param("offset") int offset, 
+      @Param("memberNo") int memberNo);
 
   Pickme findByNo(int no);
 

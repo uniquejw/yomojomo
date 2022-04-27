@@ -6,7 +6,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.util.ArrayList;
 import java.util.UUID;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import com.bts.yomojomo.domain.Group;
-import com.bts.yomojomo.domain.GroupTag;
+import com.bts.yomojomo.domain.Member;
 import com.bts.yomojomo.service.GroupService;
 import net.coobird.thumbnailator.Thumbnails;
 import net.coobird.thumbnailator.geometry.Positions;
@@ -30,23 +29,21 @@ public class GroupController {
   GroupService groupService;
 
   @RequestMapping("/group/add")
-  public Object add(Group group, MultipartFile file, String[] tags, HttpSession session) {
-    ArrayList<GroupTag> tagList = new ArrayList<>();
-    for (int i = 0; i < tags.length; i++) {
-      GroupTag groupTag = new GroupTag(tags[i]);
-      tagList.add(groupTag);
-    }
+  public Object add(Group group, MultipartFile file, HttpSession session) {
+    Member loginUser = (Member) session.getAttribute("loginUser");
+    group.setMemberNo(loginUser.getNo());
+    System.out.println(group);
+
     try {
       group.setLogo(saveFile(file));
-      group.setTags(tagList);
       groupService.add(group);
       return new ResultMap().setStatus(SUCCESS) ;
 
     } catch (Exception e) {
       StringWriter out = new StringWriter();
       e.printStackTrace(new PrintWriter(out));
-      System.out.println(group);
-      return new ResultMap().setStatus(FAIL);
+      System.out.println(out.toString());
+      return new ResultMap().setStatus(FAIL).setData(out.toString());
     }
   }
 

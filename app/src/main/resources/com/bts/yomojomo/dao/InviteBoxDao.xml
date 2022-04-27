@@ -11,8 +11,8 @@
     <result column="confirm" property="confirm"></result>
     <result column="reg_dt" property="regDt"></result>
     <association property="member" javaType="Member"> <!--초대 받은 사람 join-->
-      <id column = "invitedNo" property="no"/>
-      <result column="invitedName" property="memberName"/>
+      <id column = "recipientNo" property="no"/>
+      <result column="recipientName" property="memberName"/>
     </association>
     <association property="joinMember" javaType="JoinMember">
       <association property="group" javaType="Group"> <!-- gms_group -->
@@ -20,23 +20,23 @@
 	      <result column="groupname" property="GroupName"/>
 	    </association>
 	    <association property="member" javaType="Member"> <!-- gms_member 초대 보내는 사람 -->
-	      <id column = "inviteeNo" property="no"/>
-	      <result column="inviteeName" property="memberName"/>
+	      <id column = "senderNo" property="no"/>
+	      <result column="senderName" property="memberName"/>
 	    </association>
     </association>
   </resultMap>
   
-  <select id="invitationList" resultMap="InviteBoxMap"> <!--받은 사람 번호로 초대장 리스트 검색-->
+  <select id="findInviteListByRecipient" resultMap="InviteBoxMap"> <!--받은 사람 번호로 초대장 리스트 검색-->
 		select distinct
 		  ib.invite_no,
 		  ib.title,
 		  ib.content,
 		  ib.confirm,
 		  ib.reg_dt,
-		  (select memb_no from gms_memb where memb_no=ib.memb_no) as invitedNo,
-		  (select membername from gms_memb where memb_no=ib.memb_no) as invitedName,
-		  (select memb_no from gms_memb where memb_no=ib.memb_no2) as inviteeNo,
-		  (select membername from gms_memb where memb_no=ib.memb_no2) as inviteeName,
+		  (select memb_no from gms_memb where memb_no=ib.memb_no) as recipientNo,
+		  (select membername from gms_memb where memb_no=ib.memb_no) as recipientName,
+		  (select memb_no from gms_memb where memb_no=ib.memb_no2) as senderNo,
+		  (select membername from gms_memb where memb_no=ib.memb_no2) as senderName,
 		  g.g_no groupno,
 		  g.groupName groupname
 		from gms_invite_box ib
@@ -53,10 +53,92 @@
 		  ib.invite_no asc;
   </select>
   
+    <select id="findinvitelistBySender" resultMap="InviteBoxMap"> <!--보낸 사람 번호로 초대장 리스트 검색-->
+    select distinct
+      ib.invite_no,
+      ib.title,
+      ib.content,
+      ib.confirm,
+      ib.reg_dt,
+      (select memb_no from gms_memb where memb_no=ib.memb_no) as recipientNo,
+      (select membername from gms_memb where memb_no=ib.memb_no) as recipientName,
+      (select memb_no from gms_memb where memb_no=ib.memb_no2) as senderNo,
+      (select membername from gms_memb where memb_no=ib.memb_no2) as senderName,
+      g.g_no groupno,
+      g.groupName groupname
+    from gms_invite_box ib
+      join (
+        select 
+          jm.g_no,
+          (select g_no from gms_group g where jm.g_no = g.g_no) as groupno,
+          (select name from gms_group g where jm.g_no = g.g_no) as groupName
+        from gms_join_memb jm
+      ) as g on ib.g_no=g.g_no
+    where 
+      (select memb_no from gms_memb where memb_no=ib.memb_no2) = #{memberNo}
+    order by 
+      ib.invite_no asc
+      limit #{offset}, #{rowCount}
+  </select>
+  
   <insert id="createInvitation" parameterType="InviteBox"> <!-- 초대장보내기 -->
     insert into gms_invite_box(title, content, memb_no, memb_no2, g_no)
     values(#{title}, #{content}, #{member.no}, #{joinMember.member.no}, #{joinMember.group.no})
   </insert>
+  
+  <select id ="countSender" resultType="int">
+    select distinct count(*)
+    from gms_invite_box 
+    where 
+      memb_no2 = #{memberNo}
+  </select>
+  
+  <delete id="delete" parameterType="int">
+    delete from gms_invite_box
+    where
+      invite_no = #{inviteNo}
+  </delete>
+  
+  <select id="findByNo" resultMap="InviteBoxMap" parameterType="int">
+    select distinct
+      ib.invite_no,
+      ib.title,
+      ib.content,
+      ib.confirm,
+      ib.reg_dt,
+      (select memb_no from gms_memb where memb_no=ib.memb_no) as recipientNo,
+      (select membername from gms_memb where memb_no=ib.memb_no) as recipientName,
+      (select memb_no from gms_memb where memb_no=ib.memb_no2) as senderNo,
+      (select membername from gms_memb where memb_no=ib.memb_no2) as senderName,
+      g.g_no groupno,
+      g.groupName groupname
+    from gms_invite_box ib
+      join (
+        select 
+          jm.g_no,
+          (select g_no from gms_group g where jm.g_no = g.g_no) as groupno,
+          (select name from gms_group g where jm.g_no = g.g_no) as groupName
+        from gms_join_memb jm
+      ) as g on ib.g_no=g.g_no
+    where 
+      (select memb_no from gms_memb where memb_no=ib.memb_no2) = #{senderNo}
+      and
+      ib.invite_no = #{inviteNo}
+  </select>
+  
+  <update id ="update" parameterType="InviteBox">
+    update gms_invite_box set
+      title = #{title},  
+      content = #{content}, 
+      memb_no = #{member.no}, 
+      g_no = #{joinMember.group.no}
+    where
+      invite_no = #{inviteNo}
+      and
+      memb_no2 = #{joinMember.member.no}
+  </update>
+  
+
   
   
   </mapper>

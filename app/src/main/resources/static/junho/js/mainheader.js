@@ -33,14 +33,21 @@ $.ajax({ //로그인 회원 정보 가져오기
 	datatype : "json",
 	success : function(result) {
 		const memberNo = result.data.no;
+		var suceesSignIn = document.querySelector("#sign-up")
+		suceesSignIn.classList.add('suceess-sign-in')
 		if (result.status == "fail") {
 			$("#alert-msg-li").hide();
 			$("#createGroupli").hide();
+			suceesSignIn.classList.remove('suceess-sign-in')
+			css(".suceess-sign-in", "display", "block")
 		}
 		window.loginUser = result.data;
+		
+		css(".suceess-sign-in", "display", "none")
+
 		// console.log(memberNo);
 		$.ajax({ //받은 초대 메세지 가져오기
-			url: "/invitebox/mnolist",
+			url: "/invitebox/invitelistbyrecipient",
 			type: "POST",
 			datatype: "json",
 			data : {"member.no" : memberNo},

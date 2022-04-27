@@ -6,22 +6,27 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>MyPage</title>
   <!-- 제이쿼리 -->
-  <script src="/node_modules/sweetalert2/dist/sweetalert2.min.js"></script>
   <script src="/node_modules/jquery/dist/jquery.min.js"></script>
+  <!-- <script src="/node_modules/sweetalert2/dist/sweetalert2.min.js"></script> -->
   <!-- css 초기화 -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
   <!--공용css-->
   <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="/node_modules/sweetalert2/dist/sweetalert2.min.css">
-  <link rel="stylesheet" href="/css/common.css">
+  <!-- <link rel="stylesheet" href="/node_modules/sweetalert2/dist/sweetalert2.min.css"> -->
+  <!-- <link rel="stylesheet" href="/css/common.css"> -->
   <!--내css-->
   <link rel="stylesheet" href="/minkyu/css/main.css">
   <link rel="stylesheet" href="/minkyu/css/pickme.css">
+  <script src="../../hyun/mypagePickme.js"></script>
+  <script src="/node_modules/handlebars/dist/handlebars.min.js"></script>
+
   <!--인클루드-->
   <script type="text/javascript">
     $(document).ready(function () {
       $('#header').load('/junho/mainHeader.html'); //헤더 인클루드
       $('#footers').load('/junho/mainfooter.html'); //푸터부분 인클루드
+      $("#listnone").hide();
+      $("#sendlistnone").hide();
     });
   </script>
 </head>
@@ -72,139 +77,89 @@
           <br>
           <h3>요청중인 픽미</h3>
           <br>
-          <div class="request-table table-wrap d-flex flex-column">
+          <div class="sender-table table-wrap d-flex flex-column">
             <table class="table table-hover">
               <thead>
                 <tr>
-                  <th scope="col"><input class="form-check-input request-all-check" type="checkbox" value="" id="flexCheckDefault"></th>
+                  <th scope="col"><input class="form-check-input send-all-check" type="checkbox" value="" id="flexCheckDefault"></th>
+                  <th scope="col">모임</th>
                   <th scope="col">제목</th>
                   <th scope="col">상태</th>
                   <th scope="col">요청일</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <th scope="col">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                  </th>
-                  <td class="table-title">야구 한판 하시죠</td>
-                  <td class="status">요청중</td>
-                  <td>2999.99.99</td>
-                </tr>
-                <tr>
-                  <th scope="col">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" disabled>
-                  </th>
-                  <td class="table-title">야구말고 축구하시죠</td>
-                  <td class="status text-primary">확인</td>
-                  <td>3999.99.99</td>
-                </tr>
-                <tr>
-                  <th scope="col">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                  </th>
-                  <td class="table-title">축구말고 농구하시죠</td>
-                  <td class="status">요청중</td>
-                  <td>4999.99.99</td>
-                </tr>
-                <tr>
-                  <th scope="col">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" disabled>
-                  </th>
-                  <td class="table-title">비트캠프에서 공부할 인재를 찾습니다</td>
-                  <td class="status text-primary">확인</td>
-                  <td>4999.99.99</td>
-                </tr>
               </tbody>
             </table>
-            <div class="btn-wrap">
-              <button type="button" class="btn btn-primary btn-delete">요청취소</button>
+            <div id="sendlistnone">
+              <h1>보낸 초대 메세지가 없습니다.<br></h1>
             </div>
-            <nav aria-label="Page navigation" >
-              <ul class="pagination">
-                <li class="page-item">
-                  <a class="page-link" href="#" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
+
+            <div class="btn-wrap">
+              <button type="button" class="btn btn-primary btn-delete" id="send-deleteBtn">요청취소</button>
+            </div>
+
+            <nav aria-label="Page navigation">
+              <ul class="pagination" id="send-pagenation">
+                <li class="page-item" id="sendpreNoli">
+                  <a class="page-link" href="javascript:void(0)" aria-label="Previous" id="sendpreA" value="">
+                    <span aria-hidden="true" id="sendpreNo">&laquo;</span>
                   </a>
                 </li>
-                <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                <li class="page-item">
-                  <a class="page-link" href="#" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
+                <li class="page-item active" id="sendpageNoli"><a class="page-link" href="#"><span id="sendpageNo"></span></a></li>
+                <li class="page-item" id="sendnextNoli">
+                  <a class="page-link" href="javascript:void(0)" aria-label="Next" id="sendnextA" value="">
+                    <span aria-hidden="true" id="sendnextNo">&raquo;</span>
                   </a>
                 </li>
               </ul>
             </nav>
           </div>
+
           <br>
           <h3>픽미 게시글</h3>
           <br>
           <div class="pickme-table table-wrap d-flex flex-column">
-            <table class="table table-hover">
+            <table class="table table-hover" id="pickmeTable">
               <thead>
                 <tr>
                   <th scope="col"><input class="form-check-input pickme-all-check" type="checkbox" value="" id="flexCheckDefault"></th>
+                  <th scope="col">번호</th>
                   <th scope="col">제목</th>
-                  <th scope="col">상태</th>
                   <th scope="col">작성일</th>
+                  <th scope="col">조회수</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <th scope="col">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                  </th>
-                  <td class="table-title">야구 한판 하시죠</td>
-                  <td>구직중</td>
-                  <td>2999.99.99</td>
-                </tr>
-                <tr>
-                  <th scope="col">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                  </th>
-                  <td class="table-title">야구말고 축구하시죠</td>
-                  <td class="text-primary">완료</td>
-                  <td>3999.99.99</td>
-                </tr>
-                <tr>
-                  <th scope="col">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                  </th>
-                  <td class="table-title">축구말고 농구하시죠</td>
-                  <td>구직중</td>
-                  <td>4999.99.99</td>
-                </tr>
-                <tr>
-                  <th scope="col">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                  </th>
-                  <td class="table-title">비트캠프에서 공부할 인재를 찾습니다</td>
-                  <td class="text-primary">완료</td>
-                  <td>4999.99.99</td>
-                </tr>
               </tbody>
             </table>
-            <div class="btn-wrap">
-              <button type="button" class="btn btn-primary btn-delete">삭제하기</button>
+            <div id="listnone">
+              <h1>작성한 글이 없습니다.<br></h1>
             </div>
-            <nav aria-label="Page navigation" >
-              <ul class="pagination">
-                <li class="page-item">
-                  <a class="page-link" href="#" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
+
+            <div class="btn-wrap">
+              <button type="button" class="btn btn-primary btn-delete" id="pickme-deleteBtn">삭제하기</button>
+            </div>
+
+            <nav aria-label="Page navigation">
+              <ul class="pagination" id="pickme-pagenation">
+                <li class="page-item" id="preNoli">
+                  <a class="page-link" href="javascript:void(0)" aria-label="Previous" id="preA">
+                    <span aria-hidden="true" id="preNo">&laquo;</span>
                   </a>
                 </li>
-                <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                <li class="page-item">
-                  <a class="page-link" href="#" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
+                <li class="page-item active" id="pageNoli"><a class="page-link" href="#"><span id="pageNo"></span></a></li>
+                <li class="page-item" id="nextNoli">
+                  <a class="page-link" href="javascript:void(0)" aria-label="Next" id="nextA" value="">
+                    <span aria-hidden="true" id="nextNo">&raquo;</span>
                   </a>
                 </li>
               </ul>
             </nav>
+
           </div>
-          <!-- 모달창 -->
-          <div class="modal fade modal-invite" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <!-- 받은 초대장 -->
+          <!-- <div class="modal fade modal-invite" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
               <div class="modal-content">
                 <div class="modal-header">
@@ -237,8 +192,10 @@
                 </div>
               </div>
             </div>
-          </div>
-          <div class="modal fade modal-request" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          </div> -->
+
+          <!-- 보낸 초대장 -->
+          <div class="modal fade modal-request" id="sendModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
               <div class="modal-content">
                 <div class="modal-header">
@@ -246,37 +203,41 @@
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                  <form>
+                  <form name="send-form">
                     <div class="mb-3">
-                      <label for="recipient-name" class="col-form-label">제목:</label>
-                      <input type="text" class="form-control request-title" id="recipient-name">
+                      <label for="invite-title" class="col-form-label">제목:</label>
+                      <input type="text" name="title" class="form-control request-title" id="invite-title">
                     </div>
                     <div class="mb-3">
-                      <label for="message-text" class="col-form-label">초대 할 사람:</label>
-                      <input type="text" class="form-control" readonly>
+                      <label for="recipient-name" class="col-form-label">초대 할 사람:</label>
+                      <input type="text" class="form-control" id="recipient-name" readonly>
+                      <input type="hidden" name="member.no" id="recipient-no" value="">
                     </div>
                     <div class="mb-3">
-                      <label for="message-text" class="col-form-label www">내 모임:</label>
-                      <input type="text" class="form-control" readonly>
+                      <label for="invite-group-name" class="col-form-label">내 모임:</label>
+                      <input type="text" class="form-control" id="invite-group-name" readonly>
+                      <input type="hidden" name="joinMember.group.no" id="invite-group-no" value="">
                     </div>
                     <div class="mb-1">
-                      <label for="message-text" class="col-form-label">내용:</label>
-                      <textarea class="form-control h-25 request-content" rows="10" id="message-text"></textarea>
+                      <label for="invite-content" class="col-form-label">내용:</label>
+                      <textarea class="form-control h-25 request-content" name="content" rows="10" id="invite-content"></textarea>
                     </div>
                   </form>
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-primary btn-modify">수정</button>
+                  <button type="button" class="btn btn-primary btn-modify" id="updateBtn">수정</button>
                 </div>
               </div>
             </div>
           </div>
+
         </div>
       </div>
     </div>  
   </div>
   <div id="footers"></div>
-  <script>
+
+  <!-- <script>
     const swa = Swal.mixin({
       customClass: {
         confirmButton: 'btn btn-primary mx-2',
@@ -402,6 +363,7 @@
               cancelButtonText: '취소',
             }).then((result) => {
               if (result.isConfirmed) {
+                $(".request-all-check").prop("checked", false)
                 $(".pickme-table").find("input").prop("checked", false)
                 $("input:checkbox:checked").each(function(){
                   this.closest("tr").remove()
@@ -423,6 +385,7 @@
             cancelButtonText: '취소',
           }).then((result) => {
             if (result.isConfirmed) {
+              $(".pickme-all-check").prop("checked", false)
               $(".request-table").find("input").prop("checked", false)
               $("input:checkbox:checked").each(function(){
                 this.closest("tr").remove()
@@ -437,6 +400,38 @@
         }
       }
     })
+  </script> -->
+
+  <!--요청 픽미 handlebars-->
+  <script id="sender-tr-template" type="text/x-handlebars-template">
+    {{#each this}}
+    <tr>
+      <th scope="col">
+        <input class="form-check-input" type="checkbox" name="no" value="{{inviteNo}}" id="flexCheckDefault">
+      </th>
+      <td class="g_no" name="g_no" value="{{groupNo}}">{{groupName}}</td>
+      <!-- <td class="title" value="{{inviteNo}}"><span name="title" id="senderTitle" value="{{inviteNo}}" style="color: rgb(28, 101, 175); cursor: pointer;">{{title}}</span></td> -->
+      <td class="title" name="title" id="senderTitle" value="{{inviteNo}}" style="color: rgb(28, 101, 175); cursor: pointer;">{{title}}</td>
+      <td class="confirm" name="confirm" value="{{confirm}}">{{confirmName}}</td>
+      <td class="regdt" name="reg_dt">{{regDt}}</td>
+    </tr>
+    {{/each}}
   </script>
+
+  <!--픽미 게시글 handlebars-->
+  <script id="tr-template" type="text/x-handlebars-template">
+    {{#each this}}
+    <tr>
+      <td scope="col">
+        <input class="form-check-input" type="checkbox" name="no" value="{{no}}" id="flexCheckDefault">
+      </td>
+      <td>{{no}}</td>
+      <td class="table-title"><a href="/hyun/pickme/view.html?no={{no}}" target="_blank">{{title}}</a></td>
+      <td>{{date}}</td>
+      <td>{{viewCnt}}</td>
+    </tr>
+    {{/each}}
+  </script>
+
 </body>
 </html>

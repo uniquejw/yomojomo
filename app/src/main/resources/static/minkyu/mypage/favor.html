@@ -106,7 +106,7 @@
   </div>
   <div id="footers"></div>
   <script>
-    const swalWithBootstrapButtons = Swal.mixin({
+    const swa = Swal.mixin({
       customClass: {
         confirmButton: 'btn btn-primary mx-2',
         cancelButton: 'btn btn-secondary mx-2'
@@ -125,12 +125,12 @@
     })
     $(".btn-delete").click(function(e){
       if ($(".form-check-input").is(":checked") == false) {
-      swalWithBootstrapButtons.fire(
+      swa.fire(
         '글이 선택되지 않았습니다',
         '삭제할 글을 선택해주세요',
         'error'
         )} else {
-        swalWithBootstrapButtons.fire({
+        swa.fire({
           title: '글을 삭제 하시겠습니까?',
           icon: 'warning',
           showCancelButton: true,
@@ -138,10 +138,11 @@
           cancelButtonText: '취소',
         }).then((result) => {
           if (result.isConfirmed) {
+            $(".all-check").prop("checked", false)
             $("input:checkbox:checked").each(function(){
               this.closest("tr").remove()
             })
-            swalWithBootstrapButtons.fire(
+            swa.fire(
               '삭제가 완료되었습니다',
               '',
               'success'
