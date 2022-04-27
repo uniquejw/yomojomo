@@ -159,7 +159,7 @@
 
           </div>
           <!-- 받은 초대장 -->
-          <div class="modal fade modal-invite" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <!-- <div class="modal fade modal-invite" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
               <div class="modal-content">
                 <div class="modal-header">
@@ -192,7 +192,7 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div> -->
 
           <!-- 보낸 초대장 -->
           <div class="modal fade modal-request" id="sendModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -203,27 +203,29 @@
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                  <form>
+                  <form name="send-form">
                     <div class="mb-3">
-                      <label for="recipient-name" class="col-form-label">제목:</label>
-                      <input type="text" class="form-control request-title" id="recipient-name">
+                      <label for="invite-title" class="col-form-label">제목:</label>
+                      <input type="text" name="title" class="form-control request-title" id="invite-title">
                     </div>
                     <div class="mb-3">
-                      <label for="message-text" class="col-form-label">초대 할 사람:</label>
-                      <input type="text" class="form-control" readonly>
+                      <label for="recipient-name" class="col-form-label">초대 할 사람:</label>
+                      <input type="text" class="form-control" id="recipient-name" readonly>
+                      <input type="hidden" name="member.no" id="recipient-no" value="">
                     </div>
                     <div class="mb-3">
-                      <label for="message-text" class="col-form-label www">내 모임:</label>
-                      <input type="text" class="form-control" readonly>
+                      <label for="invite-group-name" class="col-form-label">내 모임:</label>
+                      <input type="text" class="form-control" id="invite-group-name" readonly>
+                      <input type="hidden" name="joinMember.group.no" id="invite-group-no" value="">
                     </div>
                     <div class="mb-1">
-                      <label for="message-text" class="col-form-label">내용:</label>
-                      <textarea class="form-control h-25 request-content" rows="10" id="message-text"></textarea>
+                      <label for="invite-content" class="col-form-label">내용:</label>
+                      <textarea class="form-control h-25 request-content" name="content" rows="10" id="invite-content"></textarea>
                     </div>
                   </form>
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-primary btn-modify">수정</button>
+                  <button type="button" class="btn btn-primary btn-modify" id="updateBtn">수정</button>
                 </div>
               </div>
             </div>

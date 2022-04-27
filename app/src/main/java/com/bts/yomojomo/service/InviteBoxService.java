@@ -17,4 +17,6 @@ public interface InviteBoxService {
 
   int delete(InviteBox inviteBox);
 
+  int update(InviteBox inviteBox);
+
 }

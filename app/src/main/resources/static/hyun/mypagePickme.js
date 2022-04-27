@@ -4,7 +4,7 @@ $.ajax({ //로그인 여부 확인 ajax START 비회원은 등록버튼 감춘�
   // datatype : "json",
   success: function (result) {
     let memberInfo = result.data;
-    // console.log(memberInfo);
+    console.log(memberInfo);
     if (result.status == "fail") {
       location.href="/junho/index.html";
     } else { 
@@ -190,7 +190,59 @@ $.ajax({ //로그인 여부 확인 ajax START 비회원은 등록버튼 감춘�
                 senderNo : memberInfo.no
               },
               success: function (sendInviteResult) {
-                console.log(sendInviteResult.data);
+                $("#invite-title").val(sendInviteResult.data.title);
+                $("#recipient-name").val(sendInviteResult.data.member.memberName);
+                $("#recipient-no").val(sendInviteResult.data.member.no);
+                $("#invite-group-name").val(sendInviteResult.data.joinMember.group.groupName);
+                $("#invite-group-no").val(sendInviteResult.data.joinMember.group.no);
+                $("#invite-content").val(sendInviteResult.data.content);
+                
+                $("#updateBtn").on("click", function () {
+                  console.log("");
+
+                  let fd = new FormData(document.forms.namedItem("send-form"))
+
+                  fd.append("inviteNo", $("#senderTitle").attr("value"))
+                  console.log(fd);
+                  
+
+                  fetch("/invitebox/update", {
+                    method: "POST",
+                    body: new URLSearchParams(fd)
+                    })
+                    .then(function(response){
+                      return response.json();
+                    })
+                    .then(function(result){
+                      console.log(result);
+                      // if (result.status == "success") {
+                      //   window.alert("등록되었습니다.");
+                      //   location.href = "index.html";
+                      // } else {
+                      //   window.alert("게시글 등록 실패!");
+                      //   console.log(result.data);
+                      // }
+                    });
+
+                  // $.ajax({
+                  //   url: "/invitebox/update",
+                  //   type: "POST",
+                  //   data: {
+                  //     "title": $("#invite-title").val(),
+                  //     "content": $("#invite-content").val(),
+                  //     "member.no": $("#recipient-no").val(),
+                  //     "joinMember.member.senderNo": $("#recipient-no").val(),
+                  //     "joinMember.group.groupno" : $("#invite-group-no").val(),
+                  //     "inviteNo": $("#senderTitle").attr("value"),
+                  //   },
+                  //   success: function (updateResult) {
+                  //     console.log(updateResult);
+                  //   }
+                    
+                  // })
+
+
+                })
               }
             })
 
