@@ -27,6 +27,42 @@ public class InviteBoxController {
     return new ResultMap().setStatus(SUCCESS).setData(inviteBoxService.inviteListByRecipient(inviteBox));
   }
 
+  @RequestMapping("/invitebox/invitelistbyrecipientpaing")
+  public Object invitelistbyrecipientpaing(int pageSize, int pageNo, int memberNo, HttpSession session) {
+    log.info("페이징 적용한 회원별 보낸 초대 리스트 조회");
+
+    Member member = (Member) session.getAttribute("loginUser");
+    InviteBox inviteBox = new InviteBox();
+    inviteBox.setMember(member);
+
+    try {
+      if (pageSize < 3 || pageSize > 100) {
+        pageSize = 3;
+      }
+    } catch (Exception e) {}
+
+    int recipientListSize = inviteBoxService.mypageRecipientSize(memberNo);
+
+    int totalPageSize = recipientListSize / pageSize; 
+
+    if ((recipientListSize % pageSize) > 0) {
+      totalPageSize++;
+    }
+
+    try { 
+      if (pageNo < 1 || pageNo > totalPageSize) {
+        pageNo = 1;
+      }
+    } catch (Exception e) {}
+
+    return new ResultMap()
+        .setStatus(SUCCESS)
+        .setTotalListCount(recipientListSize)
+        .setPageNo(pageNo)
+        .setTotalPageSize(totalPageSize)
+        .setData(inviteBoxService.inviteListBySenderPaging(pageSize, pageNo, memberNo));
+  }
+
   @RequestMapping("/invitebox/invitelistbysender")
   public Object invitelistBysender(int pageSize, int pageNo, int memberNo, HttpSession session) {
     log.info("초대보낸 회원별 보낸 초대 리스트 조회");
@@ -99,20 +135,33 @@ public class InviteBoxController {
     return new ResultMap().setStatus(SUCCESS).setData(invitebox);
   }
 
+  @RequestMapping("/invitebox/recivedinvite")
+  public Object recivedInvite(int inviteNo, HttpSession session) {
+
+    Member member = (Member) session.getAttribute("loginUser");
+    InviteBox invitebox = new InviteBox();
+    invitebox.setMember(member);
+    int memberNo = invitebox.getMember().getNo();
+
+    invitebox = inviteBoxService.recivedInvite(inviteNo, memberNo);
+
+    if (invitebox == null) {
+      return new ResultMap().setStatus(FAIL).setData("해당 번호의 게시글이 없습니다.");
+    }
+    return new ResultMap().setStatus(SUCCESS).setData(invitebox);
+  }
+
   @RequestMapping("/invitebox/update")
   public Object update(InviteBox invitebox, HttpSession session) {
-    System.out.println(invitebox.toString());
+    //    System.out.println(invitebox.toString());
     Member member = (Member) session.getAttribute("loginUser"); 
 
-    Object recipient = invitebox.getMember();
-    int test = invitebox.getJoinMember().getGroup().getNo();
-    System.out.println(test);
     JoinMember joinMember = new JoinMember();
     joinMember.setGroup(invitebox.getJoinMember().getGroup());
     joinMember.setMember(member);
 
     invitebox.setJoinMember(joinMember);
-    System.out.println(invitebox.toString());
+    //    System.out.println(invitebox.toString());
 
     int count = inviteBoxService.update(invitebox);
 
@@ -122,4 +171,21 @@ public class InviteBoxController {
       return new ResultMap().setStatus(FAIL).setData("게시글 번호가 유효하지 않거나 게시글 작성자가 아닙니다.");
     }
   }
+
+  @RequestMapping("/invitebox/confirmupdate") //메세지 읽음
+  public Object confirmupdate(InviteBox invitebox, HttpSession session) {
+    System.out.println(invitebox.toString());
+
+    Member member = (Member) session.getAttribute("loginUser"); 
+    invitebox.setMember(member);
+
+    int count = inviteBoxService.confirmUpdate(invitebox);
+
+    if (count == 1) {
+      return new ResultMap().setStatus(SUCCESS);
+    } else {
+      return new ResultMap().setStatus(FAIL).setData("게시글 번호가 유효하지 않거나 게시글 작성자가 아닙니다.");
+    }
+  }
+
 }

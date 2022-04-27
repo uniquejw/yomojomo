@@ -20,6 +20,11 @@ public class DefaultInviteBoxService implements InviteBoxService{
   }
 
   @Override
+  public List<InviteBox> inviteListBySenderPaging(int pageSize, int pageNo, int memberNo) {
+    return inviteBoxDao.findInviteListByRecipientPaging(pageSize, ((pageNo - 1) * pageSize), memberNo);
+  }
+
+  @Override
   public List<InviteBox> inviteListBySender(int pageSize, int pageNo, int memberNo) {
     return inviteBoxDao.findinvitelistBySender(pageSize, ((pageNo - 1) * pageSize), memberNo);
   }
@@ -35,6 +40,11 @@ public class DefaultInviteBoxService implements InviteBoxService{
     return inviteBoxDao.countSender(memberNo);
   }
 
+  @Override
+  public int mypageRecipientSize(int memberNo) {
+    return inviteBoxDao.countRecipient(memberNo);
+  }
+
   @Transactional
   @Override
   public int delete(InviteBox inviteBox) {
@@ -46,10 +56,21 @@ public class DefaultInviteBoxService implements InviteBoxService{
     return inviteBoxDao.findByNo(inviteNo, senderNo);
   }
 
+  @Override
+  public InviteBox recivedInvite(int inviteNo, int memberNo) {
+    return inviteBoxDao.findInviteByRecivedNo(inviteNo, memberNo);
+  }
+
   @Transactional
   @Override
   public int update(InviteBox inviteBox) {
     return inviteBoxDao.update(inviteBox);
+  }
+
+  @Transactional
+  @Override
+  public int confirmUpdate(InviteBox inviteBox) {
+    return inviteBoxDao.confirmUpdate(inviteBox);
   }
 
 }
