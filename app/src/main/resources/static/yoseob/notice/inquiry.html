@@ -50,9 +50,13 @@
         <span class="material-icons">call</span>
         <span id="inquiry-btn" class ="announcement"><a>문의사항</a></span>
       </div>
-      <div >
-        <table>
+      <div>
+      <button type="button" class="btn btn-primary" id="add-btn" style="margin-left:1000px;">문의하기</button><br>
+    </div>
+      <div class="inquiry_table" >
+        <table id ="inquiry_table"style="margin:auto">
           <thead>
+            <!-- <th>메인카테고리번호</th> -->
             <th>제목</th>
             <th>문의 내용</th>
             <th>문의 날짜</th>
@@ -79,14 +83,18 @@
         var tr = document.createElement("tr")
         // div.classList.add("card-body")
         tr.innerHTML = `
-        <a href ="inquiry_view.html?no=${boards[i].no}"
-        <td>${boards[i].title}</td>
-        <td>${boards[i].content}</td></a>
+        <td><a href ="inquiry_view.html?no=${boards[i].no}">
+        ${boards[i].title}</td></a>
+        <td>${boards[i].content}</td>
         <td>${boards[i].queryDate}</td>
         `
         boardCardDiv.appendChild(tr)
       }
     })
   }
+  document.querySelector("#add-btn").onclick =
+  function(){
+    location.href="inquiry_form.html";
+  };
 </script>
 <script src="../js/location.js"></script>

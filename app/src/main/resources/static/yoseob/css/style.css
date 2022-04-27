@@ -2,7 +2,7 @@
   
   font-family: 'Nanum Gothic', sans-serif;
   line-height: 1.4;
-  
+  max-width: 1130px;
   padding-top: 10vh;
 }
 
@@ -63,7 +63,7 @@
    
    vertical-align: middle;
    float: left;
-   margin-left: 70px;
+   margin-left: 170px;
  
   }
 
@@ -83,12 +83,17 @@
  .more_qna{
    text-align: right;
    margin-left: 50px;
-   
  }
+   
+/* .all-board{
+ 
+} */
  .faq_list {
-   border: black solid 1px;
+   border: black double 5px;
    border-radius: 10px;
-   margin-top: 20px;
+   /* margin-top: 20px; */
+   background-color:azure;
+   position: relative;
  }
  .faq_list > li {
    margin-left: 10px;
@@ -98,20 +103,24 @@
    font-weight: bold;
 
  }
- .announcement_all{
+ /* .announcement_all{
    margin-top: 20px;
-   float: left;
+   /* float: left; */
 
- }
+ /* } */ 
  .announcement_more{
    margin-left: 90px;
    
  }
  .announcement_list{
-   border: black solid 1px;
+   border: #036 double 5px;
    border-radius: 10px;
-   margin-top: 10px;
-   
+   /* margin-top: 10px; */
+   width: 240px;
+   background-color: azure;
+   /* position: relative; */
+   margin-left: 30px;
+
    
  }
  .announcement_list > li {
@@ -122,11 +131,11 @@
 .information_card{
  border: black solid 1px;
  border-radius: 10px;
- float: left;
- /* margin-top: -100px; */
- margin-left : 50px;
- width: 250px;
- height: 200px;
+ /* float: left; */
+ margin-top: -200px;
+ margin-left : 400px;
+ width: 300px;
+ height: 300px;
  font-weight: bold;
  text-align: center;
 }
@@ -134,25 +143,26 @@
  object-fit: cover;
  display: inline-block;
  width: 100%;
- height: 200px;
+ height: 100%;
 
 }
 .question_card{
  border: black solid 1px;
  border-radius: 10px;
- float: left;
- /* margin-top: -100px; */
+ /* float: left; */
+ margin-top: -300px;
  margin-left : 50px;
- width: 250px;
- height: 203px;
+ width: 300px;
+ height: 300px;
  font-weight: bold;
  text-align: center;
+ margin-left : 800px;
 }
 .question_more{
  object-fit: cover;
  display: inline-block;
  width: 100%;  
- height: 200px;
+ height: 100%;
  border-radius: 10px;
 
 }
@@ -198,12 +208,36 @@
   margin-top: 30px;
 }
 
-.faq_list_table > table {
+/* .faq_list_table > table {
   border : solid 1px black;
   width: 100%;
+} */
+
+.faq_list_table thead th{
+  padding: 10px;
+  font-weight: bold;
+  vertical-align: top;
+  color: #369;
+  border-bottom: 3px solid #036;
+}
+.faq_list_table tbody th{
+  width: 150px;
+  padding: 10px;
+  font-weight: bold;
+  vertical-align: top;
+  border-bottom: 1px solid #ccc;
+  background: #f3f6f7;
+}
+.faq_list_table td{
+  width: 350px;
+  padding: 10px;
+  vertical-align: top;
+  border-bottom: 1px solid #ccc;
 }
 
-.faq_list_table > th, td {
+
+
+/* .faq_list_table > th, td {
   border: 1px solid black;
   text-align: center;
 
@@ -216,6 +250,28 @@
 .faq_list_table td{
   border: solid 1px black;
   
+} */
+
+.announcement_table thead th{
+  padding: 10px;
+  font-weight: bold;
+  vertical-align: top;
+  color: #369;
+  border-bottom: 3px solid #036;
+}
+.announcement_table tbody th{
+  width: 150px;
+  padding: 10px;
+  font-weight: bold;
+  vertical-align: top;
+  border-bottom: 1px solid #ccc;
+  background: #f3f6f7;
+}
+.announcement_table td{
+  width: 350px;
+  padding: 10px;
+  vertical-align: top;
+  border-bottom: 1px solid #ccc;
 }
 
 
@@ -229,7 +285,7 @@
   text-align: center;
   background-color: gray;
 }
-
+/* 
 .announcement_head {
 
   font-weight: bold;
@@ -251,10 +307,10 @@
 .announcement_table td{
   border: solid 1px black;
   
-}
+} */
 
 
-.announcement_detail {
+/* .announcement_detail {
   width: 100%;
   height: 400px;
 
@@ -262,7 +318,7 @@
 
 .announcement_date {
   margin-left: 400px;
-}
+} */
 
 .title_th {
   background-color: gray;
@@ -411,10 +467,33 @@
     margin-top: 30px;
   }
 
+  
+#inquiry_table thead th{
+  padding: 10px;
+  font-weight: bold;
+  vertical-align: top;
+  color: #369;
+  border-bottom: 3px solid #036;
+}
+#inquiry_table tbody th{
+  width: 150px;
+  padding: 10px;
+  font-weight: bold;
+  vertical-align: top;
+  border-bottom: 1px solid #ccc;
+  background: #f3f6f7;
+}
+#inquiry_table td{
+  width: 350px;
+  padding: 10px;
+  vertical-align: top;
+  border-bottom: 1px solid #ccc;
+}
+
   footer .inner{
     width: 100%;
-    margin-top: 500px;
-    height: 100px;
+    margin-top: 250px;
+    height: 70px;
     
     
   }
