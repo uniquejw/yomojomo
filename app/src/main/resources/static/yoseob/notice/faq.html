@@ -79,19 +79,21 @@
         </div>
         <div class = "faq_list_title">
           전체(1250개)
-          <span><button id="x-create-btn" type="button" style="float: right; margin-bottom: 20px;" class="btn btn-primary">등록</button></span>
+          <span><button id="x-create-btn" type="button" style="float: right; margin-right:300px; margin-bottom: 20px;" class="btn btn-primary">등록</button></span>
         </div>
         <script>
           document.querySelector("#x-create-btn").onclick = function(){
           location.href="faq_form.html";
             };
         </script>
-        <div class = "faq_list_table">
-          <table>
+        <div class = "faq_list_table" style="margin-left: 140px;">
+          <table style="border-collapse: collapse;
+          text-align: left;
+          line-height: 1.5;">
             <thead>
               <tr>
                 <th style="display: none;">번호</th>
-                <th>유형</th>
+                <th style="width:40px;">유형</th>
                 <th>제목</th>
               </tr>
               <tbody class="faq_tr">
@@ -99,7 +101,7 @@
             </thead>
           </table>
           <nav aria-label="Page navigation example">
-            <ul class="pagination justify-content-center">
+            <ul class="pagination justify-content-center" style="margin-right:500px;">
               <li class="page-item disabled">
                 <a class="page-link">Previous</a>
               </li>

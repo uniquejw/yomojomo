@@ -52,41 +52,60 @@
       <span class="material-icons">call</span>
       <span id="inquiry-btn" class ="announcement"><a>문의사항</a></span>
     </div>
-    <script src="../js/location.js"></script>
-    <span class ="faq_1">자주하는 질문</span>
-    <span class ="more_qna"><a href="faq.html">FaQ 더보기</a></span>
-    <div class ="faq_list" style="padding-left: 20px; width: 300px;">
-      <table>
-        <thead>
-        <tbody class="faq_tr">
-        </tbody>
-        </thead>
-      </table>
-    </div>
-<!-- FAQ 고객센터 메인에 출력 -->
-
-
-      <div class ="announcement_all" style="margin-top: 100px;">
-      <span class ="announcement_1">공지사항</span>
-      <span class ="announcement_more"><a href ="announcement.html">공지사항 더보기</a></span>
-      <div class ="announcement_list" style="padding-left:10px;">
+    
+    <div class="all-board"><!-- 모든 게시판 통합시작 -->
+      <div style="position: relative; float: left;">
+      <span class ="faq_1">자주하는 질문</span>
+      <span class ="more_qna" style="margin-left: 40px;"><a href="faq.html">FaQ 더보기</a></span>
+      <div class ="faq_list" style="padding-left: 20px; width: 240px;">
         <table>
           <thead>
-          <tbody class="notice_tr">
+          <tbody class="faq_tr">
           </tbody>
           </thead>
         </table>
       </div>
-      </div>
     </div>
-    <div class="information_card">
+    
+<!-- FAQ 고객센터 메인에 출력 -->
+    <!-- <div class="information_card">
       <img class="information_more" src="../image/information_card.png" >
       <span class ="information_text">서비스 안내</span>
     </div>
     <div class="question_card">
       <img class="question_more" src="../image/inquiry_card.PNG" >
       <span class="question_text">문의하기</span>
-    </div>
+    </div>    
+      </div> -->
+      <div style="position: relative; float: left;">
+        <span class ="announcement_1" style="margin-left: 26px;">공지사항</span>
+        <span class ="announcement_more"  style="margin-right: 50px;"><a href ="announcement.html">공지사항 더보기</a></span>
+        <div class ="announcement_list" style="padding-left:10px; position: relative;">
+          <table>
+            <thead>
+                <tbody class="notice_tr">
+                </tbody>
+            </thead>
+          </table>
+        </div>
+      </div>
+      
+
+      <div class="inquiry_table">
+        <table id ="inquiry_table"style="margin:auto">
+          <thead>
+            <!-- <th>메인카테고리번호</th> -->
+            <th>제목</th>
+            <th>문의 내용</th>
+            <th>문의 날짜</th>
+          <tbody class="accordion_tr">
+          </tbody>
+          </thead>
+        </table>
+      </div>
+    </div><!-- 모든 게시판 통합 끝-->
+
+    
     
   </div>
   <div id="footer"></div>
@@ -96,6 +115,7 @@
 <script>
   var faqDiv = document.querySelector(".faq_tr")
   var boardCardDiv = document.querySelector(".notice_tr")
+  var inqueryDiv = document.querySelector(".accordion_tr")
 
   window.onload = function allList() {
     fetch("/notice/list")
@@ -103,12 +123,12 @@
         return response.json()
       })
       .then(function(boards) {
-        for (var i = 0; i < 5; i++) {
+        for (var i = 0; i < boards.length; i++) {
           var tr = document.createElement("tr")
           // div.classList.add("card-body")
           tr.innerHTML = `
           <li><a href="announcement_view.html?no=${boards[i].no}">
-          ${boards[i].title}</li></a>
+          ${boards[i].title}</li></a><br>
           `
           boardCardDiv.appendChild(tr)
         }
@@ -118,14 +138,31 @@
         return response.json()
       })
       .then(function(boards) {
-        for (var i = 0; i < 5; i++) {
+        for (var i = 0; i < boards.length; i++) {
           var tr = document.createElement("tr")
           // div.classList.add("card-body")
           tr.innerHTML = `
           <li><a href="faq_view.html?no=${boards[i].no}">
-          ${boards[i].title}</li></a >
+          ${boards[i].title}</li></a><br>
           `
           faqDiv.appendChild(tr)
+        }
+      })
+      fetch("/noticeQuestion/list")
+      .then(function(response) {
+        return response.json()
+      })
+      .then(function(boards) {
+        for (var i = 0; i < boards.length; i++) {
+          var tr = document.createElement("tr")
+          // div.classList.add("card-body")
+          tr.innerHTML = `
+          <td><a href ="inquiry_view.html?no=${boards[i].no}">
+          ${boards[i].title}</td></a>
+          <td>${boards[i].content}</td>
+          <td>${boards[i].queryDate}</td>
+          `
+          inqueryDiv.appendChild(tr)
         }
       })
   }
