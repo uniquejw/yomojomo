@@ -98,4 +98,21 @@ public class InviteBoxController {
     }
     return new ResultMap().setStatus(SUCCESS).setData(invitebox);
   }
+
+  @RequestMapping("/invitebox/update")
+  public Object update(InviteBox invitebox, HttpSession session) {
+    System.out.println(invitebox.toString());
+    Member member = (Member) session.getAttribute("loginUser");
+    JoinMember joinMember = new JoinMember();
+    joinMember.setMember(member);
+    invitebox.setJoinMember(joinMember);
+
+    int count = inviteBoxService.update(invitebox);
+
+    if (count == 1) {
+      return new ResultMap().setStatus(SUCCESS);
+    } else {
+      return new ResultMap().setStatus(FAIL).setData("게시글 번호가 유효하지 않거나 게시글 작성자가 아닙니다.");
+    }
+  }
 }

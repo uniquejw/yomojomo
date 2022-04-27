@@ -126,5 +126,19 @@
       ib.invite_no = #{inviteNo}
   </select>
   
+  <update id ="update" parameterType="InviteBox">
+    update gms_invite_box set
+      title = #{title},  
+      content = #{content}, 
+      memb_no = #{member.no}, 
+      g_no = #{joinMember.group.no}
+    where
+      invite_no = #{inviteNo}
+      and
+      memb_no2 = #{joinMember.member.no}
+  </update>
+  
+
+  
   
   </mapper>

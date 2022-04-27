@@ -25,4 +25,6 @@ public interface InviteBoxDao {
       @Param("inviteNo") int inviteNo, 
       @Param("senderNo") int senderNo);
 
+  int update(InviteBox inviteBox);
+
 }
