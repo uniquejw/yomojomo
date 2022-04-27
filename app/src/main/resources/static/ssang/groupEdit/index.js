@@ -31,11 +31,12 @@ Swal.fire({
 }
 
 
+
 // 신청서 등록
 var xQuestionCon = document.querySelector("#x-question-container")
 document.querySelector("#x-apply-form").onclick = function() {
   var xQuestions = xQuestionCon.querySelectorAll(".x-question");
-  if(xQuestions.length+qCnt < 6){
+  if(xQuestions.length+qCnt < 6){ //질문 갯수 조건
   var qs="";
   for (var xQuestion of xQuestions) {
       var question = xQuestion.querySelector("input");
@@ -48,7 +49,12 @@ document.querySelector("#x-apply-form").onclick = function() {
       location.href=`/ssang/groupEdit/index.html?gno=${groupNo}`
     })
   } else{
-    alert("질문은 총 5개 까지만 등록 가능합니다. ")
+    Swal.fire({
+      icon: 'error',
+      title: '잠시만요',
+      text: '질문은 총 5개만 등록 가능합니다. ',
+      footer: ''
+    })
   }
 }
 
@@ -71,3 +77,8 @@ fetch(`/applyQuestion/update?${qs}`)
 })
 
 
+// var cnt = 0;
+// setTimeout(function() {
+//   cnt = document.querySelectorAll('.apply-content').length
+//   console.log(cnt)
+// },2000 )

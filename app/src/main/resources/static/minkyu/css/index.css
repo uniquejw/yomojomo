@@ -8,12 +8,16 @@
   text-align: center;
 }
 .info1 {
+  width: 260px;
+  height: 280px;
   padding: 40px 20px;
 }
 .info1 > p {
   margin-bottom: 5px;
 }
 .info2 {
+  width: 260px;
+  height: 280px;
   padding: 50px 0px;
 }
 .info2 > p {

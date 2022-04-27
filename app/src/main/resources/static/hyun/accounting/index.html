@@ -130,13 +130,13 @@ $.ajax({
 <!--페이지네이션 생성 핸들 바-->
 <script id="pageli-template" type="text/x-handlebars-template">
 <li class="page-item" value="1">
-  <a class="page-link" href="javascript:void(0)"><<</a>
+  <a class="page-link" href="javascript:void(0)">&laquo;</a>
 </li>
 {{#each this}}
 <li class="page-item" value="{{no}}"><a class="page-link" href="javascript:void(0)">{{totalPageSize}}</a></li>
 {{/each}}
 <li class="page-item" value="">
-  <a class="page-link" href="javascript:void(0)" >>></a>
+  <a class="page-link" href="javascript:void(0)" >&raquo;</a>
 </li>
 </script>
 

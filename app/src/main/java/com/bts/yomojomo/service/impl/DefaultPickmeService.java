@@ -54,6 +54,16 @@ public class DefaultPickmeService implements PickmeService{
     return pickmeDao.countAll(nameSi, nameGu, keyword);
   }
 
+  @Override
+  public int mypageSize(int memberNo) {
+    return pickmeDao.countMebAll(memberNo);
+  }
+
+  @Override
+  public List<Pickme> listbyMembNo(int pageSize, int pageNo, int memberNo) {
+    return pickmeDao.findListBymembNo(pageSize, ((pageNo - 1) * pageSize), memberNo);
+  }
+
 
 
 }

@@ -74,7 +74,7 @@
               <table class="table table-hover">
                 <thead>
                   <tr>
-                    <th><input class="form-check-input request-all-check" type="checkbox" value="" id="flexCheckDefault"></th>
+                    <th><input class="form-check-input all-check" type="checkbox" value="" id="flexCheckDefault"></th>
                     <th>신청자</th>
                     <th>제목</th>
                     <th>소모임</th>
@@ -246,13 +246,6 @@
           }
         })
       })
-      $(".request-all-check").click(function(e){
-      if ($(".request-all-check").is(":checked")){
-        $(".request-all-check").find("input").prop("checked", true)
-      } else {
-        $("input").prop("checked", false)
-      }
-    })
       $(".all-check").click(function(e){
       if ($(".all-check").is(":checked")){
         $("input").prop("checked", true)
@@ -276,6 +269,7 @@
           cancelButtonText: '취소',
         }).then((result) => {
           if (result.isConfirmed) {
+            $(".all-check").prop("checked", false)
             $("input:checkbox:checked").each(function(){
               this.closest("tr").remove()
             })

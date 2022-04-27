@@ -76,6 +76,10 @@
       {{#if isWriter}}
       <button class="comment-delete icon" type="button" value="{{no}}"><span class="material-icons md-34" >delete</span></button>
       <button class="comment-edit icon" type="button" value="{{no}}" data-content="{{content}}"><span class="material-icons md-34" >mode_edit</span></button>
+      {{else}}
+      {{#if isMaster}}
+      <button class="comment-delete icon" type="button" value="{{no}}"><span class="material-icons md-34" >delete</span></button>
+      {{/if}}
       {{/if}}
     </div>
   </div>
