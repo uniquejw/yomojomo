@@ -73,6 +73,8 @@
     </div>
   </section>
 
+
+
   <!-- MY GROUP -->
   <section class="my-group">
     <div class="inner">
@@ -99,6 +101,8 @@
     {{/each}}
   </script>
 
+  
+
 
   <!-- SUGGESTION GROUP -->
   <section class="suggestion-group">
@@ -114,7 +118,7 @@
 
   <script id="div-nonmember-template" type="text/x-handlebars-template">
     {{#each this}}
-    <div class="col">
+    <div class="col btn-show">
       <a href="javascript:void(0)">
         <div class="card h-100">
           <img src="/group/photo?filename={{logo}}" class="card-img-top" alt="...">
@@ -126,6 +130,19 @@
     </div>
     {{/each}}
   </script>
+
+  <!--========================== 모임정보 ========================-->
+  <div class="background">
+    <div class="window">
+      <div class="popup">
+        <div class="popup-img-div"><img alt="이리오너라" class="main-logo"></div>
+        <button type="button" class="btn-close" data-dialog="background" aria-label="Close"></button>
+        <div class="popup-group-name"></div>
+        <div class="popup-group-content"></div>
+        <div><button id="apply-form-btn" value="">가입하기</button></div>
+      </div>
+    </div>
+  </div>
 
 
   <!-- BEST GROUP -->
@@ -208,6 +225,12 @@
         </div>
     </div>
   </section>
+
+
+
+
+
+    
 
   <div id="footer"></div>
   

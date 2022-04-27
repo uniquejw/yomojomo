@@ -108,6 +108,31 @@ function memberGroupList(memberNo) {
   })
 }
 
+// ---------------------------------------------------------------
+// 모임정보 팝업
+$(document).on("click","button.btn-show",function(){
+  document.querySelector(".background").className = "background show";
+  var value = $(this).val(); // 그룹넘버
+  fetch(`${PATH.groupGet}?gno=${value}`)
+  .then(function(response){
+    return response.json()
+  }).then(function(result){
+    if (result.status == "fail") {
+      window.alert("서버 요청 오류!");
+      console.log(result.data);
+      return;
+    }
+    if(result.data.logo == null){
+      result.data.logo = "default.png";
+    }
+    
+    document.querySelector(".popup-group-name").innerText = result.data.groupName;
+    document.querySelector(".popup-group-content").innerText = result.data.intro;
+    var path = "/group/photo?filename=" + result.data.logo
+    document.querySelector('.main-logo').setAttribute("src", path)
+    $('#apply-form-btn').val(result.data.no);
+  })
+})
 
 
 
