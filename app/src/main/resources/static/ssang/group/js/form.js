@@ -136,6 +136,7 @@ document.querySelector("#create-btn").onclick = function() {
     formData.append('purposeNo',xPurpose.value);
     formData.append('activeLocalNo',xActiveLocalNo.value);
     formData.append('maxCount',xMaxCnt.value);
+    formData.append('gradeNo','1');
     
     for (var i=0; i<purposeLength; i++){
       var value =$(".tag-canel-btn").eq(i).val()
@@ -151,7 +152,7 @@ document.querySelector("#create-btn").onclick = function() {
   .then(function(result) {
     console.log(result);
     if (result.status == "success") {
-      location.href = "/junho/index.html";
+      // location.href = "/junho/index.html";
     } else {
       alert(result.data);
     }

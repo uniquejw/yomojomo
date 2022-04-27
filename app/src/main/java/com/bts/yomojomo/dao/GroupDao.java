@@ -26,6 +26,8 @@ public interface GroupDao {
 
   int insertTags(@Param("groupNo")int no,@Param("tags") List<GroupTag> tags);
 
+  int insertJoinMember(@Param("groupNo") int no,@Param("gradeNo") int gradeNo, @Param("memberNo") int memberNo);
+
   Group findByNo(int no);
 
   int update(Group group);

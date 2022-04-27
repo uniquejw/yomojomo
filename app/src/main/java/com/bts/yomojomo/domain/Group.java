@@ -11,6 +11,8 @@ public class Group {
   int no;           //g_no
   int activeLocalNo;   //act_local_no
   int purposeNo;       //pups_no
+  int memberNo;
+  int gradeNo;
   String GroupName;      //name
   Date registDate;       //reg_dt
   String logo;      //logo

@@ -23,6 +23,7 @@ public class DefaultGroupService implements GroupService {
     System.out.println(group.getNo());
     System.out.println(group.getTags());
     groupDao.insertTags(group.getNo(),group.getTags());
+    groupDao.insertJoinMember(group.getNo(),group.getGradeNo(),group.getMemberNo());
     return 1;
   }
 

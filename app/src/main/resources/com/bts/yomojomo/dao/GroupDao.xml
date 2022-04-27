@@ -124,6 +124,7 @@
 		logo,
 		intro,
 		max_cnt,
+		memb_cnt,
 		view_cnt
 		from
 		gms_group
@@ -140,7 +141,15 @@
 		memb_cnt,
 		max_cnt,
 		intro)
-		values(#{activeLocalNo}, #{purposeNo}, #{GroupName}, #{logo}, "1", #{maxCount}, #{intro});
+		values(#{activeLocalNo}, #{purposeNo}, #{GroupName}, #{logo}, 1, #{maxCount}, #{intro});
+	</insert>
+	
+	<insert id="insertJoinMember">
+		insert into gms_join_memb (
+		memb_no,
+		g_no,
+		g_memb_grd_no)
+		values(#{memberNo}, #{groupNo}, #{gradeNo});
 	</insert>
 	
 	<insert id="insertTags">

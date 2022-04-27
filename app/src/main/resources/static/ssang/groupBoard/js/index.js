@@ -5,7 +5,6 @@ var groupList = await findgrouplistByGno(getGroup) // 그룹번호로 조회한 
 var getGrade= await findgrouplistByMno(loginUser.data.no) // 로그인 유저 번호로 모임멤버 조회
 console.log(groupList.data)
 console.log(loginUser.data)
-var loginUserGrade = getGrade.data[0].memberGrade.gradeName; //로그인한 유저의 grade
 var arr = [];
 for (var list of groupList.data){
   arr.push(list.member.no) 
@@ -15,6 +14,7 @@ if(arr.includes(loginUser.data.no) == false){
   window.alert("가입한 모임만 입장 가능합니다")
   location.replace("/junho/index.html")
 }
+var loginUserGrade = getGrade.data[0].memberGrade.gradeName; //로그인한 유저의 grade
 
 // 로그인 정보 요청
 fetch("/member/getLoginUser")
