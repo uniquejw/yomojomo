@@ -174,3 +174,7 @@ header div .main-menu .menu li .btn-group ul li a {
 #logout-btn {
   cursor: pointer;
 }
+
+.hover-effect:hover {
+  color: #333;
+}
