@@ -48,6 +48,8 @@ $.ajax({ //로그인 여부 확인 ajax START 비회원은 등록버튼 감춘�
             })
           }
 
+          console.log();
+
           if (totalListCount != 0) {
             senderTbody.innerHTML = senderTableGenerator(invitebySenderArr);
           } else {
@@ -177,75 +179,68 @@ $.ajax({ //로그인 여부 확인 ajax START 비회원은 등록버튼 감춘�
             })
           }); //$("#sendpreA") click Event END
 
-          //요청 메세지 모달 띄우기
-          $("#senderTitle").on("click", function () {
-            // console.log(memberInfo.no);
-            $("#sendModal").modal("show");
+          //모달에 값 전달 function
+          $(".modal-request").on("show")
 
-            $.ajax({ //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!여기할 차례
+          //요청 메세지 모달 띄우기
+          $(".title").on("click", function (e) {
+            $("#sendModal").modal("show");
+            $.ajax({
               url: "/invitebox/get",
               type: "POST",
               data: {
-                inviteNo : $("#senderTitle").attr("value"),
+                inviteNo : $(e.target).attr("value"),
                 senderNo : memberInfo.no
               },
               success: function (sendInviteResult) {
+                console.log(sendInviteResult.data);
                 $("#invite-title").val(sendInviteResult.data.title);
                 $("#recipient-name").val(sendInviteResult.data.member.memberName);
                 $("#recipient-no").val(sendInviteResult.data.member.no);
                 $("#invite-group-name").val(sendInviteResult.data.joinMember.group.groupName);
                 $("#invite-group-no").val(sendInviteResult.data.joinMember.group.no);
                 $("#invite-content").val(sendInviteResult.data.content);
+
+                if ($(e.target.closest(".sender-table")).hasClass("sender-table") === true) {
+                  if ($(e.target).siblings(".confirm").text() == "읽음") {
+                  $("#invite-title").attr("readonly", true)
+                  $("#invite-content").attr("readonly", true)
+                  $("#updateBtn").attr("hidden", true)
+                  } else {
+                    $("#invite-title").attr("readonly", false)
+                    $("#invite-content").attr("readonly", false)
+                    $("#updateBtn").attr("hidden", false)
+                  }
+                }// 읽음 확인 if END
                 
-                $("#updateBtn").on("click", function () {
-                  console.log("");
-
-                  let fd = new FormData(document.forms.namedItem("send-form"))
-
-                  fd.append("inviteNo", $("#senderTitle").attr("value"))
-                  console.log(fd);
-                  
-
-                  fetch("/invitebox/update", {
-                    method: "POST",
-                    body: new URLSearchParams(fd)
-                    })
-                    .then(function(response){
-                      return response.json();
-                    })
-                    .then(function(result){
-                      console.log(result);
-                      // if (result.status == "success") {
-                      //   window.alert("등록되었습니다.");
-                      //   location.href = "index.html";
-                      // } else {
-                      //   window.alert("게시글 등록 실패!");
-                      //   console.log(result.data);
-                      // }
-                    });
-
-                  // $.ajax({
-                  //   url: "/invitebox/update",
-                  //   type: "POST",
-                  //   data: {
-                  //     "title": $("#invite-title").val(),
-                  //     "content": $("#invite-content").val(),
-                  //     "member.no": $("#recipient-no").val(),
-                  //     "joinMember.member.senderNo": $("#recipient-no").val(),
-                  //     "joinMember.group.groupno" : $("#invite-group-no").val(),
-                  //     "inviteNo": $("#senderTitle").attr("value"),
-                  //   },
-                  //   success: function (updateResult) {
-                  //     console.log(updateResult);
-                  //   }
-                    
-                  // })
-
-
-                })
               }
             })
+          }) //모달 띄우기 END
 
+          // 수정
+          $("#updateBtn").on("click", function () {
+            let fd = new FormData(document.forms.namedItem("send-form"))
+
+            fd.append("inviteNo", $("#senderTitle").attr("value"))
+            console.log(fd);
+            
+            fetch("/invitebox/update", {
+              method: "POST",
+              body: new URLSearchParams(fd)
+              })
+              .then(function(response){
+                return response.json();
+              })
+              .then(function(result){
+                console.log(result);
+                if (result.status == "success") {
+                  window.alert("수정되었습니다.");
+                  location.href = "/minkyu/mypage/pickme.html";
+                } else {
+                  window.alert("수정 실패!");
+                  console.log(result.data);
+                }
+              });
           })
 
 

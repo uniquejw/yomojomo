@@ -102,10 +102,17 @@ public class InviteBoxController {
   @RequestMapping("/invitebox/update")
   public Object update(InviteBox invitebox, HttpSession session) {
     System.out.println(invitebox.toString());
-    Member member = (Member) session.getAttribute("loginUser");
+    Member member = (Member) session.getAttribute("loginUser"); //초대장 보내는 사람 번호 joinmember 밑에 member
+
+    Object recipient = invitebox.getMember();
+    int test = invitebox.getJoinMember().getGroup().getNo();
+    System.out.println(test);
     JoinMember joinMember = new JoinMember();
-    joinMember.setMember(member);
+    joinMember.setGroup(invitebox.getJoinMember().getGroup());
+    joinMember.setMember(member);//초대장 보내는 사람 번호 joinmember 밑에 member
+
     invitebox.setJoinMember(joinMember);
+    System.out.println(invitebox.toString());
 
     int count = inviteBoxService.update(invitebox);
 
