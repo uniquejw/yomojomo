@@ -258,3 +258,7 @@ a {
   font-size: 1.5em;
 }
 
+
+.non-sign-in {
+  display: none;
+}
