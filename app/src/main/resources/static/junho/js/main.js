@@ -110,9 +110,16 @@ function memberGroupList(memberNo) {
 
 // ---------------------------------------------------------------
 // 모임정보 팝업
-$(document).on("click","button.btn-show",function(){
+const PATH = {
+  'groupList' : '/group/list',
+  'groupGet' : '/group/get',
+  'applyQuestion' : '/applyQuestion/findQuestion'
+}
+$(document).on("click",".btn-show",function(){
+  console.log('clcick')
   document.querySelector(".background").className = "background show";
-  var value = $(this).val(); // 그룹넘버
+  var value = $(this).attr('name'); // 그룹넘버
+  console.log($(this).attr('name'))
   fetch(`${PATH.groupGet}?gno=${value}`)
   .then(function(response){
     return response.json()
@@ -133,6 +140,20 @@ $(document).on("click","button.btn-show",function(){
     $('#apply-form-btn').val(result.data.no);
   })
 })
+
+// 가입신청서로 이동
+$(document).on("click","#apply-form-btn",function(){
+  //   document.querySelector(".background").className = "background";
+  //   document.querySelector(".report-background").className = "report-background show";
+    var value = $(this).val();//모임번호
+    location.href=`/ssang/group/apply.html?gno=${value}`
+  })
+
+//닫기
+$("button.btn-close").click((e) => {
+  var dialog = e.target.getAttribute("data-dialog");
+  $(`.${dialog}`).removeClass("show");
+});
 
 
 

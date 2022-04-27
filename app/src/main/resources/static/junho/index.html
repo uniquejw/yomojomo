@@ -118,7 +118,7 @@
 
   <script id="div-nonmember-template" type="text/x-handlebars-template">
     {{#each this}}
-    <div class="col btn-show">
+    <div class="col btn-show" name="{{no}}">
       <a href="javascript:void(0)">
         <div class="card h-100">
           <img src="/group/photo?filename={{logo}}" class="card-img-top" alt="...">
@@ -135,7 +135,7 @@
   <div class="background">
     <div class="window">
       <div class="popup">
-        <div class="popup-img-div"><img alt="이리오너라" class="main-logo"></div>
+        <div class="popup-img-div"><img alt="이리오너라" class="main-logo" style="width: 100%;"></div>
         <button type="button" class="btn-close" data-dialog="background" aria-label="Close"></button>
         <div class="popup-group-name"></div>
         <div class="popup-group-content"></div>
