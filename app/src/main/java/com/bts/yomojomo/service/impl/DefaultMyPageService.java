@@ -14,7 +14,19 @@ public class DefaultMyPageService implements MyPageService {
   MyPageDao mypageDao;
 
   @Override
-  public List<MyPage> list(String email) {
-    return mypageDao.findAll(email);
+  public List<MyPage> list() {
+    return mypageDao.findAll();
+  }
+
+  @Override
+  public MyPage get(int no) {
+    MyPage mypage = mypageDao.findByMemberNo(no);
+    return mypage;
+  }
+
+  @Override
+  public int update(MyPage mypage, String email) {
+    mypageDao.update(mypage, email);
+    return 1;
   }
 }

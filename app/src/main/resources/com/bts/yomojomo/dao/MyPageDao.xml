@@ -9,29 +9,36 @@
     <result column="membername" property="name"/>
     <result column="email" property="email"/>
     <result column="tel" property="tel"/>
+    <result column="post_no" property="postNo"/>
     <result column="roadname_addr" property="roadNameAddr"/>
     <result column="base_addr" property="baseAddr"/>
     <result column="addr" property="addr"/>
     
 
+    
     <association property="activeLocal" javaType="ActiveLocal">
-      <id column="atlno" property="no"/>
-      <result column="namesi" property="nameSi"/>
-      <result column="namegu" property="nameGu"/>
+      <id column="act_local_no" property="no"/>
+      <result column="name_si" property="nameSi"/>
+      <result column="name_gu" property="nameGu"/>
     </association>
     
-    <association property="purpose" javaType="Purpose">
-       <id column = "pupno" property="no"/>
-       <result column="pupname" property="purposeName"/>
-    </association>
-    
-  </resultMap>
 
+    
+    <collection property="purpose" ofType="Purpose">
+       <id column="pups_no" property="no"/>
+       <result column="name" property="purposeName"/>
+    </collection>
+  </resultMap>
   
   <select id="findAll" resultMap="MyPageMap">
+   <!-- select * from gms_memb;  -->      
+  </select>
+
+  <select id="findByMemberNo" resultMap="MyPageMap">      
     select
       m.memb_no,
-      a.act_local_no atlno,
+      a.act_local_no,
+      p.pups_no,
       m.membername,
       m.email,
       m.tel,
@@ -39,28 +46,19 @@
       m.roadname_addr,
       m.base_addr,
       m.addr,
-      a.name_si namesi,
-      a.name_gu namegu
+      a.name_si,
+      a.name_gu,
+      p.name
     from
       gms_memb m
       inner join gms_final_activelocal fa on m.memb_no = fa.memb_no
       inner join gms_activelocal a on fa.act_local_no = a.act_local_no
-    where
-      m.email=#{email}
-  </select>
-  
-  <select id="findCategory" resultMap="MyPageMap">
-  	select
-      m.memb_no,
-      p.pups_no pupno,
-      p.name pupname
-    from
-      gms_memb m
       inner join gms_final_purpose fp on m.memb_no = fp.memb_no
       inner join gms_purpose p on fp.pups_no = p.pups_no
     where
-      m.email=#{email}
+      m.memb_no=#{no}
+      
   </select>
-  
+
 
 </mapper>
