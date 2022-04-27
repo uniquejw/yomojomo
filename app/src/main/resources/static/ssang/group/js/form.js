@@ -9,6 +9,7 @@
     button.setAttribute('value',`${tags}`)
     button.innerHTML = tags
     document.getElementById('posted-tags').append(button)
+    document.getElementById('x-tag').value = null
     }else {Swal.fire({
       icon: 'error',
       title: '잠시만요!!',
@@ -140,7 +141,7 @@ document.querySelector("#create-btn").onclick = function() {
     
     for (var i=0; i<purposeLength; i++){
       var value =$(".tag-canel-btn").eq(i).val()
-      formData.append('tags',value)
+      formData.append('tag',value)
     }
   fetch("/group/add",{
     method : "POST",
