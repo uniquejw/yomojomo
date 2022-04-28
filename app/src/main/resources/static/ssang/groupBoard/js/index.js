@@ -14,8 +14,14 @@ if(arr.includes(loginUser.data.no) == false){
   window.alert("가입한 모임만 입장 가능합니다")
   location.replace("/junho/index.html")
 }
-var loginUserGrade = getGrade.data[0].memberGrade.gradeName; //로그인한 유저의 grade
+var MemberInfo = getGrade.data;
+var memberAuthority; //멤버등급번호
 
+for (i=0; i < MemberInfo.length; i++) { //현재 있는 그룹의 정보 배열로 빼기
+if (getGroup == MemberInfo[i].group.no) {
+  memberAuthority = MemberInfo[i].memberGrade.gradeNo
+}   
+}
 // 로그인 정보 요청
 fetch("/member/getLoginUser")
 .then(function(res){
@@ -37,7 +43,7 @@ fetch(`/board/findByGroupNo?no=${getGroup}`)
     } else {
       board.isWriter = false;
     }
-    if(loginUserGrade == '모임장'){ // 모임장인지 검사
+    if(memberAuthority == '1'){ // 모임장인지 검사
       board.isMaster = true;
     } else {
       board.isMaster = false;
@@ -76,7 +82,7 @@ $(document).on('click','.board-delete',function(){
   .then(function(res){
     return res.json()
   }).then(function(result){
-    
+    location.reload()
   })
 })
 //--버튼클릭이벤트 -->

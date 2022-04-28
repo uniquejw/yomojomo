@@ -14,6 +14,8 @@ public interface JoinMemberDao {
 
   List<JoinMember> findgrouplistByGno(JoinMember joinMember);
 
+  List<JoinMember> findGrade(JoinMember joinMember); //상준 - 수정시 말해주세요
+
   int insertJoinGroupMember (JoinMember joinMember);
 
 

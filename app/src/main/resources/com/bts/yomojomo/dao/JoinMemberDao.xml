@@ -73,6 +73,18 @@
     order by mg.g_memb_grd_no asc
   </select>
   
+	<select id="findGrade" resultMap="JoinMemberMap">
+	<!--회원 번호와 모임번호로 등급 검색-->
+	SELECT 
+	   g_memb_grd_no
+	FROM 
+	   gms_join_memb 
+	WHERE 
+	   g_no = #{group.no}
+	AND 
+	   memb_no = #{member.no}
+	</select>
+  
   <insert id="insertJoinGroupMember" parameterType="JoinMember">
     insert into gms_join_memb(memb_no, g_no, g_memb_grd_no)
     values(#{member.no}, #{group.no}, #{memberGrade.gradeNo})

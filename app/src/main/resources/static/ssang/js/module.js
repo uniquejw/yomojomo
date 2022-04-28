@@ -67,3 +67,8 @@ export async function findgrouplistByMno(no){
   .then(function(res){return res.json()})
   return response;
 }
+export async function findGrade(no){
+  const response = await fetch(`/joinmember/findGrade?group.no=${no}`)
+  .then(function(res){return res.json()})
+  return response;
+}

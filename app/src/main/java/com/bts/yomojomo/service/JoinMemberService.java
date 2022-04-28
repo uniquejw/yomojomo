@@ -13,6 +13,8 @@ public interface JoinMemberService {
 
   List<JoinMember> grouplistByGno(JoinMember joinMember); //경현 - 수정시 말해주세요
 
+  List<JoinMember> findGrade(JoinMember joinMember); //상준 - 수정시 말해주세요
+
 
   int insertJoinGroupMember(JoinMember joinMember);
 
