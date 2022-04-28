@@ -26,24 +26,26 @@
   </script>
   <div id="header"></div>
   <div class="container">
-    <span>문의 번호</span><br>
-    <input type="text" class ="no"><br>
-    <span>문의 날짜</span><br>
-    <input type="text" class ="date"><br>
-    <span>문의 유형</span><br>
-    <select name="mainCateNo" id="mainCateNo">
-      <option>------</option>
-      <option>로그인</option>
-      <option>회원가입</option>
-      <option>비밀번호</option>
-    </select><br>
-    <span>제목</span><br>
-    <input type="text" class="title"><br>
-    <span>내용</span><br>
-    <textarea rows="auto" cols ="30" class="content"></textarea><br>
-    <button type = "button"  class="update-btn">수정하기</button>
-    <button type = "button"  class="delete-btn">삭제하기</button>
-    <button type = "button"  class="cancel-btn">취소하기</button>
+    <div style="margin-top:100px;">
+      <span style="font-weight: bold;">문의 번호</span><br>
+      <input type="text" class ="no" style="border:none; background-color:thistle; width:80%"><br>
+      <span style="font-weight: bold;" >문의 날짜</span><br>
+      <input type="text" class ="date" style="border:none; background-color:thistle; width:80%"><br>
+      <span style="font-weight: bold;">문의 유형</span><br>
+      <select name="mainCateNo" id="mainCateNo">
+        <option>------</option>
+        <option>로그인</option>
+        <option>회원가입</option>
+        <option>비밀번호</option>
+      </select><br>
+      <span style="font-weight: bold;">제목</span><br>
+      <input type="text" class="title" style="border:none; background-color:thistle; width:80%"><br>
+      <span style="font-weight: bold;">내용</span><br>
+      <textarea type="text" class ="content" cols="50" rows="10" style="width:80%"></textarea><br>
+      <button type = "button"  class="update-btn">수정하기</button>
+      <button type = "button"  class="delete-btn">삭제하기</button>
+      <button type = "button"  class="cancel-btn">취소하기</button>
+    </div>
   </div><!--container끝-->
   <div id="footer"></div>
 </body>
