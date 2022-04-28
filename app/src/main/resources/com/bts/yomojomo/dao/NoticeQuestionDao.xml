@@ -56,7 +56,7 @@
        (noticeQuestion.main_cate_no = mc.main_cate_no)
        
     order by
-      noticeQuestion.q_no asc
+      noticeQuestion.q_no desc
   </select>
   
   <select id="findByNo" resultMap="noticeQuestionMap" parameterType="int">
