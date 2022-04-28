@@ -13,6 +13,7 @@
     <result column="location_id" property="locationId"/>
     <result column="reg_dt" property="regdt"/>
     <result column="view_cnt" property="cnt"/>
+    <result column="location_cate_id" property="categoryId"/>
   </resultMap>
 
   <select id="findAll" resultMap="DestinationMap"> 
@@ -23,7 +24,8 @@
       store_name,
       location_id,
       reg_dt,
-      view_cnt
+      view_cnt,
+      location_cate_id
     from
       gms_destination
     order by

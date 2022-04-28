@@ -44,14 +44,14 @@
          </div>
          <div class="inquery_body" style="border: 1px solid gray;background-color: gainsboro;">
           <div class="inquiry_body_title" style="margin-left: 200px;">
-            <div>
+            <!-- <div>
               <span>메인카테번호</span>
               <input class ="mainCateNo"type="text" >
             </div>
             <div>
               <span>작성자</span>
               <input class="member" type="text" >
-            </div>
+            </div> -->
            
             <span>문의 유형</span>
             <select id="mainCateNo" class="form-select" aria-label="Default select example" style="display: inline-block; width: auto; margin-left: 10px; height: 35px; margin-top: 25px;">
@@ -107,12 +107,12 @@
       
       document.querySelector('#btn_regi').addEventListener("click", function() {
           
-          xMember = member.no
+           xMember = member.no
           xCate.value = sortCategoryByNo(noticeQuestion.queryNo)
           categoryNo = sortCategoryByNo(noticeQuestion.queryNo)
 
           // add?&queryNo=2&member.no=1&title=99999&content=999999&answer=999999
-        fetch(`/noticeQuestion/add?mainCategoryNo=1&queryNo=` + sortCategoryByStr(categoryNo) + `=&member.no=${xMember.value}&title=${xTitle.value}&content=${xContent.value}`)
+        fetch(`/noticeQuestion/add?mainCategoryNo=1&queryNo=` + sortCategoryByStr(categoryNo) + `&title=${xTitle.value}&content=${xContent.value}`)
         .then(function(response) {
           return response.text();
         })
