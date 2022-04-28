@@ -146,6 +146,8 @@ header .main-menu ul.menu li a {
   font-size: 20px;
 }
 
+
+
 header .main-menu ul.menu li a .material-icons {
   font-size: 50px;
 }
@@ -168,8 +170,10 @@ header div .main-menu .menu li .dropdown-toggle::after {
 
 header div .main-menu .menu li .btn-group ul li a {
   font-size: medium;
-  font: black;
+  color: black;
 }
+
+header .main-menu ul.menu li .btn-group 
 
 #logout-btn {
   cursor: pointer;
