@@ -135,12 +135,12 @@ function displayPlaces(places) {
           kakao.maps.event.addListener(marker, 'click', function() {
               displayPlaceInfo(place);
               document.querySelector('.btn-final-select').onclick = function () {
-                console.log(place.id)
+                console.log(place.category_group_code)
                 console.log(place)
                 lng = place.x
                 lat = place.y
                 console.log(lat, lng)
-                saveData(place.x, place.y, place.place_name, place.id)
+                saveData(place.x, place.y, place.place_name, place.id, place.category_group_code)
                 setTimeout(function(){
                     // window.location.href = `/junho/midpoint/invitefinalpoint.html?gno=${gNoParameter}&cal_no=${calNoParameter}&placeURL=${place.place_url}`
                 },2000)
@@ -291,8 +291,8 @@ function clickList(str) {
   searchPlaces();
 }
 
-function saveData(lng,lat,storeName,locationId) {
-    var data = {"flat" : `${lat}`, "flng": `${lng}`, "storeName": `${storeName}`, "locationId": `${locationId}`}
+function saveData(lng,lat,storeName,locationId, categoryId) {
+    var data = {"flat" : `${lat}`, "flng": `${lng}`, "storeName": `${storeName}`, "locationId": `${locationId}`, "categoryId": `${categoryId}`}
     $.ajax({ 
         url : "/junho/midpoint/add",
         type : "POST",
