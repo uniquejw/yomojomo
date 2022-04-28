@@ -34,10 +34,10 @@ public class ApplyFixedAnswerController {
   //    return applyFixedAnswerService.list(); 
   //  }
 
-  //  @RequestMapping("/applyFixedAnswer/list")
-  //  public Object list() {
-  //    return applyFixedAnswerService.list(); 
-  //  }
+  @RequestMapping("/applyFixedAnswer/findRequestByMasNO")
+  public Object findRequestByMasNO(ApplyFixedAnswer applyFixedAnswer) {
+    return new ResultMap().setStatus(SUCCESS).setData(applyFixedAnswerService.findRequestByMasNO(applyFixedAnswer)); 
+  }
   //
   //  @RequestMapping("/applyFixedAnswer/update")
   //  public Object update(ApplyFixedAnswer applyFixedAnswer) {

@@ -11,4 +11,5 @@ public class ApplyFixedAnswer {
   Member writer;
   Date applyDate;// appl_dt
   String content; //content
+  Member master; //memb_no2
 }

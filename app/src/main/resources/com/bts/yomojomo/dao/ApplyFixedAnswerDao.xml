@@ -9,25 +9,43 @@
     <id column="g_no" property="groupNo"/>
     <result column="appl_dt" property="applyDate"/>
     <result column="content" property="content"/>
+    <association property="writer" javaType="Member"> <!-- gms_member 모임신청자 -->
+      <id column = "senderNo" property="no"/>
+    </association>
+    <association property="master" javaType="Member"> <!-- gms_member 모임장 -->
+      <id column = "masterNo" property="no"/>
+    </association>
   </resultMap>
   
   
+  <select id="findRequestByMasNO" resultMap="ApplyFixedAnswerMap"> 
+    select
+      g_no,
+      memb_no senderNo,
+      content,
+      memb_no2 masterNo
+    from
+      gms_applyform_default
+    where
+      memb_no2 = #{master.no}
+  </select>
+  
+  
+  
   <insert id="insert" parameterType="ApplyFixedAnswer">
-  insert into gms_applyform_default(g_no, memb_no, content)
-  values (#{groupNo}, #{writer.no} ,#{content})
+  insert into gms_applyform_default(g_no, memb_no, content, memb_no2)
+  values (#{groupNo}, #{writer.no} ,#{content},
+   (SELECT 
+	 memb_no 
+	 from 
+	 gms_join_memb
+	 WHERE 
+	 g_no = #{groupNo}
+	 AND 
+	 g_memb_grd_no = 1))
   </insert>
  
  
-  <select id="findAll" resultMap="ApplyFixedAnswerMap"> 
-    select
-      appl_answer_no,
-      appl_no,
-      answer
-    from
-      gms_applyform_answer
-    order by
-      appl_answer asc
-  </select>
   
 
  
