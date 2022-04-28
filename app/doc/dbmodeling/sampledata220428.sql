@@ -304,9 +304,9 @@ insert into gms_report(title,content,valid,reported,memb_no,rpt_cate_no) values 
 insert into gms_keyword(search_name, memb_no) values ("한식", 1);
 insert into gms_keyword(search_name, memb_no) values ("당구", 1);
 insert into gms_keyword(search_name, memb_no) values ("노래방", 1);
-insert into gms_group(act_local_no, pups_no, name, intro, memb_cnt, max_cnt, view_cnt) values("1", "1", "소모임1", "가족같은 모임입니다.", 1, 50, 1);
-insert into gms_group(act_local_no, pups_no, name, intro, memb_cnt, max_cnt, view_cnt) values("1", "1", "소모임2", "5월의 회식", 1, 50, 1);
-insert into gms_group(act_local_no, pups_no, name, intro, memb_cnt, max_cnt, view_cnt) values("1", "1", "소모임3", "나들이 함께 가요", 1, 50, 1);
+insert into gms_group(act_local_no, pups_no, name, intro, memb_cnt, max_cnt, view_cnt) values("1", "1", "소모임1", "가족같은 모임입니다.", 5, 50, 1);
+insert into gms_group(act_local_no, pups_no, name, intro, memb_cnt, max_cnt, view_cnt) values("1", "1", "소모임2", "5월의 회식", 3, 50, 1);
+insert into gms_group(act_local_no, pups_no, name, intro, memb_cnt, max_cnt, view_cnt) values("1", "1", "소모임3", "나들이 함께 가요", 2, 50, 1);
 insert into gms_applyform_question (g_no, question_name) values(1, "최근에 읽은 책은?");
 insert into gms_applyform_question (g_no, question_name) values(1, "가장 재밌게 본 영화는?");
 insert into gms_applyform_question (g_no, question_name) values(1, "어떻게 알고 오셨나요?");
