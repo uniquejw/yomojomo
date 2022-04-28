@@ -31,8 +31,23 @@ public class DefaultMemberService implements MemberService {
   }
 
   @Override
-  public Member get(String email, String password) {
-    return memberDao.findByEmailAndPassword(email, password);
+  public List<Member> listselect(int no, int cutno, String searchKeyword) {
+    return memberDao.getBoardListSelect(no, cutno, searchKeyword);
+  }
+
+  @Override
+  public int countSelect(String searchKeyword) {
+    return memberDao.getBoardListSelectCount(searchKeyword);
+  }
+
+  @Override
+  public Member get(int no) {
+    return memberDao.findByNo(no);
+  }
+  
+  @Override
+  public Member get(String email, String password, String level) {
+    return memberDao.findByEmailAndPassword(email, password, level);
   }
 
 
@@ -41,7 +56,16 @@ public class DefaultMemberService implements MemberService {
     return memberDao.findByEmail(email);
   }
 
+  @Override
+  public int update(int no, int status) {
+    return memberDao.penalty(no, status);
+  }
 
+  @Override
+  public int delete(int no) {
+    return memberDao.membDelete(no);
+  }
+  
   @Override
   public Member find(String name, String tel) {
     return memberDao.findidByNameandTel(name, tel);

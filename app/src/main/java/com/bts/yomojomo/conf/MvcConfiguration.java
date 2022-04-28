@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import com.bts.yomojomo.interceptor.AdminAuthinterceptor;
 import com.bts.yomojomo.interceptor.Authinterceptor;
 
 
@@ -31,6 +32,11 @@ public class MvcConfiguration implements WebMvcConfigurer {
     registry
     .addInterceptor(new Authinterceptor())
     .addPathPatterns("/**/add*", "/**/update*", "/**/delete*")
-    .excludePathPatterns("/junho/midpoint/add");
+    .excludePathPatterns("/junho/midpoint/add","/**/admin/**/");
+    
+    registry
+    .addInterceptor(new AdminAuthinterceptor())
+    .addPathPatterns("/**/admin/**/*")
+    .excludePathPatterns("/**/admin/login/*");
   }
 }

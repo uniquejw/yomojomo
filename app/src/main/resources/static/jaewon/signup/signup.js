@@ -136,6 +136,7 @@ function signForm() {
 function sendForm() {
 	var fd = new FormData(document.forms.namedItem("signup"));
 	fd.append('membLevel', '1');
+	fd.append('unsubscribe', '0');
 	var xLocallist = document.querySelector("#locallist")
 	for (var i = 0; i < xLocallist.children.length; i++) {
 		var value = xLocallist.children[i].value

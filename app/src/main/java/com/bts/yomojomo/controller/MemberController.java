@@ -23,6 +23,38 @@ public class MemberController {
   @Autowired
   MemberService memberService;
 
+  @RequestMapping("/member/membercountselect")
+  public int getBoardListSelectCount(String searchKeyword) {
+    return memberService.countSelect(searchKeyword);
+  }
+
+  @RequestMapping("/member/listselect")
+  public Object listselect(int no, int cutno, String searchKeyword) {
+    int mNo = (no - 1) * cutno; // 넘어온 값에 -1로 데이터베이스에 맞춘다
+    return memberService.listselect(mNo, cutno, searchKeyword);
+  }
+  
+  @RequestMapping("/member/get")
+  public Member get(int no) {
+    return memberService.get(no);
+  }
+
+  @RequestMapping("/member/update")
+  public Object update(int no, int status) {
+
+    memberService.update(no, status);
+
+    return new ResultMap().setStatus(SUCCESS);
+  }
+
+  @RequestMapping("/member/delete")
+  public Object delete(int no) {
+
+    memberService.delete(no);
+
+    return new ResultMap().setStatus(SUCCESS);
+  }
+  
   @RequestMapping("/member/signup")
   public Object signUp(Member member, String[] localsArr, String[] pupsArr) throws Exception {
 
@@ -48,9 +80,10 @@ public class MemberController {
   }
 
   @RequestMapping("/member/signin")
-  public Object signin(String email, String password, boolean saveEmail, HttpServletResponse response,
+  public Object signin(String email, String password, String level, boolean saveEmail, HttpServletResponse response,
       HttpSession session) {
-    Member loginUser = memberService.get(email, password);
+    Member loginUser = memberService.get(email, password, level);
+    System.out.println(loginUser);
     if (loginUser == null) {
 
       return new ResultMap().setStatus(FAIL);
@@ -59,7 +92,6 @@ public class MemberController {
     // 로그인이 성공하면,
     // 다른 요청을 처리할 때 로그인 회원의 정보를 사용할 있도록 세션에 보관한다.
     session.setAttribute("loginUser", loginUser);
-
     Cookie cookie = null;
 
     if (saveEmail) {
