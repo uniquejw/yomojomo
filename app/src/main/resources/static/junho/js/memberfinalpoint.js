@@ -140,7 +140,7 @@ function displayPlaces(places) {
                 lng = place.x
                 lat = place.y
                 console.log(lat, lng)
-                saveData(place.x, place.y, place.place_name, place.id, place.category_group_code)
+                saveData(place.x, place.y, place.place_name, place.id, place.category_group_code, place.place_url)
                 setTimeout(function(){
                     // window.location.href = `/junho/midpoint/invitefinalpoint.html?gno=${gNoParameter}&cal_no=${calNoParameter}&placeURL=${place.place_url}`
                 },2000)
@@ -291,8 +291,8 @@ function clickList(str) {
   searchPlaces();
 }
 
-function saveData(lng,lat,storeName,locationId, categoryId) {
-    var data = {"flat" : `${lat}`, "flng": `${lng}`, "storeName": `${storeName}`, "locationId": `${locationId}`, "categoryId": `${categoryId}`}
+function saveData(lng,lat,storeName,locationId, categoryId, placeURL) {
+    var data = {"flat" : `${lat}`, "flng": `${lng}`, "storeName": `${storeName}`, "locationId": `${locationId}`, "categoryId": `${categoryId}`, "placeURL": `${placeURL}`}
     $.ajax({ 
         url : "/junho/midpoint/add",
         type : "POST",
