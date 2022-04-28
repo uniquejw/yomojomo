@@ -397,9 +397,12 @@ insert into gms_join_memb(memb_no,g_no,g_memb_grd_no) values (1,12,2);
 
 insert into gms_accounting(g_no, act_cate_no, title, amount, status) values(1, 2, "1월 회비", "20000",  0);
 insert into gms_accounting(g_no, act_cate_no, title, amount, status) values(1, 2, "2월 회비", "20000",  0);
-insert into gms_board(g_no, memb_no,  content, view_cnt) values  (1, 1,'123', 1);
-insert into gms_board(g_no, memb_no,  content, view_cnt) values  (2, 2,'345', 2);
-insert into gms_board(g_no, memb_no,  content, view_cnt) values  (2, 2,'567', 1);
+insert into gms_board(g_no, memb_no,  content, view_cnt) values  (1, 1,'반갑습니다', 1);
+insert into gms_board(g_no, memb_no,  content, view_cnt) values  (1, 1,'오늘 어떠셨나요?', 1);
+insert into gms_board(g_no, memb_no,  content, view_cnt) values  (1, 1,'늦었다고 생각할때가 정말 너무 늦었다. 박명수는 말했지 활명수는 맛있다고 점심뭐뭑을까 큰일이네 날씨가 너무 더운걸 일부러 긴글 을 작성하는 중입니다!!!!여름여름한 날씨가 다가 오고 있습니다. 비트캠프 포에어 216기 화이팅!!!', 1);
+insert into gms_board(g_no, memb_no,  content, view_cnt) values  (2, 2,'점심 뭐 먹지', 2);
+insert into gms_board(g_no, memb_no,  content, view_cnt) values  (2, 2,'비가오네요', 1);
+insert into gms_board(g_no, memb_no,  content, view_cnt) values  (3, 1,'감기 장염 조심하세요', 1);
 insert into gms_final_purpose values(1,1);
 insert into gms_final_purpose values(2,2);
 insert into gms_final_purpose values(3,3);
