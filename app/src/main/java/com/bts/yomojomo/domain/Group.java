@@ -21,7 +21,7 @@ public class Group {
   int maxCount;       //max_cnt
   int viewCount;      //view_cnt
   int status;       //status
-  int stopDate;       //stop_dt
+  Date stopDate;       //stop_dt
   ActiveLocal activeLocal;
   Purpose purpose;
   List<GroupTag> tags;

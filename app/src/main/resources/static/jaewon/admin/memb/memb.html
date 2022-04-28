@@ -1,117 +1,88 @@
-<!DOCTYPE html>
 
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet"
-	href="../../node_modules/sweetalert2/dist/sweetalert2.min.css">
-<link rel="stylesheet"
-	href="../../node_modules/bootstrap/dist/css/bootstrap.min.css">
-<link rel="stylesheet" href="./css/main.css">
-
-<link rel="stylesheet" href="/junho/css/main.css">
-<link rel="stylesheet" href="/junho/js/main.js">
-<title>Manage Page</title>
-</head>
-<body class="">
-
-	<div id="header"></div>
-	<div class="m-container">
-		<div class="main ">
-			<div class="left">
-				<div class="shadow-sm p-3 mb-5 bg-body rounded box">
-					<div class="sidemenu">
-						<ul class="list-group list-group-flush list">
-
-							<li class="list-group-item list-group-item-action"><img
-								src="../1.png" class="img-fluid logo"><a href="index.html"><br>관리자
-									메인 페이지 </a></li>
-
-							<li class="list-group-item list-group-item-action"><a
-								href="membindex.html">회원 관리</a></li>
-							<li class="list-group-item list-group-item-action"><a
-								href="groupindex.html">모임 관리</a></li>
-							<li class="list-group-item list-group-item-action"><a
-								href="reportindex.html">신고 내역 관리</a></li>
-							<li class="list-group-item list-group-item-action"><a
-								href="qnaindex.html">문의 내역 관리</a></li>
-							<li class="list-group-item list-group-item-action"><a
-								href="center.html">고객센터 관리</a></li>
-						</ul>
-					</div>
+<div class="m-container">
+	<div class="shadow-sm p-5 bg-body rounded border">
+		<table class="table table-hover tab">
+			<div class="row">
+				<div class="col"></div>
+				<div class="col p-5 title">
+					<h1>회원 목록</h1>
+				</div>
+				<div class="col p-5 searchInput">
+					<form name="search">
+						<div class="input-group mb-3 col">
+							<input name="searchName" type="text"
+								class="form-control input-sm" placeholder="검색"
+								aria-label="Recipient's username"
+								aria-describedby="basic-addon2">
+							<button class="input-group-text btn btn-primary searchBtn"
+								id="basic-addon2">검색</button>
+						</div>
+					</form>
 				</div>
 			</div>
-			<div class="content">
-				<div class="shadow-sm p-3 mb-5 bg-body rounded inbox">
-					<table class="table table-hover">
-						<thead>
-							<tr>
-								<th scope="col"></th>
-								<th scope="col">회원번호</th>
-								<th scope="col">아이디</th>
-								<th scope="col">이름</th>
-								<th scope="col">모임</th>
-							</tr>
-						</thead>
-						<tbody>
-						</tbody>
+			<thead>
+				<tr class="tables">
+					<th class="col-md-1"></th>
+					<th class="col-md-2">회원번호</th>
+					<th class="col-md-6">아이디</th>
+					<th class="col-md-4">이름</th>
+				</tr>
+			</thead>
+			<tbody>
+			</tbody>
 
-					</table>
-					<nav aria-label="Page navigation example">
-						<ul class="pagination page justify-content-center">
-							<li class="page-item"><a class="page-link" href="#">Previous</a></li>
-							<li class="page-item"><a class="page-link" href="#">1</a></li>
-							<li class="page-item"><a class="page-link" href="#">2</a></li>
-							<li class="page-item"><a class="page-link" href="#">3</a></li>
-							<li class="page-item"><a class="page-link" href="#">Next</a></li>
-						</ul>
-					</nav>
-				</div>
+		</table>
+		<nav aria-label="Page navigation example">
+			<div class="row">
+				<div class="col"></div>
+				<ul class="col"></ul>
+				<ul class="col prbtn"></ul>
+				<ul class="pagination justify-content-center col botn">
+
+				</ul>
+				<ul class="col nebtn"></ul>
+				<ul class="col"></ul>
+				<ul class="col"></ul>
+
 			</div>
-			<div class="right"></div>
-		</div>
+		</nav>
+
 	</div>
+</div>
 
-	<script id="tr-template" type="text/x-handlebars-template">
+
+
+<script src="/node_modules/handlebars/dist/handlebars.js"></script>
+<script id="content" type="text/x-handlebars-template">
+{{#if this.length}}
+  {{#each this}}
+    <tr>
+      <th scope="row">
+      </th>
+      <th scope="row" value="{{no}}">{{no}}</th>
+      <td><a href="/jaewon/admin/memb/view/index.html?no={{no}}">{{email}}</a></td>
+      <td>{{memberName}}</td>
+    </tr>
+  {{/each}}
+{{else}}
+  <tr>
+    <td colspan="4">검색된 데이터가 없습니다.</td>
+  </tr>
+{{/if}}
+</script>
+<script id="totalContent" type="text/x-handlebars-template">
+		<div id="total" data-co={{co}}><span>총 {{co}}개의 글이 있습니다.<sapn></div>
+</script>
+<script id="prevpage-btn" type="text/x-handlebars-template">
+		<li class="page-item"><a class="page-link" data-num={{num}}>이전 페이지</a></li>
+</script>
+<script id="page-btn" type="text/x-handlebars-template">
 {{#each this}}
-	<tr>
-		<th scope="row">
-			<div>
-				<input class="form-check-input" type="checkbox"
-					id="checkboxNoLabel" value="" aria-label="...">
-			</div>
-		</th>
-		<th scope="row">{{row}}</th>
-		<td>{{members.email}}</td>
-		<td>{{members.membName}}</td>
-		<td>{{groups.groupName}}</td>
-	</tr>
+		<li class="pagebtn page-item p{{num}}" aria-current="page"><a class="page-link" data-num={{num}}>{{num}}</a></li>
 {{/each}}
 </script>
-	<script src="/node_modules/handlebars/dist/handlebars.js"></script>
-	<script type="text/javascript">
-		var tbody = document.querySelector(".content table tbody")
-		var trTemplate = document.querySelector("#tr-template");
-		var htmlGenerator = Handlebars.compile(trTemplate.innerHTML);
-		fetch("/managedmember/list").then(function(response) {
-			return response.json();
-		}).then(function(lists) {
-			tbody.innerHTML = htmlGenerator(lists);
-			console.log(lists)
-		});
-	</script>
-	<script src="../../node_modules/sweetalert2/dist/sweetalert2.min.js"></script>
-	<script src="../../node_modules/jquery/dist/jquery.min.js"></script>
-	<script
-		src="../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-	<script type="text/javascript">
-		$(document).ready(function() {
-			$('#header').load('/junho/mainHeader.html'); //헤더 인클루드
-			// $('#footers').load('../html'); //푸터부분 인클루드
-		});
-	</script>
-
+<script id="nextpage-btn" type="text/x-handlebars-template">
+		<li class="page-item"><a class="page-link" data-num={{num}}>다음 페이지</a></li>
+</script>
 </body>
 </html>

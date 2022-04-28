@@ -10,9 +10,15 @@ public interface NoticeService {
 
   List<Notice> list();
 
-  Notice get(int no);
+  public Notice get(int no);
 
   int update(Notice notice);
 
-  int delete(Notice notice);
+  int delete(int no);
+  
+ Notice select(int no);
+
+  List<Notice> listselect(int no, int cutno, String searchKeyword);
+
+  int countSelect(String searchKeyword);
 }

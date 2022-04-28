@@ -74,13 +74,17 @@ function snsGoogleLogin() {
 			return response.json();
 		}).then(function(result) {
 			console.log(result)
+			if (result == 0) {
+				alert("이미 탈퇴한 회원입니다.")
+				return false
+			}
 			// 반환 값을 받고 분기를 나눈다.
 			if (result.status == "success") {
 				// data에 Y가 속했다면
 				if (result.data == "Y") {
 					alert("기존 회원")
 					location.href = "/junho/index.html"
-				// Y가 아닌 다른 data의 경우
+					// Y가 아닌 다른 data의 경우
 				} else {
 					alert("신규 회원")
 					var expire = new Date();
@@ -95,7 +99,7 @@ function snsGoogleLogin() {
 
 					// Cookies에 문자열 형태로 데이터를 저장한다.
 					Cookies.set('snsLoginData', JSON.stringify(snsLoginData), { expires: expire })
-					
+
 					location.href = "/jaewon/signup/index.html"
 
 				}
@@ -131,7 +135,7 @@ function snsKakaoLogin() {
 					// 파라미터에 넣을 값을 넣는다.
 					var params = new URLSearchParams();
 					params.append("email", response.kakao_account.email);
-					
+
 					// 요소 중복체크 
 					fetch("/member/kakaoLogin", {
 						method: "POST",
@@ -140,6 +144,10 @@ function snsKakaoLogin() {
 						return response.json();
 					}).then(function(result) {
 						console.log(result)
+						if (result == 0) {
+							alert("이미 탈퇴한 회원입니다.")
+							return false
+						}
 						// 반환 값이 석세스일때
 						if (result.status == "success") {
 
@@ -184,7 +192,7 @@ function snsFacebookLogin() {
 	FB.login(function(response) {
 		//반환값을 확인한다.
 		if (response.status === 'connected') { // 로그인이 정상적으로 되었을 때,
-		// 반환받은 액세스 토큰을 파라미터로 보낸다.
+			// 반환받은 액세스 토큰을 파라미터로 보낸다.
 			var params = new URLSearchParams();
 			params.append("accessToken", response.authResponse.accessToken);
 			//중복체크
@@ -194,6 +202,10 @@ function snsFacebookLogin() {
 			}).then(function(response) {
 				return response.json();
 			}).then(function(result) {
+				if (result == 0) {
+					alert("이미 탈퇴한 회원입니다.")
+					return false
+				}
 				// 값을 반환 받는다.
 				if (result.status == "success") {
 
@@ -204,7 +216,7 @@ function snsFacebookLogin() {
 						alert("신규 회원")
 						//반환받은 데이터를 split하여 요소값을 넣는다.
 						var data = result.data.split("____")
-						
+
 						var expire = new Date();
 						var snsLoginData = {
 							email: data[0],
@@ -250,7 +262,7 @@ function login() {
 			if (result.status == "success") {
 				history.go(-1);
 			} else {
-				window.alert("로그인 실패!")
+				window.alert("등록되지 않거나 탈퇴한 사용자입니다.")
 			}
 		});
 		return false;

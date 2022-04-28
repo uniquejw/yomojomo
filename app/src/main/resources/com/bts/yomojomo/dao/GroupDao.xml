@@ -16,6 +16,8 @@
 		<result column="memb_cnt" property="memberCount" />
 		<result column="max_cnt" property="maxCount" />
 		<result column="view_cnt" property="viewCount" />
+    <result column="status" property="status" />
+    <result column="stop_dt" property="stopDate" />
 	</resultMap>
 	
 
@@ -123,6 +125,8 @@
 		reg_dt,
 		logo,
 		intro,
+		status,
+		stop_dt,
 		max_cnt,
 		memb_cnt,
 		view_cnt
@@ -131,6 +135,26 @@
 		where
 		g_no=#{no}
 	</select>
+	
+	<select id="findByGNo" resultMap="GroupMap" parameterType="int">
+    select
+    g_no,
+    act_local_no,
+    pups_no,
+    name,
+    reg_dt,
+    logo,
+    intro,
+    max_cnt,
+    memb_cnt,
+    view_cnt,
+    status,
+    stop_dt
+    from
+    gms_group
+    where
+    g_no=#{no}
+  </select>
 
 	<insert id="insert" parameterType="Group" keyProperty="no"  keyColumn="g_no" useGeneratedKeys="true">
 		insert into gms_group (
@@ -182,4 +206,52 @@
 		where
 		g_no = #{no}
 	</delete>
+	
+	<select id="getBoardListSelect" resultMap="GroupMap">
+    SELECT
+      g_no,
+          act_local_no,
+          pups_no,
+          name,
+          reg_dt,
+          logo,
+          intro,
+          max_cnt,
+          view_cnt,
+          status
+      from
+          gms_group 
+      
+      
+    <if test='!searchKeyword.equals("")'>
+      WHERE
+      name LIKE "%"#{searchKeyword}"%" 
+    </if>
+    order by
+      g_no DESC
+    LIMIT
+      #{no}, #{cutno}
+  </select>
+  
+  <select id="getBoardListSelectCount" parameterType="Group" resultType="int">
+    SELECT
+      COUNT(*)
+    FROM
+      gms_group
+    
+      <if test='!searchKeyword.equals("")'>
+        WHERE
+        name LIKE "%"#{searchKeyword}"%" 
+      </if>
+  </select>
+  
+  <update id="updateStatus" parameterType="Group">
+    update 
+      gms_group
+    set
+      status = #{status},
+      stop_dt = NOW()
+    where
+      g_no = #{no}
+  </update>
 </mapper>

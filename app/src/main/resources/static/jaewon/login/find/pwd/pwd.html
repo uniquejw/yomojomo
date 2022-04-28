@@ -30,7 +30,7 @@
 								type="text" placeholder="전화번호를 입력해주세요"
 								aria-label=".form-control-sm example">
 						</div>
-						<button type="submit" class="btn btn-primary searchBtn">비밀번호
+						<button type="submit" name="search" class="btn btn-primary searchBtn">비밀번호
 							찾기</button>
 
 					</div>
@@ -56,47 +56,3 @@
 		</div>
 	</div>
 </div>
-
-<script>
-	var xEmail = document.querySelector("input[name=email]");
-	var xTel = document.querySelector("input[name=tel]");
-
-	document.querySelector("form[name=findpwd]").onsubmit = function() {
-		if (xTel.value == "" || xEmail.value == "") {
-			window.alert("필수 입력 항목이 비어 있습니다.");
-			return false;
-		}
-
-		var fd = new FormData(document.forms.namedItem("findpwd"));
-
-		fetch("/member/findpwd", {
-			method : "POST",
-			body : new URLSearchParams(fd)
-		}).then(function(response) {
-			return response.text();
-		}).then(function(text) {
-			if (text != 0) {
-					$('.modal').show();
-					$('.email').append("이메일로 임시비밀번호가 발송되었습니다.");				
-				$('.close').on('click', function() {
-					$('.modal').hide();
-					location.href="/junho/index.html";
-				});
-				$('.btn-close').on('click', function() {
-					$('.modal').hide();
-					location.href="/junho/index.html";
-				});
-				$(window).on('click', function() {
-					if (event.target == $('.modal').get(0)) {
-						$('.modal').hide();
-						location.href="/junho/index.html";
-					}
-				});
-			} else {
-				window.alert("일치하는 정보가 없습니다")
-				location.reload();
-			}
-		});
-		return false;
-	};
-</script>
