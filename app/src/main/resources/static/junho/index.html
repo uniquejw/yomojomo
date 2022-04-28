@@ -148,83 +148,35 @@
   <!-- BEST GROUP -->
   <section class="best-group">
     <div class="inner">
-        <h3>ALL THE BEST</h3>
+        <h3>실시간 베스트 장소</h3>
         <div class="btn-group best-cate">
-          <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-            Category
+          <button type="button" class="btn btn-primary dropdown-toggle best-point-cate" data-bs-toggle="dropdown" aria-expanded="false">
+            All
           </button>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="javascript:void(0)">Excercise</a></li>
+            <li onclick="bestPointHtml(1)"><a class="dropdown-item dropdown-item1" href="javascript:void(0)">맛집</a></li>
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="javascript:void(0)">Music</a></li>
+            <li onclick="bestPointHtml(2)"><a class="dropdown-item dropdown-item2" href="javascript:void(0)">카페</a></li>
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="javascript:void(0)">Study</a></li>
+            <li onclick="bestPointHtml(3)"><a class="dropdown-item dropdown-item3" href="javascript:void(0)">싼주유소</a></li>
           </ul>
         </div>
-        <div class="row row-cols-1 row-cols-md-3 g-4">
-          <div class="col">
-            <a href="javascript:void(0)">
-              <div class="card h-100">
-                <img src="/junho/img/concert.png" class="card-img-top" alt="...">
-                <div class="card-body">
-                  <h5 class="card-title">Concert</h5>
-                </div>
-              </div>
-            </a>
-          </div>
-          <div class="col">
-            <a href="javascript:void(0)">
-              <div class="card h-100">
-                <img src="/junho/img/health.png" class="card-img-top" alt="...">
-                <div class="card-body">
-                  <h5 class="card-title">Health</h5>
-                </div>
-              </div>
-            </a>
-          </div>
-          <div class="col">
-            <a href="javascript:void(0)">
-              <div class="card h-100">
-                <img src="/junho/img/mountin.png" class="card-img-top" alt="...">
-                <div class="card-body">
-                  <h5 class="card-title">Mountain climbing</h5>
-                </div>
-              </div>
-            </a>
-          </div>
-          <div class="col">
-            <a href="javascript:void(0)">
-              <div class="card h-100">
-                <img src="/junho/img/soccer.png" class="card-img-top" alt="...">
-                <div class="card-body">
-                  <h5 class="card-title">Soccer</h5>
-                </div>
-              </div>
-            </a>
-          </div>
-          <div class="col">
-            <a href="javascript:void(0)">
-              <div class="card h-100">
-                <img src="/junho/img/soju.png" class="card-img-top" alt="...">
-                <div class="card-body">
-                  <h5 class="card-title">Drinking Alcol</h5>
-                </div>
-              </div>
-            </a>
-          </div>
-          <div class="col">
-            <a href="javascript:void(0)">
-              <div class="card h-100">
-                <img src="/junho/img/solder.png" class="card-img-top" alt="...">
-                <div class="card-body">
-                  <h5 class="card-title">Soldier</h5>
-                </div>
-              </div>
-            </a>
-          </div>
+        <div class="best-point-content">
+          <ul class="best-point-list">
+            <!-- BEST POINT HANDLEBARS -->
+          </ul>
         </div>
     </div>
   </section>
+
+  <!-- BEST POINT LIST HADLEBARS -->
+
+
+  <script id="li-best-point-template" type="text/x-handlebars-template">
+    {{#each this}}
+      <li><span>{{inc @index}}</span><a href="{{placeURL}}" target="_blank">{{storeName}}</a></li>
+    {{/each}}
+  </script>
 
 
 

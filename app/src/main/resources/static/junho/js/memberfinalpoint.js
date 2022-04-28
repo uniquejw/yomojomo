@@ -142,7 +142,7 @@ function displayPlaces(places) {
                 console.log(lat, lng)
                 saveData(place.x, place.y, place.place_name, place.id, place.category_group_code, place.place_url)
                 setTimeout(function(){
-                    // window.location.href = `/junho/midpoint/invitefinalpoint.html?gno=${gNoParameter}&cal_no=${calNoParameter}&placeURL=${place.place_url}`
+                    window.location.href = `/junho/midpoint/invitefinalpoint.html?gno=${gNoParameter}&cal_no=${calNoParameter}&placeURL=${place.place_url}`
                 },2000)
               }
           });

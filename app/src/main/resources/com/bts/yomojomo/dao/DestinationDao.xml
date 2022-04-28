@@ -14,6 +14,7 @@
     <result column="reg_dt" property="regdt"/>
     <result column="view_cnt" property="cnt"/>
     <result column="location_cate_id" property="categoryId"/>
+    <result column="place_URL" property="placeURL"/>
   </resultMap>
 
   <select id="findAll" resultMap="DestinationMap"> 
@@ -25,11 +26,12 @@
       location_id,
       reg_dt,
       view_cnt,
-      location_cate_id
+      location_cate_id,
+      place_URL
     from
       gms_destination
     order by
-      dest_no desc
+      view_cnt desc limit 10;
   </select>
   
   <select id="findByNo" resultMap="DestinationMap" parameterType="int">
@@ -52,8 +54,10 @@
       flat,
       flng,
       store_name,
-      location_id)
-    values(#{flat}, #{flng}, #{storeName}, #{locationId})
+      location_id,
+      location_cate_id,
+      place_URL)
+    values(#{flat}, #{flng}, #{storeName}, #{locationId}, #{categoryId}, #{placeURL})
     ON DUPLICATE KEY UPDATE view_cnt = view_cnt + 1;
   </insert>
   
