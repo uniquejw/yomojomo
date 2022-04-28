@@ -1,3 +1,10 @@
+$(document).ready(function () {
+  $('#header').load('/junho/mainHeader.html'); //헤더 인클루드
+  $('#footers').load('/junho/mainfooter.html'); //푸터부분 인클루드
+  $("#listnone").hide();
+  $("#sendlistnone").hide();
+});
+
 $.ajax({ //로그인 여부 확인 ajax START 비회원은 등록버튼 감춘다.
   url : "/member/getLoginUser",
   type : "POST",
@@ -60,8 +67,6 @@ $.ajax({ //로그인 여부 확인 ajax START 비회원은 등록버튼 감춘�
               inviteNo : $(e.target).attr("value")
             },
             success: function (recivedInviteResult) {
-              // console.log(recivedInviteResult.data);
-              // console.log($("#recipient-title"));
               $("#recived-title").val(recivedInviteResult.data.title);
               $("#inviteNo").val(recivedInviteResult.data.inviteNo);
               $("#invite-group-name").val(recivedInviteResult.data.joinMember.group.groupName); 
@@ -522,13 +527,15 @@ $.ajax({ //로그인 여부 확인 ajax START 비회원은 등록버튼 감춘�
 
                 if ($(e.target.closest(".sender-table")).hasClass("sender-table") === true) {
                   if ($(e.target).siblings(".confirm").text() == "읽음") {
-                  $("#invite-title").attr("readonly", true)
-                  $("#invite-content").attr("readonly", true)
-                  $("#updateBtn").attr("hidden", true)
+                    $("#invite-title").attr("readonly", true);
+                    $(".request-content").attr("readonly", true);
+                    $("#updateBtn").attr("hidden", true);
+                    $("#sendDeleteBtn").attr("hidden", true);
                   } else {
-                    $("#invite-title").attr("readonly", false)
-                    $("#invite-content").attr("readonly", false)
-                    $("#updateBtn").attr("hidden", false)
+                    $("#invite-title").attr("readonly", false);
+                    $(".request-content").attr("readonly", false);
+                    $("#updateBtn").attr("hidden", false);
+                    $("#sendDeleteBtn").attr("hidden", false);
                   }
                 }// 읽음 확인 if END
                 
@@ -622,13 +629,15 @@ $.ajax({ //로그인 여부 확인 ajax START 비회원은 등록버튼 감춘�
 
                       if ($(e.target.closest(".sender-table")).hasClass("sender-table") === true) {
                         if ($(e.target).siblings(".confirm").text() == "읽음") {
-                        $("#invite-title").attr("readonly", true)
-                        $("#invite-content").attr("readonly", true)
-                        $("#updateBtn").attr("hidden", true)
+                          $("#invite-title").attr("readonly", true);
+                          $(".request-content").attr("readonly", true);
+                          $("#updateBtn").attr("hidden", true);
+                          $("#sendDeleteBtn").attr("hidden", true);
                         } else {
-                          $("#invite-title").attr("readonly", false)
-                          $("#invite-content").attr("readonly", false)
-                          $("#updateBtn").attr("hidden", false)
+                          $("#invite-title").attr("readonly", false);
+                          $(".request-content").attr("readonly", false);
+                          $("#updateBtn").attr("hidden", false);
+                          $("#sendDeleteBtn").attr("hidden", false);
                         }
                       }// 읽음 확인 if END
                       
@@ -726,13 +735,15 @@ $.ajax({ //로그인 여부 확인 ajax START 비회원은 등록버튼 감춘�
 
                       if ($(e.target.closest(".sender-table")).hasClass("sender-table") === true) {
                         if ($(e.target).siblings(".confirm").text() == "읽음") {
-                        $("#invite-title").attr("readonly", true)
-                        $("#invite-content").attr("readonly", true)
-                        $("#updateBtn").attr("hidden", true)
+                          $("#invite-title").attr("readonly", true);
+                          $(".request-content").attr("readonly", true);
+                          $("#updateBtn").attr("hidden", true);
+                          $("#sendDeleteBtn").attr("hidden", true);
                         } else {
-                          $("#invite-title").attr("readonly", false)
-                          $("#invite-content").attr("readonly", false)
-                          $("#updateBtn").attr("hidden", false)
+                          $("#invite-title").attr("readonly", false);
+                          $(".request-content").attr("readonly", false);
+                          $("#updateBtn").attr("hidden", false);
+                          $("#sendDeleteBtn").attr("hidden", false);
                         }
                       }// 읽음 확인 if END
                       
@@ -968,6 +979,3 @@ $.ajax({ //로그인 여부 확인 ajax START 비회원은 등록버튼 감춘�
     } //로그인 됐으면
   } //로그인 success END
 }); //로그인 여부 확인 ajax END
-
-// console.log(no);
-
