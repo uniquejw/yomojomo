@@ -38,11 +38,11 @@ public class DefaultCommentService implements CommentService {
   public int update(Comment comment) {
     return commentDao.update(comment);
   }
-  //
-  //  @Override
-  //  public int delete(Comment comment) {
-  //    return commentDao.delete(comment);
-  //  }
+
+  @Override
+  public int delete(int no) {
+    return commentDao.delete(no);
+  }
   //
   //  @Override
   //  public int increaseViewCount() {

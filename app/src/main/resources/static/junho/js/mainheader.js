@@ -52,10 +52,20 @@ $.ajax({ //로그인 회원 정보 가져오기
 			datatype: "json",
 			data : {"member.no" : memberNo},
 			success: function (result) {
-				if (result.data.length > 0) {
-					$("#invitemsgCnt").text(result.data.length);
-					$("#totalMsgCnt").text(result.data.length); //!!!!!!!!!!!!!!!!!!!나중에 모임 가입신청서 숫자랑 더해야함!!!!!!!!!!!!!!!!!!!!!!!
-						//상준님 여기에 서버에 메세지 달라고 요청하세요
+				var msgResult = result.data;
+				var msgCount = 0;
+
+				for (i = 0; i < msgResult.length; i++) {
+					if (msgResult[i].confirm == false) {
+						msgCount++;
+					}
+				}
+
+				if (msgResult.length > 0) {
+					console.log("참");
+					$("#invitemsgCnt").text(msgCount);
+					$("#totalMsgCnt").text(msgCount); //!!!!!!!!!!!!!!!!!!!나중에 모임 가입신청서 숫자랑 더해야함!!!!!!!!!!!!!!!!!!!!!!!
+					
 					
 					
 				}

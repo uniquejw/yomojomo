@@ -55,7 +55,7 @@
 
             </div>
           </div>
-          <br>
+          <!-- <br>
           <h4 class="title">나의 관심 모임</h4>
           <br>
           <div class="favor-group">
@@ -71,44 +71,64 @@
                 <h5>축구왕슛돌이</h5>
               </div>
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>  
   </div>
   <div id="footers"></div>
   <script>
-    fetch("/mypage/list")
+    const swa = Swal.mixin({
+          customClass: {
+            confirmButton: 'btn btn-primary mx-2',
+            cancelButton: 'btn btn-secondary mx-2'
+          },
+          buttonsStyling: false
+        })
+    fetch("/member/getLoginUser")
     .then(function(response){
       return response.json()
     })
-    .then(function(memberInfo){
-      console.log(memberInfo)
-      $(`<img id="info-img" src="../profile.jpg">
-              <p id="info-name">${memberInfo[0].name}</p>
-              <p>이메일 주소 : ${memberInfo[0].email}</p>
-              <p>핸드폰 번호 : ${memberInfo[0].tel}</p>`)
-              .appendTo(".info1")
-      $(` <br>
-          <p>지역 : ${memberInfo[0].activeLocal.nameSi}</p>
-          <p>도로명 주소 : ${memberInfo[0].roadNameAddr}</p>
-          <p>지번 주소 : ${memberInfo[0].baseAddr}</p>
-          <p>상세 주소 : ${memberInfo[0].addr}</p>
-          <br>`).appendTo(".info2")
+    .then(function(result){
+      if (result.status == "fail") {
+        swa.fire({
+          icon: 'error',
+          title: '로그인 되지 않았습니다',
+          text: '로그인 후 다시 시도해주세요',
+        }).then((result) => {
+          if (result.isConfirmed) {
+            location.href = "/jaewon/login/login/index.html"
+          }
+        })
+      }
+      fetch(`/mypage/get?no=${result.data.no}`)
+      .then(function(response){
+        return response.json()
+      })
+      .then(function(memberInfo){
+        console.log(memberInfo)
+        $(`<img id="info-img" src="../profile.jpg">
+            <p id="info-name">${memberInfo.name}</p>
+            <p>이메일 주소 : ${memberInfo.email}</p>
+            <p>핸드폰 번호 : ${memberInfo.tel}</p>`)
+          .appendTo(".info1")
+        $(` <br>
+            <p>지역 : ${memberInfo.activeLocal.nameSi}</p>
+            <p>도로명 주소 : ${memberInfo.roadNameAddr}</p>
+            <p>지번 주소 : ${memberInfo.baseAddr}</p>
+            <p>상세 주소 : ${memberInfo.addr}</p>
+            <br>`).appendTo(".info2")
+        for (let i=0; i < memberInfo.purpose.length; i++) {
+          $(`<span class="badge rounded-pill bg-primary category">${memberInfo.purpose[i].purposeName}</span>`)
+          .appendTo(".info2")
+        }
+      })
     })
+    
 
-    fetch("/mypage/category")
-    .then(function(response){
-      return response.json()
-    })
-    .then(function(categoryList){
-      console.log(categoryList)
-    })
-
-  $(".card").children("img").click(function(e){
-    location.href = "/ssang/groupBoard/index.html"
-  })
-  // <span class="badge rounded-pill bg-primary category">${pupr}</span>
+  // $(".card").children("img").click(function(e){
+  //   location.href = "/ssang/groupBoard/index.html"
+  // })
   </script>
 </body>
 </html>

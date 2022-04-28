@@ -50,8 +50,8 @@ public class DefaultBoardService implements BoardService {
   }
 
   @Override
-  public int delete(Board board) {
-    return boardDao.delete(board);
+  public int delete(int no) {
+    return boardDao.delete(no);
   }
 
   @Override

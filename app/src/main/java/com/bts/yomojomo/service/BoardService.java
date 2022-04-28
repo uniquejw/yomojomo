@@ -17,7 +17,7 @@ public interface BoardService {
 
   int update(Board board);
 
-  int delete(Board board);
+  int delete(int no);
 
   int increaseViewCount();
 }

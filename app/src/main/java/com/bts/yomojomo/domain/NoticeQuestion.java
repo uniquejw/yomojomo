@@ -17,4 +17,9 @@ public class NoticeQuestion {
   Date queryDate;
   String answer;
   Date answerDate;
+  
+  QueryCate queryCate;
+  Member member;
+  Mcate2 mcate2;
+  
 }

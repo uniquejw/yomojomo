@@ -44,9 +44,9 @@ public class CommentController {
       return new ResultMap().setStatus(FAIL).setData("댓글 번호가 유효하지 않거나 작성자가 아닙니다.");
     }
   }
-  //
-  //  @RequestMapping("/comment/delete")
-  //  public Object delete(int no) {
-  //    return commentService.delete(no);
-  //  }
+
+  @RequestMapping("/comment/delete")
+  public Object delete(int no) {
+    return commentService.delete(no);
+  }
 }

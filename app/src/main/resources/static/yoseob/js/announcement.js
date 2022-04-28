@@ -12,7 +12,7 @@ function allList() {
         // div.classList.add("card-body")
         tr.innerHTML = 
         `
-        <td>${boards[i].no}</td><td>${boards[i].cate}</td>
+        <td>${boards[i].no}</td><td style="display:none">${boards[i].cate}</td>
         <td><a href="announcement_view.html?no=${boards[i].no}">${boards[i].title}</td></a>
         <td>${boards[i].regDate}</td>
         `

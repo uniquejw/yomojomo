@@ -14,6 +14,7 @@ public interface JoinMemberService {
   List<JoinMember> grouplistByGno(JoinMember joinMember); //경현 - 수정시 말해주세요
 
 
+  int insertJoinGroupMember(JoinMember joinMember);
 
   //이전코드
   List<JoinMember> list();

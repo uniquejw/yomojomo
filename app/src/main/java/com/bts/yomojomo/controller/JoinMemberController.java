@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.bts.yomojomo.domain.JoinMember;
+import com.bts.yomojomo.domain.Member;
 import com.bts.yomojomo.service.JoinMemberService;
 
 
@@ -32,6 +33,9 @@ public class JoinMemberController {
   //test : http://localhost:8080/joinmember/grouplistbymno?member.no=회원번호
   public Object grouplistByMno(JoinMember joinMember, HttpSession session) {
     log.info("회원 번호로 조회!");
+    Member member = (Member) session.getAttribute("loginUser");
+    joinMember.setMember(member);
+
     return new ResultMap().setStatus(SUCCESS).setData(joinMemberservice.grouplistByMno(joinMember));
   }
 
@@ -41,6 +45,14 @@ public class JoinMemberController {
   public Object grouplistByGno(JoinMember joinMember, HttpSession session) {
     log.info("모임 번호로 조회!");
     return new ResultMap().setStatus(SUCCESS).setData(joinMemberservice.grouplistByGno(joinMember));
+  }
+
+  @RequestMapping("/joinmember/insertjoingroup") //모임 가입 insert
+  public int insertJoinGroupMember(JoinMember joinMember, HttpSession session) {
+    Member member = (Member) session.getAttribute("loginUser");
+    joinMember.setMember(member);
+
+    return joinMemberservice.insertJoinGroupMember(joinMember);
   }
 
 
