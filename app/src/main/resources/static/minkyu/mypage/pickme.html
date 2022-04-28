@@ -7,31 +7,20 @@
   <title>MyPage</title>
   <!-- 제이쿼리 -->
   <script src="/node_modules/jquery/dist/jquery.min.js"></script>
-  <!-- <script src="/node_modules/sweetalert2/dist/sweetalert2.min.js"></script> -->
   <!-- css 초기화 -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
   <!--공용css-->
   <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
-  <!-- <link rel="stylesheet" href="/node_modules/sweetalert2/dist/sweetalert2.min.css"> -->
-  <!-- <link rel="stylesheet" href="/css/common.css"> -->
   <!--내css-->
   <link rel="stylesheet" href="/minkyu/css/main.css">
-  <link rel="stylesheet" href="/minkyu/css/pickme.css">
-  <script src="../../hyun/mypagePickme.js"></script>
-  <script src="/node_modules/handlebars/dist/handlebars.min.js"></script>
+  <link rel="stylesheet" href="/hyun/css/mypagePickme.css">
 
-  <!--인클루드-->
-  <script type="text/javascript">
-    $(document).ready(function () {
-      $('#header').load('/junho/mainHeader.html'); //헤더 인클루드
-      $('#footers').load('/junho/mainfooter.html'); //푸터부분 인클루드
-      $("#listnone").hide();
-      $("#sendlistnone").hide();
-    });
-  </script>
+  <script src="/node_modules/handlebars/dist/handlebars.min.js"></script>
 </head>
+
 <body>
   <div id="header"></div>
+
   <div class="main">
     <div class="inner">
       <div class="list-group sidebar">
@@ -49,6 +38,7 @@
             <li class="breadcrumb-item active" aria-current="page">픽미 요청/게시글</li>
           </ol>
         </nav>
+
         <div class="content d-flex flex-column">
           <h3>초대가 온 픽미</h3>
           <br>
@@ -107,7 +97,7 @@
               </tbody>
             </table>
             <div id="sendlistnone">
-              <h1>보낸 초대 메세지가 없습니다.<br></h1>
+              <span>보낸 초대 메세지가 없습니다.<br></span>
             </div>
 
             <!-- <div class="btn-wrap">
@@ -149,7 +139,7 @@
               </tbody>
             </table>
             <div id="listnone">
-              <h1>작성한 글이 없습니다.<br></h1>
+              <span>작성한 글이 없습니다.<br></span>
             </div>
 
             <div class="btn-wrap">
@@ -171,8 +161,8 @@
                 </li>
               </ul>
             </nav>
-
           </div>
+
           <!-- 받은 초대장 -->
           <div class="modal fade modal-invite" id="recivedModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
@@ -250,11 +240,12 @@
               </div>
             </div>
           </div>
-
+        </div>
         </div>
       </div>
     </div>  
   </div>
+
   <div id="footers"></div>
 
   <!--받은 픽미 handlebars-->
@@ -300,5 +291,6 @@
     {{/each}}
   </script>
 
+  <script src="../../hyun/js/mypagePickme.js"></script>
 </body>
 </html>
