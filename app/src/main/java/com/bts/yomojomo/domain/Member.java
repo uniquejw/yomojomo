@@ -22,7 +22,7 @@ public class Member {
   int unsubscribe;
   int status;
   Date stopDate;
- 
+  Date cDate;
   List<FinalActiveLocal> locals;
   List<FinalPurpose> pups;
 }

@@ -36,7 +36,7 @@ document.querySelector("form[name=findid]").onsubmit = function() {
 			}
 		});
       } else {
-    	  window.alert("일치하는 전화번호가 없습니다")
+    	  window.alert("없는 사용자거나 탈퇴한 사용자입니다.")
       }
     });
   return false;

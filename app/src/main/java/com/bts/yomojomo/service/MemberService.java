@@ -6,12 +6,22 @@ import com.bts.yomojomo.dto.MemberDto;
 
 public interface MemberService {
 
+  List<Member> listselect(int no, int cutno, String searchKeyword);
+
+  int countSelect(String searchKeyword);
+  
   int add(Member member);
 
+  Member get(int no);
+  
   Member get(String email);
 
-  Member get(String email, String password);
+  Member get(String email, String password, String level);
 
+  int update(int no, int status);
+
+  int delete(int no);
+  
   Member find(String name, String tel);
 
   Member send(String email, String tel);

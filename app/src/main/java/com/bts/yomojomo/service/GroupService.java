@@ -19,8 +19,15 @@ public interface GroupService {
 
   Group get(int no);
 
+  Group getview(int no);
+
   int update(Group group);
 
   int delete(int no);
+ 
+  int updateStatus(int no, int status);
+  
+  List<Group> listselect(int no, int cutno, String searchKeyword);
 
+  int countSelect(String searchKeyword);
 }

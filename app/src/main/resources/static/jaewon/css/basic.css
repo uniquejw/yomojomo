@@ -1,3 +1,14 @@
+.body-inner {
+	width: 1100px;
+	text-align: center;
+	margin: 0 auto;
+}
+
+.container-inner {
+	width: 800px;
+	margin: 0 auto;
+}
+
 .logo {
 	height: 200px;
 	width: 150px;
@@ -18,16 +29,7 @@ img {
 	margin-bottom: 10px;
 }
 
-.body-inner {
-	width: 1100px;
-	text-align: center;
-	margin: 0 auto;
-}
 
-.container-inner {
-	width: 800px;
-	margin: 0 auto;
-}
 
 .frame {
 	width: 700px;

@@ -30,7 +30,18 @@ public interface MemberDao {
 
   int insertPups(@Param("no") int no, @Param("pups") List<FinalPurpose> pups);
 
-  Member findByEmailAndPassword(@Param("email") String email, @Param("password") String password);
+  List<Member> getBoardListSelect(@Param("no") int no, @Param("cutno") int cutno,
+      @Param("searchKeyword") String searchKeyword);
+
+  int getBoardListSelectCount(String searchKeyword);
+
+  int penalty(@Param("no") int no, @Param("status") int status);
+
+  int membDelete(@Param("no") int no);
+
+  Member findByNo(int no);
+  
+  Member findByEmailAndPassword(@Param("email") String email, @Param("password") String password, @Param("level") String level);
 
   Member findByEmail(String email);
 
