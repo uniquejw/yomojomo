@@ -176,7 +176,7 @@ fetch(PATH.groupList)
 $(document).on("click","button.btn-show",function(){
   document.querySelector(".background").className = "background show";
   var value = $(this).val(); // 그룹넘버
-  fetch(`${PATH.groupGet}?gno=${value}`)
+  fetch(`/group/get?gno=${value}`)
   .then(function(response){
     return response.json()
   }).then(function(result){
@@ -185,6 +185,7 @@ $(document).on("click","button.btn-show",function(){
       console.log(result.data);
       return;
     }
+    console.log(result.data)
     if(result.data.logo == null){
       result.data.logo = "default.png";
     }

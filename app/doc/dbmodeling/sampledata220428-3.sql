@@ -315,10 +315,7 @@ insert into gms_group(act_local_no, pups_no, name, intro, memb_cnt, max_cnt, vie
 insert into gms_group(act_local_no, pups_no, name, intro, memb_cnt, max_cnt, view_cnt) values("3", "3", "강남역 12번출구", "나들이 함께 가요", 3, 50, 1);
 insert into gms_group(act_local_no, pups_no, name, intro, memb_cnt, max_cnt, view_cnt) values("4", "4", "강서고등학교 정모", "가족같은 모임입니다.", 5, 50, 1);
 insert into gms_group(act_local_no, pups_no, name, intro, memb_cnt, max_cnt, view_cnt) values("4", "4", "우리내일만나", "5월의 회식", 2, 50, 1);
-insert into gms_group(act_local_no, pups_no, name, intro, memb_cnt, max_cnt, view_cnt) values("4", "4", "나쁜개는없다", "나들이 함께 가요", 3, 50, 1);
-insert into gms_group(act_local_no, pups_no, name, intro, memb_cnt, max_cnt, view_cnt) values("5", "5", "빅뱅 사랑해요", "가족같은 모임입니다.", 1, 50, 1);
-insert into gms_group(act_local_no, pups_no, name, intro, memb_cnt, max_cnt, view_cnt) values("5", "5", "오마이 비밀정원", "5월의 회식", 1, 50, 1);
-insert into gms_group(act_local_no, pups_no, name, intro, memb_cnt, max_cnt, view_cnt) values("5", "5", "캠핑의 정석", "나들이 함께 가요", 1, 50, 1);
+insert into gms_group(act_local_no, pups_no, name, intro, memb_cnt, max_cnt, view_cnt) values("4", "4", "잘부탁해요", "나들이 함께 가요", 3, 50, 1);
 insert into gms_applyform_question (g_no, question_name) values(1, "최근에 읽은 책은?");
 insert into gms_applyform_question (g_no, question_name) values(1, "가장 재밌게 본 영화는?");
 insert into gms_applyform_question (g_no, question_name) values(1, "어떻게 알고 오셨나요?");

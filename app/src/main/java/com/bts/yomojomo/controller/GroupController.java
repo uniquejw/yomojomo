@@ -56,8 +56,8 @@ public class GroupController {
   }
 
   @RequestMapping("/group/get")
-  public Object get(int no) {
-    Group group = groupService.get(no);
+  public Object get(int gno) {
+    Group group = groupService.get(gno);
     if (group == null) {
       return new ResultMap().setStatus(FAIL).setData("해당 번호의 모임이 없습니다.");
     }
@@ -100,8 +100,8 @@ public class GroupController {
       // 다운로드할 파일의 입력 스트림 자원을 준비한다.
       File downloadFile = new File("./upload/groupLogo/" + filename); // 다운로드 상대 경로 준비
       FileInputStream fileIn = new FileInputStream(downloadFile.getCanonicalPath()); // 다운로드 파일의 실제
-                                                                                     // 경로를 지정하여 입력
-                                                                                     // 스트림 준비
+      // 경로를 지정하여 입력
+      // 스트림 준비
       InputStreamResource resource = new InputStreamResource(fileIn); // 입력 스트림을 입력 자원으로 포장
 
       // HTTP 응답 헤더를 준비한다.
@@ -143,7 +143,7 @@ public class GroupController {
 
       // 썸네일 이미지 파일 생성
       Thumbnails.of(photoFile).size(50, 50).crop(Positions.CENTER).outputFormat("jpg")
-          .toFile(new File("./upload/groupLogo/" + "50x50_" + filename));
+      .toFile(new File("./upload/groupLogo/" + "50x50_" + filename));
 
       return filename;
 
@@ -170,7 +170,7 @@ public class GroupController {
   public int getBoardListSelectCount(String searchKeyword) {
     return groupService.countSelect(searchKeyword);
   }
-  
+
   @RequestMapping("/group/getview")
   public Object getview(int no) {
     Group group = groupService.getview(no);
