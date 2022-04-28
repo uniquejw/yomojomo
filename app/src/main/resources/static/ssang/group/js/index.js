@@ -123,12 +123,15 @@ fetch(PATH.groupList)
       success : function(result) {
         console.log({"activeLocal.nameSi" : $("#nameSi option:selected").val()})
         console.log(result.data);
-        for (var group of result.data) {
-          if (group.logo == null) {
-            group.logo = "default.png";
-          }
-        }
-        writtenContainer.innerHTML = htmlGenerator(result.data);
+        var test= result.data
+        console.log(test)
+        // for (var group of result.data) {
+        //   console.loge(test)
+        //   if (group.logo == null) {
+        //     group.logo = "default.png";
+        //   }
+        // }
+        // writtenContainer.innerHTML = htmlGenerator(result.data);
       }
     }) //ajax END
   });//nameSi change End
