@@ -1,2 +1,0 @@
-# yomojomo
-group management project
