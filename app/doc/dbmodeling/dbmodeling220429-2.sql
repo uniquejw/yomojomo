@@ -951,7 +951,7 @@ CREATE TABLE gms_applyform_default (
   memb_no2 INTEGER  NOT NULL COMMENT '회원번호2', -- 회원번호2
   content  LONGTEXT NULL     COMMENT '기본답변', -- 기본답변
   appl_dt  DATE     NOT NULL DEFAULT current_timestamp() COMMENT '답변일', -- 답변일
-  confirm  BOOLEAN  NULL     COMMENT '승인여부' -- 승인여부
+  confirm  BOOLEAN  NULL     DEFAULT 0 COMMENT '승인여부' -- 승인여부
 )
 COMMENT '가입신청서기본답변';
 
