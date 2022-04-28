@@ -12,4 +12,5 @@ public class ApplyFixedAnswer {
   Date applyDate;// appl_dt
   String content; //content
   Member master; //memb_no2
+  int confirm;
 }

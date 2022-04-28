@@ -9,6 +9,7 @@
     <id column="g_no" property="groupNo"/>
     <result column="appl_dt" property="applyDate"/>
     <result column="content" property="content"/>
+    <result column="confirm" property="confirm"/>
     <association property="writer" javaType="Member"> <!-- gms_member 모임신청자 -->
       <id column = "senderNo" property="no"/>
     </association>
@@ -23,7 +24,8 @@
       g_no,
       memb_no senderNo,
       content,
-      memb_no2 masterNo
+      memb_no2 masterNo,
+      confirm
     from
       gms_applyform_default
     where
