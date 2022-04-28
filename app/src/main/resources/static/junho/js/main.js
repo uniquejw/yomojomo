@@ -5,8 +5,9 @@ setTimeout(function() {
   console.log(memberNo)
   if (memberNo == undefined){
     $('.my-group').addClass("non-sign-in");
+  } else {
+    memberGroupList(memberNo)
   }
-  memberGroupList(memberNo)
 },1000)
 
 var swiper = new Swiper(".mySwiper", {
