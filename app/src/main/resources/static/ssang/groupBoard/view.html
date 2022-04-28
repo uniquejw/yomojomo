@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <title>모임개설</title>
+  <!-- 제이쿼리 -->
+  <script src="/node_modules/sweetalert2/dist/sweetalert2.min.js"></script>
+  <script src="/node_modules/jquery/dist/jquery.min.js"></script>
+  <!-- 부트스트랩 -->
+  <script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+  <!-- 핸들바 -->
+  <script src="/node_modules/handlebars/dist/handlebars.min.js"></script>
+  <!-- css 초기화 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
+  <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <!--공용css-->
+  <link rel="stylesheet" href="/css/common.css">
+  <!--내css-->
+  <link rel="stylesheet" href="/ssang/groupBoard/css/view.css">
+  <script src="//code.jquery.com/jquery-1.11.0.min.js">
+  </script>
+  <!-- 인클루드 -->
+  <script type="text/javascript">
+    $(document).ready(function () {
+        $('#headers').load('/junho/mainHeader.html'); //헤더 인클루드
+        $('#top').load('/ssang/groupBoard/top.html'); //모임 윗부분 인클루드
+        $('#footers').load('/junho/mainfooter.html'); //푸터부분 인클루드
+    });
+  </script>
+</head>
+<body>
+  <div id="headers"></div>
+  <div id="top"></div>
+  <div id="container">
+    <div id="width-fix-div">
+      <div class="write-board2">Edit Post</div>
+      <div class="written-width-fix2">
+        <div class="written-author-div">
+          <div class="written-author-img-div">
+            <img class="written-author-img" src="../공연.jfif" style="width: 50px; height: 50px;" alt="">   &nbsp;&nbsp;&nbsp;
+          </div>
+          <div class="written-column-div">
+            <div class="written-author-name">&nbsp;&nbsp;&nbsp;이름</div>
+            <div class="written-createdTime">몇분전</div>
+          </div>
+        </div>
+        <div class="written-content-div">
+          <div class="written-content">다들 어떻게 지내시나요? 날씨가 좋은 봄이에요 살랑살랑해</div>
+        </div>
+        <div class="post-cancel-div">
+          <button id="s-cancel-btn" type="button">취소</button>
+          <button id="s-report-btn" type="button">신고</button>
+        </div>
+      </div>
+      <hr>
+      <!-- 댓글 -->
+      <div id="handlebars-container"></div>
+    </div>  
+  </div>
+  <div id="footers"></div>
+  <script id="comment-template" type="text/x-handlebars-template">
+    {{#each comments}}
+  <div id="written-comment" >
+  <div class="comment-author-div">
+    <div class="comment-author-img-div">
+      <img class="comment-author-img" src="" alt=""><span class="material-icons md-34" style="border-left: 3px solid rgb(17, 147, 218);">
+        format_quote
+        </span>  &nbsp;&nbsp;&nbsp;
+    </div>
+    <div class="comment-column-div">
+      <div class="comment-author-name">{{writer.memberName}}</div>
+      <div class="comment-createdTime">{{registDate}}</div>
+    </div>
+    <div class="modify-div">
+      <button class="comment-report icon" type="button" value="{{no}}"><span class="material-icons md-34" >report</span></button>
+      {{#if isWriter}}
+      <button class="comment-delete icon" type="button" value="{{no}}"><span class="material-icons md-34" >delete</span></button>
+      <button class="comment-edit icon" type="button" value="{{no}}" data-content="{{content}}"><span class="material-icons md-34" >mode_edit</span></button>
+      {{else}}
+      {{#if isMaster}}
+      <button class="comment-delete icon" type="button" value="{{no}}"><span class="material-icons md-34" >delete</span></button>
+      {{/if}}
+      {{/if}}
+    </div>
+  </div>
+  <div class="comment-content" data-cno="{{no}}">
+    {{content}}
+  </div>
+  </div>
+  {{/each}}
+</script>
+<script type="module" src="/ssang/groupBoard/js/view.js"></script>
+</body>
+</html>

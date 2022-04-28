@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- 제이쿼리 -->
+  <script src="/node_modules/sweetalert2/dist/sweetalert2.all.min.js"></script>
+  <!-- css 초기화 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
+  <!-- 아이콘 연결 코드 -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <script src="/node_modules/jquery/dist/jquery.min.js"></script>
+  <!-- Handlebars -->
+  <script src="/node_modules/handlebars/dist/handlebars.min.js"></script>
+  <!-- 부트스트랩 -->
+  <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <!--공용css-->
+  <link rel="stylesheet" href="/css/common.css">
+  <!--내css-->
+  <link rel="stylesheet" href="/ssang/groupMember/index.css">
+  <!--인클루드-->
+  <script type="text/javascript">
+    $(document).ready(function () {
+        $('#headers').load('../../junho/mainHeader.html'); //헤더 인클루드
+        $('#top').load('../groupBoard/top.html'); //모임 윗부분 인클루드
+        $('#footers').load('../../junho/mainfooter.html'); //푸터부분 인클루드
+    });
+  </script>
+</head>
+<body class="menu5">
+<div id="headers"></div>
+<div id="top"></div>
+<div id="container">
+  <div class="width-fix-container">
+    <div class="member-top">
+      <div class="memb-count">
+        <span>인원수 표시</span>  
+      </div>
+      <div class="invite-btn">
+        <button type="button" class="btn btn-link btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">초대하기</button>
+      </div>
+      <div class="member-top-search">
+        <nav class="navbar">
+          <div class="container-fluid">
+            <form class="d-flex">
+              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+          </div>
+        </nav>
+      </div><!-- member-top-search -->
+    </div><!-- member-top -->
+    
+    <div class="memb-content-container" >
+      <div class="memb-select">
+        <select name="" id="">
+          <option value="1">최근 가입 순</option>
+          <option value="2">방문 횟수 순</option>
+        </select>
+      </div>
+      <div class="memb-list-container" >
+        <div class="memb-list" >
+          <div class="memb-item-column">
+            <div id="membContainer"></div>
+          </div>
+          <div class="modify-btn-div">
+            <button class="settings-btn" type="button">
+              <span class="material-icons md-32">
+                settings
+              </span>
+            </button>
+          </div><!--modify-btn-div-->
+        </div><!--memb-list-->
+      </div><!--memb-list-container-->
+    </div><!--memb-content-container-->
+  </div><!--witdh-fix-container-->
+  <!-- 초대 부트스트랩 -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="mb-3">
+              <label for="recipient-name" class="col-form-label">Recipient:</label>
+              <input type="text" class="form-control" id="recipient-name">
+            </div>
+            <div class="mb-3">
+              <label for="message-text" class="col-form-label">Message:</label>
+              <textarea class="form-control" id="message-text"></textarea>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Send message</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div><!--container-->
+<div id="footers"></div>
+</body>
+<script id="memb-template" type="text/x-handlebars-template">
+  {{#each this}}
+  <div class="memb-item" >
+    <span class="material-icons md-32">
+    person
+    </span>
+    <span class="x-memb-name">{{member.memberName}}</span>
+    <div class="grade">
+      <span class="x-general">{{memberGrade.gradeName}}</span>
+    </div>
+    <button class="report-btn" type="button">
+      <span class="material-icons md-32">
+        report
+      </span>
+    </button>
+  </div><!---memb-item-->
+  {{/each}}
+</script>
+<script type="module" src="/ssang/groupMember/index.js"></script>
+</html>
