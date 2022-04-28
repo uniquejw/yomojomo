@@ -24,6 +24,11 @@ public class ApplyFixedAnswerController {
   }
 
 
+  @RequestMapping("/applydefault/count")
+  public Object count(int gno) {
+    return new ResultMap().setStatus(SUCCESS).setData(applyFixedAnswerService.count(gno));   
+  }
+
   //  @RequestMapping("/applydefault/add")
   //  public Object add() {
   //    return applyFixedAnswerService.list(); 

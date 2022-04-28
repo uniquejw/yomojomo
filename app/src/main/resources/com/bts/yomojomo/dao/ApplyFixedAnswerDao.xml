@@ -41,7 +41,15 @@
     where 
       appl_answer_no=#{no}
   </select>
-
+  
+	<select id="count" resultType="int">
+	select 
+	  count(*) 
+	from 
+	  gms_applyform_default
+	where 
+	  g_no=#{no}
+	</select>
   
   <update id ="update" parameterType="ApplyFixedAnswer">
     update gms_applyform_answer set 

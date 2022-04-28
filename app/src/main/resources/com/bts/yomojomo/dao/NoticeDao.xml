@@ -12,8 +12,11 @@
     <result column="title" property="title" />
     <result column="content" property="content" />
     <result column="reg_dt" property="regDate" />
+    <association property="mCate">
+     <id column="main_cate_no" property="no"/>
+      <result column="name" property="name" />
+  </association>
   </resultMap>
-
   <select id="findAll" resultMap="noticeMap"> 
     select
       notice_no,
@@ -43,17 +46,14 @@
   </select>
 
   <insert id="insert" parameterType="Notice">
-    insert into gms_notice(main_cate_no,cate,title,content,reg_dt) 
-    values(1,#{cate},#{title},#{content},NOW())
+    insert into gms_notice(main_cate_no, cate, title,content) 
+    values(#{mainCategoryNo}, #{cate}, #{title},#{content})
   </insert>
   
   <update id ="update" parameterType="Notice">
     update gms_notice set 
-      cate = #{cate},
       title = #{title},
-      content = #{content},
-      reg_dt = reg_dt,
-      main_cate_no = main_cate_no
+      content = #{content}
     where 
       notice_no = #{no}
   </update>
@@ -67,4 +67,56 @@
     where 
       notice_no = #{no}
   </delete>
+  
+  <select id="findByNno" resultMap="noticeMap" parameterType="Notice">
+    SELECT
+      gn.notice_no,
+      gn.main_cate_no,
+      gn.cate,
+      gn.title,
+      gn.content,
+      gn.reg_dt,
+      gmc.name
+  FROM
+    gms_notice gn,
+    gms_main_cate gmc
+  WHERE
+    gn.main_cate_no = gmc.main_cate_no
+      AND notice_no=#{no}
+  </select>
+  
+  <select id="getBoardListSelect" resultMap="noticeMap">
+    SELECT
+        gn.notice_no,
+          gn.main_cate_no,
+          gn.cate,
+          gn.title,
+          gn.content,
+          gn.reg_dt,
+          gmc.name
+    FROM
+      gms_notice gn,
+      gms_main_cate gmc
+    WHERE
+      gn.main_cate_no = gmc.main_cate_no
+      <if test='!searchKeyword.equals("")'>
+        AND gn.title LIKE "%"#{searchKeyword}"%"  
+      </if>
+    order by
+      notice_no DESC
+    LIMIT
+      #{no}, #{cutno}
+  </select>
+  
+  <select id="getBoardListSelectCount" parameterType="Notice" resultType="int">
+    SELECT
+      COUNT(*)
+    FROM
+      gms_notice
+    
+      <if test='!searchKeyword.equals("")'>
+      WHERE
+        title LIKE "%"#{searchKeyword}"%"   
+      </if>
+  </select>
 </mapper>

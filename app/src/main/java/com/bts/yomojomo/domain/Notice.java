@@ -13,5 +13,5 @@ public class Notice {
   String title;
   String content;
   Date regDate;
-
+  Mcate2 mCate;
 }

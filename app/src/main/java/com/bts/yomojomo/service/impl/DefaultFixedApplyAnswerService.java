@@ -20,6 +20,11 @@ public class DefaultFixedApplyAnswerService implements ApplyFixedAnswerService {
     return applyFixedAnswerDao.insert(applyFixedAnswer);
   }
 
+  @Override
+  public int count(int no) {
+    return applyFixedAnswerDao.count(no);
+  }
+
   //
   //  @Override
   //  public ApplyAnswer get(int no) {
