@@ -39,7 +39,7 @@ fetch(PATH.groupList)
   let selectSiList = document.querySelector("#nameSi");
   var selectSiOption = document.querySelector("#optionSi-template");
   var opGernerator = Handlebars.compile(selectSiOption.innerHTML);
-
+  
   $.ajax({
     url : "/activeLocal/silistcate",
     type : "POST",
@@ -95,19 +95,25 @@ fetch(PATH.groupList)
       })
       .then(function(result) {
         if (result.status == "fail") {
-          window.alert("서버 요청 오류!");
-          console.log(result.data);
-          return;
-        } else {
-          console.log(result);
+            window.alert("서버 요청 오류!");
+            console.log(result.data);
+            return;
+        }
+        for (var group of result.data) {
+          if (group.logo == null) {
+            group.logo = "default.png";
+          }
           writtenContainer.innerHTML = htmlGenerator(result.data);
         }
+        console.log(result.data)
       });
+    
     }
   })
   
   // 시, 도 선택 시 게시글 리스트 불러오기
   $("#nameSi").on("click", function() {
+    $("#nameSi option:selected").val()
     console.log("바뀜");
     $.ajax({
       url : "/group/selectedSicate",
@@ -117,7 +123,15 @@ fetch(PATH.groupList)
       success : function(result) {
         console.log({"activeLocal.nameSi" : $("#nameSi option:selected").val()})
         console.log(result.data);
-        writtenContainer.innerHTML = htmlGenerator(result.data);
+        var test= result.data
+        console.log(test)
+        // for (var group of result.data) {
+        //   console.loge(test)
+        //   if (group.logo == null) {
+        //     group.logo = "default.png";
+        //   }
+        // }
+        // writtenContainer.innerHTML = htmlGenerator(result.data);
       }
     }) //ajax END
   });//nameSi change End
