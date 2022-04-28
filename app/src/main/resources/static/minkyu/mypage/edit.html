@@ -154,14 +154,14 @@
                 <div class="dropdown col-4">
                   <select class="form-select select-si" aria-label="Default select example"
                     id="localboard">
-                    <option hidden selected disabled name="nameSi"></option>
+                    <option hidden selected disabled name="nameSi">관심 시/도</option>
                     
                   </select>
                 </div>
                 <div class="dropdown col-4">
                   <select class="form-select select-gu" aria-label="Default select example"
                     id="localboard">
-                    <option hidden selected disabled name="nameGu"></option>
+                    <option hidden selected disabled name="nameGu">관심 구/군</option>
 
                   </select>
                 </div>
@@ -225,19 +225,15 @@
         $("input[name=roadNameAddr]").attr('value',memberInfo.roadNameAddr)
         $("input[name=baseAddr]").attr('value',memberInfo.baseAddr)
         $("input[name=addr]").attr('value',memberInfo.addr)
-        $("option[name=nameSi]").text(memberInfo.activeLocal.nameSi)
-        $("option[name=nameGu]").text(memberInfo.activeLocal.nameGu)
-        for (let i=0; i < memberInfo.purpose.length; i++) {
+        for (let pups of memberInfo.purpose) {
           $(`<div class="category-wrap">
-            <span class="badge rounded-pill bg-primary category">${memberInfo.purpose[i].purposeName + " "}</span>
+            <span class="badge rounded-pill bg-primary category">${pups.purposeName + " "}</span>
             <button type="button" class="btn-close" aria-label="Close"></button>
             </div>`)
           .appendTo(".edit-category")
         }
       })
     })
-    
-       
       
       fetch("/activeLocal/list")
       .then(function(response){
@@ -245,23 +241,25 @@
       })
       .then(function(localSi){
         for (let local of localSi) {
-          $(`<option>${local.nameSi}</option>`).appendTo(".select-si")
+          $(`<option name="si">${local.nameSi}</option>`).appendTo(".select-si")
         }
       })
-
-      $(".select-gu").click(function(e){
-        let nowSi = $(".select-si option:selected").val()
+      
+      $(".select-gu").on("click", function(){
+        let nowSi = $(".select-si option[name=si]:selected").val()
         fetch(`/activeLocal/list-gu?nameGu=${nowSi}`)
         .then(function(response){
           return response.json()
         })
         .then(function(localGu){
+          console.log(localGu)
+          $(".select-gu").find("option[name=gu]").not("option[name=gu]:selected").remove()
           for (let local of localGu) {
-            $(`<option>${local.nameGu}</option>`).appendTo(".select-gu")
+            $(`<option name="gu" value="${local.no}">${local.nameGu}</option>`).appendTo(".select-gu")
           }
         })
       })
-
+      
       fetch("/purpose/list")
       .then(function(response){
         return response.json()
@@ -300,7 +298,6 @@
         $(document).on("click",".btn-close",function(e){
           $($(e.target).parent()).remove();
         })
-
         // 수정버튼 이벤트
         const swa = Swal.mixin({
           customClass: {
@@ -309,11 +306,13 @@
           },
           buttonsStyling: false
         })
+
+        var strongRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/;
+        
         $("#edit-btn").click(function(e){   
-          console.log($("option[name=nameSi]"))
           if ($("input[name=pwd]").val() == "" || $("input[name=pwdCheck]").val() == "" || $("input[name=tel]").val() == "" ||
-            $("input[name=postNo]").val() == "" || $("input[name=roadNameAddr]").val() == "" ||
-            $("input[name=baseAddr]").val() == "" || $("input[name=addr]").val() == "") {
+            $("input[name=postNo]").val() == "" || $("input[name=roadNameAddr]").val() == "" || $("input[name=baseAddr]").val() == "" ||
+            $("input[name=addr]").val() == "" || $("option[name=nameSi]:selected").text() == "관심 시/도" || $("option[name=nameGu]:selected").text() == "관심 구/군") {
             swa.fire(
           '필수 입력 항목이 비었습니다',
           '항목을 입력하고 다시 시도해주세요',
@@ -323,8 +322,21 @@
           '비밀번호가 다릅니다',
           '비밀번호 서로 같은지 다시 확인해주세요',
           'error'
+          )} else if (strongRegex.test($("input[name=pwdCheck]").val()) !== true){
+            swa.fire(
+          '비밀번호가 조건에 맞지않습니다',
+          '최소 하나의 문자,숫자,특수문자를 조합해주세요. 8자 이상 12자 이하의 비밀번호로 작성해주세요',
+          'error'
           )} else {
-          // let qs = `no=${no}&`
+          var emailTest = $("input[name=email]").val()
+          var pwdTest = $("input[name=pwd]").val()
+          var telTest = $("input[name=tel]").val()
+          var postNoTest = $("input[name=postNo]").val()
+          var roadNameAddrTest = $("input[name=roadNameAddr]").val()
+          var baseAddrTest = $("input[name=baseAddr]").val()
+          var addrTest = $("input[name=addr]").val()
+          
+          var testdata = {'email': emailTest, 'pwd': pwdTest, 'tel': telTest, 'postNo': postNoTest, 'baseAddr': baseAddrTest, 'roadNameAddr': roadNameAddrTest, 'addr': addrTest}
           swa.fire({
             title: '정보를 수정하시겠습니까?',
             icon: 'question',
@@ -332,16 +344,32 @@
             confirmButtonText: '수정',
             cancelButtonText: '취소'
           }).then((result) => {
-            if (result.isConfirmed) {
-              swa.fire(
-                '수정이 완료되었습니다',
-                '',
-                'success'
-                )
-              }
-            })
-          }
-        })
+              if (result.isConfirmed) {
+                $.ajax({
+                  url: '/mypage/update',
+                  type: 'POST',
+                  dataType: 'json',
+                  data: testdata,
+                  success: function(resultdata) {
+                    console.log(resultdata)
+                }
+              })
+              // $.ajax({
+              //   url: '/mypage/'
+              // })
+              swa.fire({
+                title: '수정이 완료되었습니다',
+                icon: 'success',
+                confirmButtonText: 'OK',
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  location.reload()
+                }
+              })
+            }
+          })
+        }
+      })
         
         
       function searchAddress() {

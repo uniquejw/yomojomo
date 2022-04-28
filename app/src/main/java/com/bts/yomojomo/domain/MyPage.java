@@ -15,9 +15,8 @@ public class MyPage {
   String addr;
   String roadNameAddr;
 
-
-  ActiveLocal activeLocal;
-  FinalActiveLocal finalActiveLocal;
+  List <FinalActiveLocal> finalActiveLocal;
   List <FinalPurpose> finalPurpose;
+  List <ActiveLocal> activeLocal;
   List <Purpose> purpose;
 }
