@@ -65,9 +65,6 @@ $.ajax({ //로그인 회원 정보 가져오기
 					console.log("참");
 					$("#invitemsgCnt").text(msgCount);
 					$("#totalMsgCnt").text(msgCount); //!!!!!!!!!!!!!!!!!!!나중에 모임 가입신청서 숫자랑 더해야함!!!!!!!!!!!!!!!!!!!!!!!
-					
-					
-					
 				}
 			}//받은 초대 메세지 가져오기 success END		
 		})// 초대 메세지 가져오기 END

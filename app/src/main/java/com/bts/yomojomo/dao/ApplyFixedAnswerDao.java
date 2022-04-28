@@ -12,6 +12,8 @@ public interface ApplyFixedAnswerDao {
 
   int insert(ApplyFixedAnswer applyFixedAnswer);
 
+  int count(int no);
+
   //  ApplyAnswer findByNo(int no);
   //
   //  int update(ApplyAnswer applyAnswer);

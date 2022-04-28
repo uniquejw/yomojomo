@@ -4,7 +4,6 @@ var getBoard = getBoardNO();
 var loginUser = await getLoginUser() //로그인한 유저의 정보
 var groupList = await findgrouplistByGno(getGroup) // 그룹번호로 조회한 모임과 회원정보 
 var getGrade= await findgrouplistByMno(loginUser.data.no) // 로그인 유저 번호로 모임멤버 조회
-var loginUserGrade = getGrade.data[0].memberGrade.gradeName; //로그인한 유저의 grade
 var arr = [];
 for (var list of groupList.data){
   arr.push(list.member.no) 
