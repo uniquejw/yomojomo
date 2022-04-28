@@ -23,7 +23,16 @@ public class MyPageController {
   }
 
   @RequestMapping("/mypage/update")
-  public Object update(MyPage mypage, String email) {
-    return myPageService.update(mypage, email);
+  public Object update(MyPage mypage) {
+    return myPageService.update(mypage);
   }
+
+  @RequestMapping("/mypage/deleteCategory")
+  public Object deleteCategory(String email) {
+    return myPageService.deleteCategory(email);
+  }
+  //  @RequestMapping("/mypage/insertCategory")
+  //  public Object insertCategory(MyPage mypage) {
+  //    return myPageService.insetCategory(mypage);
+  //}
 }

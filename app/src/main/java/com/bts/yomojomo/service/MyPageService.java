@@ -9,5 +9,9 @@ public interface MyPageService {
 
   MyPage get(int no);
 
-  int update(MyPage mypage, String email);
+  int update(MyPage mypage);
+
+  int deleteCategory(String email);
+
+  //  int insetCategory(MyPage mypage);
 }

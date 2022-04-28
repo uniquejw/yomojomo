@@ -25,8 +25,22 @@ public class DefaultMyPageService implements MyPageService {
   }
 
   @Override
-  public int update(MyPage mypage, String email) {
-    mypageDao.update(mypage, email);
+  public int update(MyPage mypage) {
+    mypageDao.update(mypage);
     return 1;
   }
+
+  @Override
+  public int deleteCategory(String email) {
+    mypageDao.deleteLocal(email);
+    mypageDao.deletePurpose(email);
+    return 1;
+  }
+
+  //  @Override
+  //  public int insertCategory(MyPage mypage) {
+  //    mypageDao.insertLocal(mypage);
+  //    mypageDao.insertPurpose(mypage);
+  //    return 1;
+  //}
 }
