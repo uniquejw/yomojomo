@@ -268,17 +268,17 @@ insert into gms_main_cate(name) values('자주하는 질문1');
 insert into gms_main_cate(name) values('자주하는 질문2');
 insert into gms_main_cate(name) values('자주하는 질문3');
 insert into gms_memb(membername,pwd,email,tel,post_no, roadname_addr ,base_addr,addr, memb_level,unsubscribe) 
-values('김땡땡',password('1111'),'aaa@naver.com','11112222','1234','도로명1길','봉천동 어딘가','1012호','1',false);
+values('강철민',password('1111'),'aaa@naver.com','11112222','1234','도로명1길','봉천동 어딘가','1012호','1',false);
 insert into gms_memb(membername,pwd,email,tel,post_no, roadname_addr ,base_addr,addr, memb_level,unsubscribe) 
-values('박땡땡',password('1111'),'bbb@naver.com','11112222','1234','도로명2길','봉조동 어딘가','1022호','1',false);
+values('조순옥',password('1111'),'bbb@naver.com','11112222','1234','도로명2길','봉조동 어딘가','1022호','1',false);
 insert into gms_memb(membername,pwd,email,tel,post_no, roadname_addr ,base_addr,addr, memb_level,unsubscribe) 
-values('이땡땡',password('1111'),'ccc@naver.com','11112222','1234','도로명3길','봉억동 어딘가','1102호','1',false);
+values('이현경',password('1111'),'ccc@naver.com','11112222','1234','도로명3길','봉억동 어딘가','1102호','1',false);
 insert into gms_memb(membername,pwd,email,tel,post_no, roadname_addr ,base_addr,addr, memb_level,unsubscribe) 
-values('최땡땡',password('1111'),'ddd@naver.com','11112222','1234','도로명4길','봉만동 어딘가','112호','1',false);
+values('박요섭',password('1111'),'ddd@naver.com','11112222','1234','도로명4길','봉만동 어딘가','112호','1',false);
 insert into gms_memb(membername,pwd,email,tel,post_no, roadname_addr ,base_addr,addr, memb_level,unsubscribe) 
-values('정땡땡',password('1111'),'eee@naver.com','11112222','1234','도로명5길','봉백동 어딘가','112호','1',false);
+values('조민호',password('1111'),'eee@naver.com','11112222','1234','도로명5길','봉백동 어딘가','112호','1',false);
 insert into gms_memb(membername,pwd,email,tel,post_no, roadname_addr ,base_addr,addr, memb_level,unsubscribe) 
-values('조땡땡',password('1111'),'fff@naver.com','11112222','1234','도로명5길','봉백동 어딘가','112호','1',false);
+values('엄상준',password('1111'),'fff@naver.com','11112222','1234','도로명5길','봉백동 어딘가','112호','1',false);
 insert into gms_memb(membername,pwd,email,tel,post_no, roadname_addr ,base_addr,addr, memb_level,unsubscribe) 
 values('명준호',password('1111'),'wnsgh9166@naver.com','11112222','1234','도로명5길','봉백동 어딘가','112호','1',false);
 insert into gms_memb(membername,pwd,email,tel,post_no, roadname_addr ,base_addr,addr, memb_level,unsubscribe) 
@@ -341,11 +341,47 @@ insert into gms_join_memb(memb_no,g_no,g_memb_grd_no) values (2,1,2);
 insert into gms_join_memb(memb_no,g_no,g_memb_grd_no) values (3,1,2);
 insert into gms_join_memb(memb_no,g_no,g_memb_grd_no) values (4,1,2);
 insert into gms_join_memb(memb_no,g_no,g_memb_grd_no) values (5,1,2);
-insert into gms_join_memb(memb_no,g_no,g_memb_grd_no) values (2,2,1);
-insert into gms_join_memb(memb_no,g_no,g_memb_grd_no) values (3,2,2);
-insert into gms_join_memb(memb_no,g_no,g_memb_grd_no) values (4,3,1);
+insert into gms_join_memb(memb_no,g_no,g_memb_grd_no) values (6,1,2);
+insert into gms_join_memb(memb_no,g_no,g_memb_grd_no) values (7,1,2);
+insert into gms_join_memb(memb_no,g_no,g_memb_grd_no) values (8,1,2);
+insert into gms_join_memb(memb_no,g_no,g_memb_grd_no) values (1,2,1);
+insert into gms_join_memb(memb_no,g_no,g_memb_grd_no) values (2,2,2);
+insert into gms_join_memb(memb_no,g_no,g_memb_grd_no) values (3,3,1);
+insert into gms_join_memb(memb_no,g_no,g_memb_grd_no) values (4,3,2);
 insert into gms_join_memb(memb_no,g_no,g_memb_grd_no) values (5,3,2);
-insert into gms_join_memb(memb_no,g_no,g_memb_grd_no) values (1,3,2);
+
+insert into gms_join_memb(memb_no,g_no,g_memb_grd_no) values (1,4,1);
+insert into gms_join_memb(memb_no,g_no,g_memb_grd_no) values (2,4,2);
+insert into gms_join_memb(memb_no,g_no,g_memb_grd_no) values (3,4,2);
+insert into gms_join_memb(memb_no,g_no,g_memb_grd_no) values (4,4,2);
+insert into gms_join_memb(memb_no,g_no,g_memb_grd_no) values (5,4,2);
+insert into gms_join_memb(memb_no,g_no,g_memb_grd_no) values (4,5,1);
+insert into gms_join_memb(memb_no,g_no,g_memb_grd_no) values (5,5,2);
+insert into gms_join_memb(memb_no,g_no,g_memb_grd_no) values (6,6,1);
+insert into gms_join_memb(memb_no,g_no,g_memb_grd_no) values (5,6,2);
+insert into gms_join_memb(memb_no,g_no,g_memb_grd_no) values (7,6,2);
+
+insert into gms_join_memb(memb_no,g_no,g_memb_grd_no) values (4,7,1);
+insert into gms_join_memb(memb_no,g_no,g_memb_grd_no) values (5,7,2);
+insert into gms_join_memb(memb_no,g_no,g_memb_grd_no) values (2,7,2);
+insert into gms_join_memb(memb_no,g_no,g_memb_grd_no) values (6,7,2);
+insert into gms_join_memb(memb_no,g_no,g_memb_grd_no) values (1,7,2);
+insert into gms_join_memb(memb_no,g_no,g_memb_grd_no) values (2,8,1);
+insert into gms_join_memb(memb_no,g_no,g_memb_grd_no) values (3,8,2);
+insert into gms_join_memb(memb_no,g_no,g_memb_grd_no) values (4,9,1);
+insert into gms_join_memb(memb_no,g_no,g_memb_grd_no) values (5,9,2);
+insert into gms_join_memb(memb_no,g_no,g_memb_grd_no) values (1,9,2);
+
+insert into gms_join_memb(memb_no,g_no,g_memb_grd_no) values (4,10,1);
+insert into gms_join_memb(memb_no,g_no,g_memb_grd_no) values (3,10,2);
+insert into gms_join_memb(memb_no,g_no,g_memb_grd_no) values (2,10,2);
+insert into gms_join_memb(memb_no,g_no,g_memb_grd_no) values (6,10,2);
+insert into gms_join_memb(memb_no,g_no,g_memb_grd_no) values (1,10,2);
+insert into gms_join_memb(memb_no,g_no,g_memb_grd_no) values (6,11,1);
+insert into gms_join_memb(memb_no,g_no,g_memb_grd_no) values (7,11,2);
+insert into gms_join_memb(memb_no,g_no,g_memb_grd_no) values (4,12,1);
+insert into gms_join_memb(memb_no,g_no,g_memb_grd_no) values (5,12,2);
+insert into gms_join_memb(memb_no,g_no,g_memb_grd_no) values (1,12,2);
 
 insert into gms_accounting(g_no, act_cate_no, title, amount, status) values(1, 2, "1월 회비", "20000",  0);
 insert into gms_accounting(g_no, act_cate_no, title, amount, status) values(1, 2, "2월 회비", "20000",  0);
