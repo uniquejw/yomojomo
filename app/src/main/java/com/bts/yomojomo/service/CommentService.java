@@ -16,7 +16,7 @@ public interface CommentService {
   //
   int update(Comment comment);
   //
-  //  int delete(Comment comment);
+  int delete(int no);
   //
   //  int increaseViewCount();
 }

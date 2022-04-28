@@ -5,5 +5,9 @@ import com.bts.yomojomo.domain.MyPage;
 
 public interface MyPageService {
 
-  List<MyPage> list(String email);
+  List<MyPage> list();
+
+  MyPage get(int no);
+
+  int update(MyPage mypage, String email);
 }

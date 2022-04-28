@@ -69,6 +69,16 @@ $(document).on("click", ".comment-btn", function() {
   location.href=`index.html?gno=${getGroup}`
 })
 })
+//삭제 
+$(document).on('click','.board-delete',function(){
+  var value = $(this).val();
+  fetch(`/board/delete?no=${value}`)
+  .then(function(res){
+    return res.json()
+  }).then(function(result){
+    
+  })
+})
 //--버튼클릭이벤트 -->
 $(document).on("click",".new-post-btn",function(){
   window.location.href = `form.html?gno=${getGroup}`;
@@ -81,4 +91,3 @@ $(document).on("click",".written-content",function(){
   var value = $(this).data('bno')
   window.location.href = `view.html?gno=${getGroup}&bno=${value}`;
 })
-

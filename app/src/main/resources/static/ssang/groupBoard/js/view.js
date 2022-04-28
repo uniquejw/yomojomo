@@ -85,3 +85,13 @@ $(document).on('click','#button-addon2',function() {
   document.querySelector("#s-cancel-btn").onclick = function() {
     window.location.href = `index.html?gno=${getGroup}`;
   };
+  //댓글 삭제 
+$(document).on('click','.comment-delete',function(){
+  var value = $(this).val();
+  fetch(`/comment/delete?no=${value}`)
+  .then(function(res){
+    return res.json()
+  }).then(function(result){
+    location.reload()
+  })
+})

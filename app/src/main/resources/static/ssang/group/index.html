@@ -101,38 +101,7 @@
     </div>
   </div>
 
-    <!--======================= 가입신청서 ====================-->
-    <div class="report-background">
-      <div class="report-window">
-        <div class="report-popup">
-          <div class="report-img-div"><img alt="이리오너라" class="main-logo2"></div>
-          <div class="report-form">
-            <button type="button" class="btn-close" data-dialog="report-background" aria-label="Close"></button>
-            <div class="report-form-title">가입신청서</div>
-            <form name="applyForm">
-            <table>
-              <tbody id="handlebars-container2"></tbody>
-            </table>
-            <textarea name="answer" id="" cols="40" rows="6" class="report-comment" placeholder="하고싶은 말" ></textarea>
-            </form>
-          </div><!--report-form-->
-          <div><button id="apply" value="">가입하기</button></div>
-        </div><!--report-popup-->
-      </div> <!--report-window-->
-    </div><!-- report-background -->
-</div><!--container-->
-<div id="footers"></div>
 
-
-<!-- =====================모임신청서 ============================-->
-<script id="applyList-template" type="text/x-handlebars-template">
-  {{#each this}}
-    <tr>
-      <td><span class="report-item">{{questionName}}</span></td>
-      <td><input class="x-answer" type="text" name="answer" data-qno="{{no}}"></td>
-    </tr>
-    {{/each}}
-</script>
 <!--=============시,도 카테고리 생성 핸들 바==================-->
 <script id="optionSi-template" type="text/x-handlebars-template">
   <option id="allList" value="0">전체</option>

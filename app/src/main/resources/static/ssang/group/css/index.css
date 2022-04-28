@@ -85,7 +85,7 @@ table{
     /* display: inline-block; */
 }
 .item-div{
-  width: 250px;
+  width: 244px;
   height: 280px;
   /* border: 1px solid rgb(192, 192, 192); */
   margin: 0 20px 20px 0;
@@ -235,7 +235,7 @@ button.btn-show{
     left: 50%;
     background-color: #ffffff;
     box-shadow: 34px 30px 6px rgba(0, 0, 0, 0.3);
-    width: 500px;
+    width: 415px;
     min-height: 600px;
     text-align: center;
     padding: 1px;

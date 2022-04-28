@@ -14,6 +14,8 @@ public interface JoinMemberDao {
 
   List<JoinMember> findgrouplistByGno(JoinMember joinMember);
 
+  int insertJoinGroupMember (JoinMember joinMember);
+
 
   //이전코드
   int countAll();

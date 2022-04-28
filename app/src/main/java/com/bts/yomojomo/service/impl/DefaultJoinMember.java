@@ -30,6 +30,10 @@ public class DefaultJoinMember implements JoinMemberService{
     return joinMemberDao.findgrouplistByGno(joinMember);
   }
 
+  @Override
+  public int insertJoinGroupMember(JoinMember joinMember) {
+    return joinMemberDao.insertJoinGroupMember(joinMember);
+  }
 
   //이전코드
   @Override

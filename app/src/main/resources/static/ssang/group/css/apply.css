@@ -26,7 +26,7 @@
   height: 700px;
   margin: 33px auto;
   padding: 40px 20px 0 20px;
-  border: 2px solid rgb(17, 147, 218);
+  /* border: 2px solid rgb(17, 147, 218); */
   border-radius: 5px;
 }
 hr{

@@ -67,7 +67,7 @@ public class BoardController {
 
   @RequestMapping("/board/delete")
   public Object delete(int no) {
-    return new ResultMap().setStatus(SUCCESS).setData(boardService.get(no));
+    return new ResultMap().setStatus(SUCCESS).setData(boardService.delete(no));
   }
 
   @RequestMapping("/board/get")
