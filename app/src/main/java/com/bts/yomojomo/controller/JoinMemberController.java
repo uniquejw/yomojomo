@@ -47,6 +47,18 @@ public class JoinMemberController {
     return new ResultMap().setStatus(SUCCESS).setData(joinMemberservice.grouplistByGno(joinMember));
   }
 
+  @RequestMapping("/joinmember/findGrade") //상준 - 수정시 말해주세요
+  //모임번호, 회원번호로 등급조회
+  //test : http://localhost:8080/joinmember/findGrade?group.no=모임번호
+  public Object findGrade(JoinMember joinMember, HttpSession session) {
+    Member member = (Member) session.getAttribute("loginUser");
+    joinMember.setMember(member);
+    System.out.println(joinMember);
+    System.out.println(joinMemberservice.findGrade(joinMember));
+    return new ResultMap().setStatus(SUCCESS).setData(joinMemberservice.findGrade(joinMember));
+    //    return 0;
+  }
+
   @RequestMapping("/joinmember/insertjoingroup") //모임 가입 insert
   public int insertJoinGroupMember(JoinMember joinMember, HttpSession session) {
     Member member = (Member) session.getAttribute("loginUser");

@@ -24,15 +24,20 @@ public class ApplyFixedAnswerController {
   }
 
 
+  @RequestMapping("/applydefault/count")
+  public Object count(int gno) {
+    return new ResultMap().setStatus(SUCCESS).setData(applyFixedAnswerService.count(gno));   
+  }
+
   //  @RequestMapping("/applydefault/add")
   //  public Object add() {
   //    return applyFixedAnswerService.list(); 
   //  }
 
-  //  @RequestMapping("/applyFixedAnswer/list")
-  //  public Object list() {
-  //    return applyFixedAnswerService.list(); 
-  //  }
+  @RequestMapping("/applyFixedAnswer/findRequestByMasNO")
+  public Object findRequestByMasNO(ApplyFixedAnswer applyFixedAnswer) {
+    return new ResultMap().setStatus(SUCCESS).setData(applyFixedAnswerService.findRequestByMasNO(applyFixedAnswer)); 
+  }
   //
   //  @RequestMapping("/applyFixedAnswer/update")
   //  public Object update(ApplyFixedAnswer applyFixedAnswer) {

@@ -11,5 +11,14 @@ public interface MyPageDao {
 
   MyPage findByMemberNo(int no);
 
-  int update(MyPage mypage, String email);
+  int update(MyPage mypage);
+
+  int deleteLocal(String email);
+
+  int deletePurpose(String email);
+
+  //  int insertLocal(MyPage mypage);
+  //
+  //  int insertPurpose(MyPage mypage);
+
 }

@@ -4,7 +4,6 @@ var getBoard = getBoardNO();
 var loginUser = await getLoginUser() //로그인한 유저의 정보
 var groupList = await findgrouplistByGno(getGroup) // 그룹번호로 조회한 모임과 회원정보 
 var getGrade= await findgrouplistByMno(loginUser.data.no) // 로그인 유저 번호로 모임멤버 조회
-var loginUserGrade = getGrade.data[0].memberGrade.gradeName; //로그인한 유저의 grade
 var arr = [];
 for (var list of groupList.data){
   arr.push(list.member.no) 
@@ -14,7 +13,14 @@ if(arr.includes(loginUser.data.no) == false){
   window.alert("가입한 모임만 입장 가능합니다")
   location.replace("/junho/index.html")
 }
+var MemberInfo = getGrade.data;
+var memberAuthority; //멤버등급번호
 
+for (i=0; i < MemberInfo.length; i++) { //현재 있는 그룹의 정보 배열로 빼기
+if (getGroup == MemberInfo[i].group.no) {
+  memberAuthority = MemberInfo[i].memberGrade.gradeNo
+}   
+}
 console.log(window.loginUser)
 fetch("/member/getLoginUser")
 .then(function(res){
@@ -44,7 +50,7 @@ fetch("/member/getLoginUser")
         } else {
           comment.isWriter = false;
         }
-        if(loginUserGrade == '모임장'){ // 모임장인지 검사
+        if(memberAuthority == '1'){ // 모임장인지 검사
           comment.isMaster = true;
         } else {
           comment.isMaster = false;

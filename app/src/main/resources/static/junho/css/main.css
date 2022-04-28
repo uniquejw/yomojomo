@@ -25,8 +25,8 @@ a {
 
 /* MAIN-FUCTION */
 .main-function {
-  background-color: #f6f5f0;
-  border-bottom: 5px solid #c8c8c8;
+  
+  border-bottom: 1px solid #c8c8c8;
   padding-top: 120px;
 }
 
@@ -119,9 +119,12 @@ a {
 /* MY GROUP */
 
 .my-group {
-  background-color: #f6f5f0;
+  
   padding: 50px;
-  border-bottom: 5px solid #c8c8c8;
+  border-bottom: 1px solid #c8c8c8;
+}
+.non-sign-in {
+  display: none;
 }
 
 .my-group>.inner {
@@ -154,9 +157,9 @@ a {
 
 /* SUGGESTION GROUP */
 .suggestion-group {
-  background-color: #f6f5f0;
+  
   padding: 50px;
-  border-bottom: 5px solid #c8c8c8;
+  border-bottom: 1px solid #c8c8c8;
 }
 
 .suggestion-group>.inner {
@@ -189,7 +192,7 @@ a {
 
 /* best-group */
 .best-group {
-  background-color: #f6f5f0;
+  
   padding: 50px;
 }
 
@@ -240,29 +243,38 @@ a {
 }
 
 
-.best-group .card {
-  font-family: Arial, Helvetica, sans-serif;
+.best-group .best-point-content {
+  background-color: rgb(247, 249, 250);
+  border: 1px solid rgb(218, 225, 230);
 }
 
-.best-group img {
-  height: 200px;
+.best-group .best-point-content .best-point-list {
+  padding: 15px 0 0 15px;
 }
 
-.best-group .card-body {
-  text-align: center;
-  align-items: center;
+.best-group .best-point-content .best-point-list li {
+  height: 60px;
+  font-size: 23px;
   color: #333;
 }
 
-.best-group .card-body .card-title {
-  font-size: 1.5em;
+
+.best-group .best-point-content .best-point-list li span {
+  font-weight: 700;
 }
 
 
-.non-sign-in {
-  display: none;
+.best-group .best-point-content .best-point-list li a{
+  margin-left: 34px;
+  color: #333;
+  display: inline-block;
+  width: 1050px;
+  height: 31px;
 }
 
+.best-group .best-point-content .best-point-list li:last-child a {
+  margin-left: 19px;
+}
 
 /* 모달 */
 .background , .report-background{

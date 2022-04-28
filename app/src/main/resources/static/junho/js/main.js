@@ -9,6 +9,7 @@ setTimeout(function() {
     memberGroupList(memberNo)
   }
 },1000)
+bestPoint();
 
 var swiper = new Swiper(".mySwiper", {
   effect: "coverflow",
@@ -157,7 +158,67 @@ $("button.btn-close").click((e) => {
 });
 
 
+// ---------------------------------------------------------------
+// 실시간 베스트 장소
+var allPointData = null;
+var foodPointData = [];
+var cafePointData = [];
+var martPointData = [];
+var oilPointData = [];
+function bestPoint() {
+  $.ajax({
+    url: '/junho/midpoint/list',
+    type: 'POST',
+    dataType: 'json',
+    success: function(result) {
+      allPointData = result
+      for(var placeData of result) {
+        if (placeData.categoryId == "CE7") {
+          cafePointData.push(placeData)
+        } else if (placeData.categoryId == "OL7") {
+          oilPointData.push(placeData)
+        } else if (placeData.categoryId == "FD6") {
+          foodPointData.push(placeData)
+        } else {
+          martPointData.push(placeData)
+        }
+      }
+      console.log(allPointData)
+      console.log(foodPointData)
+      console.log(cafePointData)
+      console.log(oilPointData)
+      console.log(martPointData)
+      $('.best-point-list').html(htmlGeneratorBestPoint(allPointData))
+    }
+  })
+}
 
+
+
+Handlebars.registerHelper("inc", function(value, options)
+{
+    return parseInt(value) + 1;
+});
+
+var allpointTemplate = document.querySelector("#li-best-point-template");
+console.log(allpointTemplate)
+//템플릿 엔진 준비
+var htmlGeneratorBestPoint = Handlebars.compile(allpointTemplate.innerHTML);
+
+
+
+function bestPointHtml(i) {
+  document.querySelector(`.dropdown-item${i}`)
+  console.log(document.querySelector(`.dropdown-item${i}`))
+  document.querySelector('.best-point-cate').innerHTML = document.querySelector(`.dropdown-item${i}`).innerHTML
+  if (i == 1) {
+    $('.best-point-list').html(htmlGeneratorBestPoint(foodPointData))
+  } else if (i == 2) {
+    $('.best-point-list').html(htmlGeneratorBestPoint(cafePointData))
+  } else {
+    $('.best-point-list').html(htmlGeneratorBestPoint(oilPointData))
+  }
+}
 
 
 

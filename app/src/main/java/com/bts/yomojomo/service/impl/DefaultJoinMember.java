@@ -31,6 +31,12 @@ public class DefaultJoinMember implements JoinMemberService{
   }
 
   @Override
+  public List<JoinMember> findGrade(JoinMember joinMember) {
+    System.out.println(joinMember);
+    return joinMemberDao.findGrade(joinMember);
+  }
+
+  @Override
   public int insertJoinGroupMember(JoinMember joinMember) {
     return joinMemberDao.insertJoinGroupMember(joinMember);
   }

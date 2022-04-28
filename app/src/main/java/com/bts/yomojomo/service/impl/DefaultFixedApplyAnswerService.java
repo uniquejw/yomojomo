@@ -1,8 +1,10 @@
 package com.bts.yomojomo.service.impl;
 
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.bts.yomojomo.dao.ApplyFixedAnswerDao;
+import com.bts.yomojomo.domain.ApplyAnswer;
 import com.bts.yomojomo.domain.ApplyFixedAnswer;
 import com.bts.yomojomo.service.ApplyFixedAnswerService;
 
@@ -20,7 +22,17 @@ public class DefaultFixedApplyAnswerService implements ApplyFixedAnswerService {
     return applyFixedAnswerDao.insert(applyFixedAnswer);
   }
 
-  //
+  @Override
+  public int count(int no) {
+    return applyFixedAnswerDao.count(no);
+  }
+
+
+  @Override
+  public List<ApplyAnswer> findRequestByMasNO(ApplyFixedAnswer applyFixedAnswer) { 
+    return applyFixedAnswerDao.findRequestByMasNO(applyFixedAnswer);
+  }
+
   //  @Override
   //  public ApplyAnswer get(int no) {
   //    return applyAnswerDao.findByNo(no);

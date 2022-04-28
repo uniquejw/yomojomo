@@ -27,7 +27,7 @@ import net.coobird.thumbnailator.geometry.Positions;
 
 @RestController
 public class GroupController {
-  @Autowired //Controller 객체를 만들 때 Dao인터페이스 구현체를 찾아 자동으로 주입한다.
+  @Autowired // Controller 객체를 만들 때 Dao인터페이스 구현체를 찾아 자동으로 주입한다.
   GroupService groupService;
 
   @RequestMapping("/group/add")
@@ -45,7 +45,7 @@ public class GroupController {
       group.setLogo(saveFile(file));
       group.setTags(tagList);
       groupService.add(group);
-      return new ResultMap().setStatus(SUCCESS) ;
+      return new ResultMap().setStatus(SUCCESS);
 
     } catch (Exception e) {
       StringWriter out = new StringWriter();
@@ -72,16 +72,17 @@ public class GroupController {
   @RequestMapping("/group/selectedSicate")
   public Object siList(Group group, HttpSession session) {
     return new ResultMap().setStatus(SUCCESS).setData(groupService.siList(group));
-  }  
+  }
 
   @RequestMapping("/group/selectedGucate")
   public Object guList(Group group, HttpSession session) {
     return new ResultMap().setStatus(SUCCESS).setData(groupService.guList(group));
-  }  
+  }
+
   @RequestMapping("/group/selectedPurpcate")
   public Object selectedPurpcate(Group group, HttpSession session) {
     return new ResultMap().setStatus(SUCCESS).setData(groupService.selectedPurpcate(group));
-  }  
+  }
 
   @RequestMapping("/group/update")
   public int update(Group group) {
@@ -98,7 +99,9 @@ public class GroupController {
     try {
       // 다운로드할 파일의 입력 스트림 자원을 준비한다.
       File downloadFile = new File("./upload/groupLogo/" + filename); // 다운로드 상대 경로 준비
-      FileInputStream fileIn = new FileInputStream(downloadFile.getCanonicalPath()); // 다운로드 파일의 실제 경로를 지정하여 입력 스트림 준비
+      FileInputStream fileIn = new FileInputStream(downloadFile.getCanonicalPath()); // 다운로드 파일의 실제
+      // 경로를 지정하여 입력
+      // 스트림 준비
       InputStreamResource resource = new InputStreamResource(fileIn); // 입력 스트림을 입력 자원으로 포장
 
       // HTTP 응답 헤더를 준비한다.
@@ -121,10 +124,10 @@ public class GroupController {
 
       return null;
     }
-  } 
+  }
 
   private String saveFile(MultipartFile file) throws Exception {
-    if (file != null && file.getSize() > 0) { 
+    if (file != null && file.getSize() > 0) {
       // 파일을 저장할 때 사용할 파일명을 준비한다.
       String filename = UUID.randomUUID().toString();
 
@@ -139,10 +142,7 @@ public class GroupController {
       file.transferTo(photoFile.getCanonicalFile()); // 프로젝트 폴더의 전체 경로를 전달한다.
 
       // 썸네일 이미지 파일 생성
-      Thumbnails.of(photoFile)
-      .size(50, 50)
-      .crop(Positions.CENTER)
-      .outputFormat("jpg")
+      Thumbnails.of(photoFile).size(50, 50).crop(Positions.CENTER).outputFormat("jpg")
       .toFile(new File("./upload/groupLogo/" + "50x50_" + filename));
 
       return filename;
@@ -150,5 +150,33 @@ public class GroupController {
     } else {
       return null;
     }
+  }
+
+  @RequestMapping("/group/updatestatus")
+  public Object updateStatus(int no, int status) {
+    groupService.updateStatus(no, status);
+
+    return new ResultMap().setStatus(SUCCESS);
+  }
+
+  @RequestMapping("/group/listselect")
+  public Object listselect(int no, int cutno, String searchKeyword) {
+    System.out.println(no);
+    int mNo = (no - 1) * cutno; // 넘어온 값에 -1로 데이터베이스에 맞춘다
+    return groupService.listselect(mNo, cutno, searchKeyword);
+  }
+
+  @RequestMapping("/group/groupcountselect")
+  public int getBoardListSelectCount(String searchKeyword) {
+    return groupService.countSelect(searchKeyword);
+  }
+
+  @RequestMapping("/group/getview")
+  public Object getview(int no) {
+    Group group = groupService.getview(no);
+    if (group == null) {
+      return new ResultMap().setStatus(FAIL).setData("해당 번호의 모임이 없습니다.");
+    }
+    return new ResultMap().setStatus(SUCCESS).setData(group);
   }
 }

@@ -107,19 +107,24 @@
       })
       .then(function(memberInfo){
         console.log(memberInfo)
+        let actLocal
         $(`<img id="info-img" src="../profile.jpg">
             <p id="info-name">${memberInfo.name}</p>
             <p>이메일 주소 : ${memberInfo.email}</p>
             <p>핸드폰 번호 : ${memberInfo.tel}</p>`)
           .appendTo(".info1")
+        let str = ""
+        for (let local of memberInfo.activeLocal) {
+          str += local.nameSi + " "
+        }
         $(` <br>
-            <p>지역 : ${memberInfo.activeLocal.nameSi}</p>
+            <p>지역 : ${str}</p>
             <p>도로명 주소 : ${memberInfo.roadNameAddr}</p>
             <p>지번 주소 : ${memberInfo.baseAddr}</p>
             <p>상세 주소 : ${memberInfo.addr}</p>
             <br>`).appendTo(".info2")
-        for (let i=0; i < memberInfo.purpose.length; i++) {
-          $(`<span class="badge rounded-pill bg-primary category">${memberInfo.purpose[i].purposeName}</span>`)
+        for (let pupr of memberInfo.purpose) {
+          $(`<span class="badge rounded-pill bg-primary category">${pupr.purposeName}</span>`)
           .appendTo(".info2")
         }
       })

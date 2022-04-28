@@ -39,7 +39,7 @@ fetch(PATH.groupList)
   let selectSiList = document.querySelector("#nameSi");
   var selectSiOption = document.querySelector("#optionSi-template");
   var opGernerator = Handlebars.compile(selectSiOption.innerHTML);
-
+  
   $.ajax({
     url : "/activeLocal/silistcate",
     type : "POST",
@@ -95,19 +95,25 @@ fetch(PATH.groupList)
       })
       .then(function(result) {
         if (result.status == "fail") {
-          window.alert("서버 요청 오류!");
-          console.log(result.data);
-          return;
-        } else {
-          console.log(result);
+            window.alert("서버 요청 오류!");
+            console.log(result.data);
+            return;
+        }
+        for (var group of result.data) {
+          if (group.logo == null) {
+            group.logo = "default.png";
+          }
           writtenContainer.innerHTML = htmlGenerator(result.data);
         }
+        console.log(result.data)
       });
+    
     }
   })
   
   // 시, 도 선택 시 게시글 리스트 불러오기
   $("#nameSi").on("click", function() {
+    $("#nameSi option:selected").val()
     console.log("바뀜");
     $.ajax({
       url : "/group/selectedSicate",
@@ -117,7 +123,15 @@ fetch(PATH.groupList)
       success : function(result) {
         console.log({"activeLocal.nameSi" : $("#nameSi option:selected").val()})
         console.log(result.data);
-        writtenContainer.innerHTML = htmlGenerator(result.data);
+        var test= result.data
+        console.log(test)
+        // for (var group of result.data) {
+        //   console.loge(test)
+        //   if (group.logo == null) {
+        //     group.logo = "default.png";
+        //   }
+        // }
+        // writtenContainer.innerHTML = htmlGenerator(result.data);
       }
     }) //ajax END
   });//nameSi change End
@@ -176,7 +190,7 @@ fetch(PATH.groupList)
 $(document).on("click","button.btn-show",function(){
   document.querySelector(".background").className = "background show";
   var value = $(this).val(); // 그룹넘버
-  fetch(`${PATH.groupGet}?gno=${value}`)
+  fetch(`/group/get?gno=${value}`)
   .then(function(response){
     return response.json()
   }).then(function(result){
@@ -185,6 +199,7 @@ $(document).on("click","button.btn-show",function(){
       console.log(result.data);
       return;
     }
+    console.log(result.data)
     if(result.data.logo == null){
       result.data.logo = "default.png";
     }
@@ -204,76 +219,6 @@ $(document).on("click","#apply-form-btn",function(){
   var value = $(this).val();//모임번호
   location.href=`/ssang/group/apply.html?gno=${value}`
 })
-//   // 사진
-//   fetch(`${PATH.groupGet}?gno=${value}`)
-//     .then(function(response){
-//     return response.json()
-//     })
-//     .then(function(result){
-//       console.log(result.data)
-//       if (result.status == "fail") {
-//         window.alert("서버 요청 오류!");
-//         console.log(result.data);
-//         return;
-//       }
-//       if(result.data.logo == null){
-//         result.data.logo = "default.png";
-//       }
-//       var path2 = "/group/photo?filename=" + result.data.logo
-//       document.querySelector('.main-logo2').setAttribute("src", path2)
-//     });
-
-//   // 질문목록
-//   fetch(`/applyQuestion/findQuestion?no=${value}`)
-//     .then(function(res) {
-//       return res.json();
-//     })
-//     .then(function(result) {
-//       console.log(result.data)
-//       if (result.status == "fail") {
-//         window.alert("서버 요청 오류!");
-//         return;
-//       }
-      
-//       // 핸들바
-//       var writtenContainer = document.querySelector("#handlebars-container2");
-//       var divTemplate = document.querySelector("#applyList-template");
-//       var htmlGenerator = Handlebars.compile(divTemplate.innerHTML);
-//       writtenContainer.innerHTML = htmlGenerator(result.data);
-//       $('#apply').val(value);
-//     });
-// });
-
-//신청하기
-// $(document).on("click","#apply",function(){
-//   var value = $(this).val(); //모임번호
-//   var answerLength = $("input[name=answer]").length
-//   if (answerLength >= 1) {
-//     console.log("test")
-//   var qs = "";
-//   for(var i=0; i<answerLength; i++){                          
-//     var answer = $("input[name=answer]").eq(i).val()
-//     var qno = $("input[name=answer]").eq(i).data('qno')
-//     qs += `answers=${qno}_${answer}&`;
-//   }
-//   console.log(qs)
-//   fetch(`/applyAnswer/add?${qs}`)
-//   .then(function(res){
-//     return res.json()
-//   }).then(function(result){
-//   });
-//   }
-//   var defaultValue = document.querySelector("textarea[name=answer]").value
-//   var qs2 = `groupNo=${value}&content=${defaultValue}`
-//   console.log(qs2)
-//   fetch(`/applyFixedAnswer/add?${qs2}`)
-//   .then(function(res){
-//     return res.json()
-//   })
-//   .then(function(result){
-//     location.href="/minkyu/mypage/index.html"
-//   })
-// })
 
 //닫기
 $("button.btn-close").click((e) => {

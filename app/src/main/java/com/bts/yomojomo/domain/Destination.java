@@ -14,4 +14,5 @@ public class Destination {
   Date regdt;
   int cnt;
   String categoryId;
+  String placeURL;
 }
