@@ -157,6 +157,7 @@ function sendForm() {
 		return response.json();
 	}).then(function(result) {
 		if (result.status == "success") {
+      alert("회원 가입이 완료되었습니다. 다시 로그인해주세요")
 			location.href = "/junho/index.html";
 		} else {
 			window.alert("회원가입 실패!")

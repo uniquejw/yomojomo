@@ -20,6 +20,8 @@ public interface NoticeQuestionDao {
 
   int update(NoticeQuestion noticeQuestion);
 
+  int updateAnswer(NoticeQuestion noticeQuestion);
+
   int delete(int no);
 
   NoticeQuestion findByQno(int no);
