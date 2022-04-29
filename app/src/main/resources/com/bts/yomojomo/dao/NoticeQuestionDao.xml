@@ -103,6 +103,16 @@
       q_no = #{no}
   </update>
   
+  <update id ="updateAnswer" parameterType="NoticeQuestion">
+    update 
+      gms_notice_question
+    set 
+      answer = #{answer},
+      answer_dt = NOW()
+    where 
+      q_no = #{no}
+  </update>
+  
   <select id ="countAll" parameterType="int">
     select count(*) from gms_notice_question
   </select>

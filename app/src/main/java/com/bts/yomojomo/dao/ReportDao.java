@@ -1,10 +1,8 @@
 package com.bts.yomojomo.dao;
 
 import java.util.List;
-
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-
 import com.bts.yomojomo.domain.Report;
 
 @Mapper
@@ -14,14 +12,16 @@ import com.bts.yomojomo.domain.Report;
 public interface ReportDao {
 
 
-	List<Report> getBoardListSelect(@Param("no")int no,@Param("cutno") int cutno, @Param("searchKeyword") String searchKeyword);
+  List<Report> getBoardListSelect(@Param("no")int no,@Param("cutno") int cutno, @Param("searchKeyword") String searchKeyword);
 
-	int getBoardListSelectCount(String searchKeyword);
+  int getBoardListSelectCount(String searchKeyword);
 
-	int valid(@Param("no") int no, @Param("valid") int valid);
+  int valid(@Param("no") int no, @Param("valid") int valid);
 
-	int reportDelete(@Param("no") int no);
+  int reportDelete(@Param("no") int no);
 
-	Report findByNo(int no);
+  Report findByNo(int no);
+
+  int insert(Report report);
 
 }

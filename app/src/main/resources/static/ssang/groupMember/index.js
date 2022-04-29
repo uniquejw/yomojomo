@@ -7,6 +7,7 @@ var membContainer = document.querySelector("#membContainer");
 var membTemplate = document.querySelector('#memb-template') 
 var membGenerator = Handlebars.compile(membTemplate.innerHTML);
 for (var list of groupList.data){
+    console.log(list)
     if(list.memberGrade.gradeName == '모임장'){
         $('.x-memb-name').text(list.member.memberName)
     }
