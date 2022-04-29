@@ -3,6 +3,18 @@ const PATH = {
   'groupGet' : '/group/get',
   'applyQuestion' : '/applyQuestion/findQuestion'
 }
+function defaultPhoto(data){
+  if (data.length == 0){
+    writtenContainer.innerHTML = "";
+  }
+  for (var group of data) {
+    if (group.logo == null) {
+      group.logo = "default.png";
+    }
+    console.log('바뀜')
+    writtenContainer.innerHTML = htmlGenerator(data);
+  }
+}
 fetch("/member/getLoginUser")
 .then(function(res){
   return res.json()
@@ -122,16 +134,7 @@ fetch(PATH.groupList)
       data : {"activeLocal.nameSi" : $("#nameSi option:selected").val()},
       success : function(result) {
         console.log({"activeLocal.nameSi" : $("#nameSi option:selected").val()})
-        console.log(result.data);
-        var test= result.data
-        console.log(test)
-        // for (var group of result.data) {
-        //   console.loge(test)
-        //   if (group.logo == null) {
-        //     group.logo = "default.png";
-        //   }
-        // }
-        // writtenContainer.innerHTML = htmlGenerator(result.data);
+        defaultPhoto(result.data)
       }
     }) //ajax END
   });//nameSi change End
@@ -149,7 +152,7 @@ fetch(PATH.groupList)
       success : function(result) {
         console.log({"activeLocal.nameSi" : $("#nameSi option:selected").val()})
         console.log(result.data);
-        writtenContainer.innerHTML = htmlGenerator(result.data);
+        defaultPhoto(result.data)
       }
     }) //ajax END
   } 
@@ -160,7 +163,7 @@ fetch(PATH.groupList)
       data : {"activeLocal.no" : $("#nameGu option:selected").val()}, //파라미터로 gms_activelocal의 번호를 보낸다.
       success : function(result) { //받아온 list로 handlebars를 화면에 나오게 한다.
         console.log(result.data);
-        writtenContainer.innerHTML = htmlGenerator(result.data);
+        defaultPhoto(result.data);
       }
     }) //ajax END
   });//nameGu change End //id가 nameGu를 클릭하면 발생되는 이벤트 끝
@@ -179,7 +182,7 @@ fetch(PATH.groupList)
               "purpose.no":$("#selectPurpose option:selected").val()}, //파라미터로 gms_activelocal의 번호를 보낸다.
       success : function(result) { //받아온 list로 handlebars를 화면에 나오게 한다.
         console.log(result.data);
-        writtenContainer.innerHTML = htmlGenerator(result.data);
+        defaultPhoto(result.data);
       }
     }) //ajax END
   }

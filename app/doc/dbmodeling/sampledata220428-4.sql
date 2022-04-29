@@ -305,7 +305,7 @@ insert into gms_keyword(search_name, memb_no) values ("한식", 1);
 insert into gms_keyword(search_name, memb_no) values ("당구", 1);
 insert into gms_keyword(search_name, memb_no) values ("노래방", 1);
 insert into gms_group(act_local_no, pups_no, name, intro, memb_cnt, max_cnt, view_cnt) values("1", "1", "비트캠프 216기", "가족같은 모임입니다.", 5, 50, 1);
-insert into gms_group(act_local_no, pups_no, name, intro, memb_cnt, max_cnt, view_cnt) values("1", "1", "모임2", "5월의 회식", 2, 50, 1);
+insert into gms_group(act_local_no, pups_no, name, intro, memb_cnt, max_cnt, view_cnt) values("1", "1", "비트캠프 217기", "5월의 회식", 2, 50, 1);
 insert into gms_group(act_local_no, pups_no, name, intro, memb_cnt, max_cnt, view_cnt) values("1", "1", "모임3", "나들이 함께 가요", 3, 50, 1);
 insert into gms_group(act_local_no, pups_no, name, intro, memb_cnt, max_cnt, view_cnt) values("2", "2", "배고파?", "가족같은 모임입니다.", 5, 50, 1);
 insert into gms_group(act_local_no, pups_no, name, intro, memb_cnt, max_cnt, view_cnt) values("2", "2", "이상준의 골목대장", "5월의 회식", 2, 50, 1);
