@@ -29,4 +29,6 @@ public interface JoinMemberService {
 
   int delete(int no);
 
+  int deleteMember(JoinMember joinMember);
+
 }

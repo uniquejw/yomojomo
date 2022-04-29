@@ -60,7 +60,31 @@ fetch("/member/getLoginUser")
     }
   })
 })
-
+// 댓글 신고 
+var xTitle = document.querySelector('#recipient-name');
+var xContent =document.querySelector('#message-text');
+$(document).on("click", ".comment-report", function() {
+  var value = $(this).val();
+  $(document).on("click", "#comment-report-exactly", function() {
+    console.log('클릭')
+    if(xTitle.value == "" || xContent.value == ""){
+      alert("신고사유를 작성해주세요");
+      return;
+    }
+    var fd = new FormData(document.forms.namedItem("form1"));
+    fd.append('reported',value)
+    fd.append('rptCateNo',4)
+    fetch("/report/add",{
+      method : "POST",
+      body : fd
+    }).then(function(res){
+      return res.json();
+    }).then(function(result){
+      alert("신고가 완료되었습니다.")
+      location.reload();
+    })
+  })
+})///댓글 신고 끝
 // ============================================댓글 수정
 $(document).on('click','.comment-edit',function() { 
   var value=$(this).val()

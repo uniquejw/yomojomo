@@ -24,7 +24,7 @@ hr{
 }
 a, p, span, button {
     text-decoration: none;
-    color: #616161;
+    /* color: #616161; */
 }
 ol, ul, li {
     list-style: none;
@@ -54,12 +54,13 @@ button {
     margin-left: 3px;
 }
 
-.settings-btn .material-icons{
+.board-report .material-icons{
     color: rgb(231, 76, 60);
     margin-left: 3px;
-    font-size: 34px;
 }
-
+.board-report{
+    background-color: #ffffff;
+}
 .material-icons.md-34 { font-size: 32px; }
 .select-orderby{
     height: 30px;

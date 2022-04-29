@@ -31,4 +31,6 @@ public interface JoinMemberDao {
   int update(JoinMember joinMember);
 
   int delete(int no);
+
+  int deleteMember(JoinMember joinMember);
 }

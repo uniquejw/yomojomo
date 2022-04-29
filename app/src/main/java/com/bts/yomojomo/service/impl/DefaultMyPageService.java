@@ -3,6 +3,7 @@ package com.bts.yomojomo.service.impl;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import com.bts.yomojomo.dao.MyPageDao;
 import com.bts.yomojomo.domain.MyPage;
 import com.bts.yomojomo.service.MyPageService;
@@ -31,16 +32,17 @@ public class DefaultMyPageService implements MyPageService {
   }
 
   @Override
-  public int deleteCategory(String email) {
-    mypageDao.deleteLocal(email);
-    mypageDao.deletePurpose(email);
+  public int deleteCategory(MyPage mypage) {
+    mypageDao.deleteLocal(mypage);
+    mypageDao.deletePurpose(mypage);
     return 1;
   }
 
-  //  @Override
-  //  public int insertCategory(MyPage mypage) {
-  //    mypageDao.insertLocal(mypage);
-  //    mypageDao.insertPurpose(mypage);
-  //    return 1;
-  //}
+  @Override
+  @Transactional
+  public int insertCategory(MyPage mypage) {
+    mypageDao.insertLocal(mypage.getNo(), mypage.getFinalActiveLocal());
+    mypageDao.insertPurpose(mypage.getNo(), mypage.getFinalPurpose());
+    return 1;
+  }
 }

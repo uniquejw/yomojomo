@@ -2,6 +2,9 @@ package com.bts.yomojomo.dao;
 
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import com.bts.yomojomo.domain.FinalActiveLocal;
+import com.bts.yomojomo.domain.FinalPurpose;
 import com.bts.yomojomo.domain.MyPage;
 
 @Mapper
@@ -13,12 +16,12 @@ public interface MyPageDao {
 
   int update(MyPage mypage);
 
-  int deleteLocal(String email);
+  int deleteLocal(MyPage mypage);
 
-  int deletePurpose(String email);
+  int deletePurpose(MyPage mypage);
 
-  //  int insertLocal(MyPage mypage);
-  //
-  //  int insertPurpose(MyPage mypage);
+  int insertLocal(@Param("no") int no, @Param("locals") List<FinalActiveLocal> finalActiveLocal);
+
+  int insertPurpose(@Param("no") int no, @Param("pups") List<FinalPurpose> finalPurpose);
 
 }
