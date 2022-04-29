@@ -7,6 +7,8 @@ public interface NoticeQuestionService {
   int add(NoticeQuestion noticeQuestion);
 
   int update(NoticeQuestion noticeQuestion);
+  
+  int updateAnswer(NoticeQuestion noticeQuestion);
 
   int delete(int no);
   
