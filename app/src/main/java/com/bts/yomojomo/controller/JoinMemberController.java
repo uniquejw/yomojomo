@@ -67,6 +67,14 @@ public class JoinMemberController {
     return joinMemberservice.insertJoinGroupMember(joinMember);
   }
 
+  @RequestMapping("/joinmember/deleteMember")
+  public int deleteMember(JoinMember joinMember, HttpSession session) {
+    Member member = (Member) session.getAttribute("loginUser");
+    joinMember.setMember(member);
+
+    return joinMemberservice.deleteMember(joinMember);
+  }
+
 
 
 

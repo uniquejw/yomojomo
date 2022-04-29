@@ -32,10 +32,13 @@
         intro,
         memb_cnt,
         max_cnt,
-        view_cnt
+        view_cnt,
+        g_delete_stat
         from
         gms_group
-        order by
+    where
+        g_delete_stat = 1
+    order by
         g_no desc
 	</select>
 	
@@ -202,11 +205,12 @@
 		select count(*) from gms_group
 	</select>
 
-	<delete id="delete" parameterType="int">
-		delete from gms_group
-		where
-		g_no = #{no}
-	</delete>
+	<update id="delete" parameterType="int">
+    update gms_group set
+    g_delete_stat = 0
+    where
+    g_no = #{no}
+  </update>
 	
 	<select id="getBoardListSelect" resultMap="GroupMap">
     SELECT
