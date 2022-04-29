@@ -17,7 +17,7 @@ if(arr.includes(loginUser.data.no) == false){
 var MemberInfo = getGrade.data;
 var memberAuthority; //멤버등급번호
 
-for (i=0; i < MemberInfo.length; i++) { //현재 있는 그룹의 정보 배열로 빼기
+for (var i=0; i < MemberInfo.length; i++) { //현재 있는 그룹의 정보 배열로 빼기
 if (getGroup == MemberInfo[i].group.no) {
   memberAuthority = MemberInfo[i].memberGrade.gradeNo
 }   
@@ -57,6 +57,31 @@ fetch(`/board/findByGroupNo?no=${getGroup}`)
   });
 })
 })// fetch -> member/getLoginUser
+// 게시글 신고 
+var xTitle = document.querySelector('#recipient-name');
+var xContent =document.querySelector('#message-text');
+$(document).on("click", ".board-report", function() {
+  var value = $(this).val();
+  console.log(value)
+  $(document).on("click", "#board-report-exactly", function() {
+    console.log('클릭')
+    if(xTitle.value == "" || xContent.value == ""){
+      alert("신고사유를 작성해주세요");
+      return;
+    }
+    var fd = new FormData(document.forms.namedItem("form1"));
+    fd.append('reported',value)
+    fd.append('rptCateNo',3)
+    fetch("/report/add",{
+      method : "POST",
+      body : fd
+    }).then(function(res){
+      return res.json();
+    }).then(function(result){
+      console.log(result)
+    })
+  })
+})///게시글 신고 끝
 // 댓글 등록
 $(document).on("click", ".comment-btn", function() {
   var value = $(this).val()

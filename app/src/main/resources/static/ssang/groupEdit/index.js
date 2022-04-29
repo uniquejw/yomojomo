@@ -73,6 +73,13 @@ fetch(`/applyQuestion/update?${qs}`)
   return res.json()
 }).then(function(result){
   console.log(result.data)
+  Swal.fire({
+    position: 'top-end',
+    icon: 'success',
+    title: '저장되었습니다',
+    showConfirmButton: false,
+    timer: 1500
+  })
 })
 })
 

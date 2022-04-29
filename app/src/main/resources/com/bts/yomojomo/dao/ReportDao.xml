@@ -62,6 +62,11 @@
 		where
 			rpt_no=#{no}
 	</update>
+	
+	<update id="insert" parameterType="Report">
+		INSERT INTO gms_report(title,content,memb_no,rpt_cate_no,reported)
+        values(#{title},#{content},#{membNo},#{rptCateNo},#{reported})
+	</update>
 
 	<update id="reportDelete" parameterType="Report">
 		update
