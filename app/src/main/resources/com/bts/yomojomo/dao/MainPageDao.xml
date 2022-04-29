@@ -66,7 +66,8 @@
     where
         jm.memb_no = #{no}
     order by
-        rand() limit 8;
+        g.g_no asc 
+        limit 8;
   </select>
 	
 	<!--  
