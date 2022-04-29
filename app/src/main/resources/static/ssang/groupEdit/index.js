@@ -89,3 +89,65 @@ fetch(`/applyQuestion/update?${qs}`)
 //   cnt = document.querySelectorAll('.apply-content').length
 //   console.log(cnt)
 // },2000 )
+
+
+// ---------------------------------------------------------
+// 모임삭제버튼
+var qs = window.location.search
+console.log(qs)
+var params = new URLSearchParams(qs);
+var gNoParameter = params.get('gno');
+console.log(gNoParameter)
+
+function deleteGroup() {
+  var data = {'no': gNoParameter};
+  $.ajax({
+    url: '/group/delete',
+    type: 'POST',
+    dataType: 'json',
+    data: data,
+    success: function(result) {
+      console.log(result)
+    }
+  })
+}
+
+document.querySelector('#groupDelete').addEventListener('click', function() {
+  deleteGroup();
+  window.location.href = '/junho/index.html'
+})
+
+// ---------------------------------------------------------
+// 모임탈퇴 버튼
+var memberNo = 0;
+function getLoginUser() {
+  $.ajax({
+    url: '/member/getLoginUser',
+    type: 'POST',
+    dataType: 'json',
+    success: function(result) {
+      memberNo= result.data.no
+    }
+  })
+}
+getLoginUser()
+
+function deleteMember() {
+  var data = {'member.no': memberNo, 'group.no': gNoParameter}
+  $.ajax({
+    url: '/joinmember/deleteMember',
+    type: 'POST',
+    dataType: 'json',
+    data: data,
+    success: function(result) {
+      console.log(result)
+    }
+  })
+}
+
+document.querySelector('#button-addon2').addEventListener('click', function() {
+  deleteMember();
+  window.location.href = '/junho/index.html';
+})
+
+
