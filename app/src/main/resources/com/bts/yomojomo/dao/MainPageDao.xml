@@ -65,6 +65,8 @@
         inner join gms_group g on jm.g_no = g.g_no
     where
         jm.memb_no = #{no}
+    order by
+        rand() limit 8;
   </select>
 	
 	<!--  
