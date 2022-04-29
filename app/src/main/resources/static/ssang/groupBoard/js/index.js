@@ -78,7 +78,8 @@ $(document).on("click", ".board-report", function() {
     }).then(function(res){
       return res.json();
     }).then(function(result){
-      console.log(result)
+      alert("신고가 완료되었습니다.")
+      location.reload();
     })
   })
 })///게시글 신고 끝
