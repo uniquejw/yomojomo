@@ -10,4 +10,8 @@ public interface GroupApplyService {
   int sendDelete(GroupApplyForm groupApplyForm);
 
   List<GroupApplyForm> reciveList(GroupApplyForm groupApplyForm);
+
+  int add(GroupApplyForm groupApplyForm);
+
+  int reciveDelete(GroupApplyForm groupApplyForm);
 }

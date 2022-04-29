@@ -28,4 +28,14 @@ public class DefaultGroupApplyService implements GroupApplyService{
     return groupApplyFormDao.reciveListFindAll(groupApplyForm);
   }
 
+  @Override
+  public int add(GroupApplyForm groupApplyForm) {
+    return groupApplyFormDao.insert(groupApplyForm);
+  }
+
+  @Override
+  public int reciveDelete(GroupApplyForm groupApplyForm) {
+    return groupApplyFormDao.reciveListDelete(groupApplyForm);
+  }
+
 }

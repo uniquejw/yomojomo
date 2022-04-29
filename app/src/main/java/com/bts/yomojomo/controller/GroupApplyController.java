@@ -29,4 +29,16 @@ public class GroupApplyController {
     return groupApplyService.reciveList(groupApplyForm);
   }
 
+  @RequestMapping("/mypage/group/joinGroup")
+  public int joinGroup(GroupApplyForm groupApplyForm) {
+    System.out.println(groupApplyForm.toString());
+    return groupApplyService.add(groupApplyForm);
+  }
+
+  @RequestMapping("/mypage/group/reciveApplyDelete")
+  public int reciveApplyDelete(GroupApplyForm groupApplyForm) {
+    System.out.println(groupApplyForm.toString());
+    return groupApplyService.reciveDelete(groupApplyForm);
+  }
+
 }

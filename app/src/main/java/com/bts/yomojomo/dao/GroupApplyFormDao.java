@@ -12,4 +12,8 @@ public interface GroupApplyFormDao {
   int sendListDelete(GroupApplyForm groupApplyForm);
 
   List<GroupApplyForm> reciveListFindAll(GroupApplyForm groupApplyForm);
+
+  int insert(GroupApplyForm groupApplyForm);
+
+  int reciveListDelete(GroupApplyForm groupApplyForm);
 }

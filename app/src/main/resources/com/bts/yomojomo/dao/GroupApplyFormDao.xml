@@ -30,6 +30,10 @@
     
   </resultMap>
 	
+	<insert id="insert" parameterType="GroupApplyForm">
+    insert into gms_join_memb(memb_no, g_no, g_memb_grd_no)
+    values(#{sendMember.no},#{group.no},2)
+  </insert>
 
 
 	<select id="sendListFindALL" resultMap="GroupApplyFormMap">
@@ -49,6 +53,12 @@
     delete from gms_applyform_default
     where
        g_no = #{group.no} and memb_no=#{sendMember.no}
+  </delete>
+  
+  <delete id="reciveListDelete" parameterType="int">
+    delete from gms_applyform_default
+    where 
+      g_no = #{group.no} and memb_no=#{reciveMember.no}
   </delete>
   
   <select id="reciveListFindAll" resultMap="GroupApplyFormMap">

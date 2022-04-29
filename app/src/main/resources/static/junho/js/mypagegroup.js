@@ -158,7 +158,7 @@ function getSendList(i) {
   })
 }
 
-function cancel(i) {
+function sendDelete(i) {
   console.log('click')
   var data = {'sendMember.no': memberNo, 'group.no': sendGroupList[i].no};
   $.ajax({
@@ -195,6 +195,7 @@ function getReciveList(i) {
           'regDate':result[i].regdt,
           'sendMemberName': result[i].sendMember.memberName,
           'groupNo': result[i].group.no,
+          'sendMemberNo':result[i].sendMember.no
         }
         reciveGroupList.push(temp)
       }
@@ -204,6 +205,36 @@ function getReciveList(i) {
     }
   })
 }
+
+function joinGroup(i) {
+  var data = {'sendMember.no': reciveGroupList[i].sendMemberNo, 'group.no': reciveGroupList[i].groupNo}
+  $.ajax({
+    url: '/mypage/group/joinGroup',
+    type: "POST",
+    dataType: 'json',
+    data: data,
+    success: function(result) {
+      console.log(result)
+      reciveDelete(i)
+    }
+  })
+}
+
+function reciveDelete(i) {
+  console.log('click')
+  var data = {'reciveMember.no': reciveGroupList[i].sendMemberNo, 'group.no': reciveGroupList[i].groupNo};
+  $.ajax({
+    url: '/mypage/group/reciveApplyDelete',
+    type: "POST",
+    dataType: 'json',
+    data: data,
+    success: function(result) {
+      console.log(result);
+      location.reload();
+    }
+  })
+}
+
 
 
 
