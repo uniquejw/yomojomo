@@ -69,6 +69,29 @@ $(document).on('click', '.reply-btn', function(e) {
   return false;
 })
 
+$(document).on('click', '.reset-btn', function(e) {
+  e.preventDefault();
+  var xNo = document.querySelector(".reply-btn").value;
+  var xAnswer = document.querySelector("input[name=reply]").value;
+  
+  fd = new FormData();
+  fd.append("no", xNo)
+  fd.append("answer", "운영자의 답변을 기다리는 중입니다.")
+  fetch("/noticeQuestion/updateAnswer", {
+    method: "POST",
+    body: new URLSearchParams(fd)
+  }).then(function(response) {
+    return response.json();
+  }).then(function(result) {
+    if (result.status == "success") {
+      location.href = "/jaewon/admin/qna/view/index.html?no="+ xNo;
+    } else {
+      window.alert("댓글 등록을 실패하였습니다.")
+    }
+  });
+  return false;
+})
+
 $(document).on('click', '.canceled-btn', function() {
   e.preventDefault();
   console.log("1")
