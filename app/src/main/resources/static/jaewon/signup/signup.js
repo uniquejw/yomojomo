@@ -157,6 +157,7 @@ function sendForm() {
 		return response.json();
 	}).then(function(result) {
 		if (result.status == "success") {
+      alert("회원 가입이 완료되었습니다. 로그인 화면으로 이동합니다")
 			location.href = "/jaewon/login/login/index.html";
 		} else {
 			window.alert("회원가입 실패!")
