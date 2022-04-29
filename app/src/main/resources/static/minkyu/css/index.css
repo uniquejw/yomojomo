@@ -1,4 +1,4 @@
-.my-info {
+.info-table {
   border: 1px solid gray;
   border-radius: 10px;
   display: flex;
@@ -7,21 +7,13 @@
   justify-content: center;
   text-align: center;
 }
-.info1 {
+.info-tag1 {
   width: 260px;
   height: 280px;
   padding: 40px 20px;
 }
-.info1 > p {
+.info-tag1 > p {
   margin-bottom: 5px;
-}
-.info2 {
-  width: 260px;
-  height: 280px;
-  padding: 50px 0px;
-}
-.info2 > p {
-  margin-bottom: 7px;
 }
 #info-name {
   font-weight: bold;
@@ -33,24 +25,11 @@
   width: auto;
   height: 100px;
 }
-.favor-group {
- display: flex;
- flex-wrap: wrap;
+.info-tag2 {
+  width: 260px;
+  height: 280px;
+  padding: 30px 0px;
 }
-.card {
-  margin: 0px 5px;
-}
-.card > img {
-  width: auto;
-  height: 180px;
-}
-.card-body {
-  width: 180px;
-  height: auto;
-  text-align: center;
-}
-.card-body > h5 {
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
+.info-tag2 p {
+  margin-bottom: 7px;
 }

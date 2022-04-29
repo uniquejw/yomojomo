@@ -68,7 +68,7 @@
                 <div class="col-3 p-2 text-center fw-bold">이메일(아이디)</div>
 								<div class="col input-group mb-3 ">
 									<input class="form-control form-control-sm input fs-6"
-										name="email" type="email" value="" placeholder="이메일(아이디) 입력"
+										name="email" type="email" placeholder="이메일(아이디) 입력"
 										aria-label=".form-control-sm example" readonly>
 								</div>
 								<div class="col-3"></div>
@@ -159,7 +159,7 @@
                   </select>
                 </div>
                 <div class="dropdown col-4">
-                  <select class="form-select select-gu" aria-label="Default select example"
+                  <select class="form-select select-gu add-local" aria-label="Default select example"
                     id="localboard">
                     <option hidden selected disabled name="nameGu">관심 구/군</option>
 
@@ -180,7 +180,13 @@
             </div>
             <br>
             <div class="text-muted notice">* 프로필 사진을 제외한 모든 항목은 필수입력 항목입니다</div>
-            <div class="my-category border-top">
+            <div class="editing-table border-top">
+              <p>나의 활동지역</p>
+              <div class="edit-local d-flex justify-content-center flex-wrap text-center">
+                
+              </div>
+            </div>
+            <div class="editing-table border-top">
               <p>나의 관심카테고리</p>
               <div class="edit-category d-flex justify-content-center flex-wrap text-center">
                 
@@ -195,6 +201,11 @@
   <div id="footers"></div>
   <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
   <script>
+    // 활동지역
+    var localArr = []
+    // 관심목적
+    var pupsArr = []
+
     // 정보 가져오기
     fetch("/member/getLoginUser")
     .then(function(response){
@@ -225,16 +236,25 @@
         $("input[name=roadNameAddr]").attr('value',memberInfo.roadNameAddr)
         $("input[name=baseAddr]").attr('value',memberInfo.baseAddr)
         $("input[name=addr]").attr('value',memberInfo.addr)
+        for (let local of memberInfo.activeLocal) {
+          localArr.push(local.no)
+          $(`<div class="local-wrap">
+              <span class="badge rounded-pill bg-primary local" data-no="${local.no}">${local.nameGu + " "}</span>
+              <button type="button" class="btn-close" aria-label="Close"></button>
+            </div>`)
+          .appendTo(".edit-local")
+        }
         for (let pups of memberInfo.purpose) {
+          pupsArr.push(pups.no)
           $(`<div class="category-wrap">
-            <span class="badge rounded-pill bg-primary category">${pups.purposeName + " "}</span>
-            <button type="button" class="btn-close" aria-label="Close"></button>
+              <span class="badge rounded-pill bg-primary category" data-no="${pups.no}">${pups.purposeName + " "}</span>
+              <button type="button" class="btn-close" aria-label="Close"></button>
             </div>`)
           .appendTo(".edit-category")
         }
       })
     })
-      
+      // 리스트 불러오기
       fetch("/activeLocal/list")
       .then(function(response){
         return response.json()
@@ -252,7 +272,6 @@
           return response.json()
         })
         .then(function(localGu){
-          console.log(localGu)
           $(".select-gu").find("option[name=gu]").not("option[name=gu]:selected").remove()
           for (let local of localGu) {
             $(`<option name="gu" value="${local.no}">${local.nameGu}</option>`).appendTo(".select-gu")
@@ -265,38 +284,81 @@
         return response.json()
       })
       .then(function(purpose){
-        for (let cate of purpose) {
-          $(`<option>${cate.purposeName}</option>`).appendTo(".add-category")
+        for (let pups of purpose) {
+          $(`<option name="pups" value="${pups.no}">${pups.purposeName}</option>`).appendTo(".add-category")
         }
       })
-
-
-    
       // 카테고리 추가
-      $(".add-category")
+      $(".add-local")
       .on("change", function(e) {
-        let str = "";
-        $(".add-category option:selected").each(function() {
-          str += $(this).text() + " "
-        });
-        if (str === "관심 분야") {
-          return
-        }
-        let catestr = $(".category").text().split(" ")
-          for (let cate of catestr) {
-            if (cate + " " === str) {
+        if ($(".local").length == 3) {
+          swa.fire({
+            icon: 'error',
+            title: '활동지역이 너무 많습니다',
+            text: '활동지역은 최대 3개 까지입니다',
+          })
+        } else {
+          let str = "";
+          $(".add-local option:selected").each(function() {
+            str += $(this).text() + " "
+          });
+          if (str === "관심 구/군") {
+            return
+          }
+          let localstr = $(".local").text().split(" ")
+          for (let local of localstr) {
+            if (local + " " === str) {
               return
             }
           }
-        $(`<div class="category-wrap">
-          <span class="badge rounded-pill bg-primary category">${str}</span>
-          <button type="button" class="btn-close" aria-label="Close"></button>
-          </div>`).appendTo(".edit-category")
+          localArr.push(parseInt($("option[name=gu]:selected").val()))
+          $(`<div class="local-wrap">
+              <span class="badge rounded-pill bg-primary local" data-no="${$("option[name=gu]:selected").val()}">${str}</span>
+              <button type="button" class="btn-close" aria-label="Close"></button>
+            </div>`).appendTo(".edit-local")
+          }
         })
         
-        // 카테고리 삭제
+        $(".add-category")
+        .on("change", function(e) {
+          if ($(".category").length == 10) {
+            swa.fire({
+              icon: 'error',
+              title: '관심분야가 너무 많습니다',
+              text: '관심분야는 최대 10개 까지입니다',
+            })
+          } else {
+            let str = "";
+            $(".add-category option:selected").each(function() {
+              str += $(this).text() + " "
+            });
+          if (str === "관심 분야") {
+            return
+          }
+          let catestr = $(".category").text().split(" ")
+          for (let cate of catestr) {
+              if (cate + " " === str) {
+                return
+              }
+            }
+            pupsArr.push(parseInt($("option[name=pups]:selected").val()))
+            $(`<div class="category-wrap">
+                <span class="badge rounded-pill bg-primary category" data-no="${$("option[name=pups]:selected").val()}">${str}</span>
+                <button type="button" class="btn-close" aria-label="Close"></button>
+              </div>`).appendTo(".edit-category")
+            }
+          })
+          // 카테고리 삭제
         $(document).on("click",".btn-close",function(e){
-          $($(e.target).parent()).remove();
+          $($(e.target).parent()).remove()
+          dataNo = parseInt($(e.target).prev().attr("data-no"))
+          if($(e.target).prev().hasClass("local") == true) {
+            localArr.splice(localArr.indexOf(dataNo),1)
+          } else {
+            pupsArr.splice(pupsArr.indexOf(dataNo),1)
+          }
+          console.log(localArr)
+          console.log(pupsArr)
         })
         // 수정버튼 이벤트
         const swa = Swal.mixin({
@@ -306,70 +368,101 @@
           },
           buttonsStyling: false
         })
+        
+        const strongRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/;
 
-        var strongRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/;
         
         $("#edit-btn").click(function(e){   
           if ($("input[name=pwd]").val() == "" || $("input[name=pwdCheck]").val() == "" || $("input[name=tel]").val() == "" ||
             $("input[name=postNo]").val() == "" || $("input[name=roadNameAddr]").val() == "" || $("input[name=baseAddr]").val() == "" ||
-            $("input[name=addr]").val() == "" || $("option[name=nameSi]:selected").text() == "관심 시/도" || $("option[name=nameGu]:selected").text() == "관심 구/군") {
-            swa.fire(
-          '필수 입력 항목이 비었습니다',
-          '항목을 입력하고 다시 시도해주세요',
-          'error'
-          )} else if ($("input[name=pwd]").val() != $("input[name=pwdCheck]").val()) {
-            swa.fire(
-          '비밀번호가 다릅니다',
-          '비밀번호 서로 같은지 다시 확인해주세요',
-          'error'
-          )} else if (strongRegex.test($("input[name=pwdCheck]").val()) !== true){
-            swa.fire(
-          '비밀번호가 조건에 맞지않습니다',
-          '최소 하나의 문자,숫자,특수문자를 조합해주세요. 8자 이상 12자 이하의 비밀번호로 작성해주세요',
-          'error'
-          )} else {
-          var emailTest = $("input[name=email]").val()
-          var pwdTest = $("input[name=pwd]").val()
-          var telTest = $("input[name=tel]").val()
-          var postNoTest = $("input[name=postNo]").val()
-          var roadNameAddrTest = $("input[name=roadNameAddr]").val()
-          var baseAddrTest = $("input[name=baseAddr]").val()
-          var addrTest = $("input[name=addr]").val()
-          
-          var testdata = {'email': emailTest, 'pwd': pwdTest, 'tel': telTest, 'postNo': postNoTest, 'baseAddr': baseAddrTest, 'roadNameAddr': roadNameAddrTest, 'addr': addrTest}
-          swa.fire({
-            title: '정보를 수정하시겠습니까?',
-            icon: 'question',
-            showCancelButton: true,
-            confirmButtonText: '수정',
-            cancelButtonText: '취소'
-          }).then((result) => {
-              if (result.isConfirmed) {
-                $.ajax({
-                  url: '/mypage/update',
-                  type: 'POST',
-                  dataType: 'json',
-                  data: testdata,
-                  success: function(resultdata) {
-                    console.log(resultdata)
-                }
-              })
-              // $.ajax({
-              //   url: '/mypage/'
-              // })
-              swa.fire({
-                title: '수정이 완료되었습니다',
-                icon: 'success',
-                confirmButtonText: 'OK',
-              }).then((result) => {
-                if (result.isConfirmed) {
-                  location.reload()
-                }
-              })
-            }
-          })
-        }
-      })
+            $("input[name=addr]").val() == "" ) {
+              swa.fire(
+                '필수 입력 항목이 비었습니다',
+                '항목을 다시 입력해주세요',
+                'error'
+                )} else if ($(".category").length == 0 || $(".local").length == 0) {
+                  swa.fire(
+                '활동지역과 관심분야가 없습니다',
+                '활동지역과 관심분야는 최소 1개이상 이여야 합니다',
+                'error'
+                )} else if ($("input[name=pwd]").val() != $("input[name=pwdCheck]").val()) {
+                  swa.fire(
+                  '비밀번호가 다릅니다',
+                  '비밀번호 서로 같은지 다시 확인해주세요',
+                  'error'
+                )} else if (strongRegex.test($("input[name=pwdCheck]").val()) !== true){
+                swa.fire(
+                '비밀번호가 조건에 맞지않습니다',
+                '최소 하나의 문자,숫자,특수문자를 조합해주세요. 8자 이상 12자 이하의 비밀번호로 작성해주세요',
+                'error'
+                )} else {
+                  swa.fire({
+                    title: '정보를 수정하시겠습니까?',
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonText: '수정',
+                    cancelButtonText: '취소'
+                  }).then((result) => {
+                    if (result.isConfirmed) {
+                      $.ajax({
+                        url: '/member/getLoginUser',
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function(result) {
+                          // 기본정보
+                          let xPwd = $("input[name=pwd]").val()
+                          let xTel = $("input[name=tel]").val()
+                          let xPostNo = $("input[name=postNo]").val()
+                          let xRoadAddr = $("input[name=roadNameAddr]").val()
+                          let xBaseAddr = $("input[name=baseAddr]").val()
+                          let xAddr = $("input[name=addr]").val()
+                          console.log(localArr)
+                          for (var i = 0; i <localArr.length; i++) {
+                            var localArrTest = {};
+                            localArrTest.push(localArr[i])
+                          }
+                          let updateData = {'no': result.data.no, 'pwd': xPwd, 'tel': xTel, 'postNo': xPostNo, 'baseAddr': xBaseAddr, 'roadNameAddr': xRoadAddr, 'addr': xAddr, "localArr":localArrTest, "purposeArr":pupsArr}
+                          $.ajax({
+                            url: '/mypage/update',
+                            type: 'POST',
+                            dataType: 'json',
+                            data: updateData,
+                            success: function(resultData) {
+                              console.log(resultData)
+                              $.ajax({
+                                url: '/mypage/deleteCategory',
+                                type: 'POST',
+                                dataType: 'json',
+                                data: updateData,
+                                success: function() {
+                                  $.ajax({
+                                    url: '/mypage/insertCategory',
+                                    type: 'POST',
+                                    dataType: 'json',
+                                    data: updateData,
+                                    success: function() {
+                                      console.log("업데이트 성공!")
+                                    }
+                                  })
+                                }
+                              })
+                            }
+                          })
+                        }
+                      })
+                    swa.fire({
+                      title: '수정이 완료되었습니다',
+                      icon: 'success',
+                      confirmButtonText: 'OK',
+                    }).then((result) => {
+                      if (result.isConfirmed) {
+                        // location.reload()
+                      }
+                    })
+                  }
+                })
+              }
+            })
         
         
       function searchAddress() {

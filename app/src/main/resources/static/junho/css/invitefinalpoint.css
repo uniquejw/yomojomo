@@ -83,7 +83,7 @@ a {
 
 .invite .invite-content .list-group {
   padding-top: 2vh;
-  max-height: 430px;
+  max-height: 300px;
   overflow-y: scroll;
 }
 

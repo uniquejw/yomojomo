@@ -15,6 +15,16 @@
     <result column="base_addr" property="baseAddr"/>
     <result column="addr" property="addr"/>
     
+    <collection property="finalActiveLocal" ofType="FinalActiveLocal">
+      <id column="memb_no" property="no"/>
+      <result column="act_local_no" property="itrlocalno"/>
+    </collection>
+    
+    <collection property="finalPurpose" ofType="FinalPurpose">
+       <id column="pups_no" property="no"/>
+       <result column="memb_no" property="membno"/>
+    </collection>
+    
     <collection property="activeLocal" ofType="ActiveLocal">
       <id column="act_local_no" property="no"/>
       <result column="name_si" property="nameSi"/>
@@ -27,20 +37,6 @@
     </collection>
   </resultMap>
   
-  <resultMap type="MyPage" id="MyPageCategoryMap">
-    <id column="memb_no" property="no"/>
-    
-    <collection property="finalActiveLocal" ofType="FinalActiveLocal">
-      <id column="memb_no" property="no"/>
-      <result column="act_local_no" property="itrlocalno"/>
-    </collection>
-    
-    <collection property="finalPurpose" ofType="FinalPurpose">
-       <id column="pups_no" property="no"/>
-       <result column="memb_no" property="membno"/>
-    </collection>
-  </resultMap>
-  
   <select id="findAll" resultMap="MyPageMap">
    <!-- select * from gms_memb;  -->      
   </select>
@@ -48,8 +44,6 @@
   <select id="findByMemberNo" resultMap="MyPageMap">      
     select
       m.memb_no,
-      a.act_local_no,
-      p.pups_no,
       m.membername,
       m.email,
       m.tel,
@@ -57,8 +51,10 @@
       m.roadname_addr,
       m.base_addr,
       m.addr,
+      a.act_local_no,
       a.name_si,
       a.name_gu,
+      p.pups_no,
       p.name
     from
       gms_memb m
@@ -68,7 +64,6 @@
       inner join gms_purpose p on fp.pups_no = p.pups_no
     where
       m.memb_no=#{no}
-      
   </select>
   
   <update id="update" parameterType="MyPage">
@@ -80,27 +75,40 @@
 		  base_addr=#{baseAddr},
 		  addr=#{addr}
 		where
-		  email=#{email}
-		  
+		  memb_no=#{no}
   </update>
 
-	<delete id="deleteLocal" parameterType="String">
+	<delete id="deleteLocal" parameterType="MyPage">
     delete fa from
       gms_memb m
       inner join gms_final_activelocal fa on m.memb_no=fa.memb_no
     where
-      m.email=#{email}
-      
+      m.memb_no=#{no}
   </delete>
   
-  <delete id="deletePurpose" parameterType="String">
+  <delete id="deletePurpose" parameterType="MyPage">
   delete fp from
       gms_memb m
       inner join gms_final_purpose fp on m.memb_no=fp.memb_no
     where
-      m.email=#{email}
+      m.memb_no=#{no}
   </delete>
   
+  <insert id="insertLocal" parameterType="MyPage">
+  insert into gms_final_activelocal(memb_no, act_local_no) 
+	  values
+	  <foreach collection="locals" item="FinalActiveLocal" separator=",">
+	     (#{no}, #{FinalActiveLocal.itrlocalno})
+	  </foreach>
+  </insert>
+  
+  <insert id="insertPurpose" parameterType="MyPage">
+  insert into gms_final_purpose(memb_no, pups_no) 
+	  values
+	  <foreach collection="pups" item="FinalPurpose" separator=",">
+	     (#{no}, #{FinalPurpose.no})
+    </foreach>
+  </insert>
   
         
 	</mapper>
