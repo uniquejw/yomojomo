@@ -18,4 +18,15 @@ public class GroupApplyController {
     return groupApplyService.sendList(groupApplyForm);
   }
 
+  @RequestMapping("/mypage/group/sendApplyDelet")
+  public int sendApplyDelete(GroupApplyForm groupApplyForm) {
+    return groupApplyService.sendDelete(groupApplyForm);
+  }
+
+  @RequestMapping("/mypage/group/reciveApplyList")
+  public Object reviceApplyList(GroupApplyForm groupApplyForm) {
+    System.out.println(groupApplyForm.toString());
+    return groupApplyService.reciveList(groupApplyForm);
+  }
+
 }

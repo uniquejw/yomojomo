@@ -6,4 +6,8 @@ import com.bts.yomojomo.domain.GroupApplyForm;
 public interface GroupApplyService {
 
   List<GroupApplyForm> sendList(GroupApplyForm groupApplyForm);
+
+  int sendDelete(GroupApplyForm groupApplyForm);
+
+  List<GroupApplyForm> reciveList(GroupApplyForm groupApplyForm);
 }

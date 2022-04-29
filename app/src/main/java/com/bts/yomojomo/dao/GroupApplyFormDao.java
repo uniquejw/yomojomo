@@ -8,4 +8,8 @@ import com.bts.yomojomo.domain.GroupApplyForm;
 public interface GroupApplyFormDao {
 
   List<GroupApplyForm> sendListFindALL(GroupApplyForm groupApplyForm);
+
+  int sendListDelete(GroupApplyForm groupApplyForm);
+
+  List<GroupApplyForm> reciveListFindAll(GroupApplyForm groupApplyForm);
 }

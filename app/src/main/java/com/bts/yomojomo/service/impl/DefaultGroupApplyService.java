@@ -18,4 +18,14 @@ public class DefaultGroupApplyService implements GroupApplyService{
     return groupApplyFormDao.sendListFindALL(groupApplyForm);
   }
 
+  @Override
+  public int sendDelete(GroupApplyForm groupApplyForm) {
+    return groupApplyFormDao.sendListDelete(groupApplyForm);
+  }
+
+  @Override
+  public List<GroupApplyForm> reciveList(GroupApplyForm groupApplyForm) {
+    return groupApplyFormDao.reciveListFindAll(groupApplyForm);
+  }
+
 }

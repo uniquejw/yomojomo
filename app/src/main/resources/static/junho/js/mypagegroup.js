@@ -111,9 +111,9 @@ $(".btn-delete").click(function(e){
   }
 })
 
-
+var memberNo = 0;
 function getLoginUser() {
-  var memberNo = 0;
+  
   $.ajax({
     url: '/member/getLoginUser',
     type: "POST",
@@ -123,6 +123,7 @@ function getLoginUser() {
       memberNo = result.data.no;
       console.log(memberNo)
       getSendList(memberNo)
+      getReciveList(memberNo)
     }
   })
 }
@@ -133,10 +134,10 @@ console.log(divApplyTemplate)
 var htmlGeneratorApply = Handlebars.compile(divApplyTemplate.innerHTML);
 
 var sendHandlebarsEl = document.querySelector('.sendHandlebars');
-
+var sendGroupList=[]
 function getSendList(i) {
   var data = {'sendMember.no': i}
-  var groupList=[]
+  
   $.ajax({
     url: '/mypage/group/sendApplyList',
     type: "POST",
@@ -148,14 +149,64 @@ function getSendList(i) {
           result[i].group.logo = "default.png";
         }
         console.log(result[i])
-        groupList.push(result[i].group)
+        sendGroupList.push(result[i].group)
       }
-      console.log(groupList)
+      console.log(sendGroupList)
       
-      sendHandlebarsEl.innerHTML =htmlGeneratorApply(groupList)
+      sendHandlebarsEl.innerHTML =htmlGeneratorApply(sendGroupList)
     }
   })
 }
+
+function cancel(i) {
+  console.log('click')
+  var data = {'sendMember.no': memberNo, 'group.no': sendGroupList[i].no};
+  $.ajax({
+    url: '/mypage/group/sendApplyDelet',
+    type: "POST",
+    dataType: 'json',
+    data: data,
+    success: function(result) {
+      console.log(result);
+      location.reload();
+    }
+  })
+}
+var reciveGroupList = [];
+var trReciveTemplate = document.querySelector("#tr-reciveList-template");
+console.log(trReciveTemplate)
+//템플릿 엔진 준비
+var htmlGeneratorRecive = Handlebars.compile(trReciveTemplate.innerHTML);
+console.log()
+var reciveHandlebarsEl = document.querySelector('#recivetest');
+function getReciveList(i) {
+  var data = {'reciveMember.no': i}
+  
+  $.ajax({
+    url: '/mypage/group/reciveApplyList',
+    type: "POST",
+    dataType: 'json',
+    data: data,
+    success: function(result) {
+      console.log(result)
+      for (var i = 0; i <result.length; i++) {
+        var temp = {'content': result[i].content,
+         'groupName': result[i].group.groupName,
+          'regDate':result[i].regdt,
+          'sendMemberName': result[i].sendMember.memberName,
+          'groupNo': result[i].group.no,
+        }
+        reciveGroupList.push(temp)
+      }
+      console.log(reciveGroupList)
+      reciveHandlebarsEl.innerHTML = htmlGeneratorRecive(reciveGroupList)
+      console.log(htmlGeneratorRecive(reciveGroupList))
+    }
+  })
+}
+
+
+
 
 
 

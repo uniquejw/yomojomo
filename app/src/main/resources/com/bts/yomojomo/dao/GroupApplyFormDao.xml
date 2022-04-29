@@ -22,12 +22,19 @@
        
     </association>
     
+    <association property="reciveMember" javaType="Member">
+       <id column = "reciveMemberno" property="no"/>
+       <result column="reciveMemberName" property="memberName"/>
+       
+    </association>
+    
   </resultMap>
 	
 
 
 	<select id="sendListFindALL" resultMap="GroupApplyFormMap">
 		select
+		  ad.g_no gno,
 		  ad.memb_no sendMemberName,
 		  g.name gname,
 		  g.logo glogo
@@ -35,8 +42,35 @@
 		  gms_applyform_default ad
 		  inner join gms_group g on g.g_no = ad.g_no
     where
-      ad.memb_no=8
+      ad.memb_no= #{sendMember.no}
 	</select>
+	
+	<delete id="sendListDelete" parameterType="int">
+    delete from gms_applyform_default
+    where
+       g_no = #{group.no} and memb_no=#{sendMember.no}
+  </delete>
+  
+  <select id="reciveListFindAll" resultMap="GroupApplyFormMap">
+    select
+      ad.g_no gno,
+      ad.memb_no sendMemberno,
+      ad.memb_no2 reciveMemberno,
+      ad.content,
+      ad.appl_dt,
+      g.name gname,
+      g.logo glogo,
+      m.membername sendMemberName
+    from
+      gms_applyform_default ad
+      inner join gms_group g on g.g_no = ad.g_no
+      inner join gms_memb m on ad.memb_no = m.memb_no
+    where
+      ad.memb_no2= #{reciveMember.no}
+  </select>
+	
+	
+	
 	
 <!-- 회원 그룹 리스트 
 <select id="memberGroupList" resultMap="MainPageMap" parameterType="int">
