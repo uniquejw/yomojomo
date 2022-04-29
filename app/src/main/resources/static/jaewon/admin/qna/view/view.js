@@ -69,66 +69,8 @@ $(document).on('click', '.reply-btn', function(e) {
   return false;
 })
 
-$(document).on('click', '.update-finish-btn', function() {
-  if (confirm('수정하시겠습니까?')) {
-    var fd = new FormData();
-    var xNo = $('.update-finish-btn').val()
-    var xStatus = $('input[name="penalty"]:checked').val()
-    var now = $.now();
-
-    fd.append("no", xNo);
-    fd.append("status", xStatus);
-    fd.append("stopDate", now);
-
-    fetch("/noticeQuestion/updatestatus", {
-      method: "POST",
-      body: new URLSearchParams(fd)
-    })
-      .then(function(response) {
-        return response.json();
-      })
-      .then(function(result) {
-        if (result.status == "success") {
-          alert("업데이트 되었습니다.")
-          location.href = "/jaewon/admin/qna/view/index.html?no=" + xNo;
-        } else {
-          window.alert("로그인 후 다시 시도해주세요!!");
-        }
-      });
-  }
-  return false;
-})
-
-$(document).on('click', '.delete-btn', function() {
-  if (confirm('회원 탈퇴 처리 하시겠습니까? 신중히 선택해주세요')) {
-    var fd = new FormData();
-    var xNo = $('.delete-btn').val()
-    fd.append("no", xNo);
-
-    fetch("/report/delete", {
-      method: "POST",
-      body: new URLSearchParams(fd)
-    })
-      .then(function(response) {
-        return response.json();
-      })
-      .then(function(result) {
-        if (result.status == "success") {
-          alert("탈퇴 처리 되었습니다.")
-          location.href = "/jaewon/admin/report/index.html?no=1&cutno=5&searchKeyword=";
-        } else {
-          window.alert("로그인 후 다시 시도해주세요");
-        }
-      });
-  }
-  return false;
-})
-
-$(document).on('click', '.cancel-btn', function() {
-  location.href = "/jaewon/admin/report/index.html?no=1&cutno=5&searchKeyword=";
-})
-
-$(document).on('click', '.cancel-finish-btn', function() {
-  var xNo = document.querySelector(".cancel-finish-btn").value;
-  location.href = "/jaewon/admin/report/view/index.html?no=" + xNo;
+$(document).on('click', '.canceled-btn', function() {
+  e.preventDefault();
+  console.log("1")
+  //location.href = "/jaewon/admin/qna/index.html?no=1&cutno=5&searchKeyword=";
 })

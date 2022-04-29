@@ -157,7 +157,7 @@ function sendForm() {
 		return response.json();
 	}).then(function(result) {
 		if (result.status == "success") {
-			location.href = "/junho/index.html";
+			location.href = "/jaewon/login/login/index.html";
 		} else {
 			window.alert("회원가입 실패!")
 		}
