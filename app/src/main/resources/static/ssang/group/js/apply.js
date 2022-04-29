@@ -73,7 +73,7 @@ $(document).on("click","#apply",function(){
   });
   }
   var defaultValue = document.querySelector("textarea[name=answer]").value
-  var qs2 = `groupNo=${value}&content=${defaultValue}`
+  var qs2 = `groupNo=${value}&content=`+encodeURI(defaultValue)//특수문자 인코딩
   console.log(qs2)
   fetch(`/applyFixedAnswer/add?${qs2}`)
   .then(function(res){
@@ -82,6 +82,10 @@ $(document).on("click","#apply",function(){
   .then(function(result){
     if(result.status == "success"){
     location.href="/minkyu/mypage/index.html"
+    }
+    else{
+      alert("이미 신청한 모임입니다.")
+      location.replace("/junho/index.html")
     }
   })
 })
