@@ -3,7 +3,7 @@
   border: 1px solid gray;
   border-radius: 10px;
   width: 700px;
-  height: 1000px;
+  height: 1100px;
   margin: auto;
   justify-content: center;
   text-align: center;
@@ -36,9 +36,14 @@
 .form-select:hover {
   cursor: pointer;
 }
-.my-category {
+.editing-table {
   margin-top: 20px;
-  padding: 20px 60px;
+  padding: 10px 60px;
+}
+.local-wrap {
+  display: flex;
+  vertical-align: middle;
+  margin: 3px;
 }
 .category-wrap {
   display: flex;

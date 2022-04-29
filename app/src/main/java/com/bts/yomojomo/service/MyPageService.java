@@ -11,7 +11,7 @@ public interface MyPageService {
 
   int update(MyPage mypage);
 
-  int deleteCategory(String email);
+  int deleteCategory(MyPage mypage);
 
-  //  int insetCategory(MyPage mypage);
+  int insertCategory(MyPage mypage);
 }

@@ -47,31 +47,17 @@
         <div class="content d-flex flex-column">
           <h3>마이페이지</h3>
           <br>
-          <div class="my-info">
-            <div class="info1">
+          <div class="info-table">
+            <div class="info-tag1">
 
             </div>
-            <div class="info2">
-
+            <div class="info-tag2">
+              <div class="info"></div>
+              <div class="local"><p>지역</p></div>
+              <br>
+              <div class="purpose"><p>관심목록</p></div>
             </div>
           </div>
-          <!-- <br>
-          <h4 class="title">나의 관심 모임</h4>
-          <br>
-          <div class="favor-group">
-            <div class="card border-secondary w-30 h-25">
-              <img src="../profile.jpg" class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5>축구왕슛돌이</h5>
-              </div>
-            </div>
-            <div class="card border-secondary w-30 h-25">
-              <img src="../profile.jpg" class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5>축구왕슛돌이</h5>
-              </div>
-            </div>
-          </div> -->
         </div>
       </div>
     </div>  
@@ -112,20 +98,18 @@
             <p id="info-name">${memberInfo.name}</p>
             <p>이메일 주소 : ${memberInfo.email}</p>
             <p>핸드폰 번호 : ${memberInfo.tel}</p>`)
-          .appendTo(".info1")
-        let str = ""
-        for (let local of memberInfo.activeLocal) {
-          str += local.nameSi + " "
-        }
-        $(` <br>
-            <p>지역 : ${str}</p>
-            <p>도로명 주소 : ${memberInfo.roadNameAddr}</p>
+          .appendTo(".info-tag1")
+        $(` <p>도로명 주소 : ${memberInfo.roadNameAddr}</p>
             <p>지번 주소 : ${memberInfo.baseAddr}</p>
             <p>상세 주소 : ${memberInfo.addr}</p>
-            <br>`).appendTo(".info2")
+            <br>`).appendTo(".info")
+        for (let local of memberInfo.activeLocal) {
+          $(`<span class="badge rounded-pill bg-primary category">${local.nameGu}</span>`)
+          .appendTo(".local")
+        }
         for (let pupr of memberInfo.purpose) {
           $(`<span class="badge rounded-pill bg-primary category">${pupr.purposeName}</span>`)
-          .appendTo(".info2")
+          .appendTo(".purpose")
         }
       })
     })
