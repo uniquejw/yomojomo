@@ -6,8 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>MyPage</title>
   <!-- 제이쿼리 -->
-  <script src="/node_modules/sweetalert2/dist/sweetalert2.min.js"></script>
   <script src="/node_modules/jquery/dist/jquery.min.js"></script>
+  <script src="/node_modules/sweetalert2/dist/sweetalert2.min.js"></script>
   <!-- css 초기화 -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
   <!--공용css-->
@@ -24,6 +24,9 @@
       $('#footers').load('/junho/mainfooter.html'); //푸터부분 인클루드
     });
   </script>
+  <script src="/junho/js/mypagegroup.js" defer></script>
+  <!-- handlerbars -->
+  <script src="/node_modules/handlebars/dist/handlebars.min.js"></script>
 </head>
 <body>
   <div id="header"></div>
@@ -46,25 +49,20 @@
         </nav>
         <div class="content d-flex flex-column">
           <h3>승인 대기중인 모임</h3>
-          <div class="group-wrap d-flex flex-wrap">
-            <div class="card border-secondary w-30 h-25">
-              <img src="../profile.jpg" class="card-img-top" alt="...">
-              <div class="card-body d-flex flex-column">
-                <h5 class="card-title">피구왕통키</h5>
-                <div class="card-btn d-flex justify-content-center">
-                  <button type="button" class="btn btn-sm btn-secondary btn-cancel w-60">신청 취소</button>
-               </div>
-              </div>
-            </div>
-            <div class="card border-secondary w-30 h-25">
-              <img src="../profile.jpg" class="card-img-top" alt="...">
-              <div class="card-body d-flex flex-column">
-                <h5 class="card-title">달리기왕하니</h5>
-                <div class="card-btn d-flex justify-content-center">
-                  <button type="button" class="btn btn-sm btn-secondary btn-cancel w-60">신청 취소</button>
+          <div class="group-wrap d-flex flex-wrap sendHandlebars">
+            <script id="div-applyList-template" type="text/x-handlebars-template">
+              {{#each this}}
+              <div class="card border-secondary w-30 h-25">
+                <img src="/group/photo?filename={{logo}}" class="card-img-top" alt="...">
+                <div class="card-body d-flex flex-column">
+                  <h5 class="card-title">{{groupName}}</h5>
+                  <div class="card-btn d-flex justify-content-center">
+                    <button type="button" class="btn btn-primary">신청 취소</button>
+                 </div>
                 </div>
               </div>
-            </div>
+              {{/each}}
+            </script>
           </div>
           <br>
           <div class="request-show">
@@ -170,118 +168,5 @@
     </div>
   </div>
   <div id="footers"></div>
-  <script>
-    const swa = Swal.mixin({
-      customClass: {
-        confirmButton: 'btn btn-primary mx-2',
-        cancelButton: 'btn btn-secondary mx-2'
-      },
-      buttonsStyling: false
-    })
-    
-    $(".card").children("img").click(function(e){
-      location.href = "/ssang/groupBoard/index.html"
-    })
-    $(".g-title").click(function(e){
-      $("tr").removeClass("lately")
-      $(e.target.closest("tr")).addClass("lately")
-      $(".modal").modal("show")
-    })
-    $(".btn-cancel").click(function(e){
-      e.stopPropagation();
-      swa.fire({
-        title: '신청을 취소하시겠습니까?',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonText: '신청 취소',
-        cancelButtonText: '취소',
-      }).then((result) => {
-        if (result.isConfirmed) {
-          $(e.target).closest(".card").remove()
-          swa.fire(
-            '신청이 취소되었습니다',
-            '',
-            'success'
-          )
-        }
-      })
-    })
-    $(".btn-accept").click(function(e){
-      e.stopPropagation();
-      swa.fire({
-        title: '가입을 수락하시겠습니까?',
-        icon: 'question',
-        showCancelButton: true,
-        confirmButtonText: '수락',
-        cancelButtonText: '취소'
-      }).then((result) => {
-        if (result.isConfirmed) {
-          $(".lately").remove()
-          $(".modal").modal("hide")
-          swa.fire(
-            '가입을 수락하였습니다.',
-            '',
-            'success'
-            )
-          }
-        })
-      })
-    $(".btn-reject").click(function(e){
-      e.stopPropagation();
-      swa.fire({
-        title: '가입을 거절하시겠습니까?',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonText: '거절',
-        cancelButtonText: '취소'
-      }).then((result) => {
-        if (result.isConfirmed) {
-          $(".lately").remove()
-          $(".modal").modal("hide")
-          swa.fire(
-            '가입을 거절하였습니다.',
-            '',
-            'success'
-            )
-          }
-        })
-      })
-      $(".all-check").click(function(e){
-      if ($(".all-check").is(":checked")){
-        $("input").prop("checked", true)
-      } else {
-        $("input").prop("checked", false)
-      }
-    })
-    $(".btn-delete").click(function(e){
-      if ($(".form-check-input").is(":checked") == false) {
-        swa.fire(
-        '글이 선택되지 않았습니다',
-        '삭제할 글을 선택해주세요',
-        'error'
-        )} else {
-          swa.fire({
-          title: '글을 삭제 하시겠습니까?',
-          text: '삭제하면 가입이 자동 거절됩니다',
-          icon: 'warning',
-          showCancelButton: true,
-          confirmButtonText: '삭제',
-          cancelButtonText: '취소',
-        }).then((result) => {
-          if (result.isConfirmed) {
-            $(".all-check").prop("checked", false)
-            $("input:checkbox:checked").each(function(){
-              this.closest("tr").remove()
-            })
-            swa.fire(
-              '삭제가 완료되었습니다',
-              '',
-              'success'
-              )
-          }
-        })
-      }
-    })
-  </script>
 </body>
 </html>

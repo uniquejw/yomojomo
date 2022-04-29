@@ -1,7 +1,9 @@
 package com.bts.yomojomo.service;
 
+import java.util.List;
 import com.bts.yomojomo.domain.GroupApplyForm;
 
 public interface GroupApplyService {
-  Object masterUser(GroupApplyForm groupApplyForm);
+
+  List<GroupApplyForm> sendList(GroupApplyForm groupApplyForm);
 }

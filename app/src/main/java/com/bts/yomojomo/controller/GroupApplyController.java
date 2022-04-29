@@ -12,10 +12,10 @@ public class GroupApplyController {
   @Autowired
   GroupApplyService groupApplyService;
 
-  @RequestMapping("/group/getmasteruser")
-  public Object getmasteruser(GroupApplyForm groupApplyForm) {
-    System.out.println(groupApplyForm);
-    return groupApplyService.masterUser(groupApplyForm);
+  @RequestMapping("/mypage/group/sendApplyList")
+  public Object sendApplyList(GroupApplyForm groupApplyForm) {
+    System.out.println(groupApplyForm.toString());
+    return groupApplyService.sendList(groupApplyForm);
   }
 
 }

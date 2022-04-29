@@ -1,5 +1,6 @@
 package com.bts.yomojomo.service.impl;
 
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.bts.yomojomo.dao.GroupApplyFormDao;
@@ -13,8 +14,8 @@ public class DefaultGroupApplyService implements GroupApplyService{
   GroupApplyFormDao groupApplyFormDao;
 
   @Override
-  public Object masterUser(GroupApplyForm groupApplyForm) {
-    return groupApplyFormDao.getmasterUser(groupApplyForm);
+  public List<GroupApplyForm> sendList(GroupApplyForm groupApplyForm) {
+    return groupApplyFormDao.sendListFindALL(groupApplyForm);
   }
 
 }

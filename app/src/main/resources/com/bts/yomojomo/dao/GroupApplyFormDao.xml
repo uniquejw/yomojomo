@@ -6,31 +6,36 @@
 
 	<!-- 테이블의 컬럼과 객체필드를 연결한다. -->
 	<resultMap type="GroupApplyForm" id="GroupApplyFormMap">
-		<association property="joinMember" javaType="JoinMember">
-      <association property="group" javaType="Group"> <!-- gms_group -->
-        <id column = "gno" property="no"/>
-        <result column="gname" property="GroupName"/>
-      </association>
-      <association property="memberGrade" javaType="MembGrade"> <!-- gms_memb_grade -->
-        <id column = "mgno" property="gradeNo"/>
-        <result column="mgname" property="gradeName"/>
-      </association>
+    <result column="content" property="content"/>
+    <result column="appl_dt" property="regdt"/>
+    
+
+    <association property="group" javaType="Group">
+      <id column="gno" property="no"/>
+      <result column="gname" property="GroupName"/>
+      <result column="glogo" property="logo"/>
     </association>
-     <association property="member" javaType="Member"> <!-- gms_member -->
-       <id column = "mno" property="no"/>
-       <result column="mname" property="memberName"/>
-     </association>
-	</resultMap>
+    
+    <association property="sendMember" javaType="Member">
+       <id column = "sendMemberno" property="no"/>
+       <result column="sendMemberName" property="memberName"/>
+       
+    </association>
+    
+  </resultMap>
 	
 
 
-	<select id="getmasterUser" resultMap="GroupApplyFormMap">
+	<select id="sendListFindALL" resultMap="GroupApplyFormMap">
 		select
-        memb_no mno
+		  ad.memb_no sendMemberName,
+		  g.name gname,
+		  g.logo glogo
     from
-        gms_join_memb
+		  gms_applyform_default ad
+		  inner join gms_group g on g.g_no = ad.g_no
     where
-        g_no=#{joinMember.group.no} and g_memb_grd_no=1
+      ad.memb_no=8
 	</select>
 	
 <!-- 회원 그룹 리스트 
