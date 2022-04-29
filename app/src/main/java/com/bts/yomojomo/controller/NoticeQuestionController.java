@@ -32,6 +32,12 @@ public class NoticeQuestionController {
     return new ResultMap().setStatus(SUCCESS);
   }
 
+  @RequestMapping("/noticeQuestion/updateAnswer")
+  public Object updateAnswer(NoticeQuestion noticequestion) {
+    noticeQuestionService.updateAnswer(noticequestion);
+    return new ResultMap().setStatus(SUCCESS);
+  }
+  
   @RequestMapping("/noticeQuestion/select")
   public Object select(int no) {
     return noticeQuestionService.select(no);

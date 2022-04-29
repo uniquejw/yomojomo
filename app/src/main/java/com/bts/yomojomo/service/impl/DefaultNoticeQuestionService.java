@@ -24,6 +24,11 @@ public class DefaultNoticeQuestionService implements NoticeQuestionService {
   public int update(NoticeQuestion noticeQuestion) {
     return  noticeQuestionDao.update(noticeQuestion);
   }
+	
+	@Override
+  public int updateAnswer(NoticeQuestion noticeQuestion) {
+    return  noticeQuestionDao.updateAnswer(noticeQuestion);
+  }
 
 	@Override
   public int delete(int no) {
