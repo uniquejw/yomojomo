@@ -103,7 +103,7 @@
       </div>
     </div>
   </div>
-</div>
+</div><!-- 부트스트랩 모달 -->
 <div id="footers"></div>
 </body>
 <script id="memb-template" type="text/x-handlebars-template">
@@ -116,7 +116,9 @@
     <div class="grade">
       <span class="x-general">{{memberGrade.gradeName}}</span>
     </div>
-    <button type="button"  class="memb-report icon" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo" value="{{member.no}}"><span class="material-icons md-34" >report</span></button>
+    <button type="button"  class="memb-report icon" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo" value="{{member.no}}">
+      <span class="material-icons md-34" >report</span>
+    </button>
   </div><!---memb-item-->
   {{/each}}
 </script>
