@@ -28,7 +28,7 @@ fetch("/member/getLoginUser")
 var writtenContainer = document.querySelector("#handlebars-container");
 var divTemplate = document.querySelector("#div-template");
 var htmlGenerator = Handlebars.compile(divTemplate.innerHTML);
-fetch(PATH.groupList)
+fetch('/group/list')
   .then(function(response) {
     return response.json();
   })
