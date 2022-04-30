@@ -15,8 +15,8 @@
   <link rel="stylesheet" href="/node_modules/sweetalert2/dist/sweetalert2.min.css">
   <link rel="stylesheet" href="/css/common.css">
   <!--내css-->
-  <link rel="stylesheet" href="/minkyu/css/main.css">
-  <link rel="stylesheet" href="/minkyu/css/edit.css">
+  <link rel="stylesheet" href="/mypage/css/main.css">
+  <link rel="stylesheet" href="/mypage/css/edit.css">
   <!--인클루드-->
   <script type="text/javascript">
     $(document).ready(function () {
@@ -56,13 +56,13 @@
               <div class="row">
                 <div class="col-3 p-2 text-center fw-bold">프로필 사진</div>
                 <div class="col input-group mb-3">
-                  <input class="form-control form-control-sm edit-img" id="formFileSm" type="file" accept=".png, .jpg, .jpeg, .jifi">
+                  <input class="form-control" id="formFile" name="file" type="file" accept=".png, .jpg, .jpeg, .jifi">
                 </div>
                 <div class="col-3 p-2"></div>
               </div>
               <div class="profile-img">
-                <img src="../profile.jpg" class="img-thumbnail" alt="profile">
-                <p class="text-muted img-text">80 * 110 크기 이상의 파일은 자동 조정됩니다</p>
+
+                <p class="text-muted img-text">150 * 200 크기 이상의 파일은 자동 조정됩니다</p>
               </div>
               <div class="row">
                 <div class="col-3 p-2 text-center fw-bold">이메일(아이디)</div>
@@ -207,53 +207,62 @@
     var pupsArr = []
 
     // 정보 가져오기
-    fetch("/member/getLoginUser")
-    .then(function(response){
-      return response.json()
-    })
-    .then(function(result){
-      if (result.status == "fail") {
+    $.ajax({
+      url: '/member/getLoginUser',
+      type: 'POST',
+      dataType: 'json',
+      success: function(result) {
+        console.log(result)
+        if (result.status == "fail") {
         swa.fire({
           icon: 'error',
           title: '로그인 되지 않았습니다',
           text: '로그인 후 다시 시도해주세요',
         }).then((result) => {
-          if (result.isConfirmed) {
-            location.href = "/jaewon/login/login/index.html"
+            if (result.isConfirmed) {
+              location.href = "/jaewon/login/login/index.html"
+            }
+          })
+        }
+        $.ajax({
+          url: '/mypage/get',
+          type: 'POST',
+          dataType: 'json',
+          data: {'no': result.data.no},
+          success: function(memberInfo) {
+            console.log(memberInfo)
+            $("input[name=email]").attr('value',memberInfo.email)
+            $("input[name=name]").attr('value',memberInfo.name)
+            $("input[name=tel]").attr('value',memberInfo.tel)
+            $("input[name=postNo]").attr('value',memberInfo.postNo)
+            $("input[name=roadNameAddr]").attr('value',memberInfo.roadNameAddr)
+            $("input[name=baseAddr]").attr('value',memberInfo.baseAddr)
+            $("input[name=addr]").attr('value',memberInfo.addr)
+            if (memberInfo.photo === null) {
+              memberInfo.photo = "default.jpg"
+            }
+            $(`<img src="photo?filename=150x200_${memberInfo.photo}" class="img-thumbnail">`).appendTo(".profile-img")
+            for (let local of memberInfo.activeLocal) {
+              localArr.push(local.no)
+              $(`<div class="local-wrap">
+                  <span class="badge rounded-pill bg-primary local" data-no="${local.no}">${local.nameGu + " "}</span>
+                  <button type="button" class="btn-close" aria-label="Close"></button>
+                  </div>`)
+                  .appendTo(".edit-local")
+            }
+            for (let pups of memberInfo.purpose) {
+              pupsArr.push(pups.no)
+              $(`<div class="category-wrap">
+                <span class="badge rounded-pill bg-primary category" data-no="${pups.no}">${pups.purposeName + " "}</span>
+                <button type="button" class="btn-close" aria-label="Close"></button>
+                </div>`)
+                .appendTo(".edit-category")
+            }
           }
         })
       }
-      fetch(`/mypage/get?no=${result.data.no}`)
-      .then(function(response){
-        return response.json()
-      })
-      .then(function(memberInfo){
-        console.log(memberInfo)
-        $("input[name=email]").attr('value',memberInfo.email)
-        $("input[name=name]").attr('value',memberInfo.name)
-        $("input[name=tel]").attr('value',memberInfo.tel)
-        $("input[name=postNo]").attr('value',memberInfo.postNo)
-        $("input[name=roadNameAddr]").attr('value',memberInfo.roadNameAddr)
-        $("input[name=baseAddr]").attr('value',memberInfo.baseAddr)
-        $("input[name=addr]").attr('value',memberInfo.addr)
-        for (let local of memberInfo.activeLocal) {
-          localArr.push(local.no)
-          $(`<div class="local-wrap">
-              <span class="badge rounded-pill bg-primary local" data-no="${local.no}">${local.nameGu + " "}</span>
-              <button type="button" class="btn-close" aria-label="Close"></button>
-            </div>`)
-          .appendTo(".edit-local")
-        }
-        for (let pups of memberInfo.purpose) {
-          pupsArr.push(pups.no)
-          $(`<div class="category-wrap">
-              <span class="badge rounded-pill bg-primary category" data-no="${pups.no}">${pups.purposeName + " "}</span>
-              <button type="button" class="btn-close" aria-label="Close"></button>
-            </div>`)
-          .appendTo(".edit-category")
-        }
-      })
     })
+
       // 리스트 불러오기
       fetch("/activeLocal/list")
       .then(function(response){
@@ -373,9 +382,8 @@
 
         
         $("#edit-btn").click(function(e){   
-          if ($("input[name=pwd]").val() == "" || $("input[name=pwdCheck]").val() == "" || $("input[name=tel]").val() == "" ||
-            $("input[name=postNo]").val() == "" || $("input[name=roadNameAddr]").val() == "" || $("input[name=baseAddr]").val() == "" ||
-            $("input[name=addr]").val() == "" ) {
+          if ($("input[name=tel]").val() == "" || $("input[name=postNo]").val() == "" || $("input[name=roadNameAddr]").val() == "" || 
+              $("input[name=baseAddr]").val() == "" || $("input[name=addr]").val() == "" ) {
               swa.fire(
                 '필수 입력 항목이 비었습니다',
                 '항목을 다시 입력해주세요',
@@ -390,7 +398,7 @@
                   '비밀번호가 다릅니다',
                   '비밀번호 서로 같은지 다시 확인해주세요',
                   'error'
-                )} else if (strongRegex.test($("input[name=pwdCheck]").val()) !== true){
+                )} else if ($("input[name=pwdCheck]").val() !== "" && $("input[name=pwd]").val() !== "" && strongRegex.test($("input[name=pwdCheck]").val()) !== true){
                 swa.fire(
                 '비밀번호가 조건에 맞지않습니다',
                 '최소 하나의 문자,숫자,특수문자를 조합해주세요. 8자 이상 12자 이하의 비밀번호로 작성해주세요',
@@ -410,38 +418,46 @@
                         dataType: 'json',
                         success: function(result) {
                           // 기본정보
-                          let xPwd = $("input[name=pwd]").val()
-                          let xTel = $("input[name=tel]").val()
-                          let xPostNo = $("input[name=postNo]").val()
-                          let xRoadAddr = $("input[name=roadNameAddr]").val()
-                          let xBaseAddr = $("input[name=baseAddr]").val()
-                          let xAddr = $("input[name=addr]").val()
-                          console.log(localArr)
-                          for (var i = 0; i <localArr.length; i++) {
-                            var localArrTest = {};
-                            localArrTest.push(localArr[i])
-                          }
-                          let updateData = {'no': result.data.no, 'pwd': xPwd, 'tel': xTel, 'postNo': xPostNo, 'baseAddr': xBaseAddr, 'roadNameAddr': xRoadAddr, 'addr': xAddr, "localArr":localArrTest, "purposeArr":pupsArr}
+                          var memberNo = result.data.no
+                          var formUpdate = new FormData()
+                          formUpdate.append('no', result.data.no)
+                          formUpdate.append('pwd', $("input[name=pwd]").val())
+                          formUpdate.append('tel', $("input[name=tel]").val())
+                          formUpdate.append('postNo', $("input[name=postNo]").val())
+                          formUpdate.append('baseAddr', $("input[name=roadNameAddr]").val())
+                          formUpdate.append('roadNameAddr', $("input[name=baseAddr]").val())
+                          formUpdate.append('addr', $("input[name=addr]").val())
+                          formUpdate.append('file', $("#formFile")[0].files[0])
                           $.ajax({
                             url: '/mypage/update',
                             type: 'POST',
                             dataType: 'json',
-                            data: updateData,
+                            data: formUpdate,
+                            processData: false,
+                            contentType: false,
                             success: function(resultData) {
                               console.log(resultData)
                               $.ajax({
                                 url: '/mypage/deleteCategory',
                                 type: 'POST',
                                 dataType: 'json',
-                                data: updateData,
+                                data: {'no': memberNo},
                                 success: function() {
+                                  let updateParams = {
+                                    "number" : result.data.no,
+                                    "localArr" : localArr,
+                                    "purposeArr" : pupsArr
+                                  }
                                   $.ajax({
                                     url: '/mypage/insertCategory',
                                     type: 'POST',
                                     dataType: 'json',
-                                    data: updateData,
+                                    data: updateParams,
                                     success: function() {
                                       console.log("업데이트 성공!")
+                                      },
+                                    error : function(){
+                                      console.log("업데이트 실패")
                                     }
                                   })
                                 }
@@ -450,13 +466,13 @@
                           })
                         }
                       })
-                    swa.fire({
-                      title: '수정이 완료되었습니다',
-                      icon: 'success',
-                      confirmButtonText: 'OK',
-                    }).then((result) => {
+                      swa.fire({
+                        title: '수정이 완료되었습니다',
+                        icon: 'success',
+                        confirmButtonText: 'OK',
+                      }).then((result) => {
                       if (result.isConfirmed) {
-                        // location.reload()
+                        location.reload()
                       }
                     })
                   }

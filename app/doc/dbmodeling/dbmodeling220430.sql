@@ -1,3 +1,4 @@
+
 -- 회원
 DROP TABLE IF EXISTS gms_memb RESTRICT;
 
