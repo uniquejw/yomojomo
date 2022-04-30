@@ -54,28 +54,29 @@
     </div>
         
           <div class = "announcement_title">
-            <span style="vertical-align: middle;">공지사항</span>
-            <span><button id="x-create-btn" type="button" style="float: right; margin-bottom: 20px;" class="btn btn-primary">등록</button></span>
+            <span style="vertical-align: middle; font-weight: bold;">공지사항</span>
           </div>
           <script>
             document.querySelector("#x-create-btn").onclick = function(){
             location.href="announcement_form.html";
               };
           </script>
-        <table class = "announcement_table" style="margin: auto;">
+       <div class = "faq_list_table" style="margin-left: 140px;">
+        <table style="border-collapse: collapse;
+        text-align: left;
+        line-height: 1.5;">
           <thead>
             <tr>
-              <th>번호</th>
-              <!-- <th>유형</th> -->
+              <th style="display: none;">번호</th>
+              <th style="width:40px;">유형</th>
               <th>제목</th>
-              <th>작성일</th>
             </tr>
-            <tbody class="announcement_tr">
+            <tbody class="faq_tr">
             </tbody>
           </thead>
         </table>
         <nav aria-label="Page navigation example">
-          <ul class="pagination justify-content-center">
+          <ul class="pagination justify-content-center" style="margin-right:500px;">
             <li class="page-item disabled">
               <a class="page-link">Previous</a>
             </li>
@@ -95,5 +96,5 @@
 
 </body>
 </html>
-<script src="../js/announcement.js"></script>
+<script src="../js/faq.js"></script>
 <script src="../js/location.js"></script>

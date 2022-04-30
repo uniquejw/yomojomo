@@ -45,4 +45,21 @@ public class DefaultMyPageService implements MyPageService {
     mypageDao.insertPurpose(mypage.getNo(), mypage.getFinalPurpose());
     return 1;
   }
+
+  @Override
+  public MyPage myPost(int no) {
+    MyPage mypage = mypageDao.findByMyPost(no);
+    return mypage;
+  }
+
+  @Override
+  public MyPage myScrap(int no) {
+    MyPage mypage = mypageDao.findByMyScrap(no);
+    return mypage;
+  }
+
+  @Override
+  public MyPage myNotice(int no) {
+    return mypageDao.findByMyNotice(no);
+  }
 }

@@ -7,12 +7,12 @@ function allList() {
       return response.json()
     })
     .then(function(boards) {
-      for (var i = 0; i < boards.length; i++) {
+      for (var i = 0; i < 3; i++) {
         var tr = document.createElement("tr")
         // div.classList.add("card-body")
         tr.innerHTML = `
         <td style="display:none;">${boards[i].no}</td>
-        <td>${boards[i].queryCate.name}</td>
+        <td style="font-weight:bold;">업데이트</td>
         <td><a href="faq_view.html?no=${boards[i].no}">
         ${boards[i].title}</td></a>
         `

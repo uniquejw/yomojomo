@@ -1,0 +1,61 @@
+.my-info {
+  position: relative;
+  border: 1px solid gray;
+  border-radius: 10px;
+  width: 700px;
+  height: 1250px;
+  margin: auto;
+  justify-content: center;
+  text-align: center;
+}
+.profile-img {
+  position: relative;
+  height: 210px;
+  width: auto;
+}
+.img-text {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: 160px 0px 0px 280px;
+  font-size: 14px;
+}
+.img-thumbnail {
+  position: absolute;
+  top: 0;
+  left: 0;
+  max-width: 150px;
+  max-height: 200px;
+  margin-left: 180px;
+}
+.form-select {
+  margin-bottom: 10px;
+}
+.form-select:hover {
+  cursor: pointer;
+}
+.editing-table {
+  margin-top: 20px;
+  padding: 10px 60px;
+}
+.local-wrap {
+  display: flex;
+  vertical-align: middle;
+  margin: 3px;
+}
+.category-wrap {
+  display: flex;
+  vertical-align: middle;
+  margin: 3px;
+}
+#edit-btn {
+  position: absolute;
+  right: 0; bottom: 0;
+  margin-right: 50px;
+  margin-bottom: 20px;
+}
+.notice {
+  font-size: 14px;
+}
