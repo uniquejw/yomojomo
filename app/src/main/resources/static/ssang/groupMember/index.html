@@ -35,21 +35,21 @@
 <div id="container">
   <div class="width-fix-container">
     <div class="member-top">
-      <div class="memb-count">
-        <span>인원수 표시</span>  
-      </div>
-      <div class="invite-btn">
+      <div class="memb-count"></div>
+      <!-- <div class="invite-btn">
         <button type="button" class="btn btn-link btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">초대하기</button>
-      </div>
+      </div> -->
       <div class="member-top-search">
-        <nav class="navbar">
+        <!-- 검색부트스트랩 -->
+        <!-- <nav class="navbar">
           <div class="container-fluid">
             <form class="d-flex">
-              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-              <button class="btn btn-outline-success" type="submit">Search</button>
+              <input class="form-control me-2" type="search" placeholder="회원검색" aria-label="Search" onkeyup="searchMember()">
+              <button class="btn btn-outline-success" type="submit" onclick="searchMember()">검색</button>
             </form>
           </div>
-        </nav>
+        </nav> -->
+        <!-- 검색부트스트랩 -->
       </div><!-- member-top-search -->
     </div><!-- member-top -->
     
@@ -66,7 +66,7 @@
             <div id="membContainer"></div>
           </div>
           <div class="modify-btn-div">
-            <button class="settings-btn" type="button">
+            <button class="settings-btn" type="button" style="visibility: hidden">
               <span class="material-icons md-32">
                 settings
               </span>
@@ -108,7 +108,7 @@
 </body>
 <script id="memb-template" type="text/x-handlebars-template">
   {{#each this}}
-  <div class="memb-item" >
+  <div class="memb-item list-group-item-search" >
     <span class="material-icons md-32">
     person
     </span>
