@@ -170,7 +170,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         }else{ //정상 입력
                             var fd = new FormData(document.forms.namedItem("calendar-update"))
                             fd.append("no", eventObj.id);
-                            fd.append("g_no", gno)
+                            fd.append("joinMemb.group.no", gno)
                             
                             fetch("/calendar/update", {
                                 method: "POST",
