@@ -27,8 +27,6 @@
        <result column="calname" property="name"/>
        <result column="calcontent" property="content"/>
     </association>
-    
-    
   </resultMap>
 
   

@@ -283,6 +283,7 @@ document.querySelector("#x-update-btn").onclick = function() {
     }
 
   //쿼리스트링 만들기
+  
   var qs = `accountingNo=${xNo.value}&group.no=${gno}&actCate.no=${$("#x-selectCate option:selected").val()}&title=${xTitle.value}&amount=${xAmount.value}&status=${$("#x-status option:selected").val()}`
   
   if (memberListAll.length != 0) { //일반 수정 쿼리스트링

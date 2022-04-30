@@ -70,6 +70,11 @@ public class DefaultJoinMember implements JoinMemberService{
     return joinMemberDao.delete(no);
   }
 
+  @Override
+  public int deleteMember(JoinMember joinMember) {
+    return joinMemberDao.deleteMember(joinMember);
+  }
+
 
 
 

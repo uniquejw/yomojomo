@@ -29,7 +29,7 @@
     from
       gms_applyform_default
     where
-      memb_no2 = #{master.no}
+       memb_no2 = #{master.no}
   </select>
   
   
@@ -40,7 +40,7 @@
    (SELECT 
 	 memb_no 
 	 from 
-	 gms_join_memb
+	 gms_join_memb 
 	 WHERE 
 	 g_no = #{groupNo}
 	 AND 

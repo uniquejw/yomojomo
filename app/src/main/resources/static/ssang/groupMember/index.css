@@ -35,13 +35,13 @@ ol, ul, li {
     color: rgb(17, 147, 218);
     margin-left: 3px;
 }
-.report-btn .material-icons{
+.memb-report .material-icons{
     color: rgba(231, 76, 60, 0.6);
     margin-left: 3px;
 }
 .material-icons.md-32 { font-size: 32px; }
 .material-icons.md-32 { font-size: 32px; }
-.report-btn, .settings-btn{
+.memb-report, .settings-btn{
     background-color: #fff;
     border: none;
     display: block;
@@ -101,7 +101,7 @@ ol, ul, li {
 .grade{
     display: inline-block;
 }
-button.report-btn{
+button.memb-report{
     display: inline;
     margin: 0 0 0 5px;
 }

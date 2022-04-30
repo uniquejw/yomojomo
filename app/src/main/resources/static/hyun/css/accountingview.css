@@ -24,14 +24,16 @@ table > tbody > tr > td:nth-child(odd) {
 #x-membList-container{
   border: 1px solid rgb(17, 147, 218);
   padding: 5px;
-  margin: 20px;
+  /* margin: 20px; */
 }
 .x-membList {
   /* border: solid 1px red; */
-  margin: 60px;
+  /* margin: 60px;
   margin-top: 30px;
   padding-top: 30px;
   padding-bottom: 30px;
+  display: inline; */
+  padding: 10px, 0px;
   display: inline;
 }
 .x-membList > .material-icons{

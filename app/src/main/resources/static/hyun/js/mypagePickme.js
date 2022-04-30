@@ -1,21 +1,19 @@
 $(document).ready(function () {
-  $('#header').load('/junho/mainHeader.html'); //헤더 인클루드
-  $('#footers').load('/junho/mainfooter.html'); //푸터부분 인클루드
+  $('#header').load('/junho/mainHeader.html');
+  $('#footers').load('/junho/mainfooter.html');
   $("#listnone").hide();
   $("#sendlistnone").hide();
 });
 
-$.ajax({ //로그인 여부 확인 ajax START 비회원은 등록버튼 감춘다.
+$.ajax({
   url : "/member/getLoginUser",
   type : "POST",
   success: function (result) {
     let memberInfo = result.data;
-    // console.log(memberInfo);
     if (result.status == "fail") {
       location.href="/junho/index.html";
     } else {
 
-      //초대 메세지 받은거 뿌리기
       $.ajax({
         url: "/invitebox/invitelistbyrecipientpaing",
         type: "POST",
@@ -26,6 +24,7 @@ $.ajax({ //로그인 여부 확인 ajax START 비회원은 등록버튼 감춘�
           "memberNo" : memberInfo.no
         },
         success: function (msgResult) {
+          console.log(msgResult);
           let totalListCount = msgResult.totalListCount;
           let totalPageSize = msgResult.totalPageSize;
           let requestPageNo = msgResult.pageNo;
@@ -40,7 +39,7 @@ $.ajax({ //로그인 여부 확인 ajax START 비회원은 등록버튼 감춘�
             $("#recivedlistnone").show();
           }
 
-          $("#recivedpageNo").text(requestPageNo); //번호 출력
+          $("#recivedpageNo").text(requestPageNo);
 
           if (requestPageNo == 1) {
             $("#recivedpreA").hide();
@@ -800,10 +799,7 @@ $.ajax({ //로그인 여부 확인 ajax START 비회원은 등록버튼 감춘�
               });
           })
 
-
-
-
-          //요청 전체 체크박스          
+    
           $(".send-all-check").click(function (e) {
             if ($(".send-all-check").is(":checked")) {
               $(".sender-table").find("input").prop("checked", true)
@@ -812,7 +808,6 @@ $.ajax({ //로그인 여부 확인 ajax START 비회원은 등록버튼 감춘�
             }
           });
 
-          //요청 삭제 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!메세지 받는거 한 후에 confirm 별 권한 설정하기!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
           $("#send-deleteBtn").on("click", function () {
             console.log("클릭");
             let deleteArr = [];
@@ -858,8 +853,10 @@ $.ajax({ //로그인 여부 확인 ajax START 비회원은 등록버튼 감춘�
           
           if (totalListCount != 0) {
             tbody.innerHTML = htmlGenerator(pickmeResult.data);
+            $("#pickme-deleteBtn").show();
           } else {
             $("#listnone").show();
+            $("#pickme-deleteBtn").hide();
           }
           
           $("#pageNo").text(requestPageNo); //번호 출력

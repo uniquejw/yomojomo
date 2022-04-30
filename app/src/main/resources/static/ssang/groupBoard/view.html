@@ -33,29 +33,55 @@
   <div id="top"></div>
   <div id="container">
     <div id="width-fix-div">
-      <div class="write-board2">Edit Post</div>
+      <div class="write-board2">Post</div>
       <div class="written-width-fix2">
         <div class="written-author-div">
           <div class="written-author-img-div">
             <img class="written-author-img" src="../공연.jfif" style="width: 50px; height: 50px;" alt="">   &nbsp;&nbsp;&nbsp;
           </div>
           <div class="written-column-div">
-            <div class="written-author-name">&nbsp;&nbsp;&nbsp;이름</div>
-            <div class="written-createdTime">몇분전</div>
+            <div class="written-author-name">&nbsp;&nbsp;&nbsp;</div>
+            <div class="written-createdTime"></div>
           </div>
         </div>
         <div class="written-content-div">
-          <div class="written-content">다들 어떻게 지내시나요? 날씨가 좋은 봄이에요 살랑살랑해</div>
+          <div class="written-content"></div>
         </div>
         <div class="post-cancel-div">
           <button id="s-cancel-btn" type="button">취소</button>
-          <button id="s-report-btn" type="button">신고</button>
         </div>
       </div>
       <hr>
       <!-- 댓글 -->
       <div id="handlebars-container"></div>
     </div>  
+  </div>
+  <!-- 부트스트랩 모달 -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">게시글 신고</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form name="form1">
+            <div class="mb-3">
+              <label for="recipient-name" class="col-form-label">제목:</label>
+              <input type="text" name="title" class="form-control" id="recipient-name">
+            </div>
+            <div class="mb-3">
+              <label for="message-text" class="col-form-label">신고사유:</label>
+              <textarea class="form-control" id="message-text" name="content"></textarea>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+          <button type="button" id="comment-report-exactly"  class="btn btn-primary">신고하기</button>
+        </div>
+      </div>
+    </div>
   </div>
   <div id="footers"></div>
   <script id="comment-template" type="text/x-handlebars-template">
@@ -72,7 +98,7 @@
       <div class="comment-createdTime">{{registDate}}</div>
     </div>
     <div class="modify-div">
-      <button class="comment-report icon" type="button" value="{{no}}"><span class="material-icons md-34" >report</span></button>
+      <button type="button"  class="comment-report icon" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo" value="{{no}}"><span class="material-icons md-34" >report</span></button>
       {{#if isWriter}}
       <button class="comment-delete icon" type="button" value="{{no}}"><span class="material-icons md-34" >delete</span></button>
       <button class="comment-edit icon" type="button" value="{{no}}" data-content="{{content}}"><span class="material-icons md-34" >mode_edit</span></button>

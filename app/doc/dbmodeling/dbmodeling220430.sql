@@ -1,3 +1,4 @@
+
 -- 회원
 DROP TABLE IF EXISTS gms_memb RESTRICT;
 
@@ -118,8 +119,7 @@ CREATE TABLE gms_memb (
   unsubscribe   BOOLEAN      NULL     COMMENT '탈퇴여부', -- 탈퇴여부
   status        BOOLEAN      NULL     COMMENT '상태', -- 상태
   stop_dt       DATE         NULL     COMMENT '제재일', -- 제재일
-  cre_dt        DATE         NOT NULL DEFAULT current_timestamp() COMMENT '가입일', -- 가입일
-  path          VARCHAR(255) NULL     COMMENT '프로필 사진' -- 프로필 사진
+  cre_dt        DATE         NOT NULL DEFAULT current_timestamp() COMMENT '가입일' -- 가입일
 )
 COMMENT '회원';
 
@@ -192,18 +192,19 @@ ALTER TABLE gms_keyword
 
 -- 소모임
 CREATE TABLE gms_group (
-  g_no         INTEGER      NOT NULL COMMENT '모임번호', -- 모임번호
-  act_local_no INTEGER      NOT NULL COMMENT '활동지역번호', -- 활동지역번호
-  pups_no      INTEGER      NOT NULL COMMENT '모임목적번호', -- 모임목적번호
-  name         VARCHAR(50)  NOT NULL COMMENT '모임이름', -- 모임이름
-  reg_dt       DATE         NOT NULL DEFAULT current_timestamp() COMMENT '모임생성일', -- 모임생성일
-  logo         VARCHAR(255) NULL     COMMENT '모임로고사진', -- 모임로고사진
-  intro        LONGTEXT     NOT NULL COMMENT '모임안내문구', -- 모임안내문구
-  memb_cnt     INTEGER      NOT NULL COMMENT '현재인원수', -- 현재인원수
-  max_cnt      INTEGER      NOT NULL DEFAULT 1 COMMENT '최대인원수', -- 최대인원수
-  view_cnt     INTEGER      NOT NULL DEFAULT 0 COMMENT '방문자수', -- 방문자수
-  status       BOOLEAN      NULL     COMMENT '상태', -- 상태
-  stop_dt      DATE         NULL     COMMENT '제제일' -- 제제일
+  g_no          INTEGER      NOT NULL COMMENT '모임번호', -- 모임번호
+  act_local_no  INTEGER      NOT NULL COMMENT '활동지역번호', -- 활동지역번호
+  pups_no       INTEGER      NOT NULL COMMENT '모임목적번호', -- 모임목적번호
+  name          VARCHAR(50)  NOT NULL COMMENT '모임이름', -- 모임이름
+  reg_dt        DATE         NOT NULL DEFAULT current_timestamp() COMMENT '모임생성일', -- 모임생성일
+  logo          VARCHAR(255) NULL     COMMENT '모임로고사진', -- 모임로고사진
+  intro         LONGTEXT     NOT NULL COMMENT '모임안내문구', -- 모임안내문구
+  memb_cnt      INTEGER      NOT NULL COMMENT '현재인원수', -- 현재인원수
+  max_cnt       INTEGER      NOT NULL DEFAULT 1 COMMENT '최대인원수', -- 최대인원수
+  view_cnt      INTEGER      NOT NULL DEFAULT 0 COMMENT '방문자수', -- 방문자수
+  status        BOOLEAN      NULL     COMMENT '상태', -- 상태
+  stop_dt       DATE         NULL     COMMENT '제제일', -- 제제일
+  g_delete_stat INTEGER      NOT NULL DEFAULT 1 COMMENT '모임삭제상태' -- 모임삭제상태
 )
 COMMENT '소모임';
 
@@ -347,9 +348,8 @@ ALTER TABLE gms_comment
 -- 모임게시글사진
 CREATE TABLE gms_photo (
   g_photo INTEGER      NOT NULL COMMENT '사진번호', -- 사진번호
-  path    VARCHAR(255) NOT NULL COMMENT '사진경로', -- 사진경로
-  memb_no INTEGER      NULL     COMMENT '회원번호', -- 회원번호
-  g_no    INTEGER      NULL     COMMENT '모임번호' -- 모임번호
+  b_no    INTEGER      NOT NULL COMMENT '게시글번호', -- 게시글번호
+  path    VARCHAR(255) NOT NULL COMMENT '사진경로' -- 사진경로
 )
 COMMENT '모임게시글사진';
 
@@ -426,9 +426,10 @@ ALTER TABLE gms_file
 
 -- 모임맴버
 CREATE TABLE gms_join_memb (
-  memb_no       INTEGER NOT NULL COMMENT '회원번호', -- 회원번호
-  g_no          INTEGER NOT NULL COMMENT '모임번호', -- 모임번호
-  g_memb_grd_no INTEGER NOT NULL COMMENT '모임등급유형번호' -- 모임등급유형번호
+  memb_no         INTEGER NOT NULL COMMENT '회원번호', -- 회원번호
+  g_no            INTEGER NOT NULL COMMENT '모임번호', -- 모임번호
+  g_memb_grd_no   INTEGER NOT NULL COMMENT '모임등급유형번호', -- 모임등급유형번호
+  g_memb_out_stat INTEGER NOT NULL DEFAULT 1 COMMENT '모임탈퇴상태' -- 모임탈퇴상태
 )
 COMMENT '모임맴버';
 
@@ -1002,14 +1003,12 @@ ALTER TABLE gms_comment
 
 -- 모임게시글사진
 ALTER TABLE gms_photo
-  ADD CONSTRAINT FK_gms_join_memb_TO_gms_photo -- 모임맴버 -> 모임게시글사진
+  ADD CONSTRAINT FK_gms_board_TO_gms_photo -- 모임게시글 -> 모임게시글사진
     FOREIGN KEY (
-      memb_no, -- 회원번호
-      g_no     -- 모임번호
+      b_no -- 게시글번호
     )
-    REFERENCES gms_join_memb ( -- 모임맴버
-      memb_no, -- 회원번호
-      g_no     -- 모임번호
+    REFERENCES gms_board ( -- 모임게시글
+      b_no -- 게시글번호
     );
 
 -- 모임내부 일정

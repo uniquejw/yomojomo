@@ -17,11 +17,14 @@ if(arr.includes(loginUser.data.no) == false){
 var MemberInfo = getGrade.data;
 var memberAuthority; //멤버등급번호
 
-for (i=0; i < MemberInfo.length; i++) { //현재 있는 그룹의 정보 배열로 빼기
+for (var i=0; i < MemberInfo.length; i++) { //현재 있는 그룹의 정보 배열로 빼기
 if (getGroup == MemberInfo[i].group.no) {
   memberAuthority = MemberInfo[i].memberGrade.gradeNo
 }   
 }
+var writtenContainer = document.querySelector("#handlebars-container");
+var divTemplate = document.querySelector("#div-template");
+var htmlGenerator = Handlebars.compile(divTemplate.innerHTML);
 // 로그인 정보 요청
 fetch("/member/getLoginUser")
 .then(function(res){
@@ -29,16 +32,13 @@ fetch("/member/getLoginUser")
 })
 .then(function(res) {
 // 게시글 읽어오기
-var writtenContainer = document.querySelector("#handlebars-container");
-var divTemplate = document.querySelector("#div-template");
-var htmlGenerator = Handlebars.compile(divTemplate.innerHTML);
 fetch(`/board/findByGroupNo?no=${getGroup}`)
 .then(function(response) {
   return response.json();
 })
 .then(function(boards){
   for (var board of boards) {
-    if (board.writer.no == window.loginUser.no) {//게시글 작성자 인지 검사
+    if (board.writer.no == loginUser.no) {//게시글 작성자 인지 검사
       board.isWriter = true;
     } else {
       board.isWriter = false;
@@ -53,10 +53,94 @@ fetch(`/board/findByGroupNo?no=${getGroup}`)
   console.log(boards);
   writtenContainer.innerHTML = htmlGenerator({
     list : boards,
-    user : window.loginUser
+    user : loginUser
   });
 })
 })// fetch -> member/getLoginUser
+
+//오래된 순 
+$(".select-orderby").on("click", function() {
+  var value =  $(".select-orderby option:selected").val()
+  if (value == 1){
+    fetch(`/board/findByGroupNo?no=${getGroup}`)
+    .then(function(response) {
+      return response.json();
+    })
+    .then(function(boards){
+      for (var board of boards) {
+        if (board.writer.no == loginUser.no) {//게시글 작성자 인지 검사
+          board.isWriter = true;
+        } else {
+          board.isWriter = false;
+        }
+        if(memberAuthority == '1'){ // 모임장인지 검사
+          board.isMaster = true;
+        } else {
+          board.isMaster = false;
+        }
+
+      }
+      console.log(boards);
+      writtenContainer.innerHTML = htmlGenerator({
+        list : boards,
+        user : loginUser
+      });
+    })
+  } else if(value ==2){
+    fetch(`/board/findByGroupNoAsc?no=${getGroup}`)
+    .then(function(response) {
+      return response.json();
+    })
+    .then(function(result){
+      var boards = result.data 
+      for (var board of boards) {
+        if (board.writer.no == loginUser.no) {//게시글 작성자 인지 검사
+          board.isWriter = true;
+        } else {
+          board.isWriter = false;
+        }
+        if(memberAuthority == '1'){ // 모임장인지 검사
+          board.isMaster = true;
+        } else {
+          board.isMaster = false;
+        }
+
+      }
+      console.log(boards);
+      writtenContainer.innerHTML = htmlGenerator({
+        list : boards,
+        user : loginUser
+      });
+    })
+  }
+})
+
+// 게시글 신고 
+var xTitle = document.querySelector('#recipient-name');
+var xContent =document.querySelector('#message-text');
+$(document).on("click", ".board-report", function() {
+  var value = $(this).val();
+  console.log(value)
+  $(document).on("click", "#board-report-exactly", function() {
+    console.log('클릭')
+    if(xTitle.value == "" || xContent.value == ""){
+      alert("신고사유를 작성해주세요");
+      return;
+    }
+    var fd = new FormData(document.forms.namedItem("form1"));
+    fd.append('reported',value)
+    fd.append('rptCateNo',3)
+    fetch("/report/add",{
+      method : "POST",
+      body : fd
+    }).then(function(res){
+      return res.json();
+    }).then(function(result){
+      alert("신고가 완료되었습니다.")
+      location.reload();
+    })
+  })
+})///게시글 신고 끝
 // 댓글 등록
 $(document).on("click", ".comment-btn", function() {
   var value = $(this).val()

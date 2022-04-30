@@ -29,9 +29,32 @@ Swal.fire({
   footer: '',
 })
 }
-
-
-
+// 멤버 신고 
+var xTitle = document.querySelector('#recipient-name');
+var xContent =document.querySelector('#message-text');
+var value = $(this).val();
+console.log(value)
+$(document).on("click", "#group-report-exactly", function() {
+  console.log('클릭')
+  if(xTitle.value == "" || xContent.value == ""){
+    alert("신고사유를 작성해주세요");
+    return;
+  }
+  var fd = new FormData(document.forms.namedItem("form1"));
+  fd.append('reported',groupNo)
+  fd.append('rptCateNo',2)
+  fetch("/report/add",{
+    method : "POST",
+    body : fd
+  }).then(function(res){
+    return res.json();
+  }).then(function(result){
+      if(result.status == 'success'){
+    alert("신고가 완료되었습니다.")
+    location.reload();
+      }
+  })
+})///멤버 신고 끝
 // 신청서 등록
 var xQuestionCon = document.querySelector("#x-question-container")
 document.querySelector("#x-apply-form").onclick = function() {
@@ -73,6 +96,13 @@ fetch(`/applyQuestion/update?${qs}`)
   return res.json()
 }).then(function(result){
   console.log(result.data)
+  Swal.fire({
+    position: 'top-end',
+    icon: 'success',
+    title: '저장되었습니다',
+    showConfirmButton: false,
+    timer: 1500
+  })
 })
 })
 
@@ -82,3 +112,65 @@ fetch(`/applyQuestion/update?${qs}`)
 //   cnt = document.querySelectorAll('.apply-content').length
 //   console.log(cnt)
 // },2000 )
+
+
+// ---------------------------------------------------------
+// 모임삭제버튼
+var qs = window.location.search
+console.log(qs)
+var params = new URLSearchParams(qs);
+var gNoParameter = params.get('gno');
+console.log(gNoParameter)
+
+function deleteGroup() {
+  var data = {'no': gNoParameter};
+  $.ajax({
+    url: '/group/delete',
+    type: 'POST',
+    dataType: 'json',
+    data: data,
+    success: function(result) {
+      console.log(result)
+    }
+  })
+}
+
+document.querySelector('#groupDelete').addEventListener('click', function() {
+  deleteGroup();
+  window.location.href = '/junho/index.html'
+})
+
+// ---------------------------------------------------------
+// 모임탈퇴 버튼
+var memberNo = 0;
+function getLoginUser() {
+  $.ajax({
+    url: '/member/getLoginUser',
+    type: 'POST',
+    dataType: 'json',
+    success: function(result) {
+      memberNo= result.data.no
+    }
+  })
+}
+getLoginUser()
+
+function deleteMember() {
+  var data = {'member.no': memberNo, 'group.no': gNoParameter}
+  $.ajax({
+    url: '/joinmember/deleteMember',
+    type: 'POST',
+    dataType: 'json',
+    data: data,
+    success: function(result) {
+      console.log(result)
+    }
+  })
+}
+
+document.querySelector('#button-addon2').addEventListener('click', function() {
+  deleteMember();
+  window.location.href = '/junho/index.html';
+})
+
+

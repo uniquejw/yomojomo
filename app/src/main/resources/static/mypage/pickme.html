@@ -40,7 +40,7 @@
         </nav>
 
         <div class="content d-flex flex-column">
-          <h3>초대가 온 픽미</h3>
+          <h3>받은 초대장</h3>
           <br>
 
           <div class="recived-table table-wrap d-flex flex-column">
@@ -48,8 +48,9 @@
               <thead>
                 <tr>
                   <!-- <th scope="col"><input class="form-check-input send-all-check" type="checkbox" value="" id="flexCheckDefault"></th> -->
-                  <th scope="col">초대장번호</th>
-                  <th scope="col">제목</th>
+                  <th scope="col"> 초대받은 모임</th>
+                  <th scope="col" width="140px" style="display: none;">초대장번호</th>
+                  <th scope="col" width="400px">제목</th>
                   <th scope="col">보낸사람</th>
                   <th scope="col">요청일</th>
                 </tr>
@@ -58,7 +59,7 @@
               </tbody>
             </table>
             <div id="recivedlistnone">
-              <h1>받은 초대 메세지가 없습니다.<br></h1>
+              <h1>받은 초대장이 없습니다.<br></h1>
             </div>
             <nav aria-label="Page navigation">
               <ul class="pagination" id="recived-pagenation">
@@ -80,16 +81,16 @@
           <br>
           <div>
           <br>
-          <h3>요청중인 픽미</h3>
+          <h3>보낸 초대장</h3>
           <br>
           <div class="sender-table table-wrap d-flex flex-column">
             <table class="table table-hover">
               <thead>
                 <tr>
                   <!-- <th scope="col"><input class="form-check-input send-all-check" type="checkbox" value="" id="flexCheckDefault"></th> -->
-                  <th scope="col">모임</th>
-                  <th scope="col">제목</th>
-                  <th scope="col">상태</th>
+                  <th scope="col" width="140px">초대한 모임</th>
+                  <th scope="col" width="400px">제목</th>
+                  <th scope="col">수신확인</th>
                   <th scope="col">요청일</th>
                 </tr>
               </thead>
@@ -97,7 +98,7 @@
               </tbody>
             </table>
             <div id="sendlistnone">
-              <span>보낸 초대 메세지가 없습니다.<br></span>
+              <span>보낸 초대장이 없습니다.<br></span>
             </div>
 
             <!-- <div class="btn-wrap">
@@ -122,7 +123,7 @@
           </div>
 
           <br>
-          <h3>픽미 게시글</h3>
+          <h3>PICK ME 게시글</h3>
           <br>
           <div class="pickme-table table-wrap d-flex flex-column">
             <table class="table table-hover" id="pickmeTable">
@@ -252,7 +253,8 @@
   <script id="recived-tr-template" type="text/x-handlebars-template">
     {{#each this}}
     <tr>
-      <td class="inviteNo" name="inviteNo" value="{{inviteNo}}">{{inviteNo}}</td>
+      <td class="invitegroupName">{{joinMember.group.groupName}}</td>
+      <td class="inviteNo" name="inviteNo" value="{{inviteNo}}" style="display: none;">{{inviteNo}}</td>
       <td class="recived-title" name="title" id="recivedTitle" value="{{inviteNo}}" style="color: rgb(28, 101, 175); cursor: pointer;">{{title}}</td>
       <td class="senderName" name="joinMember.member.no" value="{{joinMember.member.no}}">{{joinMember.member.memberName}}</td>
       <td class="regdt" name="reg_dt">{{regDt}}</td>
