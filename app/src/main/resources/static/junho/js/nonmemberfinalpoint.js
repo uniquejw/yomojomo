@@ -137,7 +137,7 @@ function displayPlaces(places) {
                 lng = place.x
                 lat = place.y
                 console.log(lat, lng)
-                saveData(place.x, place.y, place.place_name, place.id)
+                saveData(place.x, place.y, place.place_name, place.id, place.category_group_code, place.place_url)
               }
           });
 
@@ -260,7 +260,7 @@ function displayPlaceInfo (place) {
   content += '    <span class="tel">' + place.phone + '</span>' + 
               '<div>' + 
                 '<button class="btn btn-primary btn-final-select">'+
-                    '<a href="' + place.place_url + '" target="_blank">최종장소 지정</a>'
+                    '<a href="#">최종장소 지정</a>'
                 '</button>' +
               '</div>' +
               '</div>' + 
@@ -285,8 +285,8 @@ function clickList(str) {
   searchPlaces();
 }
 
-function saveData(lng,lat,storeName,locationId) {
-    var data = {"flat" : `${lat}`, "flng": `${lng}`, "storeName": `${storeName}`, "locationId": `${locationId}`}
+function saveData(lng,lat,storeName,locationId, categoryId, placeURL) {
+    var data = {"flat" : `${lat}`, "flng": `${lng}`, "storeName": `${storeName}`, "locationId": `${locationId}`, "categoryId": `${categoryId}`, "placeURL": `${placeURL}`}
     $.ajax({ 
         url : "/junho/midpoint/add",
         type : "POST",
