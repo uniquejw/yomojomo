@@ -261,28 +261,9 @@ insert into gms_accounting_cate(name) values("전체");
 insert into gms_accounting_cate(name) values("회비");
 insert into gms_accounting_cate(name) values("모임비");
 insert into gms_accounting_cate(name) values("기타");
-insert into gms_destination(flat,flng,store_name,location_id,location_cate_id,place_URL) values('123.2','1234.45','육전식당 4호점','1','FD6','https://place.map.kakao.com/741391811');
-insert into gms_destination(flat,flng,store_name,location_id,location_cate_id,place_URL) values('1451.22','1234.45','경현이네 고기집','2','FD6','https://place.map.kakao.com/741391811');
-insert into gms_destination(flat,flng,store_name,location_id,location_cate_id,place_URL) values('13423.21','1234.45','재원s베이커리','3','FD6','https://place.map.kakao.com/741391811');
 insert into gms_main_cate(name) values('공지사항');
 insert into gms_main_cate(name) values('자주하는 질문');
 insert into gms_main_cate(name) values('아무거나');
-insert into gms_memb(membername,pwd,email,tel,post_no, roadname_addr ,base_addr,addr, memb_level,unsubscribe) 
-values('강철민',password('1111'),'aaa@naver.com','11112222','1234','도로명1길','봉천동 어딘가','1012호','1',false);
-insert into gms_memb(membername,pwd,email,tel,post_no, roadname_addr ,base_addr,addr, memb_level,unsubscribe) 
-values('조순옥',password('1111'),'bbb@naver.com','11112222','1234','도로명2길','봉조동 어딘가','1022호','1',false);
-insert into gms_memb(membername,pwd,email,tel,post_no, roadname_addr ,base_addr,addr, memb_level,unsubscribe) 
-values('이현경',password('1111'),'ccc@naver.com','11112222','1234','도로명3길','봉억동 어딘가','1102호','1',false);
-insert into gms_memb(membername,pwd,email,tel,post_no, roadname_addr ,base_addr,addr, memb_level,unsubscribe) 
-values('박요섭',password('1111'),'ddd@naver.com','11112222','1234','도로명4길','봉만동 어딘가','112호','1',false);
-insert into gms_memb(membername,pwd,email,tel,post_no, roadname_addr ,base_addr,addr, memb_level,unsubscribe) 
-values('조민호',password('1111'),'eee@naver.com','11112222','1234','도로명5길','봉백동 어딘가','112호','1',false);
-insert into gms_memb(membername,pwd,email,tel,post_no, roadname_addr ,base_addr,addr, memb_level,unsubscribe) 
-values('엄상준',password('1111'),'fff@naver.com','11112222','1234','도로명5길','봉백동 어딘가','112호','1',false);
-insert into gms_memb(membername,pwd,email,tel,post_no, roadname_addr ,base_addr,addr, memb_level,unsubscribe) 
-values('명준호',password('1111'),'wnsgh9166@naver.com','11112222','1234','도로명5길','봉백동 어딘가','112호','1',false);
-insert into gms_memb(membername,pwd,email,tel,post_no, roadname_addr ,base_addr,addr, memb_level,unsubscribe) 
-values('엄진영',password('1111'),'ggg@naver.com','11112222','1234','도로명5길','봉백동 어딘가','112호','1',false);
 insert into gms_memb_grade(name) values('모임장');
 insert into gms_memb_grade(name) values('일반회원');
 insert into gms_SNS(name) values('카카오톡');
