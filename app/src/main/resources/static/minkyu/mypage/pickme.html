@@ -5,13 +5,9 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>MyPage</title>
-  <!-- 제이쿼리 -->
   <script src="/node_modules/jquery/dist/jquery.min.js"></script>
-  <!-- css 초기화 -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
-  <!--공용css-->
   <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
-  <!--내css-->
   <link rel="stylesheet" href="/minkyu/css/main.css">
   <link rel="stylesheet" href="/hyun/css/mypagePickme.css">
 
@@ -38,18 +34,15 @@
             <li class="breadcrumb-item active" aria-current="page">픽미 요청/게시글</li>
           </ol>
         </nav>
-
         <div class="content d-flex flex-column">
           <h3>받은 초대장</h3>
           <br>
-
           <div class="recived-table table-wrap d-flex flex-column">
             <table class="table table-hover">
               <thead>
                 <tr>
-                  <!-- <th scope="col"><input class="form-check-input send-all-check" type="checkbox" value="" id="flexCheckDefault"></th> -->
-                  <th scope="col"> 초대받은 모임</th>
-                  <th scope="col" width="140px" style="display: none;">초대장번호</th>
+                  <th scope="col" width="140px"> 초대받은 모임</th>
+                  <th scope="col" style="display: none;">초대장번호</th>
                   <th scope="col" width="400px">제목</th>
                   <th scope="col">보낸사람</th>
                   <th scope="col">요청일</th>
@@ -75,9 +68,7 @@
                   </a>
                 </li>
               </ul>
-            </nav>
-
-          
+            </nav>          
           <br>
           <div>
           <br>
@@ -87,7 +78,6 @@
             <table class="table table-hover">
               <thead>
                 <tr>
-                  <!-- <th scope="col"><input class="form-check-input send-all-check" type="checkbox" value="" id="flexCheckDefault"></th> -->
                   <th scope="col" width="140px">초대한 모임</th>
                   <th scope="col" width="400px">제목</th>
                   <th scope="col">수신확인</th>
@@ -100,11 +90,6 @@
             <div id="sendlistnone">
               <span>보낸 초대장이 없습니다.<br></span>
             </div>
-
-            <!-- <div class="btn-wrap">
-              <button type="button" class="btn btn-primary btn-delete" id="send-deleteBtn">요청취소</button>
-            </div> -->
-
             <nav aria-label="Page navigation">
               <ul class="pagination" id="send-pagenation">
                 <li class="page-item" id="sendpreNoli">
@@ -121,7 +106,6 @@
               </ul>
             </nav>
           </div>
-
           <br>
           <h3>PICK ME 게시글</h3>
           <br>
@@ -131,7 +115,7 @@
                 <tr>
                   <th scope="col"><input class="form-check-input pickme-all-check" type="checkbox" value="" id="flexCheckDefault"></th>
                   <th scope="col">번호</th>
-                  <th scope="col">제목</th>
+                  <th scope="col" width="400">제목</th>
                   <th scope="col">작성일</th>
                   <th scope="col">조회수</th>
                 </tr>
@@ -142,11 +126,9 @@
             <div id="listnone">
               <span>작성한 글이 없습니다.<br></span>
             </div>
-
             <div class="btn-wrap">
               <button type="button" class="btn btn-primary btn-delete" id="pickme-deleteBtn">삭제하기</button>
             </div>
-
             <nav aria-label="Page navigation">
               <ul class="pagination" id="pickme-pagenation">
                 <li class="page-item" id="preNoli">
@@ -163,8 +145,6 @@
               </ul>
             </nav>
           </div>
-
-          <!-- 받은 초대장 -->
           <div class="modal fade modal-invite" id="recivedModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
               <div class="modal-content">
@@ -202,8 +182,6 @@
               </div>
             </div>
           </div>
-
-          <!-- 보낸 초대장 -->
           <div class="modal fade modal-request" id="sendModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
               <div class="modal-content">
@@ -246,10 +224,8 @@
       </div>
     </div>  
   </div>
-
   <div id="footers"></div>
 
-  <!--받은 픽미 handlebars-->
   <script id="recived-tr-template" type="text/x-handlebars-template">
     {{#each this}}
     <tr>
@@ -262,14 +238,9 @@
     {{/each}}
   </script>
 
-
-  <!--요청 픽미 handlebars-->
   <script id="sender-tr-template" type="text/x-handlebars-template">
     {{#each this}}
     <tr>
-      <!-- <th scope="col">
-        <input class="form-check-input sendinput" type="checkbox" name="no" value="{{inviteNo}}" id="flexCheckDefault">
-      </th> -->
       <td class="g_no" name="g_no" value="{{groupNo}}">{{groupName}}</td>
       <td class="title" name="title" id="senderTitle" value="{{inviteNo}}" style="color: rgb(28, 101, 175); cursor: pointer;">{{title}}</td>
       <td class="confirm" name="confirm" value="{{confirm}}">{{confirmName}}</td>
@@ -278,7 +249,6 @@
     {{/each}}
   </script>
 
-  <!--픽미 게시글 handlebars-->
   <script id="tr-template" type="text/x-handlebars-template">
     {{#each this}}
     <tr>

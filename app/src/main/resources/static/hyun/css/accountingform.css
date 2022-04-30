@@ -1,13 +1,9 @@
 #form-content{ 
-  /* padding-top: 10vh;
-  height: 85vh;
-  position: relative; */
   padding-top: 5vh;
   padding-bottom: 10vh;
   position: relative;
 }
 form {
-  /* margin: 10px auto; */
   margin-top: 100px;
 }
 #x-add-btn, #x-cancel-btn {

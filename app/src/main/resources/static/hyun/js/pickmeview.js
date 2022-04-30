@@ -1,9 +1,8 @@
-//헤더, 푸터, 권한 설정
 $(document).ready(function () {
-  $('#header').load('/junho/mainHeader.html'); //헤더 인클루드
-  $('#footer').load('/junho/mainfooter.html'); //푸터부분 인클루드
+  $('#header').load('/junho/mainHeader.html');
+  $('#footer').load('/junho/mainfooter.html');
 
-  $.ajax({ //로그인 여부 확인 ajax START
+  $.ajax({
       url : "/member/getLoginUser",
       type : "POST",
       datatype : "json",
@@ -13,8 +12,8 @@ $(document).ready(function () {
           $("#x-delete-btn").hide();
           $("#x-update-btn").hide();
         } else if (result.status == "success") {
-          let loginUserNo = result.data.no; //로그인한 회원 번호
-          fetch(`/pickme/get?no=${no}`) //글 작성자 확인 fetch-then-then START
+          let loginUserNo = result.data.no;
+          fetch(`/pickme/get?no=${no}`)
           .then(function(response) {
             return response.json();
           })
@@ -33,15 +32,12 @@ $(document).ready(function () {
               $("#x-invitation-btn").hide();
               $("#x-cancel-btn").text("취소");
             }
-          })//글 작성자 확인 fetch-then-then END
-        }// else if
-      }//success END
-    }); //로그인 여부 확인 ajax END 
-});//document.ready END
+          })
+        }
+      }
+    });
+});
 
-//화면 뿌리기 Start
-
-//시,도 카테고리 카테고리 불러오기
 let selectSiList = document.querySelector("#nameSi");
 let selectSiOption = document.querySelector("#optionSi-template");
 let opSiGernerator = Handlebars.compile(selectSiOption.innerHTML);
@@ -55,15 +51,12 @@ $.ajax({
       selectSiList.innerHTML = opSiGernerator(result.data);
   }
 });
-//시,도 카테고리 불러오기 END
 
-//군,구 카테고리 불러오기
 let selectGuList = document.querySelector("#nameGu");
 let selectGuOption = document.querySelector("#optionGu-template");
 let opGuGernerator = Handlebars.compile(selectGuOption.innerHTML);
 
 $(document).on("click", "#nameSi", function() {
-  //console.log("바뀜");
   $.ajax({
     url : "/activeLocal/gulistcate",
     type : "POST",
@@ -75,31 +68,26 @@ $(document).on("click", "#nameSi", function() {
         if (selectedGuNo != 0) {
           $("#nameGu").val(selectedGuNo).prop("selected", true);
         }
-    } //success END
-  }); //ajax END
-}); //nameSi change End
-//군,구 카테고리 카테고리 불러오기 END
+    }
+  });
+});
 
-//관심 활동 리스트 불러오기 START
 let selectPuposeList = document.querySelector("#purpose");
 let selectPurposeOption = document.querySelector("#optionPurpose-template");
 let PurposeopGernerator = Handlebars.compile(selectPurposeOption.innerHTML);
 
 $.ajax({
-    url : "/purpose/list",
-    type : "POST",
-    async : false,
-    datatype : "json",
-    success : function(result) {
-      // console.log(result);
-      selectPuposeList.innerHTML = PurposeopGernerator(result);
-    }//success END
-  })//ajax END
-// 관심 활동 리스트 불러오기 END
+  url: "/purpose/list",
+  type: "POST",
+  async: false,
+  datatype: "json",
+  success: function (result) {
+    selectPuposeList.innerHTML = PurposeopGernerator(result);
+  }
+});
 
 let arr = location.href.split("?");
 
-// console.log(arr);
 if (arr.length == 1) {
   alert("요청 형식이 올바르지 않습니다.")
   throw "URL 형식 오류";
@@ -144,80 +132,71 @@ fetch(`/pickme/get?no=${no}`)
       $("#nameSi").val(pickmeCont.activeLocal.nameSi).prop("selected", true);
       selectedGuNo = pickmeCont.activeLocal.no;
       purposeNo = pickmeCont.purpose.no;
+      xPurposeName.value = purposeNo;
       xContent.value = pickmeCont.content;
       $('#nameSi').click();
 
-      //초대하기 버튼 이벤트 시작
-      document.querySelector("#x-invitation-btn").onclick = function() {
-            let xModalName = document.querySelector("#recipient-name");
-            xModalName.value = xName.value;
-            let recipientNameno = pickmeCont.member.no;
-            // console.log(recipientNameno);
-            //로그인한 회원 정보 가져오기
-            $.ajax({
-              url : "/member/getLoginUser",
-              type : "POST",
-              datatype : "json",
-              success : function(result) {
-                console.log(result.data.no);
-                console.log(result);
-                if (result.status == "fail") {
-                  $("#invitationbtn").hide(); //초대하기 버튼 숨기기
-                  window.alert("로그인 하지 않았습니다.");
-                  // console.log(result.status);
-                } else {
-                  var inviteeNo = result.data.no; //초대 보내는 사람 회원 번호
-                  let selectGroupList = document.querySelector("#groupList");
-                  var selectGroupOption = document.querySelector("#joinedGroupList-template");
-                  var opGernerator = Handlebars.compile(selectGroupOption.innerHTML);
+      document.querySelector("#x-invitation-btn").onclick = function () {
+        let xModalName = document.querySelector("#recipient-name");
+        xModalName.value = xName.value;
+        let recipientNameno = pickmeCont.member.no;
+        $.ajax({
+          url: "/member/getLoginUser",
+          type: "POST",
+          datatype: "json",
+          success: function (result) {
+            console.log(result.data.no);
+            console.log(result);
+            if (result.status == "fail") {
+              $("#invitationbtn").hide();
+              window.alert("로그인 하지 않았습니다.");
+            } else {
+              var inviteeNo = result.data.no;
+              let selectGroupList = document.querySelector("#groupList");
+              var selectGroupOption = document.querySelector("#joinedGroupList-template");
+              var opGernerator = Handlebars.compile(selectGroupOption.innerHTML);
 
-            $.ajax({ //초대 보내는 사람의 모임 리스트 가져오는 ajax
-              url : "/joinmember/grouplistbymno",
-              type : "POST",
-              datatype : "json",
-              data : {"member.no" : inviteeNo},
-              success : function(result) {
-                console.log(result.data);
-                selectGroupList.innerHTML = opGernerator(result.data);
-                    // 모임리스트 선택한 결과 값 알아내기
-                    $("#groupList").on("change", function() {
-                      // console.log("클릭함");
-                        //초대하기 버튼 클릭 이벤트 시작
-                        $("#invitationbtn").on("click", function() {
-                          //서버 요청
-                          $.ajax({
-                            url : "/invitebox/send",
-                            type : "POST",
-                            async : false,
-                            data : {
-                              "title" : $("#title").val(),
-                              "content" : $("#content").val(),
-                              "member.no" : recipientNameno,
-                              "joinMember.member.no" : inviteeNo,
-                              "joinMember.group.no" : $("#groupList option:selected").val(),
-                            },
-                            success : function(result) {
-                              console.log(result);
-                              window.alert("발송되었습니다");
-                              window.location.href = "index.html";
-                            }
-                          })//초대하기 서버 요청END
-                        })//초대하기 버튼 클릭 이벤트 END
-                      })//초대할 모임 선택확인
-                  }//초대 보내는 사람의 모임 리스트 가져오는 suceess END
-                })//초대 보내는 사람의 모임 리스트 가져오는 ajax END
-              } //else 문(로그인 정보 가져오는) 끝
-            } //로그인한 회원 정보 success END
-          })//로그인한 회원정보 가져오기 ajax END
-      }//초대하기 버튼 이벤트 END
-    } //else END
-  }); //화면 뿌리는 fetch END
-//화면 뿌리기 END
+              $.ajax({
+                url: "/joinmember/grouplistbymno",
+                type: "POST",
+                datatype: "json",
+                data: { "member.no": inviteeNo },
+                success: function (result) {
+                  console.log(result.data);
+                  selectGroupList.innerHTML = opGernerator(result.data);
+                  $("#groupList").on("change", function () {
+                    $("#invitationbtn").on("click", function () {
+                      $.ajax({
+                        url: "/invitebox/send",
+                        type: "POST",
+                        async: false,
+                        data: {
+                          "title": $("#title").val(),
+                          "content": $("#content").val(),
+                          "member.no": recipientNameno,
+                          "joinMember.member.no": inviteeNo,
+                          "joinMember.group.no": $("#groupList option:selected").val(),
+                        },
+                        success: function (result) {
+                          console.log(result);
+                          window.alert("발송되었습니다");
+                          window.location.href = "index.html";
+                        }
+                      })
+                    })
+                  });
+                }
+              })
+            }
+          }
+        });
+      };
+    } 
+  });
 
 //서버로 보내기
 document.querySelector("#x-update-btn").onclick = function() {
 let fd = new FormData(document.forms.namedItem("pickme-update"))    
-// fd.append("no", no);
 
 if(        
   xTitle.value == "" ||
@@ -236,7 +215,6 @@ if(
     body: new URLSearchParams(fd)
     })
     .then(function(response) {
-    // console.log(response);
       return response.json();
     })
     .then(function(result) {
