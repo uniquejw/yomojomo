@@ -799,10 +799,7 @@ $.ajax({
               });
           })
 
-
-
-
-          //요청 전체 체크박스          
+    
           $(".send-all-check").click(function (e) {
             if ($(".send-all-check").is(":checked")) {
               $(".sender-table").find("input").prop("checked", true)
@@ -811,7 +808,6 @@ $.ajax({
             }
           });
 
-          //요청 삭제 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!메세지 받는거 한 후에 confirm 별 권한 설정하기!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
           $("#send-deleteBtn").on("click", function () {
             console.log("클릭");
             let deleteArr = [];
@@ -857,8 +853,10 @@ $.ajax({
           
           if (totalListCount != 0) {
             tbody.innerHTML = htmlGenerator(pickmeResult.data);
+            $("#pickme-deleteBtn").show();
           } else {
             $("#listnone").show();
+            $("#pickme-deleteBtn").hide();
           }
           
           $("#pageNo").text(requestPageNo); //번호 출력
