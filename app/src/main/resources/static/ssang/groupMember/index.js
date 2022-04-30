@@ -2,10 +2,10 @@ import{getGroupNO,getLoginUser,findgrouplistByGno} from '/ssang/js/module.js';
 var getGroup = getGroupNO();//쿼리스트링에서 가져온 모임번호 
 var loginUser = await getLoginUser() //로그인한 유저의 정보
 var groupList = await findgrouplistByGno(getGroup) // 그룹번호로 조회한 모임과 회원정보 
-console.log(loginUser.data)
 var membContainer = document.querySelector("#membContainer");
 var membTemplate = document.querySelector('#memb-template') 
 var membGenerator = Handlebars.compile(membTemplate.innerHTML);
+$('.memb-count').text(`회원수 : ${groupList.data.length} 명`);
 for (var list of groupList.data){
     console.log(list)
     if(list.memberGrade.gradeName == '모임장'){
@@ -42,3 +42,24 @@ $(document).on("click", ".memb-report", function() {
     })
   })
 })///멤버 신고 끝
+// function searchMember() {
+//   // var groupListItems = document.querySelectorAll('.list-group-item');
+//   // groupListItems.forEach((item) => {
+//   //   item.classList.add('list-search')
+//   // })
+//   var searchValue = document.querySelector('.member-top-search .form-control').value.toUpperCase();
+//   console.log(searchValue)
+
+//   var name;
+//   var items = document.querySelectorAll('.list-group-item-search');
+//   console.log(items)
+//   for(var i=0;i<items.length;i++){
+//     name = items[i].getElementsByClassName("x-memb-name");
+//     console.log(name)
+//     if(name[0].innerHTML.toUpperCase().indexOf(searchValue) > -1){
+//       items[i].style.display = "flex";
+//     }else{
+//       items[i].style.display = "none";
+//     }
+//   }
+// }
