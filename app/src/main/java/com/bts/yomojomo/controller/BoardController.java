@@ -51,6 +51,12 @@ public class BoardController {
     return new ResultMap().setStatus(SUCCESS).setData(boardService.findByBoardNo(no));
   }
 
+  //  모임별 게시글 조회(오래된 순)
+  @RequestMapping("/board/findByGroupNoAsc")
+  public Object findByGroupNoAsc(int no) {
+    return new ResultMap().setStatus(SUCCESS).setData(boardService.findByGroupNoAsc(no));
+  }
+
   @RequestMapping("/board/update")
   public Object update(Board board, HttpSession session) {
     Member member = (Member) session.getAttribute("loginUser");

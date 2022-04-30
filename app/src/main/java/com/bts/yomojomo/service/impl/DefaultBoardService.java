@@ -31,6 +31,11 @@ public class DefaultBoardService implements BoardService {
   }
 
   @Override
+  public List<Board> findByGroupNoAsc(int no) {
+    return boardDao.findByGroupNoAsc(no);
+  }
+
+  @Override
   public List<Board> findByBoardNo(int no) {
     List<Board> board = boardDao.findByBoardNo(no);
     if (board != null) {
