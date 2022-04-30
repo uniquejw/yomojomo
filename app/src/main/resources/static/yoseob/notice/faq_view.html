@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FAQ</title>
+  <title>공지사항</title>
   <!-- JQUERY -->
   <script src="../../node_modules/jquery/dist/jquery.min.js"></script>
   <!-- css 초기화 -->
@@ -30,18 +30,18 @@
   <div id="header"></div>
   
   <div class="container"><!-- 컨테이너시작 -->
-    <h1>FAQ</h1>
+    <h1>공지사항</h1>
     <span style="display: none;">자주하는 질문 번호</span><br>
     <input type="text" class="no" style="display: none;"><br>
-    <span style="font-weight: bold;">분류</span><br>
-    <input type="text" class="cates" data-no=""  style="border:none; background-color:thistle; width:80%"><br>
+    <!-- <span style="font-weight: bold;">분류</span><br>
+    <input type="text" class="cates" data-no=""  style="border:none; background-color:thistle; width:80%"><br> -->
     <span style="font-weight: bold;">제목</span><br>
     <input type="text" class ="title" style="border:none; background-color:thistle; width:80%"><br>
     <span style="font-weight: bold;">내용</span><br>
     <textarea type="text" class ="content" cols="50" rows="10" style="width:80%"></textarea><br>
-    <button type = "button"  class="update-btn">수정하기</button>
-    <button type = "button"  class="delete-btn">삭제하기</button>
-    <button type = "button"  class="cancel-btn">취소하기</button>
+    <button type = "button"  class="update-btn" style="display: none;">수정하기</button>
+    <button type = "button"  class="delete-btn" style="display: none;">삭제하기</button>
+    <button type = "button"  class="cancel-btn">목록</button>
    
   <script>
     var arr = location.href.split("?")
@@ -106,7 +106,7 @@
     })
   })
   document.querySelector('.cancel-btn').addEventListener('click', function() {
-    window.location.href = "faq.html"
+    window.location.href = "announcement.html"
   })
   </script>
 

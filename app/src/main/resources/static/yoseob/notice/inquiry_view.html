@@ -78,24 +78,24 @@
   throw  "오류!"
   }
 
-  fetch(`/noticeQuestion/get?no=${no}`)
+  fetch(`/noticeQuestion2/get?no=${no}`)
   .then(function(response) {
     return response.json()
   })
-  .then(function(noticeQuestion){
-    xNo.value = noticeQuestion.no
-    xQno.value = noticeQuestion.queryCate.name
-    xDate.value = noticeQuestion.queryDate;
-    xTitle.value = noticeQuestion.title
-    xContent.value = noticeQuestion.content
-    xCate.value = sortCategoryByNo(noticeQuestion.queryNo)
-    categoryNo = sortCategoryByNo(noticeQuestion.queryNo)
+  .then(function(noticeQuestion2){
+    xNo.value = noticeQuestion2.no
+    xQno.value = noticeQuestion2.queryCate.name
+    xDate.value = noticeQuestion2.queryDate;
+    xTitle.value = noticeQuestion2.title
+    xContent.value = noticeQuestion2.content
+    xCate.value = sortCategoryByNo(noticeQuestion2.queryNo)
+    categoryNo = sortCategoryByNo(noticeQuestion2.queryNo)
 
   })
   document.querySelector('.update-btn').addEventListener('click', function() {
     console.log(categoryNo)
     // update?no=1&mainCategoryNo=1&queryNo=2&title=&content=
-    fetch(`/noticeQuestion/update?no=${xNo.value}&mainCategoryNo=1&queryNo=` + sortCategoryByStr(categoryNo) + `&title=${xTitle.value}&content=${xContent.value}`)
+    fetch(`/noticeQuestion2/update?no=${xNo.value}&mainCategoryNo=1&queryNo=` + sortCategoryByStr(categoryNo) + `&title=${xTitle.value}&content=${xContent.value}`)
     .then(function(response){
       return response.text()
     })
@@ -106,7 +106,7 @@
     })
   })
   document.querySelector('.delete-btn').addEventListener('click', function() {
-    fetch(`/noticeQuestion/delete?no=${xNo.value}`)
+    fetch(`/noticeQuestion2/delete?no=${xNo.value}`)
     .then(function(response){
       return response.text()
     })
