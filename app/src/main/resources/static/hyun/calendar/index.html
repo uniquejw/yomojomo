@@ -17,12 +17,9 @@
 </head>
 
 <body class="menu3">
-
-
 <div id="header"></div>
 <div id="top"></div>
 
-<!--캘린더 API 자리-->
 <div id="calendar-container">
   <div id='calendar'></div>
 </div>
@@ -30,28 +27,29 @@
 <div class="modal fade" id="calendarModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 <from id="calendar-add">
   <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">일정을 입력하세요.</h5>
+    <div class="modal-content">
+        <div class="modal-header">
+        <h5 class="modal-title fs-5 fw-bold" id="exampleModalLabel">일정을 입력하세요.</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+                <div class="form-group">
+                    <label for="taskId" class="col-form-label">일정 제목</label>
+                    <input type="text" name="name" class="form-control" id="add-modal-title">
+                    <label for="taskId" class="col-form-label">일정 내용</label>
+                    <input type="text" name="content" class="form-control" id="add-modal-content">
+                    <label for="taskId" class="col-form-label">시작 날짜</label>
+                    <input type="date" name="startDt" class="form-control" id="add-modal-startDt">
+                    <label for="taskId" class="col-form-label">종료 날짜</label>
+                    <input type="date" name="endDt" class="form-control" id="add-modal-endDt">
+                </div>
             </div>
-            <div class="modal-body">
-                    <div class="form-group">
-                        <label for="taskId" class="col-form-label">일정 제목</label>
-                        <input type="text" name="name" class="form-control" id="add-modal-title">
-                        <label for="taskId" class="col-form-label">일정 내용</label>
-                        <input type="text" name="content" class="form-control" id="add-modal-content">
-                        <label for="taskId" class="col-form-label">시작 날짜</label>
-                        <input type="date" name="startDt" class="form-control" id="add-modal-startDt">
-                        <label for="taskId" class="col-form-label">종료 날짜</label>
-                        <input type="date" name="endDt" class="form-control" id="add-modal-endDt">
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" id="x-addCalendar">추가</button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-                </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="x-addCalendar">추가</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
             </div>
         </div>
+    </div>
   </from>
 </div>
 
@@ -60,11 +58,13 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <input type="text" name="name" id="view-modal-title" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                <h5 class="modal-title fs-5 fw-bold" id="exampleModalLabel">일정</h5>                
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <div class="form-group">
+                        <label for="taskId" class="col-form-label">약속 제목</label>       
+                        <input type="text" name="name" id="view-modal-title" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                         <label for="taskId" class="col-form-label">약속 내용</label>                    
                         <input type="text" name="content" id="view-modal-content" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                         <label for="taskId" class="col-form-label">시작 날짜</label>
@@ -72,7 +72,7 @@
                         <label for="taskId" class="col-form-label">끝 날짜</label>
                         <input type="date" name="endDt" id="view-modal-endDt" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                         <label for="taskId" class="col-form-label">모임 장소 선정 URL <button type="button" class="btn btn-primary" id="Gomidpoint-Btn">중간지점 초대메세지보내기</button></label>
-                        <input type="url" name="resulturl" id="view-modal-resultURL" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" data-bs-toggle="tooltip" data-bs-placement="bottom" title="모임장소선정으로 이동" style="cursor:pointer">
+                        <input type="url" id="view-modal-resultURL" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" data-bs-toggle="tooltip" data-bs-placement="bottom" title="모임장소선정으로 이동" style="cursor:pointer">
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -84,12 +84,7 @@
         </div>
     </form>
 </div>
-
 <div id="footer"></div>
-
-<script src="/hyun/js/calendarindex.js">
-
-</script>
-
+<script src="/hyun/js/calendarindex.js"></script>
 </body>
 </html>
