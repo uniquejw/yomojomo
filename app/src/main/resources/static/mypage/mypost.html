@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="/node_modules/sweetalert2/dist/sweetalert2.min.css">
   <link rel="stylesheet" href="/css/common.css">
   <!--내css-->
-  <link rel="stylesheet" href="/minkyu/css/main.css">
+  <link rel="stylesheet" href="/mypage/css/main.css">
   <!--인클루드-->
   <script type="text/javascript">
     $(document).ready(function () {
@@ -49,42 +49,20 @@
           <table class="table table-hover">
             <thead>
               <tr>
-                <th><input class="form-check-input all-check" type="checkbox" value="" id="flexCheckDefault"></th>
                 <th>제목</th>
                 <th>소모임</th>
                 <th>작성일</th>
+                <th>조회수</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <th scope="col">
-                  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                </th>
-                <td class="table-title">가입신청합니다.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td>
-                <td class="table-group">축구왕슛돌이ㅁㅁㅁ</td>
-                <td>2999.99.99</td>
-              </tr>
-              <tr>
-                <th scope="col">
-                  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                </th>
-                <td class="table-title">날씨가 좋네요!!</td>
-                <td class="table-group">용동초등학교 2학년 5반</td>
-                <td>3999.99.99</td>
-              </tr>
-              <tr>
-                <th scope="col">
-                  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                </th>
-                <td class="table-title">축구나 한판?</td>
-                <td class="table-group">축구왕슛돌이</td>
-                <td>4999.99.99</td>
-              </tr>
+            
             </tbody>
           </table>
-          <div class="btn-wrap">
-            <button type="button" class="btn btn-primary btn-delete">삭제하기</button>
+          <div class="d-flex justify-content-center default">
+            <div class="fs-2">내가 게시한 글이 없습니다</div>
           </div>
+          <br>
           <nav aria-label="Page navigation" >
             <ul class="pagination">
               <li class="page-item">
@@ -104,53 +82,105 @@
       </div>
     </div>  
   </div>
+    <!-- <th><input class="form-check-input all-check" type="checkbox" value="" id="flexCheckDefault"></th> -->
+
+    <!-- <th scope="col">
+    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+    </th> -->
+
+    <!-- <div class="btn-wrap">
+    <button type="button" class="btn btn-primary btn-delete">삭제하기</button>
+    </div> -->
   <div id="footers"></div>
   <script>
-    const swa = Swal.mixin({
-      customClass: {
-        confirmButton: 'btn btn-primary mx-2',
-        cancelButton: 'btn btn-secondary mx-2'
-      },
-      buttonsStyling: false
-    })
-    $(".table-title").click(function(e){
-      location.href = "/ssang/groupBoard/index.html"
-    })
-    $(".all-check").click(function(e){
-      if ($(".all-check").is(":checked")){
-        $("input").prop("checked", true)
-      } else {
-        $("input").prop("checked", false)
-      }
-    })
-    $(".btn-delete").click(function(e){
-      if ($(".form-check-input").is(":checked") == false) {
-      swa.fire(
-        '글이 선택되지 않았습니다',
-        '삭제할 글을 선택해주세요',
-        'error'
-        )} else {
+    $.ajax({
+      url: '/member/getLoginUser',
+      type: 'POST',
+      dataType: 'json',
+      success: function(result) {
+        if (result.status == "fail") {
         swa.fire({
-          title: '글을 삭제 하시겠습니까?',
-          icon: 'warning',
-          showCancelButton: true,
-          confirmButtonText: '삭제',
-          cancelButtonText: '취소',
+          icon: 'error',
+          title: '로그인 되지 않았습니다',
+          text: '로그인 후 다시 시도해주세요',
         }).then((result) => {
-          if (result.isConfirmed) {
-            $(".all-check").prop("checked", false)
-            $("input:checkbox:checked").each(function(){
-              this.closest("tr").remove()
-            })
-            swa.fire(
-              '삭제가 완료되었습니다',
-              '',
-              'success'
-            )
+            if (result.isConfirmed) {
+              location.href = "/jaewon/login/login/index.html"
+            }
+          })
+        }
+        console.log(result)
+        $.ajax({
+          url: '/mypage/mypost',
+          type: 'POST',
+          dataType: 'json',
+          data: {'no': result.data.no},
+          success: function(resultData) {
+            console.log(resultData)
+            for (let i=0; i < resultData.board.length; i++) {
+              let board = resultData.board[i]
+              xContent = board.content
+              xGroup = resultData.group[i].groupName
+              xReg = board.registDate
+              xView = board.viewCount
+              $(`<tr>
+                <td class="table-title">${xContent}</td>
+                <td class="table-group">${xGroup}</td>
+                <td>${xReg}</td>
+                <td>${xView}</td>
+                </tr>`)
+              .appendTo(".table")
+              $(".default").remove()
+            }
           }
         })
       }
     })
+    // const swa = Swal.mixin({
+    //   customClass: {
+    //     confirmButton: 'btn btn-primary mx-2',
+    //     cancelButton: 'btn btn-secondary mx-2'
+    //   },
+    //   buttonsStyling: false
+    // })
+    $(".table-title").click(function(e){
+      location.href = "/ssang/groupBoard/index.html"
+    })
+    // $(".all-check").click(function(e){
+    //   if ($(".all-check").is(":checked")){
+    //     $("input").prop("checked", true)
+    //   } else {
+    //     $("input").prop("checked", false)
+    //   }
+    // })
+    // $(".btn-delete").click(function(e){
+    //   if ($(".form-check-input").is(":checked") == false) {
+    //   swa.fire(
+    //     '글이 선택되지 않았습니다',
+    //     '삭제할 글을 선택해주세요',
+    //     'error'
+    //     )} else {
+    //     swa.fire({
+    //       title: '글을 삭제 하시겠습니까?',
+    //       icon: 'warning',
+    //       showCancelButton: true,
+    //       confirmButtonText: '삭제',
+    //       cancelButtonText: '취소',
+    //     }).then((result) => {
+    //       if (result.isConfirmed) {
+    //         $(".all-check").prop("checked", false)
+    //         $("input:checkbox:checked").each(function(){
+    //           this.closest("tr").remove()
+    //         })
+    //         swa.fire(
+    //           '삭제가 완료되었습니다',
+    //           '',
+    //           'success'
+    //         )
+    //       }
+    //     })
+    //   }
+    // })
   </script>
 </body>
 </html>

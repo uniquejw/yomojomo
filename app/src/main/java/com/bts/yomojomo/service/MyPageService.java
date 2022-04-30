@@ -14,4 +14,10 @@ public interface MyPageService {
   int deleteCategory(MyPage mypage);
 
   int insertCategory(MyPage mypage);
+
+  MyPage myPost(int no);
+
+  MyPage myScrap(int no);
+
+  MyPage myNotice(int no);
 }

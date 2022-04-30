@@ -15,8 +15,8 @@
   <link rel="stylesheet" href="/node_modules/sweetalert2/dist/sweetalert2.min.css">
   <link rel="stylesheet" href="/css/common.css">
   <!--내css-->
-  <link rel="stylesheet" href="/minkyu/css/main.css">
-  <link rel="stylesheet" href="/minkyu/css/index.css">
+  <link rel="stylesheet" href="/mypage/css/main.css">
+  <link rel="stylesheet" href="/mypage/css/index.css">
   <!--인클루드-->
   <script type="text/javascript">
     $(document).ready(function () {
@@ -52,10 +52,10 @@
 
             </div>
             <div class="info-tag2">
-              <div class="info"></div>
-              <div class="local"><p>지역</p></div>
+              <div class="info"><p class="fw-bold">주소</p></div>
+              <div class="local"><p class="fw-bold">지역</p></div>
               <br>
-              <div class="purpose"><p>관심목록</p></div>
+              <div class="purpose"><p class="fw-bold">관심목록</p></div>
             </div>
           </div>
         </div>
@@ -93,16 +93,18 @@
       })
       .then(function(memberInfo){
         console.log(memberInfo)
-        let actLocal
-        $(`<img id="info-img" src="../profile.jpg">
+        if (memberInfo.photo === null) {
+           memberInfo.photo = "default.jpg"
+        }
+        $(`<img id="info-img" src="photo?filename=150x200_${memberInfo.photo}">
             <p id="info-name">${memberInfo.name}</p>
             <p>이메일 주소 : ${memberInfo.email}</p>
             <p>핸드폰 번호 : ${memberInfo.tel}</p>`)
           .appendTo(".info-tag1")
         $(` <p>도로명 주소 : ${memberInfo.roadNameAddr}</p>
             <p>지번 주소 : ${memberInfo.baseAddr}</p>
-            <p>상세 주소 : ${memberInfo.addr}</p>
-            <br>`).appendTo(".info")
+            <p>상세 주소 : ${memberInfo.addr}</p>`)
+            .appendTo(".info")
         for (let local of memberInfo.activeLocal) {
           $(`<span class="badge rounded-pill bg-primary category">${local.nameGu}</span>`)
           .appendTo(".local")
@@ -113,8 +115,6 @@
         }
       })
     })
-    
-
   // $(".card").children("img").click(function(e){
   //   location.href = "/ssang/groupBoard/index.html"
   // })

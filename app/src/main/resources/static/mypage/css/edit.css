@@ -3,14 +3,14 @@
   border: 1px solid gray;
   border-radius: 10px;
   width: 700px;
-  height: 1100px;
+  height: 1250px;
   margin: auto;
   justify-content: center;
   text-align: center;
 }
 .profile-img {
   position: relative;
-  height: 115px;
+  height: 210px;
   width: auto;
 }
 .img-text {
@@ -19,15 +19,15 @@
   bottom: 0;
   left: 0;
   right: 0;
-  margin: 80px 0px 0px 140px;
+  margin: 160px 0px 0px 280px;
   font-size: 14px;
 }
 .img-thumbnail {
   position: absolute;
   top: 0;
   left: 0;
-  max-width: 80px;
-  max-height: 110px;
+  max-width: 150px;
+  max-height: 200px;
   margin-left: 180px;
 }
 .form-select {

@@ -14,9 +14,16 @@ public class MyPage {
   String baseAddr;
   String addr;
   String roadNameAddr;
+  String photo;
 
   List <FinalActiveLocal> finalActiveLocal;
   List <FinalPurpose> finalPurpose;
   List <ActiveLocal> activeLocal;
   List <Purpose> purpose;
+  List <Group> group;
+  List <Board> board;
+  Scrap scrap;
+  List <NoticeQuestion> notice;
+  QueryCate queryCate;
+  Mcate2 mcate2;
 }
