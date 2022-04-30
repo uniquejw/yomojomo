@@ -48,8 +48,9 @@
               <thead>
                 <tr>
                   <!-- <th scope="col"><input class="form-check-input send-all-check" type="checkbox" value="" id="flexCheckDefault"></th> -->
-                  <th scope="col">초대장번호</th>
-                  <th scope="col">제목</th>
+                  <th scope="col"> 초대받은 모임</th>
+                  <th scope="col" width="140px" style="display: none;">초대장번호</th>
+                  <th scope="col" width="400px">제목</th>
                   <th scope="col">보낸사람</th>
                   <th scope="col">요청일</th>
                 </tr>
@@ -87,8 +88,8 @@
               <thead>
                 <tr>
                   <!-- <th scope="col"><input class="form-check-input send-all-check" type="checkbox" value="" id="flexCheckDefault"></th> -->
-                  <th scope="col">모임</th>
-                  <th scope="col">제목</th>
+                  <th scope="col" width="140px">초대한 모임</th>
+                  <th scope="col" width="400px">제목</th>
                   <th scope="col">상태</th>
                   <th scope="col">요청일</th>
                 </tr>
@@ -252,7 +253,8 @@
   <script id="recived-tr-template" type="text/x-handlebars-template">
     {{#each this}}
     <tr>
-      <td class="inviteNo" name="inviteNo" value="{{inviteNo}}">{{inviteNo}}</td>
+      <td class="invitegroupName">{{joinMember.group.groupName}}</td>
+      <td class="inviteNo" name="inviteNo" value="{{inviteNo}}" style="display: none;">{{inviteNo}}</td>
       <td class="recived-title" name="title" id="recivedTitle" value="{{inviteNo}}" style="color: rgb(28, 101, 175); cursor: pointer;">{{title}}</td>
       <td class="senderName" name="joinMember.member.no" value="{{joinMember.member.no}}">{{joinMember.member.memberName}}</td>
       <td class="regdt" name="reg_dt">{{regDt}}</td>

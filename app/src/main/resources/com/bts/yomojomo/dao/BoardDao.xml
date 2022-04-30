@@ -81,6 +81,32 @@
     ORDER BY 
         b.b_no DESC
   </select>
+  
+  <!-- 모임별 게시판 전체 조회 (asc)-->
+  <select id="findByGroupNoAsc" resultMap="BoardMap" parameterType="int">
+	SELECT 
+        b.g_no,
+        b.b_no,
+        b.content,
+        b.reg_dt,
+        m.memb_no writer_no,
+        m.membername writer_name,
+        m.email writer_email,
+       comment.*
+    FROM 
+        gms_board b 
+        LEFT OUTER JOIN 
+        (SELECT c.content cmt_content  , gm.membername cmt_writer_name, c.reg_dt cmt_reg_dt, c.b_no  
+        FROM gms_comment c , gms_memb gm 
+        WHERE c.memb_no =gm.memb_no 
+        ) comment
+        ON b.b_no = comment.b_no 
+        LEFT OUTER JOIN gms_memb m ON b.memb_no = m.memb_no 
+    WHERE 
+        b.g_no = #{no}
+    ORDER BY 
+        b.b_no asc
+  </select>
   <!-- 모임별 게시판을 번호로 조회 -->
   <select id="findByBoardNo" resultMap="BoardMap">
     SELECT 

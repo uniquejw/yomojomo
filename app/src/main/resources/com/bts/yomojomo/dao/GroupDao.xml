@@ -42,6 +42,27 @@
         g_no desc
 	</select>
 	
+	<select id="findAllasc" resultMap="GroupMap">
+		select
+        g_no,
+        act_local_no,       
+        pups_no,
+        name,
+        reg_dt,
+        logo,
+        intro,
+        memb_cnt,
+        max_cnt,
+        view_cnt,
+        g_delete_stat
+        from
+        gms_group
+    where
+        g_delete_stat = 1
+    order by
+        g_no asc
+	</select>
+	
 	<select id="selectedSicate" resultMap="GroupMap">
 		select
             g.g_no,

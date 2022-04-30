@@ -13,6 +13,8 @@ public interface BoardDao {
 
   List<Board> findByGroupNo(int no);
 
+  List<Board> findByGroupNoAsc(int no);
+
   List<Board> findByBoardNo(int no);
 
   Board findByNo(int no);

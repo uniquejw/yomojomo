@@ -35,21 +35,21 @@
 <div id="container">
   <div class="width-fix-container">
     <div class="member-top">
-      <div class="memb-count">
-        <span>인원수 표시</span>  
-      </div>
-      <div class="invite-btn">
+      <div class="memb-count"></div>
+      <!-- <div class="invite-btn">
         <button type="button" class="btn btn-link btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">초대하기</button>
-      </div>
+      </div> -->
       <div class="member-top-search">
-        <nav class="navbar">
+        <!-- 검색부트스트랩 -->
+        <!-- <nav class="navbar">
           <div class="container-fluid">
             <form class="d-flex">
-              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-              <button class="btn btn-outline-success" type="submit">Search</button>
+              <input class="form-control me-2" type="search" placeholder="회원검색" aria-label="Search" onkeyup="searchMember()">
+              <button class="btn btn-outline-success" type="submit" onclick="searchMember()">검색</button>
             </form>
           </div>
-        </nav>
+        </nav> -->
+        <!-- 검색부트스트랩 -->
       </div><!-- member-top-search -->
     </div><!-- member-top -->
     
@@ -66,7 +66,7 @@
             <div id="membContainer"></div>
           </div>
           <div class="modify-btn-div">
-            <button class="settings-btn" type="button">
+            <button class="settings-btn" type="button" style="visibility: hidden">
               <span class="material-icons md-32">
                 settings
               </span>
@@ -76,39 +76,39 @@
       </div><!--memb-list-container-->
     </div><!--memb-content-container-->
   </div><!--witdh-fix-container-->
-  <!-- 초대 부트스트랩 -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">New message</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <form>
-            <div class="mb-3">
-              <label for="recipient-name" class="col-form-label">Recipient:</label>
-              <input type="text" class="form-control" id="recipient-name">
-            </div>
-            <div class="mb-3">
-              <label for="message-text" class="col-form-label">Message:</label>
-              <textarea class="form-control" id="message-text"></textarea>
-            </div>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Send message</button>
-        </div>
+</div><!--container-->
+<!-- 부트스트랩 모달 -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">게시글 신고</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form name="form1">
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">제목:</label>
+            <input type="text" name="title" class="form-control" id="recipient-name">
+          </div>
+          <div class="mb-3">
+            <label for="message-text" class="col-form-label">신고사유:</label>
+            <textarea class="form-control" id="message-text" name="content"></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+        <button type="button" id="memb-report-exactly"  class="btn btn-primary">신고하기</button>
       </div>
     </div>
   </div>
-</div><!--container-->
+</div><!-- 부트스트랩 모달 -->
 <div id="footers"></div>
 </body>
 <script id="memb-template" type="text/x-handlebars-template">
   {{#each this}}
-  <div class="memb-item" >
+  <div class="memb-item list-group-item-search" >
     <span class="material-icons md-32">
     person
     </span>
@@ -116,10 +116,8 @@
     <div class="grade">
       <span class="x-general">{{memberGrade.gradeName}}</span>
     </div>
-    <button class="report-btn" type="button">
-      <span class="material-icons md-32">
-        report
-      </span>
+    <button type="button"  class="memb-report icon" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo" value="{{member.no}}">
+      <span class="material-icons md-34" >report</span>
     </button>
   </div><!---memb-item-->
   {{/each}}
