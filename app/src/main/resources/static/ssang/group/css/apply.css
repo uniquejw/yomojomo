@@ -56,13 +56,16 @@ table{
   border-spacing:10px 17px;
 }
 .group-info-div{
+  padding-right: 5px;
   margin-top: 20px;
   border: 2px solid rgb(17, 147, 218);
   border-radius: 5px;
   width: 230px;
   height: 162px;
-  overflow: hidden;
+  overflow-x: auto;
+  -ms-overflow-style: none;
 }
+.group-info-div::-webkit-scrollbar{ display:none; }
 #group-title{
   text-align: center;
   font-size: 24px;
@@ -85,7 +88,7 @@ table{
   margin-left: 10px;
   font-weight: bold;
   font-size: 20px;
-  width: 230px;
+  width: 215px;
   overflow: auto;
 }
 .group-memb-cnt{

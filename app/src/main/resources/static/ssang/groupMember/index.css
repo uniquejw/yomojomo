@@ -70,8 +70,10 @@ ol, ul, li {
 .memb-content-container{
     height: 600px;
     margin: 10px 0 0 0;
-    overflow: scroll;
+    overflow-x: auto;
+    -ms-overflow-style: none;
 }
+.memb-content-container::-webkit-scrollbar{ display:none; }
 .memb-select{
     float: right;
 }
