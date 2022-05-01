@@ -38,7 +38,7 @@ fetch(`/board/findByGroupNo?no=${getGroup}`)
 })
 .then(function(boards){
   for (var board of boards) {
-    if (board.writer.no == loginUser.no) {//게시글 작성자 인지 검사
+    if (board.writer.no == loginUser.data.no) {//게시글 작성자 인지 검사
       board.isWriter = true;
     } else {
       board.isWriter = false;
@@ -68,7 +68,7 @@ $(".select-orderby").on("click", function() {
     })
     .then(function(boards){
       for (var board of boards) {
-        if (board.writer.no == loginUser.no) {//게시글 작성자 인지 검사
+        if (board.writer.no == loginUser.data.no) {//게시글 작성자 인지 검사
           board.isWriter = true;
         } else {
           board.isWriter = false;
@@ -94,7 +94,7 @@ $(".select-orderby").on("click", function() {
     .then(function(result){
       var boards = result.data 
       for (var board of boards) {
-        if (board.writer.no == loginUser.no) {//게시글 작성자 인지 검사
+        if (board.writer.no == loginUser.data.no) {//게시글 작성자 인지 검사
           board.isWriter = true;
         } else {
           board.isWriter = false;
