@@ -162,9 +162,6 @@ function allBtn(lists) {
 		nebtn.innerHTML = htmlGeneratorne(nextobj);
 	}
 
-$(document).on('click', '.write', function() {
-  location.href="/jaewon/admin/faq/create/index.html"
-  })
 
 	var selectPage = document.querySelector("" + '.' + "p" + pageNo + "");
 
@@ -174,3 +171,7 @@ $(document).on('click', '.write', function() {
 
 	selectPage.classList.add("active");
 }
+
+$(document).on('click', '.write', function() {
+  location.href="/jaewon/admin/faq/create/index.html"
+  })
