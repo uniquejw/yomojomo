@@ -15,6 +15,7 @@
     <result column="base_addr" property="baseAddr"/>
     <result column="addr" property="addr"/>
     <result column="path" property="photo"/>
+    <result column="de_img" property="defaultImg"/>
     
     <collection property="finalActiveLocal" ofType="FinalActiveLocal">
       <id column="memb_no" property="no"/>
@@ -112,7 +113,8 @@
       a.name_si,
       a.name_gu,
       p.pups_no,
-      p.name
+      p.name,
+      m.de_img
     from
       gms_memb m
       inner join gms_final_activelocal fa on m.memb_no = fa.memb_no
@@ -129,7 +131,8 @@
 		  post_no=#{postNo},
 		  roadname_addr=#{roadNameAddr},
 		  base_addr=#{baseAddr},
-		  addr=#{addr}
+		  addr=#{addr},
+		  de_img=#{defaultImg}
 	 <if test="pwd != ''">
      ,pwd=password(#{pwd})
    </if>

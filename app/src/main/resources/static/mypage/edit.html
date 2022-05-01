@@ -53,16 +53,21 @@
           <div class="my-info">
             <div>
               <div class="col-3 p-2"></div>
+              <div class="text-muted notice">* 프로필 사진을 제외한 모든 항목은 필수입력 항목입니다</div>
+              <br>
               <div class="row">
                 <div class="col-3 p-2 text-center fw-bold">프로필 사진</div>
                 <div class="col input-group mb-3">
-                  <input class="form-control" id="formFile" name="file" type="file" accept=".png, .jpg, .jpeg, .jifi">
+                  <input class="form-control" name="file" type="file" accept=".png, .jpg, .jpeg, .jifi">
                 </div>
                 <div class="col-3 p-2"></div>
               </div>
               <div class="profile-img">
-
+                <img class="img-thumbnail">
+                <button type="button" class="btn btn-outline-primary btn-sm default-thumbnail">기본 이미지로 변경</button>
                 <p class="text-muted img-text">150 * 200 크기 이상의 파일은 자동 조정됩니다</p>
+              </div>
+              <div class="row">
               </div>
               <div class="row">
                 <div class="col-3 p-2 text-center fw-bold">이메일(아이디)</div>
@@ -77,17 +82,19 @@
                 <div class="col-3 p-2 text-center fw-bold">비밀번호</div>
                 <div class="col input-group mb-3 ">
                   <input class="form-control form-control-sm input fs-6"
-                    name="pwd" type="text" placeholder="비밀번호 입력"
+                    name="pwd" type="password" placeholder="비밀번호 입력"
                     aria-label=".form-control-sm example">
+                    <button type="button" class="pwd-check btn btn-outline-primary">확인</button>
                 </div>
                 <div class="col-3 p-2"></div>
               </div>
               <div class="row">
-                <div class="col-3 p-2 text-center fw-bold">비밀번호 확인</div>
+                <div class="col-3 p-2 text-center fw-bold">확인</div>
                 <div class="col input-group mb-3 ">
                   <input class="form-control form-control-sm input fs-6"
-                    name="pwdCheck" type="text" placeholder="비밀번호를 다시 입력해주세요"
+                    name="pwdCheck" type="password" placeholder="비밀번호를 다시 입력해주세요"
                     aria-label=".form-control-sm example">
+                    <button type="button" class="pwdCheck-check btn btn-outline-primary">확인</button>
                 </div>
                 <div class="col-3 p-2"></div>
               </div>
@@ -178,8 +185,6 @@
                 <div class="col-3 p-2 text-center fw-bold mb-2"></div>
               </div>
             </div>
-            <br>
-            <div class="text-muted notice">* 프로필 사진을 제외한 모든 항목은 필수입력 항목입니다</div>
             <div class="editing-table border-top">
               <p>나의 활동지역</p>
               <div class="edit-local d-flex justify-content-center flex-wrap text-center">
@@ -230,10 +235,10 @@
             $("input[name=roadNameAddr]").attr('value',memberInfo.roadNameAddr)
             $("input[name=baseAddr]").attr('value',memberInfo.baseAddr)
             $("input[name=addr]").attr('value',memberInfo.addr)
-            if (memberInfo.photo === null) {
+            if (memberInfo.photo === null || memberInfo.defaultImg === true) {
               memberInfo.photo = "default.jpg"
             }
-            $(`<img src="photo?filename=150x200_${memberInfo.photo}" class="img-thumbnail">`).appendTo(".profile-img")
+            $(".img-thumbnail").attr('src', `photo?filename=150x200_${memberInfo.photo}`)
             for (let local of memberInfo.activeLocal) {
               localArr.push(local.no)
               $(`<div class="local-wrap">
@@ -289,6 +294,30 @@
           $(`<option name="pups" value="${pups.no}">${pups.purposeName}</option>`).appendTo(".add-category")
         }
       })
+
+      // 이미지 미리보기
+      function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+              $('.img-thumbnail').attr('src', e.target.result); 
+            }
+            reader.readAsDataURL(input.files[0]);
+          }
+        }
+      $(":input[name='file']").change(function() {
+        if( $(":input[name='file']").val() == '' ) {
+          $('.img-thumbnail').attr('src' , '');  
+        }
+        readURL(this);
+      });
+
+      // 기본 이미지로 변경
+      $(".default-thumbnail").click(function(){
+        $('.img-thumbnail').attr('src', 'photo?filename=150x200_default.jpg')
+        console.log($('.img-thumbnail').attr('src') == "photo?filename=150x200_default.jpg")
+      })
+
       // 카테고리 추가
       $(".add-local")
       .on("change", function(e) {
@@ -361,6 +390,19 @@
           console.log(localArr)
           console.log(pupsArr)
         })
+        
+        // 비밀번호 보기
+        $('.pwd-check').on("mousedown", function(){
+          $('input[name=pwd]').attr('type',"text");
+        }).on('mouseup mouseleave', function() {
+          $('input[name=pwd]').attr('type',"password");
+        })
+        $('.pwdCheck-check').on("mousedown", function(){
+          $('input[name=pwdCheck]').attr('type',"text");
+        }).on('mouseup mouseleave', function() {
+          $('input[name=pwdCheck]').attr('type',"password");
+        })
+        
         // 수정버튼 이벤트
         const swa = Swal.mixin({
           customClass: {
@@ -370,8 +412,8 @@
           buttonsStyling: false
         })
         
+        // 비밀번호 조건
         const strongRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/;
-
         
         $("#edit-btn").click(function(e){   
           if ($("input[name=tel]").val() == "" || $("input[name=postNo]").val() == "" || $("input[name=roadNameAddr]").val() == "" || 
@@ -419,7 +461,9 @@
                           formUpdate.append('baseAddr', $("input[name=roadNameAddr]").val())
                           formUpdate.append('roadNameAddr', $("input[name=baseAddr]").val())
                           formUpdate.append('addr', $("input[name=addr]").val())
-                          formUpdate.append('file', $("#formFile")[0].files[0])
+                          formUpdate.append('file', $("input[name=file]")[0].files[0])
+                          formUpdate.append('defaultImg', $('.img-thumbnail').attr('src') == "photo?filename=150x200_default.jpg")
+                          
                           $.ajax({
                             url: '/mypage/update',
                             type: 'POST',
@@ -464,7 +508,7 @@
                         confirmButtonText: 'OK',
                       }).then((result) => {
                       if (result.isConfirmed) {
-                        location.reload()
+                        location.href = "/mypage/index.html"
                       }
                     })
                   }

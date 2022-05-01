@@ -15,6 +15,7 @@ public class MyPage {
   String addr;
   String roadNameAddr;
   String photo;
+  boolean defaultImg;
 
   List <FinalActiveLocal> finalActiveLocal;
   List <FinalPurpose> finalPurpose;

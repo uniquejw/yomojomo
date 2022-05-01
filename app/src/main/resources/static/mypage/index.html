@@ -49,6 +49,7 @@
           <br>
           <div class="info-table">
             <div class="info-tag1">
+              <img id="info-img">
 
             </div>
             <div class="info-tag2">
@@ -78,11 +79,11 @@
       })
       .then(function(memberInfo){
         console.log(memberInfo)
-        if (memberInfo.photo === null) {
-           memberInfo.photo = "default.jpg"
-        }
-        $(`<img id="info-img" src="photo?filename=150x200_${memberInfo.photo}">
-            <p id="info-name">${memberInfo.name}</p>
+        if (memberInfo.photo === null || memberInfo.defaultImg === true) {
+          memberInfo.photo = "default.jpg"
+        } 
+        $("#info-img").attr('src', `photo?filename=150x200_${memberInfo.photo}`)
+        $(`<p id="info-name">${memberInfo.name}</p>
             <p>이메일 주소 : ${memberInfo.email}</p>
             <p>핸드폰 번호 : ${memberInfo.tel}</p>`)
           .appendTo(".info-tag1")
