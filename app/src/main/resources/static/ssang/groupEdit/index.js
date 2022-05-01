@@ -31,6 +31,7 @@ Swal.fire({
   footer: '',
 })
 }
+
 // 멤버 신고 
 var xTitle = document.querySelector('#recipient-name');
 var xContent =document.querySelector('#message-text');
