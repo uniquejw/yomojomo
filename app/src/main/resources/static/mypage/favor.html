@@ -60,8 +60,8 @@
               
             </tbody>
           </table>
-          <div class="d-flex justify-content-center default">
-            <div class="fs-2">즐겨찾기한 글이 없습니다</div>
+          <div class="d-flex justify-content-center">
+            <div class="fs-2 table-on">즐겨찾기한 글이 없습니다</div>
           </div>
           <br>
           <nav aria-label="Page navigation" >
@@ -111,19 +111,18 @@
             console.log(resultData)
             for (let i=0; i < resultData.board.length; i++) {
               let board = resultData.board[i]
-              xContent = board.content
-              xGroup = resultData.group[i].groupName
-              xReg = board.registDate
-              xView = board.viewCount
               $(`<tr>
-                <td class="table-title">${xContent}</td>
-                <td class="table-group">${xGroup}</td>
-                <td>${xReg}</td>
-                <td>${xView}</td>
+                <td class="table-title"><a href="/ssang/groupBoard/view.html?gno=${board.groupNo}&bno=${board.no}">${board.content}</td>
+                <td class="table-group">${resultData.group[i].groupName}</td>
+                <td>${board.registDate}</td>
+                <td>${board.viewCount}</td>
                 </tr>`)
               .appendTo(".table")
               $(".default").remove()
             }
+          },
+          error: function() {
+            $(".table-on").addClass("table-off").removeClass("table-on")
           }
         })
       }
@@ -136,9 +135,6 @@
     //   },
     //   buttonsStyling: false
     // })
-    $(".table-title").click(function(e){
-      location.href = "/ssang/groupBoard/index.html"
-    })
     // $(".all-check").click(function(e){
     //   if ($(".all-check").is(":checked")){
     //     $("input").prop("checked", true)

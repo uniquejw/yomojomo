@@ -59,6 +59,10 @@
                
               </tbody>
           </table>
+          <div class="d-flex justify-content-center">
+            <div class="fs-2 table-on">문의 내역이 없습니다</div>
+          </div>
+          <br>
           <!-- <div class="btn-wrap">
             <button type="button" class="btn btn-primary btn-delete">삭제하기</button>
           </div> -->
@@ -125,15 +129,7 @@
       dataType: 'json',
       success: function(result) {
         if (result.status == "fail") {
-        swa.fire({
-          icon: 'error',
-          title: '로그인 되지 않았습니다',
-          text: '로그인 후 다시 시도해주세요',
-        }).then((result) => {
-            if (result.isConfirmed) {
-              location.href = "/jaewon/login/login/index.html"
-            }
-          })
+          location.href = "/junho/index.html"
         }
         console.log(result)
         $.ajax({
@@ -145,27 +141,25 @@
             console.log(resultData)
             for (let i=0; i < resultData.notice.length; i++) {
               let notice = resultData.notice[i]
-              xNo = notice.no
-              xTitle = notice.title
-              xQdate = notice.queryDate
-              xAnswer = notice.answer
-              xStatus = ""
-              if (xAnswer == null) {
+              if (notice.answer == null) {  
                 $(`<tr>
-                  <td class="table-title" value="wait" data-no="${xNo}">${xTitle}</td>
+                  <td class="table-title" value="wait" data-no="${notice.no}">${notice.title}</td>
                   <td>답변 대기중</td>
-                  <td>${xQdate}</td>
+                  <td>${notice.queryDate}</td>
                 </tr>`)
                 .appendTo(".table")
               } else {
                 $(`<tr>
-                  <td class="table-title" value="complete" data-no="${xNo}">${xTitle}</td>
+                  <td class="table-title" value="complete" data-no="${notice.no}">${notice.title}</td>
                   <td class="text-primary">답변 완료</td>
-                  <td>${xQdate}</td>
+                  <td>${notice.queryDate}</td>
                 </tr>`)
                 .appendTo(".table")
               }
             }
+          },
+          error: function() {
+            $(".table-on").addClass("table-off").removeClass("table-on")
           }
         })
       }

@@ -38,6 +38,10 @@
   max-width: 200px;
   width: 25%;
 }
+.table > a {
+  text-decoration: none;
+  color: black;
+}
 tr > td {
   overflow: hidden;
   white-space: nowrap;
@@ -45,6 +49,9 @@ tr > td {
 }
 tr > .table-title:hover {
   cursor: pointer;
+}
+.table-on {
+  display: none;
 }
 .form-check-input:hover {
   cursor: pointer;

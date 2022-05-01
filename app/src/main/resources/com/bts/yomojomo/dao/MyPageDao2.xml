@@ -107,6 +107,7 @@
       m.roadname_addr,
       m.base_addr,
       m.addr,
+      m.path,
       a.act_local_no,
       a.name_si,
       a.name_gu,
@@ -131,6 +132,9 @@
 		  addr=#{addr}
 	 <if test="pwd != ''">
      ,pwd=password(#{pwd})
+   </if>
+   <if test="photo != null">
+     ,path=#{photo}
    </if>
 		where
 		  memb_no=#{no}
@@ -170,7 +174,7 @@
   
   <select id="findByMyPost" resultMap="MyPostMap">      
     select
-      b.g_no,
+      g.g_no,
       b.b_no,
       m.memb_no,
 		  b.content,
@@ -188,7 +192,7 @@
   
   <select id="findByMyScrap" resultMap="MyPostMap">      
     select
-      b.g_no,
+      g.g_no,
       b.b_no,
       m.memb_no,
       b.content,

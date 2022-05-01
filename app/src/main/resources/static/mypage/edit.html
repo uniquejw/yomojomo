@@ -214,15 +214,7 @@
       success: function(result) {
         console.log(result)
         if (result.status == "fail") {
-        swa.fire({
-          icon: 'error',
-          title: '로그인 되지 않았습니다',
-          text: '로그인 후 다시 시도해주세요',
-        }).then((result) => {
-            if (result.isConfirmed) {
-              location.href = "/jaewon/login/login/index.html"
-            }
-          })
+          location.href = "/junho/index.html"
         }
         $.ajax({
           url: '/mypage/get',
