@@ -31,7 +31,7 @@
     from
       gms_destination
     order by
-      view_cnt desc limit 10;
+      view_cnt desc limit 100;
   </select>
   
   <select id="findByNo" resultMap="DestinationMap" parameterType="int">

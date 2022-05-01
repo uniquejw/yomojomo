@@ -145,6 +145,7 @@ function displayPlaces(places) {
             displayPlaceInfo(place);
             document.querySelector('.btn-final-select').onclick = function () {
                 console.log(place.id)
+                saveData(place.x, place.y, place.place_name, place.id, place.category_group_code, place.place_url)
             }
           }
           
@@ -260,7 +261,7 @@ function displayPlaceInfo (place) {
   content += '    <span class="tel">' + place.phone + '</span>' + 
               '<div>' + 
                 '<button class="btn btn-primary btn-final-select">'+
-                    '<a href="#">최종장소 지정</a>'
+                    '<a href="' + place.place_url + '" target="_blank">최종장소 지정</a>'
                 '</button>' +
               '</div>' +
               '</div>' + 
