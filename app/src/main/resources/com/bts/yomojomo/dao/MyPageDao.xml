@@ -180,8 +180,7 @@
 		from
 		  gms_board b
 		  inner join gms_memb m on m.memb_no=b.memb_no
-		  inner join gms_join_memb jm on jm.memb_no=m.memb_no
-		  inner join gms_group g on jm.g_no=b.g_no=g.g_no
+		  inner join gms_group g on b.g_no=g.g_no
 		where
 		  m.memb_no=#{no}
   </select>
