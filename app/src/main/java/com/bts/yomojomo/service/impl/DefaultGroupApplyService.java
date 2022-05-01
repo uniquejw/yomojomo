@@ -30,6 +30,7 @@ public class DefaultGroupApplyService implements GroupApplyService{
 
   @Override
   public int add(GroupApplyForm groupApplyForm) {
+    groupApplyFormDao.membCnt(groupApplyForm.getGroup().getNo());
     return groupApplyFormDao.insert(groupApplyForm);
   }
 

@@ -15,5 +15,7 @@ public interface GroupApplyFormDao {
 
   int insert(GroupApplyForm groupApplyForm);
 
+  int membCnt(int no);
+
   int reciveListDelete(GroupApplyForm groupApplyForm);
 }

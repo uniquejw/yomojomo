@@ -68,9 +68,12 @@ ol, ul, li {
     font-size: 14px;
 }
 .memb-content-container{
-    min-height: 500px;
+    height: 600px;
     margin: 10px 0 0 0;
+    overflow-x: auto;
+    -ms-overflow-style: none;
 }
+.memb-content-container::-webkit-scrollbar{ display:none; }
 .memb-select{
     float: right;
 }

@@ -34,6 +34,12 @@
     insert into gms_join_memb(memb_no, g_no, g_memb_grd_no)
     values(#{sendMember.no},#{group.no},2)
   </insert>
+  
+	<insert id="membCnt" parameterType="int">
+    update gms_group set 
+      memb_cnt=memb_cnt + 1 
+    where g_no=#{no}
+    </insert>
 
 
 	<select id="sendListFindALL" resultMap="GroupApplyFormMap">
