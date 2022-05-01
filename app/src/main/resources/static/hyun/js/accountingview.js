@@ -51,7 +51,7 @@ $(document).ready(function () {
                   $("#newMemb").hide();
                   $("#cleanMemb").hide();
                   $("#recoverMemb").hide();
-                  $(document.querySelectorAll("#x-deleteMemb-btn")).css("display","none");
+                  $(document.querySelectorAll("#x-deleteMemb-btn")).hide();
                   $(".inner > form > table > tbody > tr > td > input").attr("readonly", true);
                   $(".inner > form > table > tbody > tr > td > select").prop("disabled", true);
                   $(document.querySelectorAll("#listmembName")).attr("readonly", true);

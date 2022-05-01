@@ -81,7 +81,7 @@ $(document).on("click","#apply",function(){
   })
   .then(function(result){
     if(result.status == "success"){
-    location.href="/minkyu/mypage/index.html"
+    location.href="/mypage/group.html"
     }
     else{
       alert("이미 신청한 모임입니다.")

@@ -24,41 +24,43 @@
 <div id="header"></div>
 
 <!--입력 폼 -->
-<div class="inner">
-  <div id="form-content" class="table-responsive-lg">
-    <div id="outline">
-      <form name="pickme-form">
-        <table id="formTable" class="table table-borderless">
-          <tbody>
-            <tr>
-              <td width="200px">제목</td>
-              <td><input name="title" type="text" class="form-control" placeholder="제목을 입력해주세요"></td>
-            </tr>
-            <tr>
-              <td>활동지역</td>
-              <td>
-                <div id="localSelect">
-                  <select name="nameSi" id="nameSi" class="form-select form-select-sm" aria-label=".form-select-sm example"></select>
-                  <select name="activeLocal.no" id="nameGu" class="form-select form-select-sm" aria-label=".form-select-sm example"></select>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>관심활동</td>
-              <td>            
-                <select name="purpose.no" id="purpose" class="form-select form-select-sm" aria-label=".form-select-sm example"></select>
-              </td>
-            </tr>
-            <tr>
-              <td><label for="comment">내용:</label></td>
-              <td><textarea class="form-control" rows="5" id= "content" name="content"></textarea></td>
-            </tr>
-          </tbody>
-        </table>
-          <button id="x-add-btn" type="button" class="btn btn-primary">등록</button>
-          <button id="x-cancel-btn" type="button" class="btn btn-primary">취소</button><br>
-      </form>
-    </div> 
+<div id="body-content">
+  <div class="inner">
+    <div id="form-content" class="table-responsive-lg">
+      <div id="outline">
+        <form name="pickme-form">
+          <table id="formTable" class="table table-borderless">
+            <tbody>
+              <tr>
+                <td width="200px">제목</td>
+                <td><input name="title" type="text" class="form-control" placeholder="제목을 입력해주세요"></td>
+              </tr>
+              <tr>
+                <td>활동지역</td>
+                <td>
+                  <div id="localSelect">
+                    <select name="nameSi" id="nameSi" class="form-select form-select-sm" aria-label=".form-select-sm example"></select>
+                    <select name="activeLocal.no" id="nameGu" class="form-select form-select-sm" aria-label=".form-select-sm example"></select>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>관심활동</td>
+                <td>            
+                  <select name="purpose.no" id="purpose" class="form-select form-select-sm" aria-label=".form-select-sm example"></select>
+                </td>
+              </tr>
+              <tr>
+                <td><label for="comment">내용:</label></td>
+                <td><textarea class="form-control" rows="5" id= "content" name="content"></textarea></td>
+              </tr>
+            </tbody>
+          </table>
+            <button id="x-add-btn" type="button" class="btn btn-primary">등록</button>
+            <button id="x-cancel-btn" type="button" class="btn btn-primary">취소</button><br>
+        </form>
+      </div> 
+    </div>
   </div>
 </div>
 
