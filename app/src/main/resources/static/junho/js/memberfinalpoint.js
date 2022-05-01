@@ -151,6 +151,7 @@ function displayPlaces(places) {
             displayPlaceInfo(place);
             document.querySelector('.btn-final-select').onclick = function () {
                 console.log(place.id)
+                saveData(place.x, place.y, place.place_name, place.id, place.category_group_code, place.place_url)
             }
           }
           

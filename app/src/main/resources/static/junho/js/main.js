@@ -183,6 +183,21 @@ function bestPoint() {
           martPointData.push(placeData)
         }
       }
+      if(cafePointData.length>=10){
+        cafePointData.length=10;
+      }
+      if(allPointData.length>=10){
+        allPointData.length=10;
+      }
+      if(oilPointData.length>=10){
+        oilPointData.length=10;
+      }
+      if(foodPointData.length>=10){
+        foodPointData.length=10;
+      }
+      if(martPointData.length>=10){
+        martPointData.length=10;
+      }
       console.log(allPointData)
       console.log(foodPointData)
       console.log(cafePointData)
