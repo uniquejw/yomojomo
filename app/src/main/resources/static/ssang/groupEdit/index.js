@@ -15,6 +15,8 @@ fetch(`/applyQuestion/findQuestion?no=${groupNo}`)
     }
   })
 // 질문목록 추가 이벤트
+var xQuestionList = document.querySelector('.x-question');
+var xQuestionListCon = document.querySelector('#x-question-container')
 document.querySelector("#x-addQuestion-btn").onclick = function() {
 if (xQuestionListCon.childElementCount < 5) {
 var questionList = xQuestionList.cloneNode(true);
