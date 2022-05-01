@@ -73,7 +73,7 @@ a {
 }
 
 .member-midpoint-content .left-content .member-list .member-item .btn-grouping {
-
+  display: flex;
 }
 
 .member-midpoint-content .left-content .member-list .member-item .btn-grouping .insert-destination {
