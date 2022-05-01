@@ -112,7 +112,7 @@
             for (let i=0; i < resultData.board.length; i++) {
               let board = resultData.board[i]
               $(`<tr>
-                <td class="table-title"><a href="/ssang/groupBoard/view.html?gno=${board.groupNo}&bno=${board.no}">${board.content}</a></td>
+                <td class="table-title"><a href="/ssang/groupBoard/view.html?gno=${board.groupNo}&bno=${board.no}" class="board-link">${board.content}</a></td>
                 <td class="table-group">${resultData.group[i].groupName}</td>
                 <td>${board.registDate}</td>
                 <td>${board.viewCount}</td>

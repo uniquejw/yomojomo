@@ -38,7 +38,7 @@
   max-width: 200px;
   width: 25%;
 }
-.table > a {
+.board-link {
   text-decoration: none;
   color: black;
 }
