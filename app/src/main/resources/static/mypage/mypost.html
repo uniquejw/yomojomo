@@ -109,8 +109,10 @@
           data: {'no': result.data.no},
           success: function(resultData) {
             console.log(resultData)
-            for (let i=0; i < resultData.length; i++) {
-              let board = resultData[i].board[i]
+            for (let i=0; i < resultData.board.length; i++) {
+              let board = resultData.board[i]
+              console.log(board)
+              console.log(resultData.group[i])
               $(`<tr>
                 <td class="table-title"><a href="/ssang/groupBoard/view.html?gno=${board.groupNo}&bno=${board.no}" class="board-link">${board.content}</a></td>
                 <td class="table-group">${resultData[i].group[i].groupName}</td>
