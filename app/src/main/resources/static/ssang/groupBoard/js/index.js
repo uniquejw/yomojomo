@@ -53,7 +53,7 @@ fetch(`/board/findByGroupNo?no=${getGroup}`)
   console.log(boards);
   writtenContainer.innerHTML = htmlGenerator({
     list : boards,
-    user : loginUser
+    user : loginUser.data
   });
 })
 })// fetch -> member/getLoginUser
