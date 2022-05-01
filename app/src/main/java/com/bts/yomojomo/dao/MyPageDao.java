@@ -24,7 +24,7 @@ public interface MyPageDao {
 
   int insertPurpose(@Param("no") int no, @Param("pups") List<FinalPurpose> finalPurpose);
 
-  MyPage findByMyPost(int no);
+  List<MyPage> findByMyPost(int no);
 
   MyPage findByMyScrap(int no);
 

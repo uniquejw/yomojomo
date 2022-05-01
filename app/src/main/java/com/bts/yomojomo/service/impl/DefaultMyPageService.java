@@ -47,9 +47,8 @@ public class DefaultMyPageService implements MyPageService {
   }
 
   @Override
-  public MyPage myPost(int no) {
-    MyPage mypage = mypageDao.findByMyPost(no);
-    return mypage;
+  public List<MyPage> myPost(int no) {
+    return mypageDao.findByMyPost(no);
   }
 
   @Override
