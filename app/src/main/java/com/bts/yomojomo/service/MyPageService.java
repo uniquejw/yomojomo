@@ -15,7 +15,7 @@ public interface MyPageService {
 
   int insertCategory(MyPage mypage);
 
-  List<MyPage> myPost(int no);
+  MyPage myPost(int no);
 
   MyPage myScrap(int no);
 
