@@ -75,6 +75,7 @@
             g.memb_cnt,
             g.max_cnt,
             g.view_cnt,
+            g.g_delete_stat,
             p.pups_no pno,
             p.name pname,
             a.act_local_no,
@@ -103,6 +104,7 @@
             g.memb_cnt,
             g.max_cnt,
             g.view_cnt,
+            g.g_delete_stat,
             p.pups_no pno,
             p.name pname,
             a.act_local_no ano,
@@ -131,6 +133,7 @@
 	            g.memb_cnt,
 	            g.max_cnt,
 	            g.view_cnt,
+	            g.g_delete_stat,
 	            p.pups_no pno,
 	            p.name pname,
 	            a.act_local_no ano,
@@ -141,11 +144,12 @@
 	            inner join gms_activelocal a on g.act_local_no=a.act_local_no
 	        where
 	           a.act_local_no = #{activeLocal.no}
+           and
+             g.g_delete_stat = 1
 	        order by
 	            g.g_no desc) g
 		                where g.pups_no = #{purpose.no}
-		                and
-                         g_delete_stat = 1
+		                
 	</select>
 	
 	
