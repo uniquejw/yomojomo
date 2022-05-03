@@ -1,5 +1,8 @@
-import{getGroupNO} from '/ssang/js/module.js';
+import{getGroupNO,getLoginUser} from '/ssang/js/module.js';
 var getGroup = getGroupNO();
+var loginUser = await getLoginUser() //로그인한 유저의 정보
+console.log(loginUser.data)
+$('.written-author-name').text(loginUser.data.memberName);
 // ============================================게시글 입력
 $('#s-post-btn').on('click', () => { 
   var xContent = document.getElementById("xx-content")
