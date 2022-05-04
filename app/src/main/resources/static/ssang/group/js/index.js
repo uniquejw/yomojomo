@@ -235,12 +235,7 @@ function close() {
   document.querySelector(".report-background").className = "report-background";
 }
 */
-// $(document).on("click",".board-edit",function(){
-//   window.location.href = "view.html";
-// })
-// $(document).on("click",".board-edit",function(){
-//   window.location.href = "view.html";
-// })
+
 
 
 
